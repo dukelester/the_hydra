@@ -9,7 +9,7 @@
       <p class="kicker">About</p>
       <h1>About Hydra</h1>
       <p class="tagline">Human-centered Yield, Data, Rights &amp; Accountability</p>
-      <p class="lede">H.Y.D.R.A. is an evidence-first civic record for public projects, budgets, institutions, policies, and source documents. It helps people follow the money, see what the record actually supports, and take action — without turning a gap in the files into a finding of guilt.</p>
+      <p class="lede">H.Y.D.R.A. is an evidence-first civic record for public projects, budgets, institutions, policies, and source documents. It helps people follow the money, watch a county or a project as the file changes, compare what the record shows, and take action — without turning a gap in the files into a finding of guilt.</p>
     </div>
   </header>
 
@@ -64,7 +64,7 @@
   <section class="letter-section" aria-labelledby="a-heading">
     <p class="letter-mark">A</p>
     <h2 id="a-heading">Accountability</h2>
-    <p>Accountability on this platform means a path: search a project, read the evidence, record what you observed, and generate a structured report. Official information and citizen observation stay in separate columns so one cannot quietly overwrite the other.</p>
+    <p>Accountability on this platform means a path: search a project, read the evidence, watch your area or a file as it is updated, record what you observed, and generate a structured report. Official information and citizen observation stay in separate columns so one cannot quietly overwrite the other.</p>
     <p>Reports remain private by default. Language stays neutral — potential discrepancy, evidence indicates, information unavailable, requires further verification. The report does not determine wrongdoing.</p>
   </section>
 
@@ -73,8 +73,10 @@
       <h2>What H.Y.D.R.A. does</h2>
       <ul class="plain-list about-list">
         <li>Publishes labelled civic records for projects, institutions, policies, and source documents.</li>
-        <li>Shows budget, status, and evidence coverage only as far as sources support them.</li>
+        <li>Shows budget, status, county, constituency, ward, and evidence coverage only as far as sources support them.</li>
         <li>Lets you search names, places, contractors, and text inside uploaded files.</li>
+        <li>Track my county: follow a county, constituency, or ward and see projects as the record is updated.</li>
+        <li>Lets you track or favourite a project, and compare projects or counties side by side.</li>
         <li>Keeps a citizen observation distinct from the official record.</li>
         <li>Turns an investigation into a structured report you can review before anything is saved.</li>
       </ul>
@@ -85,7 +87,7 @@
         <li>It does not determine guilt, corruption, or fraud.</li>
         <li>It does not invent missing facts or complete a timeline the files do not support.</li>
         <li>It does not treat a photo, a rumour, or an observation as verified by default.</li>
-        <li>It does not score people, counties, or contractors for trust.</li>
+        <li>It does not score people, counties, or contractors for trust. Compare totals and county rankings are readings of the file, not a performance verdict.</li>
         <li>It does not publish your investigation or report unless you take the next step, or an administrator reviews it.</li>
       </ul>
     </article>
@@ -110,7 +112,7 @@
         <span class="step-num">1</span>
         <div>
           <h3>Search the record</h3>
-          <p>Find a project, institution, policy, or document by name, county, or words inside a file.</p>
+          <p>Find a project, institution, policy, or document by name, county, constituency, or words inside a file.</p>
         </div>
       </li>
       <li>
@@ -123,6 +125,13 @@
       <li>
         <span class="step-num">3</span>
         <div>
+          <h3>Watch and compare</h3>
+          <p>Track your county, follow a project, or put files side by side. The dashboard flags updates since you last looked.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">4</span>
+        <div>
           <h3>Investigate and report</h3>
           <p>Record what you observed, compare it with the official line, and generate a structured report.</p>
         </div>
@@ -133,6 +142,7 @@
 
 <p class="hydra-page-actions">
   <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a project</a>
+  <a class="btn btn-secondary" href="{% url 'core:features' %}">Features</a>
   <a class="btn btn-secondary" href="{% url 'core:how-it-works' %}">How it works</a>
   <a class="btn btn-secondary" href="{% url 'core:home' %}">Back to home</a>
 </p>

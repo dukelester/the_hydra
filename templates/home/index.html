@@ -12,6 +12,7 @@
       <div class="hero-actions">
         <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a Project</a>
         <a class="btn btn-ghost" href="{% url 'core:what-hydra-means' %}">About Hydra</a>
+        <a class="btn btn-ghost" href="{% url 'core:features' %}">Features</a>
       </div>
     </div>
     <div class="hero-emblem-col">
@@ -109,20 +110,23 @@
 </section>
 
 <section class="section how">
-  <h2>How H.Y.D.R.A. works</h2>
+  <div class="section-head">
+    <h2>How H.Y.D.R.A. works</h2>
+    <a class="text-link" href="{% url 'core:features' %}">All features</a>
+  </div>
   <ol class="steps">
     <li>
       <span class="step-num">1</span>
       <div>
         <h3>Find a project</h3>
-        <p>Search public projects, institutions, and policies.</p>
+        <p>Search public projects, institutions, and policies — or track your county.</p>
       </div>
     </li>
     <li>
       <span class="step-num">2</span>
       <div>
         <h3>Examine the evidence</h3>
-        <p>Read claims, source documents, and missing-information notes.</p>
+        <p>Read claims, source documents, and missing-information notes. Compare files if you need them side by side.</p>
       </div>
     </li>
     <li>

@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Features{% endblock %}
+{% block content %}
+<article class="about-page features-page">
+  <header class="about-hero">
+    <img class="hero-mark" src="{% static 'img/mark.png' %}" alt="" width="160" height="160">
+    <div>
+      <p class="kicker">The platform</p>
+      <h1>Features</h1>
+      <p class="tagline">Follow the money. Find the evidence. Take action.</p>
+      <p class="lede">H.Y.D.R.A. is an evidence-first civic record. Every feature below either helps you find what the files say, watch an area or a project as the record changes, or turn an observation into a structured report. Nothing here scores guilt, corruption, or trust.</p>
+    </div>
+  </header>
+
+  <nav class="about-block feature-toc" aria-label="Features on this page">
+    <a href="#search">Search</a>
+    <a href="#projects">Projects and evidence</a>
+    <a href="#records">Institutions, documents, policies</a>
+    <a href="#my-county">Track my county</a>
+    <a href="#watch">Track and favourite</a>
+    <a href="#compare">Compare</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#investigations">Investigations</a>
+    <a href="#reports">Reports</a>
+    <a href="#accounts">Accounts and privacy</a>
+  </nav>
+
+  <section class="about-block feature-detail" id="search" aria-labelledby="search-heading">
+    <p class="kicker">Find</p>
+    <h2 id="search-heading">Search</h2>
+    <p>Ranked civic search covers projects, institutions, policies, and source documents. Type a project name, county, constituency, contractor, institution, financial year, or words inside an extracted file. Two characters is enough to start. Suggestions appear as you type in the header and on the home page.</p>
+    <p>Filters can narrow a result set by county, status, and category. A match is a labelled record, not a verdict. Demo rows stay marked <strong>[DEMO]</strong> so they are not quoted as live public data.</p>
+    <p><a class="text-link" href="{% url 'core:search' %}">Open search</a></p>
+  </section>
+
+  <section class="about-block feature-detail" id="projects" aria-labelledby="projects-heading">
+    <p class="kicker">The file</p>
+    <h2 id="projects-heading">Projects and evidence</h2>
+    <p>A project page holds the civic file: location (county, constituency, ward), institution, contractor, budget, financial year, status, and a timeline from allocation through completion. Stages without a linked source are marked “Evidence unavailable”. The page does not invent a date, an amount, or a finished work.</p>
+    <p>Evidence coverage counts how many recorded claims are supported by sources. Statuses are verified, partially verified, conflicting information, or unknown. Coverage is not a corruption score, a fraud score, or a trust score.</p>
+    <p>From the same page you can track the project, favourite it, add it to a comparison, or start an investigation.</p>
+    <p><a class="text-link" href="{% url 'projects:list' %}">Browse projects</a></p>
+  </section>
+
+  <section class="about-block feature-detail" id="records" aria-labelledby="records-heading">
+    <p class="kicker">The wider record</p>
+    <h2 id="records-heading">Institutions, documents, and policies</h2>
+    <p><strong>Institutions</strong> are the departments, agencies, and offices named on the file. Opening one shows the projects attached to it.</p>
+    <p><strong>Documents</strong> are the source files — PDFs, spreadsheets, notices — that claims should point to. Where text can be extracted, search can match words inside the file.</p>
+    <p><strong>Policies</strong> are the public rules and plans that sit beside the works. They stay labelled as policies, not as proof that a project was delivered.</p>
+    <p>
+      <a class="text-link" href="{% url 'institutions:list' %}">Institutions</a>
+      · <a class="text-link" href="{% url 'sources:list' %}">Documents</a>
+      · <a class="text-link" href="{% url 'policies:list' %}">Policies</a>
+    </p>
+  </section>
+
+  <section class="about-block feature-detail" id="my-county" aria-labelledby="county-heading">
+    <p class="kicker">Your area</p>
+    <h2 id="county-heading">Track my county</h2>
+    <p>After you sign in, choose a county, then optionally a constituency and ward. The lists cascade: Kajiado only offers Kajiado constituencies; a constituency only offers its own wards. You can leave constituency or ward blank to watch the whole county.</p>
+    <p>H.Y.D.R.A. then shows public projects recorded for that area — status, budget, evidence coverage — and flags records that changed since your last visit. The same feed appears on your dashboard under My county. Stop tracking hides the feed; the location can stay on your profile.</p>
+    <p>This is a watch on the public record, not a ranking of your county and not a claim that work is complete.</p>
+    <p><a class="text-link" href="{% url 'accounts:my-county' %}">Track my county</a></p>
+  </section>
+
+  <section class="about-block feature-detail" id="watch" aria-labelledby="watch-heading">
+    <p class="kicker">A single project</p>
+    <h2 id="watch-heading">Track and favourite a project</h2>
+    <p><strong>Track</strong> watches one project for a status change or a record update. When the file moves, the dashboard lists the change. Visiting the project clears that alert.</p>
+    <p><strong>Favourite</strong> pins a project you want to keep nearby. It does not subscribe you to alerts. Use it for work you return to often; use Track when you need to notice a change.</p>
+    <p>Both actions need an account. They stay private to you.</p>
+    <p><a class="text-link" href="{% url 'projects:list' %}">Open a project to track it</a></p>
+  </section>
+
+  <section class="about-block feature-detail" id="compare" aria-labelledby="compare-heading">
+    <p class="kicker">Side by side</p>
+    <h2 id="compare-heading">Compare projects and counties</h2>
+    <p>Compare puts up to four projects next to each other: county and area, institution, contractor, category, budget, status, and evidence coverage. You can also place counties beside one another using recorded budgets and statuses only.</p>
+    <p>County highlights show which recorded budget is highest and which county has the highest share of delayed projects in this dataset. Those figures are a reading of the file, not a performance score and not a finding of corruption.</p>
+    <p>Add a project from its page, or tick projects on the compare screen, then run the comparison.</p>
+    <p><a class="text-link" href="{% url 'projects:compare' %}">Compare</a></p>
+  </section>
+
+  <section class="about-block feature-detail" id="dashboard" aria-labelledby="dashboard-heading">
+    <p class="kicker">Your workspace</p>
+    <h2 id="dashboard-heading">Dashboard</h2>
+    <p>The dashboard is the signed-in home. It gathers recent views (up to five projects), tracked updates, favourites, your county feed, and recent investigations and reports.</p>
+    <p>Use it to see what changed since you last looked, then open the project and read the evidence. The dashboard does not publish your work and does not rank you against other users.</p>
+    <p><a class="text-link" href="{% url 'accounts:dashboard' %}">Dashboard</a></p>
+  </section>
+
+  <section class="about-block feature-detail" id="investigations" aria-labelledby="investigations-heading">
+    <p class="kicker">What you observed</p>
+    <h2 id="investigations-heading">Investigations</h2>
+    <p>An investigation is a citizen observation attached to a project. You record what you saw, where, and how it compares with the official line. Official information and your observation stay in separate columns. A photo or a note is not treated as verified by default.</p>
+    <p>Investigations remain private to you unless an administrator reviews them. Language stays descriptive: what was observed, what the file says, and what is still unknown.</p>
+    <p><a class="text-link" href="{% url 'projects:list' %}">Investigate a project</a></p>
+  </section>
+
+  <section class="about-block feature-detail" id="reports" aria-labelledby="reports-heading">
+    <p class="kicker">A structured file</p>
+    <h2 id="reports-heading">Reports</h2>
+    <p>A report is generated from the structured investigation fields. It is a comparison you can review before it is saved, not a conviction. Neutral wording is required: potential discrepancy, evidence indicates, information unavailable, requires further verification.</p>
+    <p>Reports stay private by default. They do not determine guilt, corruption, or fraud.</p>
+    <p><a class="text-link" href="{% url 'reports:list' %}">Your reports</a></p>
+  </section>
+
+  <section class="about-block feature-detail" id="accounts" aria-labelledby="accounts-heading">
+    <p class="kicker">The account</p>
+    <h2 id="accounts-heading">Accounts and privacy</h2>
+    <p>The public record is readable without signing in. An account keeps investigations, reports, tracked projects, favourites, and your county watch with you. You can add a display name, affiliation, role, and area on your profile. Email is optional, but needed to reset a forgotten password.</p>
+    <p>Username stays yours. Display name is what the dashboard and avatar show. Nothing on the profile is a public score.</p>
+    <p>
+      <a class="text-link" href="{% url 'accounts:register' %}">Create an account</a>
+      · <a class="text-link" href="{% url 'core:terms' %}">Terms of use</a>
+    </p>
+  </section>
+</article>
+
+<p class="hydra-page-actions">
+  <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a project</a>
+  <a class="btn btn-secondary" href="{% url 'core:how-it-works' %}">How it works</a>
+  <a class="btn btn-secondary" href="{% url 'core:what-hydra-means' %}">About Hydra</a>
+</p>
+{% endblock %}
