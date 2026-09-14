@@ -41,6 +41,10 @@ class PageTests(TestCase):
         self.assertContains(meaning, "Human-centered Yield, Data, Rights")
         self.assertContains(meaning, "What H.Y.D.R.A. does")
         self.assertContains(meaning, "What it does not do")
+        self.assertContains(meaning, "Mission")
+        self.assertContains(meaning, "Vision")
+        self.assertContains(meaning, "Keep the public record inspectable")
+        self.assertContains(meaning, "One labelled record, many arms of scrutiny")
 
         detail = self.client.get(self.project.get_absolute_url())
         self.assertEqual(detail.status_code, 200)

@@ -1,23 +1,22 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "accounts/base_auth.html" %}
 {% block title %}Log in{% endblock %}
-{% block content %}
-<article class="form-page auth-page">
-  <div class="form-shell auth-shell">
-    <img class="auth-mark" src="{% static 'img/mark.png' %}" alt="" width="72" height="72">
-    <p class="kicker">H.Y.D.R.A.</p>
-    <h1>Log in</h1>
-    <p class="lede">An account keeps your investigations and reports private to you. You can still submit an observation without registering.</p>
-    <form class="form-stack" method="post">
-      {% csrf_token %}
-      {% if form.non_field_errors %}<p class="error" role="alert">{{ form.non_field_errors|striptags }}</p>{% endif %}
-      {% include "components/form_field.html" with field=form.username %}
-      {% include "components/form_field.html" with field=form.password %}
-      <div class="form-actions">
-        <button class="btn btn-primary btn-large" type="submit">Log in</button>
-      </div>
-    </form>
-    <p class="form-foot">Need an account? <a href="{% url 'accounts:register' %}">Create one</a></p>
-  </div>
-</article>
+{% block auth_panel_heading %}Welcome back{% endblock %}
+{% block auth_panel_copy %}Sign in to see tracked projects, investigations, and reports. You can still search the public record without an account.{% endblock %}
+{% block auth_card %}
+  <p class="kicker">Account</p>
+  <h1>Log in</h1>
+  <p class="lede">Use the username you chose when you registered. Forgot the password? Reset it with the email on your profile.</p>
+  <form class="form-stack" method="post">
+    {% csrf_token %}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+    {% if form.non_field_errors %}<p class="error" role="alert">{{ form.non_field_errors|striptags }}</p>{% endif %}
+    {% include "components/form_field.html" with field=form.username %}
+    {% include "components/form_field.html" with field=form.password %}
+    <p class="auth-inline-link"><a href="{% url 'accounts:password-reset' %}">Forgot password?</a></p>
+    <div class="form-actions">
+      <button class="btn btn-primary btn-large" type="submit">Log in</button>
+      <a class="btn btn-secondary" href="{% url 'projects:list' %}">Browse without signing in</a>
+    </div>
+  </form>
+  <p class="form-foot">Need an account? <a href="{% url 'accounts:register' %}">Create one in two steps</a></p>
 {% endblock %}

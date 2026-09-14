@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% block title %}Compare projects and counties{% endblock %}
+{% block content %}
+<section class="page-head">
+  <p class="kicker">Rankings and reports</p>
+  <h1>Compare</h1>
+  <p class="lede">Put projects and counties side by side. Rankings use recorded budgets and statuses only — they are not a corruption or performance score.</p>
+</section>
+
+<section class="compare-page">
+  {% if highlights %}
+    <div class="compare-highlights">
+      <article>
+        <p class="eyebrow">Recorded budget</p>
+        <strong>{{ highlights.total_budget }}</strong>
+        <span>{{ highlights.project_count }} project{{ highlights.project_count|pluralize }} across {{ highlights.county_count }} {{ highlights.county_count|pluralize:"county,counties" }}</span>
+      </article>
+      <article>
+        <p class="eyebrow">Highest recorded budget</p>
+        <strong>{{ highlights.highest_budget.county }}</strong>
+        <span>{{ highlights.highest_budget.formatted_budget }} · rank {{ highlights.highest_budget.rank }}</span>
+      </article>
+      <article>
+        <p class="eyebrow">Highest delayed share</p>
+        <strong>{{ highlights.most_delayed.county }}</strong>
+        <span>{{ highlights.most_delayed.delayed_share }}% delayed · {{ highlights.most_delayed.delayed_count }} of {{ highlights.most_delayed.project_count }}</span>
+      </article>
+    </div>
+  {% endif %}
+
+  {% if status_totals %}
+    <ul class="status-chips">
+      {% for item in status_totals %}
+        <li>
+          <strong>{{ item.count }}</strong>
+          <span>{{ item.label }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form class="compare-picker" method="get">
+    <div class="field">
+      <label for="p">Projects (up to {{ max_compare }})</label>
+      <select id="p" name="p" class="form-input" multiple size="6">
+        {% for project in all_projects %}
+          <option value="{{ project.slug }}" {% if project.slug in selected_slugs %}selected{% endif %}>{{ project.name }} · {{ project.county }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="county">Counties</label>
+      <select id="county" name="county" class="form-input" multiple size="6">
+        {% for county in all_counties %}
+          <option value="{{ county }}" {% if county in selected_counties %}selected{% endif %}>{{ county }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="compare-picker-actions">
+      <button class="btn btn-primary" type="submit">Compare selected</button>
+      <a class="btn btn-secondary" href="{% url 'projects:compare' %}?reset=1">Reset selection</a>
+    </div>
+  </form>
+
+  <section>
+    <div class="section-head">
+      <h2>Project comparison</h2>
+      {% if projects %}
+        <form method="post" action="{% url 'projects:compare-clear' %}">
+          {% csrf_token %}
+          <button class="text-link" type="submit">Clear projects</button>
+        </form>
+      {% endif %}
+    </div>
+    {% if projects %}
+      <div class="table-wrap">
+        <table class="compare-table">
+          <caption class="sr-only">Side-by-side project comparison</caption>
+          <thead>
+            <tr>
+              <th scope="col">Field</th>
+              {% for project in projects %}
+                <th scope="col"><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">County / ward</th>
+              {% for project in projects %}<td>{{ project.county }}{% if project.ward %} · {{ project.ward }}{% endif %}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th scope="row">Institution</th>
+              {% for project in projects %}<td><a href="{{ project.institution.get_absolute_url }}">{{ project.institution.name }}</a></td>{% endfor %}
+            </tr>
+            <tr>
+              <th scope="row">Contractor</th>
+              {% for project in projects %}<td>{{ project.contractor|default:"Information unavailable" }}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th scope="row">Category</th>
+              {% for project in projects %}<td>{{ project.get_category_display }}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th scope="row">Status</th>
+              {% for project in projects %}<td>{{ project.get_status_display }}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th scope="row">Budget</th>
+              {% for project in projects %}<td>{{ project.format_amount }}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th scope="row">Financial year</th>
+              {% for project in projects %}<td>{{ project.financial_year|default:"Information unavailable" }}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th scope="row">Evidence coverage</th>
+              {% for project in projects %}<td>{{ project.coverage.percent }}% · {{ project.coverage.supported }}/{{ project.coverage.total_claims }}</td>{% endfor %}
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              {% for project in projects %}
+                <td>
+                  <form method="post" action="{% url 'projects:compare-remove' project.slug %}">
+                    {% csrf_token %}
+                    <button class="text-link" type="submit">Remove</button>
+                  </form>
+                </td>
+              {% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="search-empty">Select projects above, or open a project and choose Compare. You can compare up to {{ max_compare }} at a time.</p>
+    {% endif %}
+  </section>
+
+  {% if county_rows %}
+    <section>
+      <h2>County comparison</h2>
+      <div class="table-wrap">
+        <table>
+          <caption class="sr-only">Selected county comparison</caption>
+          <thead>
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">County</th>
+              <th scope="col">Projects</th>
+              <th scope="col">Recorded budget</th>
+              <th scope="col">Delayed</th>
+              <th scope="col">Completed</th>
+              <th scope="col">In progress</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in county_rows %}
+              <tr>
+                <td>{{ row.rank }}</td>
+                <td>{{ row.county }}</td>
+                <td>{{ row.project_count }}</td>
+                <td>{{ row.formatted_budget }}</td>
+                <td>{{ row.delayed_count }} ({{ row.delayed_share }}%)</td>
+                <td>{{ row.completed_count }} ({{ row.completed_share }}%)</td>
+                <td>{{ row.in_progress_count }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  {% endif %}
+
+  <section>
+    <h2>County rankings</h2>
+    <p class="muted">Ranked by recorded allocated budget, then project count. Delayed share is the percentage of projects marked delayed in the public record.</p>
+    {% if rankings %}
+      <div class="table-wrap">
+        <table>
+          <caption class="sr-only">County rankings</caption>
+          <thead>
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">County</th>
+              <th scope="col">Projects</th>
+              <th scope="col">Recorded budget</th>
+              <th scope="col">Delayed share</th>
+              <th scope="col">Completed share</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rankings %}
+              <tr>
+                <td>{{ row.rank }}</td>
+                <td>{{ row.county }}</td>
+                <td>{{ row.project_count }}</td>
+                <td>{{ row.formatted_budget }}</td>
+                <td>{{ row.delayed_share }}%</td>
+                <td>{{ row.completed_share }}%</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p>No county records are available yet.</p>
+    {% endif %}
+  </section>
+</section>
+{% endblock %}

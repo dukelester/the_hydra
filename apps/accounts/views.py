@@ -1,12 +1,30 @@
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import (
+    LoginView,
+    LogoutView,
+    PasswordChangeView,
+    PasswordResetCompleteView,
+    PasswordResetConfirmView,
+    PasswordResetDoneView,
+    PasswordResetView,
+)
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.decorators.http import require_http_methods
 
-from apps.core.forms import LoginForm, ProfileForm, RegisterForm
+from apps.core.forms import (
+    LoginForm,
+    ProfileForm,
+    RegisterForm,
+    RegisterIdentityForm,
+    StyledPasswordChangeForm,
+    StyledPasswordResetForm,
+    StyledSetPasswordForm,
+)
+from apps.core.services.coverage import calculate_evidence_coverage
+from apps.projects.activity import favourite_projects, recent_projects_for, tracked_follows
 
 
 class TheHydraLoginView(LoginView):
@@ -19,22 +37,75 @@ class TheHydraLogoutView(LogoutView):
     next_page = reverse_lazy("core:home")
 
 
+REGISTER_DRAFT_KEY = "register_draft"
+
+
+def _register_context(step, form, draft=None):
+    return {
+        "step": step,
+        "form": form,
+        "draft": draft or {},
+    }
+
+
 @require_http_methods(["GET", "POST"])
 def register_view(request):
     if request.user.is_authenticated:
         return redirect("accounts:dashboard")
-    form = RegisterForm(request.POST or None)
-    if request.method == "POST" and form.is_valid():
-        user = form.save()
-        login(request, user)
-        return redirect("accounts:dashboard")
-    return render(request, "accounts/register.html", {"form": form})
+
+    draft = request.session.get(REGISTER_DRAFT_KEY) or {}
+
+    if request.method == "POST":
+        posted_step = request.POST.get("step", "1")
+        if request.POST.get("intent") == "back" or posted_step == "back":
+            form = RegisterIdentityForm(initial=draft)
+            return render(request, "accounts/register.html", _register_context(1, form, draft))
+
+        if posted_step == "1":
+            form = RegisterIdentityForm(request.POST)
+            if form.is_valid():
+                request.session[REGISTER_DRAFT_KEY] = {
+                    "username": form.cleaned_data["username"],
+                    "display_name": form.cleaned_data.get("display_name") or "",
+                }
+                draft = request.session[REGISTER_DRAFT_KEY]
+                security = RegisterForm(initial=draft)
+                return render(request, "accounts/register.html", _register_context(2, security, draft))
+            return render(request, "accounts/register.html", _register_context(1, form, draft))
+
+        if not draft.get("username"):
+            form = RegisterIdentityForm()
+            return render(request, "accounts/register.html", _register_context(1, form))
+
+        data = request.POST.copy()
+        data["username"] = draft["username"]
+        data["display_name"] = draft.get("display_name", "")
+        form = RegisterForm(data)
+        if form.is_valid():
+            user = form.save()
+            request.session.pop(REGISTER_DRAFT_KEY, None)
+            login(request, user)
+            return redirect("accounts:dashboard")
+        return render(request, "accounts/register.html", _register_context(2, form, draft))
+
+    if request.GET.get("step") == "2" and draft.get("username"):
+        form = RegisterForm(initial=draft)
+        return render(request, "accounts/register.html", _register_context(2, form, draft))
+
+    form = RegisterIdentityForm(initial=draft or None)
+    return render(request, "accounts/register.html", _register_context(1, form, draft))
 
 
 @login_required
 def dashboard_view(request):
     investigations = request.user.investigations.select_related("project")
     reports = request.user.reports.select_related("project")
+    follows = tracked_follows(request.user)
+    favourites = favourite_projects(request.user)
+    recent_projects = recent_projects_for(request)
+    for project in recent_projects + favourites + [follow.project for follow in follows]:
+        project.coverage = calculate_evidence_coverage(project)
+    updates = [follow for follow in follows if follow.needs_attention]
     return render(
         request,
         "accounts/dashboard.html",
@@ -43,15 +114,54 @@ def dashboard_view(request):
             "report_count": reports.count(),
             "recent_investigations": investigations[:5],
             "recent_reports": reports[:5],
+            "recent_projects": recent_projects,
+            "tracked_follows": follows,
+            "favourite_projects": favourites,
+            "tracked_updates": updates,
+            "tracked_count": len(follows),
+            "favourite_count": len(favourites),
+            "update_count": len(updates),
         },
     )
 
 
 @login_required
 def profile_view(request):
-    form = ProfileForm(request.POST or None, instance=request.user)
+    form = ProfileForm(request.POST if request.method == "POST" else None, instance=request.user)
     if request.method == "POST" and form.is_valid():
         form.save()
         messages.success(request, "Profile saved.")
         return redirect("accounts:profile")
     return render(request, "accounts/profile.html", {"form": form})
+
+
+class TheHydraPasswordResetView(PasswordResetView):
+    template_name = "accounts/password_reset.html"
+    email_template_name = "accounts/email/password_reset_email.txt"
+    subject_template_name = "accounts/email/password_reset_subject.txt"
+    form_class = StyledPasswordResetForm
+    success_url = reverse_lazy("accounts:password-reset-done")
+
+
+class TheHydraPasswordResetDoneView(PasswordResetDoneView):
+    template_name = "accounts/password_reset_done.html"
+
+
+class TheHydraPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = "accounts/password_reset_confirm.html"
+    form_class = StyledSetPasswordForm
+    success_url = reverse_lazy("accounts:password-reset-complete")
+
+
+class TheHydraPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = "accounts/password_reset_complete.html"
+
+
+class TheHydraPasswordChangeView(PasswordChangeView):
+    template_name = "accounts/password_change.html"
+    form_class = StyledPasswordChangeForm
+    success_url = reverse_lazy("accounts:profile")
+
+    def form_valid(self, form):
+        messages.success(self.request, "Password updated.")
+        return super().form_valid(form)

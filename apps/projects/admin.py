@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from apps.sources.models import Evidence
 
-from .models import BudgetAllocation, Institution, Project, TimelineEvent
+from .models import BudgetAllocation, Institution, Project, ProjectFollow, ProjectView, TimelineEvent
 
 
 class EvidenceInline(admin.TabularInline):
@@ -77,3 +77,19 @@ class TimelineEventAdmin(admin.ModelAdmin):
     search_fields = ("project__name", "title", "description")
     list_filter = ("stage",)
     autocomplete_fields = ["project", "evidence"]
+
+
+@admin.register(ProjectView)
+class ProjectViewAdmin(admin.ModelAdmin):
+    list_display = ("user", "project", "viewed_at")
+    search_fields = ("user__username", "project__name")
+    autocomplete_fields = ["user", "project"]
+    readonly_fields = ("viewed_at",)
+
+
+@admin.register(ProjectFollow)
+class ProjectFollowAdmin(admin.ModelAdmin):
+    list_display = ("user", "project", "is_tracked", "is_favourite", "last_seen_status", "created_at")
+    list_filter = ("is_tracked", "is_favourite")
+    search_fields = ("user__username", "project__name")
+    autocomplete_fields = ["user", "project"]

@@ -14,6 +14,7 @@
       <div><dt>Contractor</dt><dd>{{ project.contractor|default:"Information unavailable" }}</dd></div>
       <div><dt>Status</dt><dd>{{ project.get_status_display }}</dd></div>
     </dl>
+    {% include "components/project_actions.html" %}
   </header>
 
   <section>

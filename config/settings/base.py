@@ -200,6 +200,17 @@ REST_FRAMEWORK = {
     },
 }
 
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", "H.Y.D.R.A. <noreply@localhost>")
+EMAIL_BACKEND = env("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
+EMAIL_HOST = env("EMAIL_HOST", "localhost")
+EMAIL_PORT = env_int("EMAIL_PORT", 587)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
+
+if RUNNING_TESTS:
+    EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
+
 SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = False
 X_FRAME_OPTIONS = "DENY"

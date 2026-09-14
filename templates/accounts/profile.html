@@ -1,24 +1,53 @@
-{% extends "base.html" %}
+{% extends "accounts/base_auth.html" %}
 {% block title %}Profile{% endblock %}
-{% block content %}
-<article class="form-page auth-page">
-  <div class="form-shell auth-shell">
-    <div class="profile-mark">
-      {% include "components/avatar.html" with person=user extra_class="user-avatar-lg" %}
-    </div>
-    <p class="kicker">Account</p>
-    <h1>Profile</h1>
-    <p class="lede">Your username is <strong>@{{ user.username }}</strong>. Display name and email can be updated here.</p>
-    <form class="form-stack" method="post">
-      {% csrf_token %}
-      {% if form.non_field_errors %}<p class="error" role="alert">{{ form.non_field_errors|striptags }}</p>{% endif %}
-      {% include "components/form_field.html" with field=form.display_name %}
-      {% include "components/form_field.html" with field=form.email %}
-      <div class="form-actions">
-        <button class="btn btn-primary btn-large" type="submit">Save profile</button>
-        <a class="btn btn-secondary" href="{% url 'accounts:dashboard' %}">Back to dashboard</a>
-      </div>
-    </form>
+{% block auth_stage_class %} is-wide{% endblock %}
+{% block auth_panel_mark %}
+  <div class="profile-mark">
+    {% include "components/avatar.html" with person=user extra_class="user-avatar-lg" %}
   </div>
-</article>
+{% endblock %}
+{% block auth_panel_kicker %}Account{% endblock %}
+{% block auth_panel_heading %}{{ user.public_name }}{% endblock %}
+{% block auth_panel_copy %}@{{ user.username }}. Everything on this page is optional. Email is only needed to reset a forgotten password.{% endblock %}
+{% block auth_points %}
+  <li>Display name is what others see on your dashboard.</li>
+  <li>Affiliation and county help you keep a civic context, not a public score.</li>
+  <li>Change your password any time from this account.</li>
+{% endblock %}
+{% block auth_card %}
+  <p class="kicker">Profile</p>
+  <h1>Your details</h1>
+  <p class="lede">Username stays <strong>@{{ user.username }}</strong>. Add only what you want on the record.</p>
+  <form class="form-stack" method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<p class="error" role="alert">{{ form.non_field_errors|striptags }}</p>{% endif %}
+    <fieldset>
+      <legend>How you appear</legend>
+      {% include "components/form_field.html" with field=form.display_name %}
+      <div class="form-grid">
+        {% include "components/form_field.html" with field=form.first_name %}
+        {% include "components/form_field.html" with field=form.last_name %}
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Contact</legend>
+      {% include "components/form_field.html" with field=form.email %}
+      {% include "components/form_field.html" with field=form.website %}
+    </fieldset>
+    <fieldset>
+      <legend>About you</legend>
+      {% include "components/form_field.html" with field=form.affiliation %}
+      {% include "components/form_field.html" with field=form.role %}
+      <div class="form-grid">
+        {% include "components/form_field.html" with field=form.county %}
+        {% include "components/form_field.html" with field=form.location %}
+      </div>
+      {% include "components/form_field.html" with field=form.bio %}
+    </fieldset>
+    <div class="form-actions">
+      <button class="btn btn-primary btn-large" type="submit">Save profile</button>
+      <a class="btn btn-secondary" href="{% url 'accounts:password-change' %}">Change password</a>
+      <a class="btn btn-secondary" href="{% url 'accounts:dashboard' %}">Back to dashboard</a>
+    </div>
+  </form>
 {% endblock %}

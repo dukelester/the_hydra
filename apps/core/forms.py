@@ -1,8 +1,15 @@
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.conf import settings
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordChangeForm,
+    PasswordResetForm,
+    SetPasswordForm,
+    UserCreationForm,
+)
 from django import forms
 
-from apps.accounts.models import User
+from apps.accounts.models import User, UserRole
 from apps.investigations.models import Investigation
 from apps.reports.models import IssueReport, ReportStatus
 
@@ -33,6 +40,34 @@ class LoginForm(StyledFormMixin, AuthenticationForm):
         self._style_fields()
 
 
+class RegisterIdentityForm(StyledFormMixin, forms.Form):
+    username = forms.CharField(
+        max_length=150,
+        validators=[UnicodeUsernameValidator()],
+        help_text="Letters, digits, and @/./+/-/_ only.",
+    )
+    display_name = forms.CharField(
+        max_length=150,
+        required=False,
+        label="Display name",
+        help_text="Optional. Shown on your dashboard instead of the username.",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["username"].widget.attrs["placeholder"] = "Choose a username"
+        self.fields["username"].widget.attrs["autocomplete"] = "username"
+        self.fields["display_name"].widget.attrs["placeholder"] = "Optional public name"
+        self.fields["display_name"].widget.attrs["autocomplete"] = "nickname"
+        self._style_fields()
+
+    def clean_username(self):
+        username = self.cleaned_data["username"]
+        if User.objects.filter(username__iexact=username).exists():
+            raise forms.ValidationError("A user with that username already exists.")
+        return username
+
+
 class RegisterForm(StyledFormMixin, UserCreationForm):
     display_name = forms.CharField(max_length=150, required=False, label="Display name")
     agree_to_terms = forms.BooleanField(
@@ -50,31 +85,116 @@ class RegisterForm(StyledFormMixin, UserCreationForm):
         self.fields["username"].widget.attrs["placeholder"] = "Choose a username"
         self.fields["display_name"].widget.attrs["placeholder"] = "Optional public name"
         self.fields["password1"].widget.attrs["placeholder"] = "Password"
+        self.fields["password1"].widget.attrs["autocomplete"] = "new-password"
         self.fields["password2"].widget.attrs["placeholder"] = "Confirm password"
+        self.fields["password2"].widget.attrs["autocomplete"] = "new-password"
         self.fields["username"].help_text = "Letters, digits, and @/./+/-/_ only."
+        self.fields["password1"].help_text = "At least 8 characters. Avoid common words or a password that is only numbers."
+        self.fields["password2"].help_text = "Enter the same password again."
         self._style_fields()
 
 
 class ProfileForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = User
-        fields = ("display_name", "email")
+        fields = (
+            "display_name",
+            "first_name",
+            "last_name",
+            "email",
+            "affiliation",
+            "role",
+            "county",
+            "location",
+            "website",
+            "bio",
+        )
         labels = {
             "display_name": "Display name",
+            "first_name": "First name",
+            "last_name": "Last name",
             "email": "Email",
+            "affiliation": "Affiliation",
+            "role": "How you use H.Y.D.R.A.",
+            "county": "County",
+            "location": "Town or area",
+            "website": "Website",
+            "bio": "About you",
         }
         help_texts = {
             "display_name": "Shown on your dashboard and avatar. Your username stays the same.",
-            "email": "Optional. Used only if we need to reach you about your account.",
+            "first_name": "Optional. Used only on your profile.",
+            "last_name": "Optional. Used only on your profile.",
+            "email": "Optional, but needed to reset a forgotten password.",
+            "affiliation": "Newsroom, university, department, or organisation — if you want it recorded.",
+            "role": "Optional. Helps us understand who uses the record.",
+            "county": "Optional. A county you follow or work in.",
+            "location": "Optional. Town, ward, or area.",
+            "website": "Optional. A public page, not a private profile.",
+            "bio": "Optional. A short note about how you use this platform.",
+        }
+        widgets = {
+            "bio": forms.Textarea(attrs={"rows": 4, "placeholder": "Optional. Keep it short."}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["display_name"].required = False
-        self.fields["email"].required = False
+        for name in self.fields:
+            self.fields[name].required = False
+        self.fields["role"].choices = [("", "Prefer not to say")] + list(UserRole.choices)
         self.fields["display_name"].widget.attrs["placeholder"] = "How should we address you?"
+        self.fields["first_name"].widget.attrs["placeholder"] = "Optional"
+        self.fields["last_name"].widget.attrs["placeholder"] = "Optional"
         self.fields["email"].widget.attrs["placeholder"] = "you@example.com"
         self.fields["email"].widget.attrs["autocomplete"] = "email"
+        self.fields["affiliation"].widget.attrs["placeholder"] = "Optional organisation"
+        self.fields["county"].widget.attrs["placeholder"] = "Optional county"
+        self.fields["location"].widget.attrs["placeholder"] = "Optional town or ward"
+        self.fields["website"].widget.attrs["placeholder"] = "https://"
+        self.fields["website"].widget.attrs["autocomplete"] = "url"
+        self._style_fields()
+
+
+class StyledPasswordResetForm(StyledFormMixin, PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["email"].label = "Email"
+        self.fields["email"].help_text = (
+            "Use the address on your profile. If you never added one, sign in and set it there, "
+            "or change your password from the profile page while logged in."
+        )
+        self.fields["email"].widget.attrs["placeholder"] = "you@example.com"
+        self.fields["email"].widget.attrs["autocomplete"] = "email"
+        self._style_fields()
+
+
+class StyledSetPasswordForm(StyledFormMixin, SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["new_password1"].widget.attrs["autocomplete"] = "new-password"
+        self.fields["new_password2"].widget.attrs["autocomplete"] = "new-password"
+        self.fields["new_password1"].widget.attrs["placeholder"] = "New password"
+        self.fields["new_password2"].widget.attrs["placeholder"] = "Confirm new password"
+        self.fields["new_password1"].help_text = (
+            "At least 8 characters. Avoid common words or a password that is only numbers."
+        )
+        self.fields["new_password2"].help_text = "Enter the same password again."
+        self._style_fields()
+
+
+class StyledPasswordChangeForm(StyledFormMixin, PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["old_password"].widget.attrs["autocomplete"] = "current-password"
+        self.fields["old_password"].widget.attrs["placeholder"] = "Current password"
+        self.fields["new_password1"].widget.attrs["autocomplete"] = "new-password"
+        self.fields["new_password2"].widget.attrs["autocomplete"] = "new-password"
+        self.fields["new_password1"].widget.attrs["placeholder"] = "New password"
+        self.fields["new_password2"].widget.attrs["placeholder"] = "Confirm new password"
+        self.fields["new_password1"].help_text = (
+            "At least 8 characters. Avoid common words or a password that is only numbers."
+        )
+        self.fields["new_password2"].help_text = "Enter the same password again."
         self._style_fields()
 
 

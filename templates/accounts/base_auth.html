@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="auth-stage{% block auth_stage_class %}{% endblock %}">
+  <aside class="auth-panel">
+    <div class="auth-panel-top">
+      {% block auth_panel_mark %}
+        <img class="auth-mark" src="{% static 'img/mark.png' %}" alt="" width="72" height="72">
+      {% endblock %}
+      <p class="kicker">{% block auth_panel_kicker %}H.Y.D.R.A.{% endblock %}</p>
+      <h2>{% block auth_panel_heading %}Follow the money{% endblock %}</h2>
+      <p class="auth-panel-copy">{% block auth_panel_copy %}An account keeps your investigations and reports with you. The public record stays open without signing in.{% endblock %}</p>
+    </div>
+    <ul class="auth-points">
+      {% block auth_points %}
+        <li>Investigations stay private unless you submit a report.</li>
+        <li>You can still search and read projects without an account.</li>
+        <li>An observation is not a finding of guilt.</li>
+      {% endblock %}
+    </ul>
+    <p class="auth-panel-foot">{% block auth_panel_foot %}Human-centered Yield, Data, Rights &amp; Accountability{% endblock %}</p>
+  </aside>
+  <div class="auth-card">
+    {% block auth_card %}{% endblock %}
+  </div>
+</section>
+{% endblock %}

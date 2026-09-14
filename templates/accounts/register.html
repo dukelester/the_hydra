@@ -1,18 +1,50 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "accounts/base_auth.html" %}
 {% block title %}Create an account{% endblock %}
-{% block content %}
-<article class="form-page auth-page">
-  <div class="form-shell auth-shell">
-    <img class="auth-mark" src="{% static 'img/mark.png' %}" alt="" width="72" height="72">
-    <p class="kicker">H.Y.D.R.A.</p>
-    <h1>Create an account</h1>
-    <p class="lede">Keeps investigations and reports with you. We do not collect unnecessary personal information.</p>
-    <form class="form-stack" method="post">
-      {% csrf_token %}
-      {% if form.non_field_errors %}<p class="error" role="alert">{{ form.non_field_errors|striptags }}</p>{% endif %}
+{% block auth_panel_heading %}{% if step == 2 %}Lock the account{% else %}Join the record{% endif %}{% endblock %}
+{% block auth_panel_copy %}
+  {% if step == 2 %}
+    Choose a password and accept the terms. You can add email and other details later from your profile.
+  {% else %}
+    Two short steps. We only need a username now. Display name, email, and the rest of your profile stay optional.
+  {% endif %}
+{% endblock %}
+{% block auth_points %}
+  <li>Step 1 is a username. Step 2 is a password and the terms.</li>
+  <li>Tracked projects and investigations stay on this account.</li>
+  <li>The public record remains readable without signing in.</li>
+{% endblock %}
+{% block auth_card %}
+  <p class="kicker">Create account</p>
+  <h1>{% if step == 2 %}Create a password{% else %}Create an account{% endif %}</h1>
+  <p class="lede">
+    {% if step == 2 %}
+      Signing up as <strong>@{{ draft.username }}</strong>{% if draft.display_name %} · {{ draft.display_name }}{% endif %}.
+    {% else %}
+      Keeps investigations with you. Nothing else is required on this page.
+    {% endif %}
+  </p>
+  <nav class="auth-steps" aria-label="Sign up steps">
+    <p class="auth-step{% if step == 1 %} is-current{% endif %}" {% if step == 1 %}aria-current="step"{% endif %}>
+      <span class="auth-step-num">1</span>
+      <span>Your name</span>
+    </p>
+    <p class="auth-step{% if step == 2 %} is-current{% endif %}" {% if step == 2 %}aria-current="step"{% endif %}>
+      <span class="auth-step-num">2</span>
+      <span>Password</span>
+    </p>
+  </nav>
+  <form class="form-stack" method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<p class="error" role="alert">{{ form.non_field_errors|striptags }}</p>{% endif %}
+    {% if step == 1 %}
+      <input type="hidden" name="step" value="1">
       {% include "components/form_field.html" with field=form.username %}
       {% include "components/form_field.html" with field=form.display_name %}
+      <div class="form-actions">
+        <button class="btn btn-primary btn-large" type="submit">Continue</button>
+      </div>
+    {% else %}
+      <input type="hidden" name="step" value="2">
       {% include "components/form_field.html" with field=form.password1 %}
       {% include "components/form_field.html" with field=form.password2 %}
       <div class="field field-check{% if form.agree_to_terms.errors %} is-invalid{% endif %}">
@@ -27,9 +59,9 @@
       </div>
       <div class="form-actions">
         <button class="btn btn-primary btn-large" type="submit">Create account</button>
+        <button class="btn btn-secondary" type="submit" name="intent" value="back">Back</button>
       </div>
-    </form>
-    <p class="form-foot">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a></p>
-  </div>
-</article>
+    {% endif %}
+  </form>
+  <p class="form-foot">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a> · <a href="{% url 'accounts:password-reset' %}">Forgot password?</a></p>
 {% endblock %}

@@ -12,8 +12,41 @@ AVATAR_PALETTES = (
 )
 
 
+class UserRole(models.TextChoices):
+    CITIZEN = "citizen", "Resident / citizen"
+    JOURNALIST = "journalist", "Journalist"
+    RESEARCHER = "researcher", "Researcher"
+    STUDENT = "student", "Student"
+    OFFICIAL = "official", "Public official"
+    CSO = "cso", "Civil society / oversight"
+    OTHER = "other", "Other"
+
+
 class User(AbstractUser):
-    display_name = models.CharField(max_length=150, blank=True)
+    display_name = models.CharField(
+        max_length=150,
+        blank=True,
+        help_text="Public name shown on your dashboard and avatar.",
+    )
+    affiliation = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Newsroom, university, department, or organisation — if you want it recorded.",
+    )
+    role = models.CharField(
+        max_length=40,
+        blank=True,
+        choices=UserRole.choices,
+        help_text="How you usually use this record. Optional.",
+    )
+    county = models.CharField(max_length=120, blank=True)
+    location = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Town, ward, or area you follow.",
+    )
+    website = models.URLField(blank=True)
+    bio = models.TextField(blank=True)
 
     class Meta:
         verbose_name = "user"
@@ -23,7 +56,12 @@ class User(AbstractUser):
         return self.public_name()
 
     def public_name(self):
-        return (self.display_name or self.get_username()).strip()
+        if (self.display_name or "").strip():
+            return self.display_name.strip()
+        full = f"{self.first_name} {self.last_name}".strip()
+        if full:
+            return full
+        return self.get_username()
 
     def avatar_initials(self):
         name = self.public_name()

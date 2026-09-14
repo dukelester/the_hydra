@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
@@ -234,3 +235,60 @@ class TimelineEvent(models.Model):
         if self.currency == "KES":
             return f"KSh {amount}"
         return f"{self.currency} {amount}"
+
+
+class ProjectView(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="project_views",
+    )
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="views")
+    viewed_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-viewed_at"]
+        constraints = [
+            models.UniqueConstraint(fields=["user", "project"], name="unique_user_project_view"),
+        ]
+        indexes = [models.Index(fields=["user", "-viewed_at"])]
+
+    def __str__(self):
+        return f"{self.user} viewed {self.project}"
+
+
+class ProjectFollow(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="project_follows",
+    )
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="follows")
+    is_tracked = models.BooleanField(default=False)
+    is_favourite = models.BooleanField(default=False)
+    last_seen_updated_at = models.DateTimeField()
+    last_seen_status = models.CharField(max_length=30, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        constraints = [
+            models.UniqueConstraint(fields=["user", "project"], name="unique_user_project_follow"),
+        ]
+
+    def __str__(self):
+        return f"{self.user} follows {self.project}"
+
+    def has_record_update(self):
+        return self.project.updated_at > self.last_seen_updated_at
+
+    def has_status_change(self):
+        return bool(self.last_seen_status) and self.last_seen_status != self.project.status
+
+    def last_seen_status_label(self):
+        if not self.last_seen_status:
+            return "Not recorded"
+        try:
+            return ProjectStatus(self.last_seen_status).label
+        except ValueError:
+            return self.last_seen_status
