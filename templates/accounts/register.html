@@ -15,6 +15,16 @@
       {% include "components/form_field.html" with field=form.display_name %}
       {% include "components/form_field.html" with field=form.password1 %}
       {% include "components/form_field.html" with field=form.password2 %}
+      <div class="field field-check{% if form.agree_to_terms.errors %} is-invalid{% endif %}">
+        {{ form.agree_to_terms }}
+        <label for="{{ form.agree_to_terms.id_for_label }}">
+          I agree to the <a href="{% url 'core:terms' %}">terms of use</a>
+          <span class="req" title="Required">*</span>
+        </label>
+        {% if form.agree_to_terms.errors %}
+          <p class="error" role="alert">{{ form.agree_to_terms.errors|striptags }}</p>
+        {% endif %}
+      </div>
       <div class="form-actions">
         <button class="btn btn-primary btn-large" type="submit">Create account</button>
       </div>

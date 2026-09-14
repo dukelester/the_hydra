@@ -126,6 +126,13 @@ class SearchTests(TestCase):
         short = self.client.get(reverse("core:search-suggest"), {"q": "w"})
         self.assertContains(short, "Type at least 2 characters")
 
+    def test_projects_kind_renders_editorial_hits(self):
+        response = self.client.get(reverse("core:search"), {"kind": "projects"})
+        self.assertContains(response, "search-project")
+        self.assertContains(response, "Community Water Access Project")
+        self.assertContains(response, "KSh")
+        self.assertContains(response, "Evidence")
+
     def test_filters_narrow_projects(self):
         none = search_civic_data("water", county="Mombasa")
         self.assertEqual(none["project_count"], 0)

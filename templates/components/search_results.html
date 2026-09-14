@@ -1,71 +1,59 @@
 {% if query %}
   {% if total %}
-    <p class="search-meta">{{ total }} matching record{{ total|pluralize }} for “{{ query }}” — {{ project_count }} project{{ project_count|pluralize }}</p>
     {% if projects %}
       <section class="result-group">
-        <h2>Projects</h2>
-        <ul class="result-list stacked">
+        <div class="result-group-head">
+          <h2>Projects</h2>
+          <a class="text-link" href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=projects">View all {{ project_count }}</a>
+        </div>
+        <div class="search-board">
           {% for project in projects %}
-            <li>
-              <a class="result-row" href="{{ project.get_absolute_url }}">
-                <span class="type-badge">Project</span>
-                <span class="suggest-title">{{ project.name }}</span>
-                <span class="suggest-meta">{{ project.county }} · {{ project.get_status_display }} · {{ project.institution.name }}</span>
-              </a>
-            </li>
+            {% include "components/search_project.html" %}
           {% endfor %}
-        </ul>
+        </div>
       </section>
     {% endif %}
     {% if institutions %}
       <section class="result-group">
-        <h2>Institutions</h2>
-        <ul class="result-list stacked">
+        <div class="result-group-head">
+          <h2>Institutions</h2>
+          <a class="text-link" href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=institutions">View all {{ institution_count }}</a>
+        </div>
+        <div class="card-grid">
           {% for institution in institutions %}
-            <li>
-              <a class="result-row" href="{{ institution.get_absolute_url }}">
-                <span class="type-badge">Institution</span>
-                <span class="suggest-title">{{ institution.name }}</span>
-                <span class="suggest-meta">{{ institution.location }}</span>
-              </a>
-            </li>
+            {% include "components/institution_card.html" %}
           {% endfor %}
-        </ul>
+        </div>
       </section>
     {% endif %}
     {% if policies %}
       <section class="result-group">
-        <h2>Policies</h2>
-        <ul class="result-list stacked">
+        <div class="result-group-head">
+          <h2>Policies</h2>
+          <a class="text-link" href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=policies">View all {{ policy_count }}</a>
+        </div>
+        <div class="card-grid">
           {% for policy in policies %}
-            <li>
-              <a class="result-row" href="{{ policy.get_absolute_url }}">
-                <span class="type-badge">Policy</span>
-                <span class="suggest-title">{{ policy.title }}</span>
-              </a>
-            </li>
+            {% include "components/policy_card.html" %}
           {% endfor %}
-        </ul>
+        </div>
       </section>
     {% endif %}
     {% if documents %}
       <section class="result-group">
-        <h2>Source documents</h2>
-        <ul class="result-list stacked">
+        <div class="result-group-head">
+          <h2>Source documents</h2>
+          <a class="text-link" href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=documents">View all {{ document_count }}</a>
+        </div>
+        <div class="card-grid">
           {% for document in documents %}
-            <li>
-              <a class="result-row" href="{{ document.get_absolute_url }}">
-                <span class="type-badge">Document</span>
-                <span class="suggest-title">{{ document.title }}</span>
-                <span class="suggest-meta">{{ document.publisher }}{% if document.original_filename %} · {{ document.original_filename }}{% endif %}</span>
-              </a>
-            </li>
+            {% include "components/document_card.html" %}
           {% endfor %}
-        </ul>
+        </div>
       </section>
     {% endif %}
   {% else %}
-    <p class="search-meta">No matching projects, institutions, policies, or documents for “{{ query }}”.</p>
+    <p class="search-empty">No matching projects, institutions, policies, or documents for “{{ query }}”.</p>
   {% endif %}
 {% else %}
   <p class="search-meta muted">Start typing to search civic data.</p>

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<section class="dashboard-page">
+  <header class="dashboard-hero">
+    {% include "components/avatar.html" with person=user extra_class="user-avatar-lg" %}
+    <div>
+      <p class="kicker">Your workspace</p>
+      <h1>{{ user.public_name }}</h1>
+      <p class="lede">Follow the money from one place. Investigations and reports stay private to you unless an administrator reviews them.</p>
+      <div class="hero-actions dashboard-actions">
+        <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a project</a>
+        <a class="btn btn-secondary" href="{% url 'accounts:profile' %}">Edit profile</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-stats">
+    <a href="{% url 'investigations:list' %}">
+      <strong>{{ investigation_count }}</strong>
+      <span>Investigation{{ investigation_count|pluralize }}</span>
+    </a>
+    <a href="{% url 'reports:list' %}">
+      <strong>{{ report_count }}</strong>
+      <span>Report{{ report_count|pluralize }}</span>
+    </a>
+    <a href="{% url 'core:search' %}">
+      <strong>Search</strong>
+      <span>Public record</span>
+    </a>
+  </div>
+
+  <div class="split dashboard-split">
+    <section>
+      <div class="section-head">
+        <h2>Recent investigations</h2>
+        <a class="text-link" href="{% url 'investigations:list' %}">View all</a>
+      </div>
+      <ul class="plain-list">
+        {% for investigation in recent_investigations %}
+          <li class="card record-card">
+            <p class="eyebrow">{{ investigation.get_verification_status_display }}</p>
+            <h2><a href="{{ investigation.get_absolute_url }}">{{ investigation.title }}</a></h2>
+            <p class="muted">{{ investigation.project.name }} · {{ investigation.created_at|date:"j M Y" }}</p>
+          </li>
+        {% empty %}
+          <li class="search-empty">You have not submitted an investigation yet. Open a project and record what you observed.</li>
+        {% endfor %}
+      </ul>
+    </section>
+    <section>
+      <div class="section-head">
+        <h2>Recent reports</h2>
+        <a class="text-link" href="{% url 'reports:list' %}">View all</a>
+      </div>
+      <ul class="plain-list">
+        {% for report in recent_reports %}
+          <li class="card record-card">
+            <p class="eyebrow">{{ report.get_status_display }}</p>
+            <h2><a href="{{ report.get_absolute_url }}">{{ report.title }}</a></h2>
+            <p class="muted">{{ report.project.name }} · {{ report.created_at|date:"j M Y" }}</p>
+          </li>
+        {% empty %}
+          <li class="search-empty">No reports yet. Generate one from an investigation when you are ready to structure the record.</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+</section>
+{% endblock %}

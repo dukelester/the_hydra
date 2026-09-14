@@ -1,116 +1,169 @@
 {% extends "base.html" %}
-{% block title %}Search{% if query %} · {{ query }}{% endif %}{% endblock %}
+{% block title %}{% if query %}{{ query }} · Search{% else %}Search{% endif %}{% endblock %}
 {% block content %}
 <section class="page-head">
   <p class="kicker">Civic search</p>
-  <h1>Search</h1>
-  <p class="lede">Type to get ranked live matches. Full search also reads descriptions and paginates projects so thousands of records stay usable.</p>
+  {% if query %}
+    <h1>Results for “{{ query }}”</h1>
+    <p class="lede">Ranked matches across the public record. Filters apply instantly. Projects show budget, status, and evidence coverage.</p>
+  {% else %}
+    <h1>Search the public record</h1>
+    <p class="lede">Find projects, institutions, policies, and source documents. Choose a type to browse, or type a name, county, contractor, or words inside a file.</p>
+  {% endif %}
 </section>
 
-<section class="section tight">
-  <form class="search-engine search-live" method="get" action="{% url 'core:search' %}" role="search" data-search-root>
-    <div class="search-bar-wrap">
-      <div class="search-bar">
-        <label class="sr-only" for="search-q">Search</label>
-        <input id="search-q" name="q" type="search" value="{{ query }}" placeholder="Project, county, institution, contractor…" autocomplete="off" autofocus aria-autocomplete="list" aria-controls="live-suggest" aria-expanded="false" hx-get="{% url 'core:search-suggest' %}" hx-trigger="keyup changed delay:180ms, search" hx-target="#live-suggest" hx-include="closest form" hx-swap="innerHTML" hx-sync="closest form:abort" hx-indicator="#page-search-indicator">
-        <button type="submit" class="btn btn-primary">Search</button>
+<section class="search-page">
+  <form class="search-deck search-engine search-live" method="get" action="{% url 'core:search' %}" role="search" data-search-root>
+      <div class="search-bar-wrap">
+        <div class="search-bar">
+          <label class="sr-only" for="search-q">Search</label>
+          <input id="search-q" name="q" type="search" value="{{ query }}" placeholder="Project, county, contractor, filename, or words inside a document…" autocomplete="off" autofocus aria-autocomplete="list" aria-controls="live-suggest" aria-expanded="false" hx-get="{% url 'core:search-suggest' %}" hx-trigger="keyup changed delay:180ms, search" hx-target="#live-suggest" hx-include="closest form" hx-swap="innerHTML" hx-sync="closest form:abort" hx-indicator="#page-search-indicator">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+        <p id="page-search-indicator" class="search-indicator htmx-indicator">Searching…</p>
+        <div id="live-suggest" class="search-results search-overlay" data-search-panel aria-live="polite"></div>
       </div>
-      <p id="page-search-indicator" class="search-indicator htmx-indicator">Searching…</p>
-      <div id="live-suggest" class="search-results search-overlay" data-search-panel aria-live="polite"></div>
-    </div>
-    <div class="search-filters">
-      <div class="field">
-        <label for="kind">Show</label>
-        <select id="kind" name="kind" class="form-select" onchange="this.form.requestSubmit()">
-          <option value="all" {% if kind == "all" %}selected{% endif %}>All types</option>
-          <option value="projects" {% if kind == "projects" %}selected{% endif %}>Projects</option>
-          <option value="institutions" {% if kind == "institutions" %}selected{% endif %}>Institutions</option>
-          <option value="policies" {% if kind == "policies" %}selected{% endif %}>Policies</option>
-          <option value="documents" {% if kind == "documents" %}selected{% endif %}>Documents</option>
-        </select>
+      <div class="search-filters">
+        <div class="field">
+          <label for="kind">Show</label>
+          <select id="kind" name="kind" class="form-select" onchange="this.form.requestSubmit()">
+            <option value="all" {% if kind == "all" %}selected{% endif %}>All types</option>
+            <option value="projects" {% if kind == "projects" %}selected{% endif %}>Projects</option>
+            <option value="institutions" {% if kind == "institutions" %}selected{% endif %}>Institutions</option>
+            <option value="policies" {% if kind == "policies" %}selected{% endif %}>Policies</option>
+            <option value="documents" {% if kind == "documents" %}selected{% endif %}>Documents</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="county">County</label>
+          <select id="county" name="county" class="form-select" onchange="this.form.requestSubmit()">
+            <option value="">All counties</option>
+            {% for item in counties %}
+              <option value="{{ item }}" {% if county == item %}selected{% endif %}>{{ item }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label for="status">Status</label>
+          <select id="status" name="status" class="form-select" onchange="this.form.requestSubmit()">
+            <option value="">Any status</option>
+            {% for value, label in status_choices %}
+              <option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label for="category">Category</label>
+          <select id="category" name="category" class="form-select" onchange="this.form.requestSubmit()">
+            <option value="">Any category</option>
+            {% for value, label in category_choices %}
+              <option value="{{ value }}" {% if category == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </div>
       </div>
-      <div class="field">
-        <label for="county">County</label>
-        <select id="county" name="county" class="form-select" onchange="this.form.requestSubmit()">
-          <option value="">All counties</option>
-          {% for item in counties %}
-            <option value="{{ item }}" {% if county == item %}selected{% endif %}>{{ item }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="field">
-        <label for="status">Status</label>
-        <select id="status" name="status" class="form-select" onchange="this.form.requestSubmit()">
-          <option value="">Any status</option>
-          {% for value, label in status_choices %}
-            <option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="field">
-        <label for="category">Category</label>
-        <select id="category" name="category" class="form-select" onchange="this.form.requestSubmit()">
-          <option value="">Any category</option>
-          {% for value, label in category_choices %}
-            <option value="{{ value }}" {% if category == value %}selected{% endif %}>{{ label }}</option>
-          {% endfor %}
-        </select>
-      </div>
-    </div>
-  </form>
+    </form>
 
-  {% if query %}
-    <p class="search-meta">{{ total }} match{{ total|pluralize }} · {{ project_count }} project{{ project_count|pluralize }} · {{ institution_count }} institution{{ institution_count|pluralize }} · {{ policy_count }} polic{{ policy_count|pluralize:"y,ies" }} · {{ document_count }} document{{ document_count|pluralize }}</p>
+  <div class="search-toolbar">
+    <p class="search-count">
+      {% if query %}
+        {% if kind == "projects" %}
+          <strong>{{ project_count }}</strong> project{{ project_count|pluralize }}
+        {% elif kind == "institutions" %}
+          <strong>{{ institution_count }}</strong> institution{{ institution_count|pluralize }}
+        {% elif kind == "policies" %}
+          <strong>{{ policy_count }}</strong> polic{{ policy_count|pluralize:"y,ies" }}
+        {% elif kind == "documents" %}
+          <strong>{{ document_count }}</strong> document{{ document_count|pluralize }}
+        {% else %}
+          <strong>{{ total }}</strong> match{{ total|pluralize }}
+          <span class="muted">· {{ project_count }} projects · {{ institution_count }} institutions · {{ policy_count }} policies · {{ document_count }} documents</span>
+        {% endif %}
+      {% elif kind == "projects" %}
+        <strong>{{ project_count }}</strong> project{{ project_count|pluralize }} in the public record
+      {% elif kind == "institutions" %}
+        <strong>{{ institution_count }}</strong> institution{{ institution_count|pluralize }}
+      {% elif kind == "policies" %}
+        <strong>{{ policy_count }}</strong> polic{{ policy_count|pluralize:"y,ies" }}
+      {% elif kind == "documents" %}
+        <strong>{{ document_count }}</strong> document{{ document_count|pluralize }}
+      {% else %}
+        Browse by type, or search above
+      {% endif %}
+    </p>
     <div class="kind-tabs" role="navigation" aria-label="Result type">
-      <a class="{% if kind == 'all' %}is-active{% endif %}" href="?{{ tab_querystring }}">All ({{ total }})</a>
-      <a class="{% if kind == 'projects' %}is-active{% endif %}" href="?{{ tab_querystring }}&amp;kind=projects">Projects ({{ project_count }})</a>
-      <a class="{% if kind == 'institutions' %}is-active{% endif %}" href="?{{ tab_querystring }}&amp;kind=institutions">Institutions ({{ institution_count }})</a>
-      <a class="{% if kind == 'policies' %}is-active{% endif %}" href="?{{ tab_querystring }}&amp;kind=policies">Policies ({{ policy_count }})</a>
-      <a class="{% if kind == 'documents' %}is-active{% endif %}" href="?{{ tab_querystring }}&amp;kind=documents">Documents ({{ document_count }})</a>
+      <a class="{% if kind == 'all' %}is-active{% endif %}" href="?{{ tab_querystring }}">All</a>
+      <a class="{% if kind == 'projects' %}is-active{% endif %}" href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=projects">Projects <span>{{ project_count }}</span></a>
+      <a class="{% if kind == 'institutions' %}is-active{% endif %}" href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=institutions">Institutions <span>{{ institution_count }}</span></a>
+      <a class="{% if kind == 'policies' %}is-active{% endif %}" href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=policies">Policies <span>{{ policy_count }}</span></a>
+      <a class="{% if kind == 'documents' %}is-active{% endif %}" href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=documents">Documents <span>{{ document_count }}</span></a>
     </div>
-  {% endif %}
+  </div>
 
-  {% if kind == "projects" and project_page %}
-    <ul class="result-list stacked">
-      {% for project in project_page %}
-        <li>
-          <a class="result-row" href="{{ project.get_absolute_url }}">
-            <span class="type-badge">Project</span>
-            <span class="suggest-title">{{ project.name }}</span>
-            <span class="suggest-meta">{{ project.county }} · {{ project.get_status_display }} · {{ project.institution.name }}</span>
-          </a>
-        </li>
+  {% if kind == "projects" %}
+    <div class="search-board">
+      {% for project in projects %}
+        {% include "components/search_project.html" %}
       {% empty %}
-        <li>No projects match these filters.</li>
+        <p class="search-empty">No projects match these filters. Try another county, status, or a broader phrase.</p>
       {% endfor %}
-    </ul>
-    {% include "components/pagination.html" with page_obj=project_page %}
-  {% elif kind == "documents" and document_page %}
-    <ul class="result-list stacked">
-      {% for document in document_page %}
-        <li>
-          <a class="result-row" href="{{ document.get_absolute_url }}?q={{ query|urlencode }}">
-            <span class="type-badge">Document</span>
-            <span class="suggest-title">{{ document.title }}</span>
-            <span class="suggest-meta">{{ document.publisher }}{% if document.original_filename %} · {{ document.original_filename }}{% endif %}</span>
-            {% if document.search_snippet %}<span class="search-snippet">{{ document.search_snippet }}</span>{% endif %}
-          </a>
-        </li>
-      {% empty %}
-        <li>No documents match this search.</li>
-      {% endfor %}
-    </ul>
-    {% include "components/pagination.html" with page_obj=document_page %}
-  {% elif kind == "all" and query %}
-    <div id="search-results" class="search-results">
-      {% include "components/search_results.html" %}
     </div>
-    {% if project_page and project_page.paginator.count > 8 %}
-      <p class="search-meta"><a href="?{{ tab_querystring }}&amp;kind=projects">View all {{ project_count }} projects</a> · page {{ project_page.number }} of {{ project_page.paginator.num_pages }}</p>
-    {% endif %}
+    {% include "components/pagination.html" with page_obj=project_page %}
+  {% elif kind == "institutions" %}
+    <div class="card-grid">
+      {% for institution in institutions %}
+        {% include "components/institution_card.html" %}
+      {% empty %}
+        <p class="search-empty">No institutions match this search.</p>
+      {% endfor %}
+    </div>
+    {% include "components/pagination.html" with page_obj=institution_page %}
+  {% elif kind == "policies" %}
+    <div class="card-grid">
+      {% for policy in policies %}
+        {% include "components/policy_card.html" %}
+      {% empty %}
+        <p class="search-empty">No policies match this search.</p>
+      {% endfor %}
+    </div>
+    {% include "components/pagination.html" with page_obj=policy_page %}
+  {% elif kind == "documents" %}
+    <div class="card-grid">
+      {% for document in documents %}
+        {% include "components/document_card.html" %}
+      {% empty %}
+        <p class="search-empty">No documents match this search.</p>
+      {% endfor %}
+    </div>
+    {% include "components/pagination.html" with page_obj=document_page %}
+  {% elif query %}
+    {% include "components/search_results.html" %}
   {% else %}
-    <div id="search-results" class="search-results">
-      {% include "components/search_results.html" %}
+    <div class="search-browse">
+      <a href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=projects">
+        <p class="eyebrow">01</p>
+        <strong>{{ project_count }}</strong>
+        <h2>Projects</h2>
+        <p>Budgets, status, contractors, and evidence coverage.</p>
+      </a>
+      <a href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=institutions">
+        <p class="eyebrow">02</p>
+        <strong>{{ institution_count }}</strong>
+        <h2>Institutions</h2>
+        <p>County departments, agencies, and oversight bodies.</p>
+      </a>
+      <a href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=policies">
+        <p class="eyebrow">03</p>
+        <strong>{{ policy_count }}</strong>
+        <h2>Policies</h2>
+        <p>Public rules and plans tied to institutions.</p>
+      </a>
+      <a href="?{{ tab_querystring }}{% if tab_querystring %}&amp;{% endif %}kind=documents">
+        <p class="eyebrow">04</p>
+        <strong>{{ document_count }}</strong>
+        <h2>Documents</h2>
+        <p>Source files you can open, search, and cite.</p>
+      </a>
     </div>
   {% endif %}
 </section>

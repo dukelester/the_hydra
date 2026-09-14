@@ -1,4 +1,4 @@
-from django.db.models import Case, IntegerField, Q, Value, When
+from django.db.models import Case, Count, IntegerField, Q, Value, When
 
 from apps.policies.models import Policy
 from apps.projects.models import Institution, Project
@@ -140,7 +140,7 @@ def _institution_queryset(query, suggest=False):
     match = Q(name__icontains=query) | Q(location__icontains=query)
     if not suggest:
         match |= Q(description__icontains=query)
-    qs = Institution.objects.filter(match)
+    qs = Institution.objects.filter(match).annotate(project_count=Count("projects"))
     qs = qs.annotate(
         rank=_rank(
             (Q(name__iexact=query), 100),
@@ -218,3 +218,17 @@ def document_search_queryset(query):
     if not query:
         return SourceDocument.objects.all()
     return _document_queryset(query, suggest=False)
+
+
+def institution_search_queryset(query):
+    query = normalize_query(query)
+    if not query:
+        return Institution.objects.annotate(project_count=Count("projects")).order_by("name")
+    return _institution_queryset(query, suggest=False)
+
+
+def policy_search_queryset(query):
+    query = normalize_query(query)
+    if not query:
+        return Policy.objects.select_related("institution")
+    return _policy_queryset(query, suggest=False)

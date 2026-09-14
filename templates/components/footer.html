@@ -28,9 +28,12 @@
       <nav class="footer-col" aria-label="The platform">
         <h2>The platform</h2>
         <ul>
-          <li><a href="{% url 'core:what-hydra-means' %}">What the name means</a></li>
+          <li><a href="{% url 'core:what-hydra-means' %}">About Hydra</a></li>
           <li><a href="{% url 'core:how-it-works' %}">How it works</a></li>
+          <li><a href="{% url 'core:terms' %}">Terms of use</a></li>
           {% if user.is_authenticated %}
+            <li><a href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
             <li><a href="{% url 'investigations:list' %}">Investigations</a></li>
             <li><a href="{% url 'reports:list' %}">Reports</a></li>
             <li>
@@ -44,17 +47,6 @@
           {% endif %}
         </ul>
       </nav>
-
-      <div class="footer-col">
-        <h2>The letters</h2>
-        <ul class="footer-letters">
-          <li><span>H</span> Human-centered</li>
-          <li><span>Y</span> Yield</li>
-          <li><span>D</span> Data</li>
-          <li><span>R</span> Rights</li>
-          <li><span>A</span> Accountability</li>
-        </ul>
-      </div>
     </div>
 
     <div class="footer-bottom">

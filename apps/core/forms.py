@@ -35,6 +35,11 @@ class LoginForm(StyledFormMixin, AuthenticationForm):
 
 class RegisterForm(StyledFormMixin, UserCreationForm):
     display_name = forms.CharField(max_length=150, required=False, label="Display name")
+    agree_to_terms = forms.BooleanField(
+        required=True,
+        label="I agree to the terms of use",
+        error_messages={"required": "You must agree to the terms of use to create an account."},
+    )
 
     class Meta:
         model = User
@@ -47,6 +52,29 @@ class RegisterForm(StyledFormMixin, UserCreationForm):
         self.fields["password1"].widget.attrs["placeholder"] = "Password"
         self.fields["password2"].widget.attrs["placeholder"] = "Confirm password"
         self.fields["username"].help_text = "Letters, digits, and @/./+/-/_ only."
+        self._style_fields()
+
+
+class ProfileForm(StyledFormMixin, forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ("display_name", "email")
+        labels = {
+            "display_name": "Display name",
+            "email": "Email",
+        }
+        help_texts = {
+            "display_name": "Shown on your dashboard and avatar. Your username stays the same.",
+            "email": "Optional. Used only if we need to reach you about your account.",
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["display_name"].required = False
+        self.fields["email"].required = False
+        self.fields["display_name"].widget.attrs["placeholder"] = "How should we address you?"
+        self.fields["email"].widget.attrs["placeholder"] = "you@example.com"
+        self.fields["email"].widget.attrs["autocomplete"] = "email"
         self._style_fields()
 
 

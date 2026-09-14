@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Terms of use{% endblock %}
+{% block content %}
+<article class="prose">
+  <p class="kicker">Account</p>
+  <h1>Terms of use</h1>
+  <p class="lede">These terms apply when you create an account or submit an investigation on H.Y.D.R.A. The public record remains readable without an account.</p>
+
+  <h2>What this platform is</h2>
+  <p>H.Y.D.R.A. is an evidence-first civic record. Source documents and recorded claims are the source of truth. The platform does not determine guilt, corruption, or fraud. An observation is not a finding.</p>
+
+  <h2>Your account</h2>
+  <p>You are responsible for the username you choose and for keeping your password private. Do not impersonate a public institution or another person. Investigations and reports attached to your account stay with you unless you choose to submit them through the platform’s report flow.</p>
+
+  <h2>What you may submit</h2>
+  <p>Submit only information you observed or that comes from a public source. Do not upload other people’s private personal details, and do not present speculation as evidence. If a fact is not in a source, say that the information is unavailable.</p>
+
+  <h2>How records are treated</h2>
+  <p>Official information and citizen observations are kept distinct. Evidence coverage describes how much recorded information is supported by sources. It is not a trust, corruption, or fraud score. Labelled demo records are fictional and must not be treated as live public data.</p>
+
+  <h2>Acceptable use</h2>
+  <p>Do not use the platform to harass, defame, or mislead. Do not attempt to disrupt the service or access another person’s account. We may refuse or remove an account that breaks these terms so the public record stays usable.</p>
+
+  <p>
+    <a class="btn btn-primary" href="{% url 'accounts:register' %}">Create an account</a>
+    <a class="btn btn-secondary" href="{% url 'core:home' %}">Back to home</a>
+  </p>
+</article>
+{% endblock %}

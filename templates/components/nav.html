@@ -15,24 +15,48 @@
       <div id="header-search-results" class="search-results search-overlay" data-search-panel aria-live="polite"></div>
     </form>
     <nav class="nav nav-desktop" aria-label="Main">
-      <a href="{% url 'projects:list' %}">Projects</a>
-      <a href="{% url 'institutions:list' %}">Institutions</a>
-      <a href="{% url 'sources:list' %}">Documents</a>
-      <a href="{% url 'policies:list' %}">Policies</a>
-      <a href="{% url 'core:what-hydra-means' %}">The name</a>
+      <details class="nav-menu" data-nav-menu>
+        <summary>Explore</summary>
+        <div class="nav-flyout">
+          <a href="{% url 'projects:list' %}">Projects<span>Public works and budgets</span></a>
+          <a href="{% url 'institutions:list' %}">Institutions<span>Departments and agencies</span></a>
+          <a href="{% url 'sources:list' %}">Documents<span>Source files and evidence</span></a>
+          <a href="{% url 'policies:list' %}">Policies<span>Public rules and plans</span></a>
+          <a href="{% url 'core:search' %}">Search<span>Ranked civic search</span></a>
+        </div>
+      </details>
+      <a href="{% url 'core:what-hydra-means' %}">About Hydra</a>
       <a href="{% url 'core:how-it-works' %}">How it works</a>
       {% if user.is_authenticated %}
-        <a href="{% url 'investigations:list' %}">Investigations</a>
-        <a href="{% url 'reports:list' %}">Reports</a>
-        {% if user.is_staff %}<a href="{% url 'admin:index' %}">Admin</a>{% endif %}
-        <form class="nav-form" method="post" action="{% url 'accounts:logout' %}">
-          {% csrf_token %}
-          <button type="submit" class="nav-button">Log out</button>
-        </form>
+        <a class="nav-dashboard" href="{% url 'accounts:dashboard' %}">Dashboard</a>
       {% else %}
+        <a href="{% url 'accounts:register' %}">Create account</a>
         <a class="nav-login" href="{% url 'accounts:login' %}">Log in</a>
       {% endif %}
     </nav>
+    {% if user.is_authenticated %}
+      <details class="nav-account" data-nav-menu>
+        <summary aria-label="Account menu for {{ user.public_name }}">
+          {% include "components/avatar.html" with person=user extra_class="user-avatar-sm" %}
+          <span class="nav-account-name">{{ user.public_name }}</span>
+        </summary>
+        <div class="nav-flyout nav-flyout-account">
+          <p class="nav-account-head">
+            <strong>{{ user.public_name }}</strong>
+            <span>@{{ user.username }}</span>
+          </p>
+          <a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+          <a href="{% url 'accounts:profile' %}">Profile</a>
+          <a href="{% url 'investigations:list' %}">Investigations</a>
+          <a href="{% url 'reports:list' %}">Reports</a>
+          {% if user.is_staff %}<a href="{% url 'admin:index' %}">Admin</a>{% endif %}
+          <form class="nav-form" method="post" action="{% url 'accounts:logout' %}">
+            {% csrf_token %}
+            <button type="submit">Log out</button>
+          </form>
+        </div>
+      </details>
+    {% endif %}
     <details class="nav-mobile">
       <summary>Menu</summary>
       <nav aria-label="Mobile">
@@ -40,9 +64,12 @@
         <a href="{% url 'institutions:list' %}">Institutions</a>
         <a href="{% url 'sources:list' %}">Documents</a>
         <a href="{% url 'policies:list' %}">Policies</a>
-        <a href="{% url 'core:what-hydra-means' %}">The name</a>
+        <a href="{% url 'core:search' %}">Search</a>
+        <a href="{% url 'core:what-hydra-means' %}">About Hydra</a>
         <a href="{% url 'core:how-it-works' %}">How it works</a>
         {% if user.is_authenticated %}
+          <a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+          <a href="{% url 'accounts:profile' %}">Profile</a>
           <a href="{% url 'investigations:list' %}">Investigations</a>
           <a href="{% url 'reports:list' %}">Reports</a>
           {% if user.is_staff %}<a href="{% url 'admin:index' %}">Admin</a>{% endif %}
@@ -51,6 +78,7 @@
             <button type="submit" class="nav-button">Log out</button>
           </form>
         {% else %}
+          <a href="{% url 'accounts:register' %}">Create account</a>
           <a href="{% url 'accounts:login' %}">Log in</a>
         {% endif %}
       </nav>

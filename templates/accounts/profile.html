@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<article class="form-page auth-page">
+  <div class="form-shell auth-shell">
+    <div class="profile-mark">
+      {% include "components/avatar.html" with person=user extra_class="user-avatar-lg" %}
+    </div>
+    <p class="kicker">Account</p>
+    <h1>Profile</h1>
+    <p class="lede">Your username is <strong>@{{ user.username }}</strong>. Display name and email can be updated here.</p>
+    <form class="form-stack" method="post">
+      {% csrf_token %}
+      {% if form.non_field_errors %}<p class="error" role="alert">{{ form.non_field_errors|striptags }}</p>{% endif %}
+      {% include "components/form_field.html" with field=form.display_name %}
+      {% include "components/form_field.html" with field=form.email %}
+      <div class="form-actions">
+        <button class="btn btn-primary btn-large" type="submit">Save profile</button>
+        <a class="btn btn-secondary" href="{% url 'accounts:dashboard' %}">Back to dashboard</a>
+      </div>
+    </form>
+  </div>
+</article>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% with palette=person.avatar_palette %}
+<svg class="user-avatar{% if extra_class %} {{ extra_class }}{% endif %}" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <circle cx="32" cy="32" r="32" fill="{{ palette.bg }}"/>
+  <path d="M10 44c6-10 14-8 18-2" fill="none" stroke="{{ palette.accent }}" stroke-width="2.4" stroke-linecap="round" opacity="0.55"/>
+  <path d="M48 18c6 8 8 16 2 22" fill="none" stroke="{{ palette.accent }}" stroke-width="2.2" stroke-linecap="round" opacity="0.4"/>
+  <circle cx="32" cy="32" r="29" fill="none" stroke="{{ palette.accent }}" stroke-width="1.6" opacity="0.55"/>
+  <text x="32" y="38" text-anchor="middle" font-size="18" font-weight="700" font-family="Fraunces, Georgia, serif" fill="{{ palette.fg }}">{{ person.avatar_initials }}</text>
+</svg>
+{% endwith %}

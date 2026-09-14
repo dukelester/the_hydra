@@ -34,7 +34,7 @@ class PageTests(TestCase):
 
         meaning = self.client.get(reverse("core:what-hydra-means"))
         self.assertEqual(meaning.status_code, 200)
-        self.assertContains(meaning, "What H.Y.D.R.A. means")
+        self.assertContains(meaning, "About Hydra")
         self.assertNotContains(meaning, "Section on this page")
         self.assertContains(meaning, "Citizens are at the heart of the platform.")
 

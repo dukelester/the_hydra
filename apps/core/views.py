@@ -1,13 +1,15 @@
 from urllib.parse import urlencode
 
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.db.models import prefetch_related_objects
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from apps.core.services.coverage import calculate_evidence_coverage
 from apps.core.services.search import (
     document_search_queryset,
+    institution_search_queryset,
+    policy_search_queryset,
     project_search_queryset,
     search_civic_data,
 )
@@ -55,6 +57,10 @@ class WhatHydraMeansView(TemplateView):
     template_name = "home/what_hydra_means.html"
 
 
+class TermsView(TemplateView):
+    template_name = "home/terms.html"
+
+
 def search_suggest(request):
     results = search_civic_data(
         request.GET.get("q", ""),
@@ -72,6 +78,20 @@ def _nonempty_params(**values):
     return {key: value for key, value in values.items() if value}
 
 
+def _with_coverage(projects):
+    projects = list(projects)
+    prefetch_related_objects(
+        projects,
+        "evidence_items",
+        "allocations",
+        "source_documents",
+        "timeline_events",
+    )
+    for project in projects:
+        project.coverage = calculate_evidence_coverage(project)
+    return projects
+
+
 def search_view(request):
     query = request.GET.get("q", "")
     kind = request.GET.get("kind", "all") or "all"
@@ -83,29 +103,63 @@ def search_view(request):
 
     results = search_civic_data(
         query,
-        limit=8,
+        limit=6,
         suggest=False,
         kind=kind,
         county=county,
         status=status,
         category=category,
     )
+    if results["projects"]:
+        results["projects"] = _with_coverage(results["projects"])
+    if results["documents"] and query:
+        for document in results["documents"]:
+            document.search_snippet = document.snippet_for(results["query"])
+
     project_page = None
     document_page = None
-    if kind in {"all", "projects"} and query:
+    institution_page = None
+    policy_page = None
+    page_number = request.GET.get("page") or 1
+
+    if kind == "projects":
         paginator = Paginator(
-            project_search_queryset(query, county=county, status=status, category=category),
-            20,
+            project_search_queryset(query, county=county, status=status, category=category).prefetch_related(
+                "evidence_items"
+            ),
+            12,
         )
-        project_page = paginator.get_page(request.GET.get("page") or 1)
-        if kind == "projects":
-            results["projects"] = list(project_page.object_list)
-    if kind == "documents" and query:
-        paginator = Paginator(document_search_queryset(query), 20)
-        document_page = paginator.get_page(request.GET.get("page") or 1)
+        project_page = paginator.get_page(page_number)
+        results["projects"] = _with_coverage(project_page.object_list)
+        results["project_count"] = paginator.count
+        results["total"] = paginator.count
+    elif kind == "documents":
+        paginator = Paginator(document_search_queryset(query), 12)
+        document_page = paginator.get_page(page_number)
         results["documents"] = list(document_page.object_list)
         for document in results["documents"]:
             document.search_snippet = document.snippet_for(results["query"])
+        results["document_count"] = paginator.count
+        results["total"] = paginator.count
+    elif kind == "institutions":
+        paginator = Paginator(institution_search_queryset(query), 12)
+        institution_page = paginator.get_page(page_number)
+        results["institutions"] = list(institution_page.object_list)
+        results["institution_count"] = paginator.count
+        results["total"] = paginator.count
+    elif kind == "policies":
+        paginator = Paginator(policy_search_queryset(query), 12)
+        policy_page = paginator.get_page(page_number)
+        results["policies"] = list(policy_page.object_list)
+        results["policy_count"] = paginator.count
+        results["total"] = paginator.count
+    elif kind == "all" and not query:
+        results["project_count"] = project_search_queryset(
+            "", county=county, status=status, category=category
+        ).count()
+        results["institution_count"] = institution_search_queryset("").count()
+        results["policy_count"] = policy_search_queryset("").count()
+        results["document_count"] = document_search_queryset("").count()
 
     tab_params = _nonempty_params(q=query, county=county, status=status, category=category)
     page_params = dict(tab_params)
@@ -116,6 +170,8 @@ def search_view(request):
         {
             "project_page": project_page,
             "document_page": document_page,
+            "institution_page": institution_page,
+            "policy_page": policy_page,
             "counties": counties,
             "status_choices": ProjectStatus.choices,
             "category_choices": ProjectCategory.choices,
@@ -129,8 +185,3 @@ def search_view(request):
         else "home/search.html"
     )
     return render(request, template, results)
-
-
-@login_required
-def account_home(request):
-    return render(request, "accounts/home.html")
