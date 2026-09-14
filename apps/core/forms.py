@@ -26,7 +26,9 @@ class LoginForm(StyledFormMixin, AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["username"].widget.attrs["autocomplete"] = "username"
+        self.fields["username"].widget.attrs["placeholder"] = "Username"
         self.fields["password"].widget.attrs["autocomplete"] = "current-password"
+        self.fields["password"].widget.attrs["placeholder"] = "Password"
         self._style_fields()
 
 
@@ -39,6 +41,11 @@ class RegisterForm(StyledFormMixin, UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["username"].widget.attrs["placeholder"] = "Choose a username"
+        self.fields["display_name"].widget.attrs["placeholder"] = "Optional public name"
+        self.fields["password1"].widget.attrs["placeholder"] = "Password"
+        self.fields["password2"].widget.attrs["placeholder"] = "Confirm password"
+        self.fields["username"].help_text = "Letters, digits, and @/./+/-/_ only."
         self._style_fields()
 
 
@@ -64,10 +71,11 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
             "attachment": "Upload supporting evidence",
         }
         widgets = {
-            "observation": forms.Textarea(attrs={"rows": 4}),
-            "official_information": forms.Textarea(attrs={"rows": 3}),
-            "difference_description": forms.Textarea(attrs={"rows": 3}),
-            "evidence_description": forms.Textarea(attrs={"rows": 3}),
+            "observation": forms.Textarea(attrs={"rows": 5, "placeholder": "Describe what you saw, in plain language."}),
+            "location": forms.TextInput(attrs={"placeholder": "Place, ward, or site name"}),
+            "official_information": forms.Textarea(attrs={"rows": 4, "placeholder": "Quote or paraphrase the official claim you are comparing."}),
+            "difference_description": forms.Textarea(attrs={"rows": 4, "placeholder": "What does not match, and why it matters."}),
+            "evidence_description": forms.Textarea(attrs={"rows": 3, "placeholder": "What does the photo or file show?"}),
             "observed_at": forms.DateInput(attrs={"type": "date"}),
         }
         help_texts = {

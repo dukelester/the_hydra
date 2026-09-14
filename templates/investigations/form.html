@@ -2,21 +2,41 @@
 {% block title %}Investigate {{ project.name }}{% endblock %}
 {% block content %}
 <article class="form-page">
-  <p class="kicker">Citizen observation</p>
-  <h1>Investigate this project</h1>
-  <p class="lede">You are submitting a <strong>citizen observation</strong> about <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>. It will be stored separately from official information and will not be treated as a verified fact.</p>
-  <form method="post" enctype="multipart/form-data" novalidate>
-    {% csrf_token %}
-    {% for field in form %}
-      <div class="field">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
-        {% if field.help_text %}<p class="help">{{ field.help_text }}</p>{% endif %}
-        {% if field.errors %}<p class="error">{{ field.errors|striptags }}</p>{% endif %}
+  <div class="form-shell">
+    <p class="kicker">Citizen observation</p>
+    <h1>Investigate this project</h1>
+    <p class="lede">You are submitting a <strong>citizen observation</strong> about <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>. Official information and your observation are stored separately. This is not treated as a verified fact.</p>
+
+    <form class="form-stack" method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <fieldset>
+        <legend>What you saw</legend>
+        {% include "components/form_field.html" with field=form.observation %}
+        <div class="form-grid">
+          {% include "components/form_field.html" with field=form.location %}
+          {% include "components/form_field.html" with field=form.observed_at %}
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Compared with the official record</legend>
+        {% include "components/form_field.html" with field=form.official_information %}
+        {% include "components/form_field.html" with field=form.difference_description %}
+      </fieldset>
+
+      <fieldset>
+        <legend>Supporting evidence</legend>
+        {% include "components/form_field.html" with field=form.evidence_description %}
+        {% include "components/form_field.html" with field=form.attachment %}
+      </fieldset>
+
+      <div class="form-actions">
+        <button class="btn btn-primary btn-large" type="submit">Submit observation</button>
+        <p class="muted">You can submit without an account. Do not include unnecessary personal information.</p>
       </div>
-    {% endfor %}
-    <p class="muted">You may submit without creating an account. Do not include unnecessary personal information.</p>
-    <button class="btn btn-primary" type="submit">Submit observation</button>
-  </form>
+    </form>
+  </div>
 </article>
 {% endblock %}

@@ -37,19 +37,21 @@
     </ul>
   </section>
 
-  <section class="form-page">
+  <section class="form-shell review-shell">
     <h2>Review and save</h2>
-    <p class="muted">Edit if needed, then save. Reports are not published automatically.</p>
-    <form method="post">
+    <p class="lede">Edit if needed, then save. Reports are not published automatically.</p>
+    <form class="form-stack" method="post">
       {% csrf_token %}
-      {% for field in form %}
-        <div class="field">
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {{ field }}
-          {% if field.errors %}<p class="error">{{ field.errors|striptags }}</p>{% endif %}
-        </div>
-      {% endfor %}
-      <button class="btn btn-primary" type="submit">Save report</button>
+      {% include "components/form_field.html" with field=form.title %}
+      {% include "components/form_field.html" with field=form.official_information %}
+      {% include "components/form_field.html" with field=form.citizen_observation %}
+      {% include "components/form_field.html" with field=form.evidence_summary %}
+      {% include "components/form_field.html" with field=form.potential_discrepancy %}
+      {% include "components/form_field.html" with field=form.recommended_next_steps %}
+      {% include "components/form_field.html" with field=form.status %}
+      <div class="form-actions">
+        <button class="btn btn-primary btn-large" type="submit">Save report</button>
+      </div>
     </form>
   </section>
 </article>
