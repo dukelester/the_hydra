@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, ListView
 
 from apps.core.services.coverage import calculate_evidence_coverage
+from apps.core.services.search import project_search_queryset
 from apps.core.services.timeline import build_project_timeline
 from apps.projects.models import Institution, Project
 from apps.sources.models import Evidence
@@ -15,24 +16,24 @@ class ProjectListView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        qs = (
-            Project.objects.select_related("institution")
-            .prefetch_related("evidence_items")
-            .annotate(evidence_count=Count("evidence_items"))
-        )
         county = self.request.GET.get("county")
         status = self.request.GET.get("status")
         category = self.request.GET.get("category")
         q = self.request.GET.get("q")
-        if county:
-            qs = qs.filter(county__iexact=county)
-        if status:
-            qs = qs.filter(status=status)
-        if category:
-            qs = qs.filter(category=category)
         if q:
-            qs = qs.filter(name__icontains=q)
-        return qs.order_by("name")
+            qs = project_search_queryset(
+                q, county=county or "", status=status or "", category=category or ""
+            )
+        else:
+            qs = Project.objects.select_related("institution")
+            if county:
+                qs = qs.filter(county__iexact=county)
+            if status:
+                qs = qs.filter(status=status)
+            if category:
+                qs = qs.filter(category=category)
+            qs = qs.order_by("name")
+        return qs.prefetch_related("evidence_items").annotate(evidence_count=Count("evidence_items"))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

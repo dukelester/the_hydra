@@ -143,6 +143,10 @@ class Project(models.Model):
         indexes = [
             models.Index(fields=["county", "status"]),
             models.Index(fields=["name"]),
+            models.Index(fields=["category"]),
+            models.Index(fields=["ward"]),
+            models.Index(fields=["contractor"]),
+            models.Index(fields=["financial_year"]),
         ]
 
     def __str__(self):

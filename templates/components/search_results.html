@@ -1,6 +1,6 @@
 {% if query %}
   {% if total %}
-    <p class="search-meta">{{ total }} result{{ total|pluralize }} for “{{ query }}”</p>
+    <p class="search-meta">{{ total }} matching record{{ total|pluralize }} for “{{ query }}” — {{ project_count }} project{{ project_count|pluralize }}</p>
     {% if projects %}
       <section class="result-group">
         <h2>Projects</h2>

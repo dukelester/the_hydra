@@ -1,11 +1,12 @@
+from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from apps.core.services.coverage import calculate_evidence_coverage
-from apps.core.services.search import search_civic_data
+from apps.core.services.search import project_search_queryset, search_civic_data
 from apps.investigations.models import Investigation
-from apps.projects.models import Project
+from apps.projects.models import Project, ProjectCategory, ProjectStatus
 
 
 class HomeView(TemplateView):
@@ -48,9 +49,56 @@ class WhatHydraMeansView(TemplateView):
     template_name = "home/what_hydra_means.html"
 
 
+def search_suggest(request):
+    results = search_civic_data(
+        request.GET.get("q", ""),
+        limit=7,
+        suggest=True,
+        kind=request.GET.get("kind", "all"),
+        county=request.GET.get("county", ""),
+        status=request.GET.get("status", ""),
+        category=request.GET.get("category", ""),
+    )
+    return render(request, "components/search_suggest.html", results)
+
+
 def search_view(request):
     query = request.GET.get("q", "")
-    results = search_civic_data(query, limit=8)
+    kind = request.GET.get("kind", "all")
+    county = request.GET.get("county", "")
+    status = request.GET.get("status", "")
+    category = request.GET.get("category", "")
+    if request.headers.get("HX-Request") and request.GET.get("live"):
+        return search_suggest(request)
+
+    results = search_civic_data(
+        query,
+        limit=8,
+        suggest=False,
+        kind=kind,
+        county=county,
+        status=status,
+        category=category,
+    )
+    project_page = None
+    if kind in {"all", "projects"} and query:
+        paginator = Paginator(
+            project_search_queryset(query, county=county, status=status, category=category),
+            20,
+        )
+        project_page = paginator.get_page(request.GET.get("page") or 1)
+        if kind == "projects":
+            results["projects"] = list(project_page.object_list)
+
+    counties = Project.objects.order_by("county").values_list("county", flat=True).distinct()
+    results.update(
+        {
+            "project_page": project_page,
+            "counties": counties,
+            "status_choices": ProjectStatus.choices,
+            "category_choices": ProjectCategory.choices,
+        }
+    )
     template = (
         "components/search_results.html"
         if request.headers.get("HX-Request")
