@@ -48,6 +48,18 @@ class InvestigationTests(TestCase):
         data.update(overrides)
         return data
 
+    def test_investigate_page_shows_project_context(self):
+        url = reverse("projects:investigate", kwargs={"slug": self.project.slug})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Investigate this project")
+        self.assertContains(response, "Community Water Access Project")
+        self.assertContains(response, "What you saw")
+        self.assertContains(response, "Compare the record")
+        self.assertContains(response, "Supporting evidence")
+        self.assertContains(response, "Review evidence first")
+        self.assertContains(response, "Citizen observation")
+
     def test_anonymous_investigation_submission_with_file(self):
         url = reverse("projects:investigate", kwargs={"slug": self.project.slug})
         response = self.client.post(url, {**self._payload(), "attachment": png_file()}, follow=True)

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django import forms
 
@@ -63,23 +64,27 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
         )
         labels = {
             "observation": "What did you observe?",
-            "location": "Where did you observe it?",
-            "observed_at": "When did you observe it?",
-            "official_information": "What official information are you comparing against?",
-            "difference_description": "Describe the difference.",
-            "evidence_description": "Describe the supporting evidence (optional)",
-            "attachment": "Upload supporting evidence",
+            "location": "Where?",
+            "observed_at": "When?",
+            "official_information": "Official information on record",
+            "difference_description": "What is different?",
+            "evidence_description": "What does your evidence show? (optional)",
+            "attachment": "Upload a file (optional)",
         }
         widgets = {
-            "observation": forms.Textarea(attrs={"rows": 5, "placeholder": "Describe what you saw, in plain language."}),
+            "observation": forms.Textarea(attrs={"rows": 6, "placeholder": "Describe what you saw, in plain language."}),
             "location": forms.TextInput(attrs={"placeholder": "Place, ward, or site name"}),
             "official_information": forms.Textarea(attrs={"rows": 4, "placeholder": "Quote or paraphrase the official claim you are comparing."}),
             "difference_description": forms.Textarea(attrs={"rows": 4, "placeholder": "What does not match, and why it matters."}),
             "evidence_description": forms.Textarea(attrs={"rows": 3, "placeholder": "What does the photo or file show?"}),
             "observed_at": forms.DateInput(attrs={"type": "date"}),
+            "attachment": forms.ClearableFileInput(attrs={"accept": ".pdf,.docx,.xlsx,.csv,.png,.jpg,.jpeg,.webp"}),
         }
         help_texts = {
-            "attachment": "PDF or image, up to 10 MB. Optional.",
+            "attachment": "Optional. PDF, Word (.docx), Excel (.xlsx), CSV, or image, up to 100 MB. Large files are stored on disk.",
+            "observation": "Write what you saw or heard at the site. Do not include other people’s personal details.",
+            "official_information": "Quote or paraphrase the official claim. Leave it as recorded even if you disagree.",
+            "difference_description": "Say clearly what does not match. This is still an observation, not a finding of wrongdoing.",
         }
 
     def __init__(self, *args, **kwargs):
@@ -94,6 +99,11 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
                     else "."
                 )
             )
+        max_mb = settings.THEHYDRA_MAX_UPLOAD_BYTES // (1024 * 1024)
+        self.fields["attachment"].help_text = (
+            f"Optional. PDF, Word (.docx), Excel (.xlsx), CSV, or image, up to {max_mb} MB. "
+            "Large files are stored on disk."
+        )
         self._style_fields()
 
 

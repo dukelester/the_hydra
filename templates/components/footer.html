@@ -1,10 +1,65 @@
 {% load static %}
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="{% static 'img/mark.png' %}" alt="" width="48" height="48">
-      <p><strong>H.Y.D.R.A.</strong><br>Human-centered Yield, Data, Rights &amp; Accountability</p>
+    <div class="footer-top">
+      <div class="footer-brand-block">
+        <a class="footer-brand" href="{% url 'core:home' %}">
+          <img src="{% static 'img/mark.png' %}" alt="" width="56" height="56">
+          <span>
+            <strong>H.Y.D.R.A.</strong>
+            <span class="footer-tagline">Human-centered Yield, Data, Rights &amp; Accountability</span>
+          </span>
+        </a>
+        <p class="footer-lead">Follow the money. Find the evidence. Take action. An evidence-first civic platform for public projects, budgets, and citizen observations.</p>
+        <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a project</a>
+      </div>
+
+      <nav class="footer-col" aria-label="Explore">
+        <h2>Explore</h2>
+        <ul>
+          <li><a href="{% url 'projects:list' %}">Projects</a></li>
+          <li><a href="{% url 'institutions:list' %}">Institutions</a></li>
+          <li><a href="{% url 'sources:list' %}">Documents</a></li>
+          <li><a href="{% url 'policies:list' %}">Policies</a></li>
+          <li><a href="{% url 'core:search' %}">Search</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="The platform">
+        <h2>The platform</h2>
+        <ul>
+          <li><a href="{% url 'core:what-hydra-means' %}">What the name means</a></li>
+          <li><a href="{% url 'core:how-it-works' %}">How it works</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'investigations:list' %}">Investigations</a></li>
+            <li><a href="{% url 'reports:list' %}">Reports</a></li>
+            <li>
+              <form method="post" action="{% url 'accounts:logout' %}">
+                {% csrf_token %}
+                <button type="submit">Log out</button>
+              </form>
+            </li>
+          {% else %}
+            <li><a href="{% url 'accounts:login' %}">Log in</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+
+      <div class="footer-col">
+        <h2>The letters</h2>
+        <ul class="footer-letters">
+          <li><span>H</span> Human-centered</li>
+          <li><span>Y</span> Yield</li>
+          <li><span>D</span> Data</li>
+          <li><span>R</span> Rights</li>
+          <li><span>A</span> Accountability</li>
+        </ul>
+      </div>
     </div>
-    <p>An evidence-first civic platform. It does not determine guilt, corruption, or fraud. Source of truth: underlying evidence and source documents. AI is intentionally excluded from this MVP.</p>
+
+    <div class="footer-bottom">
+      <p>Evidence and source documents are the source of truth. H.Y.D.R.A. does not determine guilt, corruption, or fraud.</p>
+      <p class="footer-copy">© {% now "Y" %} H.Y.D.R.A.</p>
+    </div>
   </div>
 </footer>

@@ -57,7 +57,7 @@
               <a class="result-row" href="{{ document.get_absolute_url }}">
                 <span class="type-badge">Document</span>
                 <span class="suggest-title">{{ document.title }}</span>
-                <span class="suggest-meta">{{ document.publisher }}</span>
+                <span class="suggest-meta">{{ document.publisher }}{% if document.original_filename %} · {{ document.original_filename }}{% endif %}</span>
               </a>
             </li>
           {% endfor %}

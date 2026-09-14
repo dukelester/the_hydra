@@ -29,13 +29,13 @@ class PageTests(TestCase):
         self.assertContains(home, "Human-centered Yield, Data, Rights")
         self.assertContains(home, "Follow the money. Find the evidence. Take action.")
         self.assertContains(home, "Investigate a Project")
-        self.assertContains(home, "Home page · Section")
+        self.assertNotContains(home, "Home page · Hero section")
+        self.assertNotContains(home, "Home page · Section")
 
         meaning = self.client.get(reverse("core:what-hydra-means"))
         self.assertEqual(meaning.status_code, 200)
         self.assertContains(meaning, "What H.Y.D.R.A. means")
-        self.assertContains(meaning, "Page")
-        self.assertContains(meaning, "Section on this page")
+        self.assertNotContains(meaning, "Section on this page")
         self.assertContains(meaning, "Citizens are at the heart of the platform.")
 
         detail = self.client.get(self.project.get_absolute_url())

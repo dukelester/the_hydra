@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
@@ -15,6 +16,7 @@ from apps.projects.models import (
     TimelineEvent,
     TimelineStage,
 )
+from apps.sources.extraction import make_simple_docx, make_simple_pdf, make_simple_xlsx
 from apps.sources.models import (
     DocumentType,
     Evidence,
@@ -45,6 +47,7 @@ class Command(BaseCommand):
 
         institutions = self._institutions()
         documents = self._documents()
+        self._attach_demo_files(documents)
         self._projects(institutions, documents)
         self._policies(institutions, documents)
         self.stdout.write(self.style.SUCCESS("Demo data loaded. Records are labelled as demo / fictional."))
@@ -174,6 +177,43 @@ class Command(BaseCommand):
             obj, _ = SourceDocument.objects.update_or_create(title=spec["title"], defaults=spec)
             created[key] = obj
         return created
+
+    def _attach_demo_files(self, documents):
+        attachments = {
+            "kisumu-budget": (
+                "kisumu-water-budget.pdf",
+                make_simple_pdf(
+                    "Kisumu water annex. Community Water Access Project allocation 35000000 for boreholes and kiosks."
+                ),
+            ),
+            "water-tender": (
+                "community-water-tender.docx",
+                make_simple_docx(
+                    [
+                        "Tender notice",
+                        "Community Water Access Project",
+                        "Works include boreholes, kiosks, and pipeline repairs in Kisumu.",
+                    ]
+                ),
+            ),
+            "siaya-budget": (
+                "siaya-energy-estimates.xlsx",
+                make_simple_xlsx(
+                    [
+                        ["Item", "Amount"],
+                        ["Solar street lighting", 18000000],
+                        ["Maintenance", 1200000],
+                    ],
+                    "Energy",
+                ),
+            ),
+        }
+        for key, (filename, payload) in attachments.items():
+            document = documents[key]
+            if document.file:
+                continue
+            document.original_filename = filename
+            document.file.save(filename, ContentFile(payload), save=True)
 
     def _projects(self, institutions, documents):
         self._full_water_project(institutions, documents)

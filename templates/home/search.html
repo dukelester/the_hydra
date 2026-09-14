@@ -84,17 +84,23 @@
         <li>No projects match these filters.</li>
       {% endfor %}
     </ul>
-    {% if project_page.paginator.num_pages > 1 %}
-      <nav class="pagination" aria-label="Search pagination">
-        {% if project_page.has_previous %}
-          <a href="?{{ page_querystring }}&amp;page={{ project_page.previous_page_number }}">Previous</a>
-        {% endif %}
-        <span>Page {{ project_page.number }} of {{ project_page.paginator.num_pages }}</span>
-        {% if project_page.has_next %}
-          <a href="?{{ page_querystring }}&amp;page={{ project_page.next_page_number }}">Next</a>
-        {% endif %}
-      </nav>
-    {% endif %}
+    {% include "components/pagination.html" with page_obj=project_page %}
+  {% elif kind == "documents" and document_page %}
+    <ul class="result-list stacked">
+      {% for document in document_page %}
+        <li>
+          <a class="result-row" href="{{ document.get_absolute_url }}?q={{ query|urlencode }}">
+            <span class="type-badge">Document</span>
+            <span class="suggest-title">{{ document.title }}</span>
+            <span class="suggest-meta">{{ document.publisher }}{% if document.original_filename %} · {{ document.original_filename }}{% endif %}</span>
+            {% if document.search_snippet %}<span class="search-snippet">{{ document.search_snippet }}</span>{% endif %}
+          </a>
+        </li>
+      {% empty %}
+        <li>No documents match this search.</li>
+      {% endfor %}
+    </ul>
+    {% include "components/pagination.html" with page_obj=document_page %}
   {% elif kind == "all" and query %}
     <div id="search-results" class="search-results">
       {% include "components/search_results.html" %}

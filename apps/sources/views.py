@@ -56,6 +56,7 @@ class SourceDocumentDetailView(DetailView):
         document = self.object
         context["preview"] = build_preview(document)
         context["query"] = self.request.GET.get("q", "")
+        context["snippet"] = document.snippet_for(context["query"])
         return context
 
 

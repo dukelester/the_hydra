@@ -1,0 +1,21 @@
+<article class="card record-card">
+  <p class="eyebrow">{{ document.get_document_type_display }} · {{ document.get_verification_level_display }}</p>
+  <h2><a href="{{ document.get_absolute_url }}{% if query %}?q={{ query|urlencode }}{% endif %}">{{ document.title }}</a></h2>
+  <p class="muted">{{ document.publisher }}{% if document.publication_date %} · {{ document.publication_date|date:"Y" }}{% endif %}</p>
+  {% if document.original_filename %}
+    <p class="filename">{{ document.original_filename }}{% if document.file_size %} · {{ document.format_file_size }}{% endif %}</p>
+  {% endif %}
+  {% if document.search_snippet %}
+    <p class="search-snippet">{{ document.search_snippet }}</p>
+  {% endif %}
+  <dl class="mini-facts">
+    <div>
+      <dt>Preview</dt>
+      <dd>{{ document.preview_kind|title }}</dd>
+    </div>
+    <div>
+      <dt>Text search</dt>
+      <dd>{{ document.get_extraction_status_display }}</dd>
+    </div>
+  </dl>
+</article>

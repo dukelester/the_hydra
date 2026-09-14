@@ -1,18 +1,40 @@
 {% extends "base.html" %}
 {% block title %}Investigate {{ project.name }}{% endblock %}
 {% block content %}
-<article class="form-page">
-  <div class="form-shell">
+<article class="investigate-page">
+  <header class="investigate-hero">
     <p class="kicker">Citizen observation</p>
     <h1>Investigate this project</h1>
-    <p class="lede">You are submitting a <strong>citizen observation</strong> about <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>. Official information and your observation are stored separately. This is not treated as a verified fact.</p>
+    <p class="lede">Record what you saw, keep it next to the official record, and attach evidence if you have it. This is stored as a <strong>citizen observation</strong> — not a verified finding, and not an accusation.</p>
+    <ol class="investigate-steps" aria-label="How this form works">
+      <li>
+        <span class="step-index">1</span>
+        <span>What you saw</span>
+      </li>
+      <li>
+        <span class="step-index">2</span>
+        <span>Compare the record</span>
+      </li>
+      <li>
+        <span class="step-index">3</span>
+        <span>Attach evidence</span>
+      </li>
+    </ol>
+  </header>
 
-    <form class="form-stack" method="post" enctype="multipart/form-data" novalidate>
+  <div class="investigate-layout">
+    <form class="investigate-form form-stack" method="post" enctype="multipart/form-data" novalidate>
       {% csrf_token %}
-      {{ form.non_field_errors }}
+      {% if form.non_field_errors %}
+        <div class="error" role="alert">{{ form.non_field_errors }}</div>
+      {% endif %}
 
-      <fieldset>
-        <legend>What you saw</legend>
+      <fieldset class="investigate-step">
+        <legend>
+          <span class="step-index">1</span>
+          What you saw
+        </legend>
+        <p class="fieldset-lead">Describe the site or service in your own words. Date and place help others follow up.</p>
         {% include "components/form_field.html" with field=form.observation %}
         <div class="form-grid">
           {% include "components/form_field.html" with field=form.location %}
@@ -20,23 +42,78 @@
         </div>
       </fieldset>
 
-      <fieldset>
-        <legend>Compared with the official record</legend>
-        {% include "components/form_field.html" with field=form.official_information %}
-        {% include "components/form_field.html" with field=form.difference_description %}
+      <fieldset class="investigate-step">
+        <legend>
+          <span class="step-index">2</span>
+          Compare the record
+        </legend>
+        <p class="fieldset-lead">Official information and your observation are stored in separate columns. Do not mix them.</p>
+        <div class="compare-fields">
+          <div class="compare-col official">
+            {% include "components/form_field.html" with field=form.official_information %}
+          </div>
+          <div class="compare-col citizen">
+            {% include "components/form_field.html" with field=form.difference_description %}
+          </div>
+        </div>
       </fieldset>
 
-      <fieldset>
-        <legend>Supporting evidence</legend>
+      <fieldset class="investigate-step">
+        <legend>
+          <span class="step-index">3</span>
+          Supporting evidence
+        </legend>
+        <p class="fieldset-lead">A photo, PDF, Word file, or spreadsheet helps. You can still submit without a file.</p>
         {% include "components/form_field.html" with field=form.evidence_description %}
         {% include "components/form_field.html" with field=form.attachment %}
       </fieldset>
 
-      <div class="form-actions">
+      <div class="investigate-submit">
         <button class="btn btn-primary btn-large" type="submit">Submit observation</button>
-        <p class="muted">You can submit without an account. Do not include unnecessary personal information.</p>
+        <p class="muted">You can submit without an account. Do not include unnecessary personal information. Observations stay unverified until independently reviewed.</p>
       </div>
     </form>
+
+    <aside class="investigate-aside" aria-label="Project on record">
+      <section class="card record-card">
+        <p class="eyebrow">{{ project.county }} · {{ project.get_category_display }}</p>
+        <h2><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></h2>
+        <p class="muted">{{ project.institution.name }}</p>
+        <dl class="mini-facts">
+          <div>
+            <dt>Status on record</dt>
+            <dd>{{ project.get_status_display }}</dd>
+          </div>
+          <div>
+            <dt>Budget</dt>
+            <dd>{{ project.format_amount }}</dd>
+          </div>
+          <div>
+            <dt>Location</dt>
+            <dd>{{ project.location }}</dd>
+          </div>
+          <div>
+            <dt>Financial year</dt>
+            <dd>{{ project.financial_year|default:"Unavailable" }}</dd>
+          </div>
+        </dl>
+        <p class="aside-link"><a class="text-link" href="{{ project.get_absolute_url }}">Review evidence first</a></p>
+      </section>
+
+      <section class="card aside-note">
+        <h3>How H.Y.D.R.A. treats this</h3>
+        <ul class="aside-list">
+          <li>Your words are labelled as a citizen observation.</li>
+          <li>Official claims stay in their own field.</li>
+          <li>Nothing here is a finding of corruption or fraud.</li>
+        </ul>
+      </section>
+
+      <section class="card aside-note">
+        <h3>What you can attach</h3>
+        <p class="muted">PDF, Word, Excel, CSV, or image — up to {{ max_upload_mb }} MB. Large files are streamed and do not need to load into memory.</p>
+      </section>
+    </aside>
   </div>
 </article>
 {% endblock %}

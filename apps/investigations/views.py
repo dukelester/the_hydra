@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -49,7 +50,11 @@ def investigate_project(request, slug):
     return render(
         request,
         "investigations/form.html",
-        {"form": form, "project": project},
+        {
+            "form": form,
+            "project": project,
+            "max_upload_mb": settings.THEHYDRA_MAX_UPLOAD_BYTES // (1024 * 1024),
+        },
     )
 
 

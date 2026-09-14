@@ -1,23 +1,90 @@
 {% extends "base.html" %}
 {% block title %}{{ document.title }}{% endblock %}
 {% block content %}
-<article class="prose">
+<article class="prose document-page">
   {% if document.is_demo %}<p class="kicker">Demo source</p>{% endif %}
+  <p class="kicker">{{ document.get_document_type_display }}</p>
   <h1>{{ document.title }}</h1>
   <ul class="meta-list">
     <li>Publisher: {{ document.publisher }}</li>
-    <li>Type: {{ document.get_document_type_display }}</li>
     <li>Verification: {{ document.get_verification_level_display }}</li>
     <li>Publication date: {{ document.publication_date|date:"j F Y"|default:"Information unavailable" }}</li>
+    {% if document.original_filename %}
+      <li>File: {{ document.original_filename }}{% if document.file_size %} · {{ document.format_file_size }}{% endif %}</li>
+    {% endif %}
+    <li>Full-text search: {{ document.get_extraction_status_display }}</li>
   </ul>
   {% if document.description %}<p>{{ document.description }}</p>{% endif %}
   {% if document.source_url %}
     <p><a href="{{ document.source_url }}">Open publisher source</a></p>
   {% endif %}
+
   {% if document.file %}
-    <p><a href="{{ document.file.url }}">Download file</a></p>
+    <div class="preview-actions">
+      <a class="btn btn-primary" href="{% url 'sources:download' document.pk %}">Download original</a>
+      {% if preview.kind == "pdf" %}
+        <a class="btn btn-secondary" href="{% url 'sources:file' document.pk %}" target="_blank" rel="noopener">Open PDF</a>
+      {% endif %}
+    </div>
+    {% if preview.large %}
+      <p class="notice">This is a large file. The preview streams in chunks and shows the start of the document. Download the original to read everything.</p>
+    {% endif %}
+
+    {% if preview.kind == "pdf" %}
+      <div class="preview-frame">
+        <iframe title="PDF preview of {{ document.title }}" src="{% url 'sources:file' document.pk %}#view=FitH" loading="lazy"></iframe>
+      </div>
+    {% elif preview.kind == "docx" %}
+      <section class="doc-preview" aria-label="Word preview">
+        <h2>Preview</h2>
+        {% for paragraph in preview.paragraphs %}
+          <p>{{ paragraph }}</p>
+        {% empty %}
+          <p class="muted">No preview text could be read from this Word file.</p>
+        {% endfor %}
+      </section>
+    {% elif preview.kind == "spreadsheet" %}
+      <section class="sheet-preview" aria-label="Spreadsheet preview">
+        <h2>Preview</h2>
+        {% for sheet in preview.sheets %}
+          <h3>{{ sheet.name }}</h3>
+          <div class="table-scroll">
+            <table>
+              <tbody>
+                {% for row in sheet.rows %}
+                  <tr>
+                    {% for cell in row %}
+                      <td>{{ cell }}</td>
+                    {% endfor %}
+                  </tr>
+                {% empty %}
+                  <tr><td>Empty sheet</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% empty %}
+          <p class="muted">No spreadsheet rows could be read.</p>
+        {% endfor %}
+      </section>
+    {% elif preview.kind == "image" %}
+      <img class="doc-image" src="{% url 'sources:file' document.pk %}" alt="{{ document.title }}">
+    {% elif preview.kind == "missing" %}
+      <p class="muted">The file is recorded but missing from storage.</p>
+    {% endif %}
   {% else %}
     <p class="muted">No file is attached. TheHydra does not fabricate documents.</p>
+  {% endif %}
+
+  {% if document.extracted_text %}
+    <section class="extracted-text">
+      <h2>Searchable text</h2>
+      <p class="muted">Extracted for search from the file. Large documents are truncated after the first extractable pages.</p>
+      {% if snippet %}
+        <p class="search-snippet">Match: {{ snippet }}</p>
+      {% endif %}
+      <pre class="evidence-pre">{{ document.extracted_text|truncatechars:2500 }}</pre>
+    </section>
   {% endif %}
 </article>
 {% endblock %}

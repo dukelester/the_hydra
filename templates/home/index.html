@@ -5,7 +5,6 @@
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-copy-col">
-      <p class="place-label">Home page · Hero section</p>
       <p class="kicker">Evidence-first civic accountability</p>
       <h1>H.Y.D.R.A.</h1>
       <p class="tagline">Human-centered Yield, Data, Rights &amp; Accountability</p>
@@ -16,7 +15,7 @@
       </div>
     </div>
     <div class="hero-emblem-col">
-      <img class="hero-mark" src="{% static 'img/mark.png' %}" alt="H.Y.D.R.A. emblem: hydra tentacles around a map of Africa" width="280" height="280">
+      {% include "components/hydra_seal.html" with seal_id="home" extra_class="hero-mark is-animated" %}
     </div>
   </div>
 </section>
@@ -28,7 +27,7 @@
     <form class="search-form search-live" method="get" action="{% url 'core:search' %}" role="search" data-search-root>
       <label class="sr-only" for="q">Search projects, institutions, policies, and documents</label>
       <div class="search-bar">
-        <input id="q" name="q" type="search" placeholder="Project, county, contractor, institution…" autocomplete="off" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" hx-get="{% url 'core:search-suggest' %}" hx-trigger="keyup changed delay:180ms, search" hx-target="#search-results" hx-swap="innerHTML" hx-sync="closest form:abort" hx-indicator="#home-search-indicator">
+        <input id="q" name="q" type="search" placeholder="Projects, documents, counties, filenames…" autocomplete="off" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" hx-get="{% url 'core:search-suggest' %}" hx-trigger="keyup changed delay:180ms, search" hx-target="#search-results" hx-swap="innerHTML" hx-sync="closest form:abort" hx-indicator="#home-search-indicator">
         <button type="submit" class="btn btn-primary">Search</button>
       </div>
       <p id="home-search-indicator" class="search-indicator htmx-indicator" aria-live="polite">Searching…</p>
@@ -40,7 +39,6 @@
 </section>
 
 <section id="hydra-meaning" class="section hydra-meaning" aria-labelledby="hydra-heading">
-  <p class="place-label">Home page · Section</p>
   <div class="section-head">
     <div>
       <h2 id="hydra-heading">What H.Y.D.R.A. means</h2>
@@ -131,7 +129,7 @@
       <span class="step-num">3</span>
       <div>
         <h3>Investigate and report</h3>
-        <p>Submit an observation and generate a structured report. No AI required.</p>
+        <p>Submit an observation and generate a structured report.</p>
       </div>
     </li>
   </ol>

@@ -45,6 +45,20 @@
           {% endfor %}
         </ul>
       {% endif %}
+      {% if documents %}
+        <p class="suggest-kicker">Documents</p>
+        <ul class="suggest-list">
+          {% for document in documents %}
+            <li>
+              <a class="suggest-item" href="{{ document.get_absolute_url }}" role="option">
+                <span class="type-badge">Document</span>
+                <span class="suggest-title">{{ document.title }}</span>
+                <span class="suggest-meta">{{ document.publisher }}{% if document.original_filename %} · {{ document.original_filename }}{% endif %}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
       <a class="suggest-all" href="{% url 'core:search' %}?q={{ query|urlencode }}">View full results for “{{ query }}”</a>
     </div>
   {% else %}
