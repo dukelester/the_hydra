@@ -25,32 +25,27 @@ class SafeUploadTo:
 
 
 def validate_upload(file):
-    """Reject oversized or disallowed uploads. Does not inspect file contents as a sandbox."""
-    max_bytes = getattr(settings, "THEHYDRA_MAX_UPLOAD_BYTES", 10 * 1024 * 1024)
-    allowed_ext = getattr(
-        settings,
-        "THEHYDRA_ALLOWED_UPLOAD_EXTENSIONS",
-        {".pdf", ".jpg", ".jpeg", ".png", ".webp"},
-    )
+    """Reject oversized or disallowed uploads. Large files are stored on disk, not in memory."""
+    max_bytes = getattr(settings, "THEHYDRA_MAX_UPLOAD_BYTES", 100 * 1024 * 1024)
+    allowed_ext = getattr(settings, "THEHYDRA_ALLOWED_UPLOAD_EXTENSIONS", default_allowed_extensions())
     allowed_types = getattr(
         settings,
         "THEHYDRA_ALLOWED_UPLOAD_CONTENT_TYPES",
-        {
-            "application/pdf",
-            "image/jpeg",
-            "image/png",
-            "image/webp",
-        },
+        default_allowed_content_types(),
     )
 
     size = getattr(file, "size", 0) or 0
     if size > max_bytes:
-        raise ValidationError(f"File is too large. Maximum size is {max_bytes // (1024 * 1024)} MB.")
+        raise ValidationError(
+            f"File is too large. Maximum size is {max_bytes // (1024 * 1024)} MB."
+        )
 
     name = getattr(file, "name", "") or ""
     ext = Path(name).suffix.lower()
     if ext not in allowed_ext:
-        raise ValidationError("This file type is not allowed. Upload a PDF or image (JPG, PNG, WebP).")
+        raise ValidationError(
+            "This file type is not allowed. Upload a PDF, Word (.docx), Excel (.xlsx), CSV, or image."
+        )
 
     content_type = (getattr(file, "content_type", "") or "").lower()
     if content_type and content_type not in allowed_types and content_type != "application/octet-stream":
@@ -58,6 +53,34 @@ def validate_upload(file):
 
     if ext in {".jpg", ".jpeg", ".png", ".webp"}:
         _validate_image(file)
+
+
+def default_allowed_extensions():
+    return {
+        ".pdf",
+        ".docx",
+        ".xlsx",
+        ".csv",
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".webp",
+        ".txt",
+    }
+
+
+def default_allowed_content_types():
+    return {
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-excel",
+        "text/csv",
+        "text/plain",
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+    }
 
 
 def _validate_image(file):

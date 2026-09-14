@@ -21,7 +21,7 @@ class PolicyStatus(models.TextChoices):
 
 
 class Policy(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, db_index=True)
     slug = models.SlugField(max_length=280, unique=True)
     description = models.TextField()
     institution = models.ForeignKey(

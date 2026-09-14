@@ -2,21 +2,18 @@
 {% block title %}Policies{% endblock %}
 {% block content %}
 <section class="page-head">
+  <p class="kicker">Public record</p>
   <h1>Policies</h1>
-  <p>Browse recorded policies and the documents they cite.</p>
+  <p class="lede">Browse recorded policies and the documents they cite. Status and dates are only as reliable as the attached evidence.</p>
 </section>
 <section class="section tight">
-<ul class="card-grid">
-  {% for policy in policies %}
-    <li class="card">
-      <p class="eyebrow">{{ policy.get_policy_type_display }} · {{ policy.get_status_display }}</p>
-      <h2><a href="{{ policy.get_absolute_url }}">{{ policy.title }}</a></h2>
-      <p class="muted">{% if policy.institution %}{{ policy.institution.name }}{% endif %} {% if policy.publication_date %}· {{ policy.publication_date|date:"Y" }}{% endif %}</p>
-    </li>
-  {% empty %}
-    <li>No policies yet.</li>
-  {% endfor %}
-</ul>
+  <div class="card-grid">
+    {% for policy in policies %}
+      {% include "components/policy_card.html" %}
+    {% empty %}
+      <p>No policies yet.</p>
+    {% endfor %}
+  </div>
 </section>
 {% include "components/pagination.html" %}
 {% endblock %}

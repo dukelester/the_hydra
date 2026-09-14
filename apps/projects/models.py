@@ -63,7 +63,7 @@ TIMELINE_STAGE_ORDER = [
 
 
 class Institution(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, db_index=True)
     slug = models.SlugField(max_length=280, unique=True)
     description = models.TextField(blank=True)
     institution_type = models.CharField(

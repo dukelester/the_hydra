@@ -85,7 +85,7 @@ class InstitutionListView(ListView):
     model = Institution
     template_name = "institutions/list.html"
     context_object_name = "institutions"
-    paginate_by = 20
+    paginate_by = 9
 
     def get_queryset(self):
         return Institution.objects.annotate(project_count=Count("projects")).order_by("name")

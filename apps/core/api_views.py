@@ -10,11 +10,30 @@ class SearchAPIView(APIView):
 
     def get(self, request):
         query = request.query_params.get("q", "")
-        results = search_civic_data(query, limit=10)
+        try:
+            limit = min(max(int(request.query_params.get("limit") or 10), 1), 25)
+        except (TypeError, ValueError):
+            limit = 10
+        suggest = request.query_params.get("suggest", "").lower() in {"1", "true", "yes"}
+        results = search_civic_data(
+            query,
+            limit=limit,
+            kind=request.query_params.get("kind", "all"),
+            county=request.query_params.get("county", ""),
+            status=request.query_params.get("status", ""),
+            category=request.query_params.get("category", ""),
+            suggest=suggest,
+        )
         return Response(
             {
                 "query": results["query"],
+                "kind": results["kind"],
+                "too_short": results["too_short"],
                 "total": results["total"],
+                "project_count": results["project_count"],
+                "institution_count": results["institution_count"],
+                "policy_count": results["policy_count"],
+                "document_count": results["document_count"],
                 "projects": [
                     {
                         "id": p.id,

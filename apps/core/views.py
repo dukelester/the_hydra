@@ -1,10 +1,16 @@
-from django.core.paginator import Paginator
+from urllib.parse import urlencode
+
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from apps.core.services.coverage import calculate_evidence_coverage
-from apps.core.services.search import project_search_queryset, search_civic_data
+from apps.core.services.search import (
+    document_search_queryset,
+    project_search_queryset,
+    search_civic_data,
+)
 from apps.investigations.models import Investigation
 from apps.projects.models import Project, ProjectCategory, ProjectStatus
 
@@ -62,9 +68,13 @@ def search_suggest(request):
     return render(request, "components/search_suggest.html", results)
 
 
+def _nonempty_params(**values):
+    return {key: value for key, value in values.items() if value}
+
+
 def search_view(request):
     query = request.GET.get("q", "")
-    kind = request.GET.get("kind", "all")
+    kind = request.GET.get("kind", "all") or "all"
     county = request.GET.get("county", "")
     status = request.GET.get("status", "")
     category = request.GET.get("category", "")
@@ -81,6 +91,7 @@ def search_view(request):
         category=category,
     )
     project_page = None
+    document_page = None
     if kind in {"all", "projects"} and query:
         paginator = Paginator(
             project_search_queryset(query, county=county, status=status, category=category),
@@ -89,14 +100,27 @@ def search_view(request):
         project_page = paginator.get_page(request.GET.get("page") or 1)
         if kind == "projects":
             results["projects"] = list(project_page.object_list)
+    if kind == "documents" and query:
+        paginator = Paginator(document_search_queryset(query), 20)
+        document_page = paginator.get_page(request.GET.get("page") or 1)
+        results["documents"] = list(document_page.object_list)
+        for document in results["documents"]:
+            document.search_snippet = document.snippet_for(results["query"])
 
+    tab_params = _nonempty_params(q=query, county=county, status=status, category=category)
+    page_params = dict(tab_params)
+    if kind and kind != "all":
+        page_params["kind"] = kind
     counties = Project.objects.order_by("county").values_list("county", flat=True).distinct()
     results.update(
         {
             "project_page": project_page,
+            "document_page": document_page,
             "counties": counties,
             "status_choices": ProjectStatus.choices,
             "category_choices": ProjectCategory.choices,
+            "tab_querystring": urlencode(tab_params),
+            "page_querystring": urlencode(page_params),
         }
     )
     template = (

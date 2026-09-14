@@ -4,9 +4,15 @@
     {% if projects %}
       <section class="result-group">
         <h2>Projects</h2>
-        <ul class="result-list">
+        <ul class="result-list stacked">
           {% for project in projects %}
-            <li><a href="{{ project.get_absolute_url }}">{{ project.name }}</a> <span class="muted">{{ project.county }} · {{ project.get_status_display }}</span></li>
+            <li>
+              <a class="result-row" href="{{ project.get_absolute_url }}">
+                <span class="type-badge">Project</span>
+                <span class="suggest-title">{{ project.name }}</span>
+                <span class="suggest-meta">{{ project.county }} · {{ project.get_status_display }} · {{ project.institution.name }}</span>
+              </a>
+            </li>
           {% endfor %}
         </ul>
       </section>
@@ -14,9 +20,15 @@
     {% if institutions %}
       <section class="result-group">
         <h2>Institutions</h2>
-        <ul class="result-list">
+        <ul class="result-list stacked">
           {% for institution in institutions %}
-            <li><a href="{{ institution.get_absolute_url }}">{{ institution.name }}</a> <span class="muted">{{ institution.location }}</span></li>
+            <li>
+              <a class="result-row" href="{{ institution.get_absolute_url }}">
+                <span class="type-badge">Institution</span>
+                <span class="suggest-title">{{ institution.name }}</span>
+                <span class="suggest-meta">{{ institution.location }}</span>
+              </a>
+            </li>
           {% endfor %}
         </ul>
       </section>
@@ -24,9 +36,14 @@
     {% if policies %}
       <section class="result-group">
         <h2>Policies</h2>
-        <ul class="result-list">
+        <ul class="result-list stacked">
           {% for policy in policies %}
-            <li><a href="{{ policy.get_absolute_url }}">{{ policy.title }}</a></li>
+            <li>
+              <a class="result-row" href="{{ policy.get_absolute_url }}">
+                <span class="type-badge">Policy</span>
+                <span class="suggest-title">{{ policy.title }}</span>
+              </a>
+            </li>
           {% endfor %}
         </ul>
       </section>
@@ -34,9 +51,15 @@
     {% if documents %}
       <section class="result-group">
         <h2>Source documents</h2>
-        <ul class="result-list">
+        <ul class="result-list stacked">
           {% for document in documents %}
-            <li><a href="{{ document.get_absolute_url }}">{{ document.title }}</a> <span class="muted">{{ document.publisher }}</span></li>
+            <li>
+              <a class="result-row" href="{{ document.get_absolute_url }}">
+                <span class="type-badge">Document</span>
+                <span class="suggest-title">{{ document.title }}</span>
+                <span class="suggest-meta">{{ document.publisher }}</span>
+              </a>
+            </li>
           {% endfor %}
         </ul>
       </section>

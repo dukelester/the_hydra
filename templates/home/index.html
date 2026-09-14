@@ -24,16 +24,18 @@
 <section id="explore" class="search-panel">
   <div class="search-card">
     <h2>What can I investigate?</h2>
-    <form class="search-form" method="get" action="{% url 'core:search' %}" role="search">
+    <p class="search-hint">Results appear as you type. Ranked matches use project name, county, contractor, and institution — built to stay fast across thousands of records.</p>
+    <form class="search-form search-live" method="get" action="{% url 'core:search' %}" role="search" data-search-root>
       <label class="sr-only" for="q">Search projects, institutions, policies, and documents</label>
       <div class="search-bar">
-        <input id="q" name="q" type="search" placeholder="Search projects, institutions, policies…" autocomplete="off" hx-get="{% url 'core:search' %}" hx-trigger="keyup changed delay:300ms, search" hx-target="#search-results" hx-swap="innerHTML">
+        <input id="q" name="q" type="search" placeholder="Project, county, contractor, institution…" autocomplete="off" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" hx-get="{% url 'core:search-suggest' %}" hx-trigger="keyup changed delay:180ms, search" hx-target="#search-results" hx-swap="innerHTML" hx-sync="closest form:abort" hx-indicator="#home-search-indicator">
         <button type="submit" class="btn btn-primary">Search</button>
       </div>
+      <p id="home-search-indicator" class="search-indicator htmx-indicator" aria-live="polite">Searching…</p>
+      <div id="search-results" class="search-results" data-search-panel aria-live="polite">
+        <p class="muted">Try a project name, county, or institution. Two characters is enough to start.</p>
+      </div>
     </form>
-    <div id="search-results" class="search-results" aria-live="polite">
-      <p class="muted">Try “Community Water Access” or “Kisumu”.</p>
-    </div>
   </div>
 </section>
 

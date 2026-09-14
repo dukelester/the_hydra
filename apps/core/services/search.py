@@ -59,11 +59,13 @@ def search_civic_data(
     include_institutions = kind in {"all", "institutions"}
     include_policies = kind in {"all", "policies"}
     include_documents = kind in {"all", "documents"}
+    if suggest and kind == "all":
+        include_documents = True
 
     project_qs = _project_queryset(query, county, status, category, suggest) if include_projects else Project.objects.none()
-    institution_qs = _institution_queryset(query) if include_institutions else Institution.objects.none()
-    policy_qs = _policy_queryset(query) if include_policies else Policy.objects.none()
-    document_qs = _document_queryset(query) if include_documents else SourceDocument.objects.none()
+    institution_qs = _institution_queryset(query, suggest) if include_institutions else Institution.objects.none()
+    policy_qs = _policy_queryset(query, suggest) if include_policies else Policy.objects.none()
+    document_qs = _document_queryset(query, suggest) if include_documents else SourceDocument.objects.none()
 
     project_count = project_qs.count() if include_projects else 0
     institution_count = institution_qs.count() if include_institutions else 0
@@ -129,14 +131,17 @@ def _project_queryset(query, county, status, category, suggest):
             (Q(county__icontains=query) | Q(location__icontains=query), 25),
         )
     ).order_by("-rank", "name")
+    if suggest:
+        qs = qs.defer("description")
     return qs
 
 
-def _institution_queryset(query):
-    qs = Institution.objects.filter(
-        Q(name__icontains=query) | Q(location__icontains=query) | Q(description__icontains=query)
-    )
-    return qs.annotate(
+def _institution_queryset(query, suggest=False):
+    match = Q(name__icontains=query) | Q(location__icontains=query)
+    if not suggest:
+        match |= Q(description__icontains=query)
+    qs = Institution.objects.filter(match)
+    qs = qs.annotate(
         rank=_rank(
             (Q(name__iexact=query), 100),
             (Q(name__istartswith=query), 85),
@@ -144,35 +149,52 @@ def _institution_queryset(query):
             (Q(location__icontains=query), 30),
         )
     ).order_by("-rank", "name")
+    if suggest:
+        qs = qs.defer("description")
+    return qs
 
 
-def _policy_queryset(query):
-    qs = Policy.objects.select_related("institution").filter(
+def _policy_queryset(query, suggest=False):
+    match = Q(title__icontains=query) | Q(institution__name__icontains=query)
+    if not suggest:
+        match |= Q(description__icontains=query)
+    qs = Policy.objects.select_related("institution").filter(match)
+    qs = qs.annotate(
+        rank=_rank(
+            (Q(title__iexact=query), 100),
+            (Q(title__istartswith=query), 85),
+            (Q(title__icontains=query), 50),
+        )
+    ).order_by("-rank", "title")
+    if suggest:
+        qs = qs.defer("description")
+    return qs
+
+
+def _document_queryset(query, suggest=False):
+    match = (
         Q(title__icontains=query)
-        | Q(description__icontains=query)
-        | Q(institution__name__icontains=query)
+        | Q(publisher__icontains=query)
+        | Q(original_filename__icontains=query)
     )
-    return qs.annotate(
+    if not suggest:
+        match |= Q(description__icontains=query) | Q(extracted_text__icontains=query)
+    qs = SourceDocument.objects.filter(match)
+    qs = qs.annotate(
         rank=_rank(
             (Q(title__iexact=query), 100),
+            (Q(original_filename__iexact=query), 95),
             (Q(title__istartswith=query), 85),
+            (Q(original_filename__istartswith=query), 80),
             (Q(title__icontains=query), 50),
-        )
-    ).order_by("-rank", "title")
-
-
-def _document_queryset(query):
-    qs = SourceDocument.objects.filter(
-        Q(title__icontains=query) | Q(publisher__icontains=query) | Q(description__icontains=query)
-    )
-    return qs.annotate(
-        rank=_rank(
-            (Q(title__iexact=query), 100),
-            (Q(title__istartswith=query), 85),
-            (Q(title__icontains=query), 50),
+            (Q(original_filename__icontains=query), 45),
             (Q(publisher__icontains=query), 30),
+            (Q(extracted_text__icontains=query), 18),
         )
     ).order_by("-rank", "title")
+    if suggest:
+        qs = qs.defer("description", "extracted_text")
+    return qs
 
 
 def project_search_queryset(query, county="", status="", category=""):
@@ -188,3 +210,11 @@ def project_search_queryset(query, county="", status="", category=""):
             qs = qs.filter(category=category)
         return qs.order_by("name")
     return _project_queryset(query, county, status, category, suggest=False)
+
+
+def document_search_queryset(query):
+    """Documents by name, filename, or extracted full text."""
+    query = normalize_query(query)
+    if not query:
+        return SourceDocument.objects.all()
+    return _document_queryset(query, suggest=False)

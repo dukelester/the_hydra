@@ -10,6 +10,7 @@
           {% for project in projects %}
             <li>
               <a class="suggest-item" href="{{ project.get_absolute_url }}" role="option">
+                <span class="type-badge">Project</span>
                 <span class="suggest-title">{{ project.name }}</span>
                 <span class="suggest-meta">{{ project.county }} · {{ project.get_status_display }} · {{ project.institution.name }}</span>
               </a>
@@ -23,6 +24,7 @@
           {% for institution in institutions %}
             <li>
               <a class="suggest-item" href="{{ institution.get_absolute_url }}" role="option">
+                <span class="type-badge">Institution</span>
                 <span class="suggest-title">{{ institution.name }}</span>
                 <span class="suggest-meta">{{ institution.location }}</span>
               </a>
@@ -36,13 +38,14 @@
           {% for policy in policies %}
             <li>
               <a class="suggest-item" href="{{ policy.get_absolute_url }}" role="option">
+                <span class="type-badge">Policy</span>
                 <span class="suggest-title">{{ policy.title }}</span>
               </a>
             </li>
           {% endfor %}
         </ul>
       {% endif %}
-      <a class="suggest-all" href="{% url 'core:search' %}?q={{ query|urlencode }}">View all {{ total }} result{{ total|pluralize }}</a>
+      <a class="suggest-all" href="{% url 'core:search' %}?q={{ query|urlencode }}">View full results for “{{ query }}”</a>
     </div>
   {% else %}
     <p class="search-meta">No matches for “{{ query }}”. Try a county, project name, or institution.</p>

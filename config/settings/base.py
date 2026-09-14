@@ -28,6 +28,13 @@ def env_list(name, default=""):
     return [item.strip() for item in raw.split(",") if item.strip()]
 
 
+def env_int(name, default=0):
+    try:
+        return int(os.environ.get(name, default))
+    except (TypeError, ValueError):
+        return default
+
+
 SECRET_KEY = env("DJANGO_SECRET_KEY", "insecure-dev-key-only")
 DEBUG = env_bool("DJANGO_DEBUG", False)
 ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1")
@@ -144,12 +151,31 @@ LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "core:home"
 LOGOUT_REDIRECT_URL = "core:home"
 
-FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
-DATA_UPLOAD_MAX_MEMORY_SIZE = 12 * 1024 * 1024
-THEHYDRA_MAX_UPLOAD_BYTES = 10 * 1024 * 1024
-THEHYDRA_ALLOWED_UPLOAD_EXTENSIONS = {".pdf", ".jpg", ".jpeg", ".png", ".webp"}
+# Large PDFs/spreadsheets spill to a temp file instead of RAM.
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2 * 1024 * 1024
+DATA_UPLOAD_MAX_MEMORY_SIZE = env_int("THEHYDRA_MAX_UPLOAD_MB", 100) * 1024 * 1024 + (2 * 1024 * 1024)
+DATA_UPLOAD_MAX_NUMBER_FILES = 20
+THEHYDRA_MAX_UPLOAD_BYTES = env_int("THEHYDRA_MAX_UPLOAD_MB", 100) * 1024 * 1024
+THEHYDRA_MAX_EXTRACT_CHARS = env_int("THEHYDRA_MAX_EXTRACT_CHARS", 200_000)
+THEHYDRA_PREVIEW_ROWS = env_int("THEHYDRA_PREVIEW_ROWS", 40)
+THEHYDRA_ALLOWED_UPLOAD_EXTENSIONS = {
+    ".pdf",
+    ".docx",
+    ".xlsx",
+    ".csv",
+    ".txt",
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".webp",
+}
 THEHYDRA_ALLOWED_UPLOAD_CONTENT_TYPES = {
     "application/pdf",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "application/vnd.ms-excel",
+    "text/csv",
+    "text/plain",
     "image/jpeg",
     "image/png",
     "image/webp",

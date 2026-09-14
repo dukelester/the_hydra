@@ -1,0 +1,11 @@
+<article class="card record-card">
+  <p class="eyebrow">{{ institution.get_institution_type_display }}</p>
+  <h2><a href="{{ institution.get_absolute_url }}">{{ institution.name }}</a></h2>
+  <p class="muted">{{ institution.location|default:"Location not recorded" }}</p>
+  <dl class="mini-facts">
+    <div>
+      <dt>Projects</dt>
+      <dd>{{ institution.project_count }}</dd>
+    </div>
+  </dl>
+</article>

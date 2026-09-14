@@ -4,20 +4,24 @@
 <section class="page-head">
   <p class="kicker">Civic search</p>
   <h1>Search</h1>
-  <p class="lede">Ranked matches across projects, institutions, policies, and source documents. Live suggestions use indexed fields so searching thousands of projects stays fast.</p>
+  <p class="lede">Type to get ranked live matches. Full search also reads descriptions and paginates projects so thousands of records stay usable.</p>
 </section>
 
 <section class="section tight">
-  <form class="search-engine" method="get" action="{% url 'core:search' %}" role="search">
-    <div class="search-bar">
-      <label class="sr-only" for="search-q">Search</label>
-      <input id="search-q" name="q" type="search" value="{{ query }}" placeholder="Project, county, institution, contractor…" autocomplete="off" autofocus>
-      <button type="submit" class="btn btn-primary">Search</button>
+  <form class="search-engine search-live" method="get" action="{% url 'core:search' %}" role="search" data-search-root>
+    <div class="search-bar-wrap">
+      <div class="search-bar">
+        <label class="sr-only" for="search-q">Search</label>
+        <input id="search-q" name="q" type="search" value="{{ query }}" placeholder="Project, county, institution, contractor…" autocomplete="off" autofocus aria-autocomplete="list" aria-controls="live-suggest" aria-expanded="false" hx-get="{% url 'core:search-suggest' %}" hx-trigger="keyup changed delay:180ms, search" hx-target="#live-suggest" hx-include="closest form" hx-swap="innerHTML" hx-sync="closest form:abort" hx-indicator="#page-search-indicator">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+      <p id="page-search-indicator" class="search-indicator htmx-indicator">Searching…</p>
+      <div id="live-suggest" class="search-results search-overlay" data-search-panel aria-live="polite"></div>
     </div>
     <div class="search-filters">
       <div class="field">
         <label for="kind">Show</label>
-        <select id="kind" name="kind" class="form-select">
+        <select id="kind" name="kind" class="form-select" onchange="this.form.requestSubmit()">
           <option value="all" {% if kind == "all" %}selected{% endif %}>All types</option>
           <option value="projects" {% if kind == "projects" %}selected{% endif %}>Projects</option>
           <option value="institutions" {% if kind == "institutions" %}selected{% endif %}>Institutions</option>
@@ -27,7 +31,7 @@
       </div>
       <div class="field">
         <label for="county">County</label>
-        <select id="county" name="county" class="form-select">
+        <select id="county" name="county" class="form-select" onchange="this.form.requestSubmit()">
           <option value="">All counties</option>
           {% for item in counties %}
             <option value="{{ item }}" {% if county == item %}selected{% endif %}>{{ item }}</option>
@@ -36,7 +40,7 @@
       </div>
       <div class="field">
         <label for="status">Status</label>
-        <select id="status" name="status" class="form-select">
+        <select id="status" name="status" class="form-select" onchange="this.form.requestSubmit()">
           <option value="">Any status</option>
           {% for value, label in status_choices %}
             <option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>
@@ -45,7 +49,7 @@
       </div>
       <div class="field">
         <label for="category">Category</label>
-        <select id="category" name="category" class="form-select">
+        <select id="category" name="category" class="form-select" onchange="this.form.requestSubmit()">
           <option value="">Any category</option>
           {% for value, label in category_choices %}
             <option value="{{ value }}" {% if category == value %}selected{% endif %}>{{ label }}</option>
@@ -56,34 +60,47 @@
   </form>
 
   {% if query %}
-    <p class="search-meta">{{ total }} match{{ total|pluralize }} · {{ project_count }} project{{ project_count|pluralize }} · {{ institution_count }} institution{{ institution_count|pluralize }}</p>
+    <p class="search-meta">{{ total }} match{{ total|pluralize }} · {{ project_count }} project{{ project_count|pluralize }} · {{ institution_count }} institution{{ institution_count|pluralize }} · {{ policy_count }} polic{{ policy_count|pluralize:"y,ies" }} · {{ document_count }} document{{ document_count|pluralize }}</p>
     <div class="kind-tabs" role="navigation" aria-label="Result type">
-      <a class="{% if kind == 'all' %}is-active{% endif %}" href="?q={{ query|urlencode }}&kind=all">All ({{ total }})</a>
-      <a class="{% if kind == 'projects' %}is-active{% endif %}" href="?q={{ query|urlencode }}&kind=projects{% if county %}&county={{ county|urlencode }}{% endif %}">Projects ({{ project_count }})</a>
-      <a class="{% if kind == 'institutions' %}is-active{% endif %}" href="?q={{ query|urlencode }}&kind=institutions">Institutions ({{ institution_count }})</a>
-      <a class="{% if kind == 'policies' %}is-active{% endif %}" href="?q={{ query|urlencode }}&kind=policies">Policies ({{ policy_count }})</a>
-      <a class="{% if kind == 'documents' %}is-active{% endif %}" href="?q={{ query|urlencode }}&kind=documents">Documents ({{ document_count }})</a>
+      <a class="{% if kind == 'all' %}is-active{% endif %}" href="?{{ tab_querystring }}">All ({{ total }})</a>
+      <a class="{% if kind == 'projects' %}is-active{% endif %}" href="?{{ tab_querystring }}&amp;kind=projects">Projects ({{ project_count }})</a>
+      <a class="{% if kind == 'institutions' %}is-active{% endif %}" href="?{{ tab_querystring }}&amp;kind=institutions">Institutions ({{ institution_count }})</a>
+      <a class="{% if kind == 'policies' %}is-active{% endif %}" href="?{{ tab_querystring }}&amp;kind=policies">Policies ({{ policy_count }})</a>
+      <a class="{% if kind == 'documents' %}is-active{% endif %}" href="?{{ tab_querystring }}&amp;kind=documents">Documents ({{ document_count }})</a>
     </div>
   {% endif %}
 
   {% if kind == "projects" and project_page %}
-    <div class="card-grid">
+    <ul class="result-list stacked">
       {% for project in project_page %}
-        {% include "components/project_card.html" %}
+        <li>
+          <a class="result-row" href="{{ project.get_absolute_url }}">
+            <span class="type-badge">Project</span>
+            <span class="suggest-title">{{ project.name }}</span>
+            <span class="suggest-meta">{{ project.county }} · {{ project.get_status_display }} · {{ project.institution.name }}</span>
+          </a>
+        </li>
       {% empty %}
-        <p>No projects match these filters.</p>
+        <li>No projects match these filters.</li>
       {% endfor %}
-    </div>
+    </ul>
     {% if project_page.paginator.num_pages > 1 %}
       <nav class="pagination" aria-label="Search pagination">
         {% if project_page.has_previous %}
-          <a href="?q={{ query|urlencode }}&kind=projects&page={{ project_page.previous_page_number }}{% if county %}&county={{ county|urlencode }}{% endif %}">Previous</a>
+          <a href="?{{ page_querystring }}&amp;page={{ project_page.previous_page_number }}">Previous</a>
         {% endif %}
         <span>Page {{ project_page.number }} of {{ project_page.paginator.num_pages }}</span>
         {% if project_page.has_next %}
-          <a href="?q={{ query|urlencode }}&kind=projects&page={{ project_page.next_page_number }}{% if county %}&county={{ county|urlencode }}{% endif %}">Next</a>
+          <a href="?{{ page_querystring }}&amp;page={{ project_page.next_page_number }}">Next</a>
         {% endif %}
       </nav>
+    {% endif %}
+  {% elif kind == "all" and query %}
+    <div id="search-results" class="search-results">
+      {% include "components/search_results.html" %}
+    </div>
+    {% if project_page and project_page.paginator.count > 8 %}
+      <p class="search-meta"><a href="?{{ tab_querystring }}&amp;kind=projects">View all {{ project_count }} projects</a> · page {{ project_page.number }} of {{ project_page.paginator.num_pages }}</p>
     {% endif %}
   {% else %}
     <div id="search-results" class="search-results">

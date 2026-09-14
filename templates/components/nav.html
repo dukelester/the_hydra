@@ -8,6 +8,12 @@
         <span class="brand-sub">Follow the money</span>
       </span>
     </a>
+    <form class="nav-search" method="get" action="{% url 'core:search' %}" role="search" data-search-root>
+      <label class="sr-only" for="header-q">Search projects</label>
+      <input id="header-q" name="q" type="search" placeholder="Search thousands of projects…" autocomplete="off" aria-autocomplete="list" aria-controls="header-search-results" aria-expanded="false" hx-get="{% url 'core:search-suggest' %}" hx-trigger="keyup changed delay:180ms, search" hx-target="#header-search-results" hx-swap="innerHTML" hx-sync="this:abort" hx-indicator="#header-search-indicator">
+      <span id="header-search-indicator" class="search-indicator htmx-indicator">Searching…</span>
+      <div id="header-search-results" class="search-results search-overlay" data-search-panel aria-live="polite"></div>
+    </form>
     <nav class="nav nav-desktop" aria-label="Main">
       <a href="{% url 'projects:list' %}">Projects</a>
       <a href="{% url 'institutions:list' %}">Institutions</a>

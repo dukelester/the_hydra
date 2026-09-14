@@ -1,0 +1,15 @@
+<article class="card record-card">
+  <p class="eyebrow">{{ policy.get_policy_type_display }}</p>
+  <h2><a href="{{ policy.get_absolute_url }}">{{ policy.title }}</a></h2>
+  <p class="muted">{% if policy.institution %}{{ policy.institution.name }}{% else %}Institution not recorded{% endif %}</p>
+  <dl class="mini-facts">
+    <div>
+      <dt>Status</dt>
+      <dd>{{ policy.get_status_display }}</dd>
+    </div>
+    <div>
+      <dt>Year</dt>
+      <dd>{{ policy.publication_date|date:"Y"|default:"Unavailable" }}</dd>
+    </div>
+  </dl>
+</article>

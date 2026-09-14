@@ -24,10 +24,12 @@ class SourceDocumentAdmin(admin.ModelAdmin):
         "publisher",
         "document_type",
         "verification_level",
+        "extraction_status",
         "publication_date",
         "is_demo",
     )
-    search_fields = ("title", "publisher", "description")
+    search_fields = ("title", "publisher", "description", "original_filename", "extracted_text")
+    readonly_fields = ("original_filename", "file_size", "extraction_status", "extracted_text")
     list_filter = ("document_type", "verification_level", "is_demo")
     date_hierarchy = "publication_date"
 
