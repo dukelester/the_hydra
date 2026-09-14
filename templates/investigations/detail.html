@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "accounts/base_workspace.html" %}
 {% block title %}{{ investigation.title }}{% endblock %}
-{% block content %}
+{% block workspace %}
 <article class="investigation-page">
   <p class="kicker">Investigation · {{ investigation.get_verification_status_display }}</p>
   <h1>{{ investigation.title }}</h1>

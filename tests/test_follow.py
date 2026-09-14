@@ -145,3 +145,4 @@ class ProjectFollowTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Compare")
         self.assertContains(response, "County rankings")
+        self.assertNotContains(response, 'aria-label="Workspace"')

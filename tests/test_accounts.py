@@ -128,6 +128,28 @@ class AccountTests(TestCase):
         profile = self.client.get(reverse("accounts:profile"))
         self.assertContains(profile, "Change password")
         self.assertContains(profile, "About you")
+        self.assertContains(dashboard, 'aria-label="Workspace"')
+        self.assertContains(profile, 'aria-label="Workspace"')
+
+    def test_workspace_sidebar_only_when_signed_in(self):
+        home = self.client.get(reverse("core:home"))
+        compare = self.client.get(reverse("projects:compare"))
+        counties = self.client.get(reverse("reports:counties"))
+        self.assertNotContains(home, 'aria-label="Workspace"')
+        self.assertNotContains(compare, 'aria-label="Workspace"')
+        self.assertNotContains(counties, 'aria-label="Workspace"')
+
+        user = User.objects.create_user(username="citizen", password="CivicPassphrase-47")
+        self.client.force_login(user)
+        dashboard = self.client.get(reverse("accounts:dashboard"))
+        profile = self.client.get(reverse("accounts:profile"))
+        signed_compare = self.client.get(reverse("projects:compare"))
+        signed_home = self.client.get(reverse("core:home"))
+        self.assertContains(dashboard, 'aria-label="Workspace"')
+        self.assertContains(dashboard, "Track my county")
+        self.assertContains(profile, 'aria-label="Workspace"')
+        self.assertContains(signed_compare, 'aria-label="Workspace"')
+        self.assertNotContains(signed_home, 'aria-label="Workspace"')
 
     def test_profile_fields_can_stay_blank(self):
         user = User.objects.create_user(username="citizen", password="CivicPassphrase-47")

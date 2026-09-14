@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "accounts/base_workspace.html" %}
 {% block title %}{{ report.title }}{% endblock %}
-{% block content %}
+{% block workspace %}
 <article class="report-page">
   <p class="kicker">Accountability report · {{ report.get_status_display }} · Private</p>
   <h1>{{ report.title }}</h1>

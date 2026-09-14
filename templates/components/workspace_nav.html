@@ -1,0 +1,14 @@
+{% with ns=request.resolver_match.namespace name=request.resolver_match.url_name %}
+<nav class="workspace-nav" aria-label="Workspace">
+  <p class="eyebrow">Workspace</p>
+  <a href="{% url 'accounts:dashboard' %}"{% if ns == "accounts" and name == "dashboard" %} class="is-active" aria-current="page"{% endif %}>Dashboard</a>
+  <a href="{% url 'accounts:my-county' %}"{% if ns == "accounts" and name == "my-county" %} class="is-active" aria-current="page"{% endif %}>Track my county</a>
+  <a href="{% url 'investigations:list' %}"{% if ns == "investigations" %} class="is-active" aria-current="page"{% endif %}>Investigations</a>
+  <a href="{% url 'reports:list' %}"{% if ns == "reports" and name != "counties" %} class="is-active" aria-current="page"{% endif %}>Reports</a>
+  <p class="workspace-nav-label">Look up</p>
+  <a href="{% url 'reports:counties' %}"{% if ns == "reports" and name == "counties" %} class="is-active" aria-current="page"{% endif %}>County report</a>
+  <a href="{% url 'projects:compare' %}"{% if ns == "projects" and name == "compare" %} class="is-active" aria-current="page"{% endif %}>Compare</a>
+  <p class="workspace-nav-label">Account</p>
+  <a href="{% url 'accounts:profile' %}"{% if ns == "accounts" and name == "profile" %} class="is-active" aria-current="page"{% endif %}>Profile</a>
+</nav>
+{% endwith %}

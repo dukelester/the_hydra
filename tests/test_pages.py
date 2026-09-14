@@ -29,6 +29,7 @@ class PageTests(TestCase):
         self.assertContains(home, "Human-centered Yield, Data, Rights")
         self.assertContains(home, "Follow the money. Find the evidence. Take action.")
         self.assertContains(home, "Investigate a Project")
+        self.assertNotContains(home, 'aria-label="Workspace"')
         self.assertNotContains(home, "Home page · Hero section")
         self.assertNotContains(home, "Home page · Section")
 

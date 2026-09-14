@@ -59,6 +59,7 @@ class InvestigationTests(TestCase):
         self.assertContains(response, "Supporting evidence")
         self.assertContains(response, "Review evidence first")
         self.assertContains(response, "Citizen observation")
+        self.assertNotContains(response, 'aria-label="Workspace"')
 
     def test_anonymous_investigation_submission_with_file(self):
         url = reverse("projects:investigate", kwargs={"slug": self.project.slug})

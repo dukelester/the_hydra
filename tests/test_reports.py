@@ -81,6 +81,7 @@ class ReportTests(TestCase):
     def test_county_report_shows_allocation_and_delivery_charts(self):
         page = self.client.get(reverse("reports:counties"))
         self.assertEqual(page.status_code, 200)
+        self.assertNotContains(page, 'aria-label="Workspace"')
         self.assertContains(page, "County report")
         self.assertContains(page, "Recorded allocation by county")
         self.assertContains(page, "Kisumu")

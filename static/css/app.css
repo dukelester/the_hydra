@@ -2120,12 +2120,81 @@ textarea:focus,
   gap: 0.75rem 1.1rem;
   margin-top: 1rem;
 }
+.workspace-shell {
+  display: grid;
+  grid-template-columns: 14.5rem minmax(0, 1fr);
+  gap: 1.6rem 1.8rem;
+  align-items: start;
+  width: min(76rem, calc(100% - 2rem));
+  margin: 1.3rem auto 0;
+  padding-bottom: 2rem;
+}
+.workspace-shell.is-public {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 0;
+}
+.workspace-nav {
+  position: sticky;
+  top: 5rem;
+  display: grid;
+  align-content: start;
+  gap: 0.12rem;
+  padding: 1rem 0.8rem 1.05rem;
+  background: var(--card);
+  border: 1px solid rgba(213, 204, 184, 0.9);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.workspace-nav .eyebrow { padding: 0 0.55rem; margin-bottom: 0.35rem; }
+.workspace-nav-label {
+  margin: 0.85rem 0.55rem 0.25rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gold-deep);
+}
+.workspace-nav a {
+  display: block;
+  padding: 0.45rem 0.6rem;
+  border-radius: 10px;
+  color: var(--sea);
+  text-decoration: none;
+  font-weight: 600;
+}
+.workspace-nav a:hover { background: var(--paper); color: var(--sea); }
+.workspace-nav a.is-active {
+  background: var(--sea);
+  color: var(--cream);
+}
+.workspace-main { min-width: 0; }
+.workspace-shell:not(.is-public) .page-head,
+.workspace-shell:not(.is-public) .dashboard-page,
+.workspace-shell:not(.is-public) .area-page,
+.workspace-shell:not(.is-public) .report-page,
+.workspace-shell:not(.is-public) .investigation-page,
+.workspace-shell:not(.is-public) .investigate-page,
+.workspace-shell:not(.is-public) .form-page,
+.workspace-shell:not(.is-public) .compare-page,
+.workspace-shell:not(.is-public) .county-report,
+.workspace-shell:not(.is-public) .hydra-page-actions {
+  width: 100%;
+  margin-inline: 0;
+}
+.workspace-form { padding-top: 0; }
 
 @media (max-width: 980px) {
   .hero-inner, .concepts, .card-grid, .hydra-letters, .steps, .split, .compare, .filters, .form-grid, .investigate-layout, .investigate-steps, .compare-fields, .dashboard-hero, .dashboard-stats, .about-hero, .compare-highlights, .compare-picker, .auth-stage, .auth-stage.is-wide, .area-dependent, .chart-split, .donut-wrap {
     grid-template-columns: 1fr;
   }
   .area-dependent { grid-column: auto; }
+  .workspace-nav { display: none; }
+  .workspace-shell {
+    grid-template-columns: 1fr;
+    width: min(var(--max), calc(100% - 2rem));
+  }
   .nav-desktop { display: none; }
   .nav-search { display: none; }
   .nav-mobile { display: block; }

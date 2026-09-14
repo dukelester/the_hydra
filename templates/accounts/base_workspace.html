@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="workspace-shell{% if not user.is_authenticated %} is-public{% endif %}">
+  {% if user.is_authenticated %}
+    {% include "components/workspace_nav.html" %}
+  {% endif %}
+  <div class="workspace-main">
+    {% block workspace %}{% endblock %}
+  </div>
+</div>
+{% endblock %}
