@@ -70,7 +70,8 @@ class AreaWatchTests(TestCase):
 
         dashboard = self.client.get(reverse("accounts:dashboard"))
         self.assertContains(dashboard, "My areas")
-        self.assertContains(dashboard, "Watching Kisumu")
+        self.assertContains(dashboard, "Whole county")
+        self.assertContains(dashboard, "Kisumu")
         self.assertTrue(self.user.area_watches.filter(county="Kisumu").exists())
 
     def test_constituency_narrows_the_feed(self):
@@ -162,6 +163,8 @@ class AreaWatchTests(TestCase):
         self.user.refresh_from_db()
         self.assertEqual(self.user.area_watches.count(), 4)
         self.assertContains(blocked, "You are tracking 4 areas")
+        self.assertContains(blocked, "Limit reached")
+        self.assertContains(blocked, "Remove a card above")
 
         first = self.user.area_watches.get(county="Kisumu")
         removed = self.client.post(reverse("accounts:my-county"), {"remove": str(first.pk)})

@@ -8,19 +8,15 @@
 </section>
 
 <section class="area-page">
-  {% if area.watches %}
-    <ul class="area-watch-list">
-      {% for watch in area.watches %}
-        <li>
-          <span>{{ watch.label }}</span>
-          <form method="post">
-            {% csrf_token %}
-            <button class="text-link" type="submit" name="remove" value="{{ watch.pk }}">Remove</button>
-          </form>
-        </li>
-      {% endfor %}
-    </ul>
-    <p class="muted">{{ area.watch_count }} of {{ area.max_watches }} area{{ area.max_watches|pluralize }}.</p>
+  {% if area.watching %}
+    <header class="area-feed-head">
+      <div>
+        <p class="eyebrow">Watching</p>
+        <h2>{{ area.watch_count }} area{{ area.watch_count|pluralize }}</h2>
+        <p class="muted">{{ area.watch_count }} of {{ area.max_watches }} area{{ area.max_watches|pluralize }} · {{ area.area_count }} project{{ area.area_count|pluralize }} in the public record{% if area.total_budget %} · {{ area.total_budget }} recorded{% endif %}</p>
+      </div>
+    </header>
+    {% include "accounts/_area_watch_cards.html" with watches=area.watches removable=True %}
   {% endif %}
 
   {% if area.can_add %}
@@ -55,25 +51,20 @@
         <a class="btn btn-secondary" href="{% url 'accounts:dashboard' %}">Dashboard</a>
       </div>
     </form>
-  {% else %}
-    <p class="search-empty">You are tracking {{ area.max_watches }} areas. Remove one to add another.</p>
-    <div class="form-actions">
-      <form method="post">
+  {% elif area.watching %}
+    <aside class="area-form area-limit" role="status">
+      <p class="eyebrow">Limit reached</p>
+      <h2>You are tracking {{ area.max_watches }} areas</h2>
+      <p class="muted">Remove a card above to add a different county, constituency, or ward.</p>
+      <form class="form-actions" method="post">
         {% csrf_token %}
         <button class="btn btn-secondary" type="submit" name="intent" value="stop">Stop all</button>
+        <a class="btn btn-secondary" href="{% url 'accounts:dashboard' %}">Dashboard</a>
       </form>
-      <a class="btn btn-secondary" href="{% url 'accounts:dashboard' %}">Dashboard</a>
-    </div>
+    </aside>
   {% endif %}
 
   {% if area.watching %}
-    <header class="area-feed-head">
-      <div>
-        <p class="eyebrow">Watching</p>
-        <h2>{{ area.label }}</h2>
-        <p class="muted">{{ area.area_count }} project{{ area.area_count|pluralize }} in the public record{% if area.total_budget %} · {{ area.total_budget }} recorded{% endif %}</p>
-      </div>
-    </header>
     <div class="dashboard-stats area-stats">
       <div>
         <strong>{{ area.area_count }}</strong>
@@ -115,7 +106,7 @@
         {% for project in area.projects %}
           {% include "components/project_card.html" %}
         {% empty %}
-          <p class="search-empty">No projects are recorded for {{ area.label }} yet. The feed will fill as records are added.</p>
+          <p class="search-empty">No projects are recorded for these areas yet. The feed will fill as records are added.</p>
         {% endfor %}
       </div>
     </section>

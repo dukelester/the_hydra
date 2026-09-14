@@ -1,0 +1,18 @@
+<ul class="area-cards{% if compact %} is-compact{% endif %}">
+  {% for watch in watches %}
+    <li class="area-card">
+      <div>
+        <p class="eyebrow">{{ watch.county }}</p>
+        <p class="area-card-place">
+          {% if watch.constituency %}{{ watch.constituency }}{% else %}Whole county{% endif %}{% if watch.ward %} · {{ watch.ward }}{% endif %}
+        </p>
+      </div>
+      {% if removable %}
+        <form method="post">
+          {% csrf_token %}
+          <button class="text-link" type="submit" name="remove" value="{{ watch.pk }}">Remove</button>
+        </form>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

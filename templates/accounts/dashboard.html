@@ -50,7 +50,8 @@
       <a class="text-link" href="{% url 'accounts:my-county' %}">{% if area.watching %}Open feed{% else %}Set up{% endif %}</a>
     </div>
     {% if area.watching %}
-      <p class="muted">Watching {{ area.label }}. {{ area.area_count }} project{{ area.area_count|pluralize }} in the record{% if area.area_update_count %} · {{ area.area_update_count }} updated since your last visit{% endif %}.</p>
+      <p class="muted">{{ area.watch_count }} area{{ area.watch_count|pluralize }} · {{ area.area_count }} project{{ area.area_count|pluralize }} in the record{% if area.area_update_count %} · {{ area.area_update_count }} updated since your last visit{% endif %}.</p>
+      {% include "accounts/_area_watch_cards.html" with watches=area.watches compact=True %}
       <div class="card-grid dashboard-recent">
         {% for project in area.projects|slice:":4" %}
           {% include "components/project_card.html" %}
