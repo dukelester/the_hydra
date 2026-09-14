@@ -1,5 +1,6 @@
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.conf import settings
+from django.urls import reverse
 from django.contrib.auth.forms import (
     AuthenticationForm,
     PasswordChangeForm,
@@ -11,6 +12,7 @@ from django import forms
 
 from apps.accounts.models import User, UserRole
 from apps.investigations.models import Investigation
+from apps.projects.area import area_counties, constituencies_for, wards_for
 from apps.reports.models import IssueReport, ReportStatus
 
 
@@ -173,41 +175,92 @@ class AreaWatchForm(StyledFormMixin, forms.ModelForm):
             "ward": "Ward",
         }
         help_texts = {
-            "county": "Required. Projects in this county appear on your dashboard.",
-            "constituency": "Optional. Leave blank to see the whole county.",
-            "ward": "Optional. Leave blank to see the whole constituency or county.",
+            "county": "",
+            "constituency": "",
+            "ward": "",
         }
 
     def __init__(self, *args, **kwargs):
-        counties = kwargs.pop("counties", [])
-        constituencies = kwargs.pop("constituencies", [])
-        wards = kwargs.pop("wards", [])
+        kwargs.pop("counties", None)
+        kwargs.pop("constituencies", None)
+        kwargs.pop("wards", None)
         super().__init__(*args, **kwargs)
-        current = (self.instance.county if self.instance and self.instance.pk else "") or ""
-        choices = [("", "Choose a county")] + [(name, name) for name in counties]
-        if current and current not in counties:
-            choices.insert(1, (current, current))
+        county = self._posted_or_instance("county")
+        constituency = self._posted_or_instance("constituency")
+        if constituency and constituency not in constituencies_for(county):
+            constituency = ""
+
+        counties = area_counties()
         self.fields["county"] = forms.ChoiceField(
-            choices=choices,
+            choices=[("", "Choose a county")] + [(name, name) for name in counties],
             required=True,
             label="County",
-            help_text="Required. Projects in this county appear on your dashboard.",
         )
-        self.fields["constituency"].required = False
-        self.fields["ward"].required = False
-        self.fields["constituency"].widget.attrs["list"] = "known-constituencies"
-        self.fields["ward"].widget.attrs["list"] = "known-wards"
-        self.fields["constituency"].widget.attrs["placeholder"] = "Optional, e.g. Kisumu Central"
-        self.fields["ward"].widget.attrs["placeholder"] = "Optional, e.g. Market Milimani"
-        self.constituencies = constituencies
-        self.wards = wards
+        const_choices = constituencies_for(county)
+        self.fields["constituency"] = forms.ChoiceField(
+            choices=[("", "All constituencies" if county else "Choose a county first")]
+            + [(name, name) for name in const_choices],
+            required=False,
+            label="Constituency",
+        )
+        ward_choices = wards_for(county, constituency)
+        self.fields["ward"] = forms.ChoiceField(
+            choices=[("", "All wards" if constituency else "Choose a constituency first")]
+            + [(name, name) for name in ward_choices],
+            required=False,
+            label="Ward",
+        )
+        if not county:
+            self.fields["constituency"].widget.attrs["disabled"] = True
+        if not constituency:
+            self.fields["ward"].widget.attrs["disabled"] = True
         self._style_fields()
+        self.fields["county"].widget.attrs.update(
+            {
+                "hx-get": reverse("accounts:area-options"),
+                "hx-trigger": "change",
+                "hx-target": "#area-dependent",
+                "hx-swap": "innerHTML",
+                "autocomplete": "off",
+            }
+        )
+        self.fields["constituency"].widget.attrs.update(
+            {
+                "hx-get": reverse("accounts:area-options"),
+                "hx-trigger": "change",
+                "hx-include": "#id_county",
+                "hx-target": "#ward-field",
+                "hx-swap": "outerHTML",
+                "autocomplete": "off",
+            }
+        )
+        self.fields["ward"].widget.attrs.update({"autocomplete": "off"})
+
+    def _posted_or_instance(self, name):
+        if self.is_bound:
+            return (self.data.get(name) or "").strip()
+        return (getattr(self.instance, name, None) or "").strip()
 
     def clean_county(self):
         county = (self.cleaned_data.get("county") or "").strip()
         if not county:
             raise forms.ValidationError("Choose a county to track.")
         return county
+
+    def clean(self):
+        cleaned = super().clean()
+        county = cleaned.get("county") or ""
+        constituency = (cleaned.get("constituency") or "").strip()
+        ward = (cleaned.get("ward") or "").strip()
+        if constituency and constituency not in constituencies_for(county):
+            self.add_error("constituency", "Choose a constituency in that county.")
+        if ward and not constituency:
+            self.add_error("ward", "Choose a constituency before a ward.")
+        elif ward and ward not in wards_for(county, constituency):
+            self.add_error("ward", "Choose a ward in that constituency.")
+        cleaned["constituency"] = constituency
+        cleaned["ward"] = ward
+        return cleaned
 
 
 class StyledPasswordResetForm(StyledFormMixin, PasswordResetForm):

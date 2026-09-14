@@ -57,6 +57,10 @@ class WhatHydraMeansView(TemplateView):
     template_name = "home/what_hydra_means.html"
 
 
+class FeaturesView(TemplateView):
+    template_name = "home/features.html"
+
+
 class TermsView(TemplateView):
     template_name = "home/terms.html"
 

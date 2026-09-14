@@ -27,6 +27,7 @@
           <a href="{% url 'accounts:my-county' %}">Track my county<span>County, constituency, ward</span></a>
         </div>
       </details>
+      <a href="{% url 'core:features' %}">Features</a>
       <a href="{% url 'core:what-hydra-means' %}">About Hydra</a>
       <a href="{% url 'core:how-it-works' %}">How it works</a>
       {% if user.is_authenticated %}
@@ -70,6 +71,7 @@
         <a href="{% url 'core:search' %}">Search</a>
         <a href="{% url 'projects:compare' %}">Compare</a>
         <a href="{% url 'accounts:my-county' %}">Track my county</a>
+        <a href="{% url 'core:features' %}">Features</a>
         <a href="{% url 'core:what-hydra-means' %}">About Hydra</a>
         <a href="{% url 'core:how-it-works' %}">How it works</a>
         {% if user.is_authenticated %}

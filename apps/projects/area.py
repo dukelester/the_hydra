@@ -1,59 +1,91 @@
+import json
+from copy import deepcopy
 from decimal import Decimal
+from functools import lru_cache
+from pathlib import Path
 
 from django.db.models import Q
 
 from apps.core.services.coverage import calculate_evidence_coverage
 from apps.projects.models import Project, ProjectStatus
 
-KENYA_COUNTIES = (
-    "Baringo",
-    "Bomet",
-    "Bungoma",
-    "Busia",
-    "Elgeyo-Marakwet",
-    "Embu",
-    "Garissa",
-    "Homa Bay",
-    "Isiolo",
-    "Kajiado",
-    "Kakamega",
-    "Kericho",
-    "Kiambu",
-    "Kilifi",
-    "Kirinyaga",
-    "Kisii",
-    "Kisumu",
-    "Kitui",
-    "Kwale",
-    "Laikipia",
-    "Lamu",
-    "Machakos",
-    "Makueni",
-    "Mandera",
-    "Marsabit",
-    "Meru",
-    "Migori",
-    "Mombasa",
-    "Murang'a",
-    "Nairobi",
-    "Nakuru",
-    "Nandi",
-    "Narok",
-    "Nyamira",
-    "Nyandarua",
-    "Nyeri",
-    "Samburu",
-    "Siaya",
-    "Taita-Taveta",
-    "Tana River",
-    "Tharaka-Nithi",
-    "Trans Nzoia",
-    "Turkana",
-    "Uasin Gishu",
-    "Vihiga",
-    "Wajir",
-    "West Pokot",
-)
+_AREA_DATA = Path(__file__).resolve().parent / "data" / "kenya_areas.json"
+
+COUNTY_ALIASES = {
+    "Taita/Taveta": "Taita-Taveta",
+    "Taita Taveta": "Taita-Taveta",
+    "Elgeyo/Marakwet": "Elgeyo-Marakwet",
+    "Elgeyo Marakwet": "Elgeyo-Marakwet",
+    "Nairobi City": "Nairobi",
+    "Tharaka - Nithi": "Tharaka-Nithi",
+}
+
+
+def normalize_area_name(name):
+    name = (name or "").replace("\u2019", "'").replace("\u2018", "'").strip()
+    return COUNTY_ALIASES.get(name, name)
+
+
+@lru_cache(maxsize=1)
+def official_area_tree():
+    return json.loads(_AREA_DATA.read_text(encoding="utf-8"))
+
+
+def area_tree():
+    tree = deepcopy(official_area_tree())
+    rows = (
+        Project.objects.exclude(county="")
+        .values_list("county", "constituency", "ward")
+        .distinct()
+    )
+    for county_name, constituency, ward in rows:
+        county_name = normalize_area_name(county_name)
+        constituency = normalize_area_name(constituency)
+        ward = normalize_area_name(ward)
+        if not county_name:
+            continue
+        tree.setdefault(county_name, {})
+        if constituency:
+            wards = tree[county_name].setdefault(constituency, [])
+            if ward and ward not in wards:
+                wards.append(ward)
+                wards.sort()
+    return dict(sorted((county, dict(sorted(branches.items()))) for county, branches in tree.items()))
+
+
+def area_counties():
+    return list(area_tree().keys())
+
+
+def constituencies_for(county):
+    county = normalize_area_name(county)
+    if not county:
+        return []
+    return list(area_tree().get(county, {}).keys())
+
+
+def wards_for(county, constituency):
+    county = normalize_area_name(county)
+    constituency = normalize_area_name(constituency)
+    if not county or not constituency:
+        return []
+    return list(area_tree().get(county, {}).get(constituency, []))
+
+
+def is_valid_area(county, constituency="", ward=""):
+    county = normalize_area_name(county)
+    constituency = normalize_area_name(constituency)
+    ward = normalize_area_name(ward)
+    if not county or county not in area_tree():
+        return False
+    if constituency and constituency not in area_tree()[county]:
+        return False
+    if ward and (not constituency or ward not in area_tree()[county].get(constituency, [])):
+        return False
+    return True
+
+
+KENYA_COUNTIES = tuple(official_area_tree().keys())
 
 
 def area_project_queryset(county, constituency="", ward=""):
@@ -134,9 +166,7 @@ def known_counties():
 
 
 def trackable_counties():
-    recorded = known_counties()
-    extra = [name for name in recorded if name and name not in KENYA_COUNTIES]
-    return list(KENYA_COUNTIES) + sorted(extra)
+    return area_counties()
 
 
 def known_constituencies():

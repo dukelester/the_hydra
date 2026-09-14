@@ -1472,10 +1472,46 @@ textarea:focus,
   padding: 1.25rem 1.3rem 1.2rem;
   margin-bottom: 1.8rem;
 }
-.area-form .form-grid {
-  grid-template-columns: 1fr 1fr 1fr;
-  margin-bottom: 1rem;
+.area-form .form-grid,
+.area-form .area-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 0.75rem 1.1rem;
+  margin-bottom: 0.55rem;
 }
+.area-dependent {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1.1rem;
+  min-width: 0;
+}
+.area-form .field {
+  display: grid;
+  grid-template-rows: 1.35rem 3rem auto;
+  gap: 0.35rem;
+  min-width: 0;
+}
+.area-form .field label {
+  margin: 0;
+  line-height: 1.35rem;
+  white-space: nowrap;
+}
+.area-form .form-select,
+.area-form .form-input {
+  width: 100%;
+  height: 3rem;
+  min-height: 3rem;
+  box-sizing: border-box;
+}
+.area-form .form-select:disabled {
+  background: #f4efe4;
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}
+.area-form .field .error { margin: 0; }
+.area-form-help { margin: 0 0 1.05rem; }
+.area-form .form-actions { margin-top: 0.15rem; }
 .area-feed-head { margin: 0 0 1rem; }
 .area-feed-head h2 { margin-bottom: 0.25rem; }
 .area-stats { margin-bottom: 1.2rem; }
@@ -1927,9 +1963,10 @@ textarea:focus,
 }
 
 @media (max-width: 980px) {
-  .hero-inner, .concepts, .card-grid, .hydra-letters, .steps, .split, .compare, .filters, .form-grid, .investigate-layout, .investigate-steps, .compare-fields, .dashboard-hero, .dashboard-stats, .about-hero, .compare-highlights, .compare-picker, .auth-stage, .auth-stage.is-wide {
+  .hero-inner, .concepts, .card-grid, .hydra-letters, .steps, .split, .compare, .filters, .form-grid, .investigate-layout, .investigate-steps, .compare-fields, .dashboard-hero, .dashboard-stats, .about-hero, .compare-highlights, .compare-picker, .auth-stage, .auth-stage.is-wide, .area-dependent {
     grid-template-columns: 1fr;
   }
+  .area-dependent { grid-column: auto; }
   .nav-desktop { display: none; }
   .nav-search { display: none; }
   .nav-mobile { display: block; }

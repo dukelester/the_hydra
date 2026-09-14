@@ -1,0 +1,6 @@
+<select name="ward" id="id_ward" class="form-select" autocomplete="off"{% if not constituency %} disabled{% endif %}>
+  <option value="">{% if constituency %}All wards{% else %}Choose a constituency first{% endif %}</option>
+  {% for name in wards %}
+    <option value="{{ name }}"{% if name == selected_ward %} selected{% endif %}>{{ name }}</option>
+  {% endfor %}
+</select>

@@ -95,3 +95,42 @@ class AreaWatchTests(TestCase):
         feed = self.client.get(reverse("accounts:my-county"))
         self.assertContains(feed, "Choose a county to start the feed")
         self.assertNotContains(feed, "Community Water Access Project")
+
+    def test_area_options_require_login(self):
+        guest = self.client.get(reverse("accounts:area-options"), {"county": "Kisumu"})
+        self.assertEqual(guest.status_code, 302)
+        self.assertIn(reverse("accounts:login"), guest.url)
+
+    def test_area_options_follow_the_selected_county(self):
+        self.client.force_login(self.user)
+        county = self.client.get(
+            reverse("accounts:area-options"),
+            {"county": "Kajiado"},
+            HTTP_HX_TRIGGER_NAME="county",
+        )
+        self.assertEqual(county.status_code, 200)
+        self.assertContains(county, "Kajiado North")
+        self.assertContains(county, "Kajiado Central")
+        self.assertNotContains(county, "Kisumu East")
+        self.assertNotContains(county, "Funyula")
+
+        wards = self.client.get(
+            reverse("accounts:area-options"),
+            {"county": "Kisumu", "constituency": "Kisumu East"},
+            HTTP_HX_TRIGGER_NAME="constituency",
+        )
+        self.assertContains(wards, "Kolwa East")
+        self.assertContains(wards, "Kajulu")
+        self.assertNotContains(wards, "Market Milimani")
+        self.assertNotContains(wards, "Port Reitz")
+
+    def test_mismatched_constituency_is_rejected(self):
+        self.client.force_login(self.user)
+        response = self.client.post(
+            reverse("accounts:my-county"),
+            {"county": "Kajiado", "constituency": "Kisumu East", "ward": "Funyula"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertFalse(self.user.track_area)
+        self.assertContains(response, "valid choice")

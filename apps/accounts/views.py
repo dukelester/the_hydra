@@ -12,7 +12,7 @@ from django.contrib.auth.views import (
 )
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.core.forms import (
     AreaWatchForm,
@@ -28,9 +28,8 @@ from apps.core.services.coverage import calculate_evidence_coverage
 from apps.projects.activity import favourite_projects, recent_projects_for, tracked_follows
 from apps.projects.area import (
     area_watch_context,
-    known_constituencies,
-    known_wards,
-    trackable_counties,
+    constituencies_for,
+    wards_for,
 )
 
 
@@ -146,9 +145,6 @@ def profile_view(request):
 
 @login_required
 def my_county_view(request):
-    counties = trackable_counties()
-    constituencies = known_constituencies()
-    wards = known_wards()
     user = request.user
 
     if request.method == "POST" and request.POST.get("intent") == "stop":
@@ -157,13 +153,7 @@ def my_county_view(request):
         messages.success(request, "Stopped tracking this area. Location details are still on your profile.")
         return redirect("accounts:my-county")
 
-    form = AreaWatchForm(
-        request.POST if request.method == "POST" else None,
-        instance=user,
-        counties=counties,
-        constituencies=constituencies,
-        wards=wards,
-    )
+    form = AreaWatchForm(request.POST if request.method == "POST" else None, instance=user)
     if request.method == "POST" and form.is_valid():
         watch = form.save(commit=False)
         watch.track_area = True
@@ -178,10 +168,29 @@ def my_county_view(request):
         {
             "form": form,
             "area": area,
-            "constituencies": constituencies,
-            "wards": wards,
         },
     )
+
+
+@login_required
+@require_GET
+def area_options_view(request):
+    trigger = request.headers.get("HX-Trigger-Name", "")
+    county = (request.GET.get("county") or "").strip()
+    constituency = (request.GET.get("constituency") or "").strip()
+    if trigger == "county":
+        constituency = ""
+    context = {
+        "county": county,
+        "constituency": constituency,
+        "constituencies": constituencies_for(county),
+        "wards": wards_for(county, constituency),
+        "selected_constituency": constituency,
+        "selected_ward": "",
+    }
+    if trigger == "constituency":
+        return render(request, "accounts/_area_ward_field.html", context)
+    return render(request, "accounts/_area_dependent_fields.html", context)
 
 
 class TheHydraPasswordResetView(PasswordResetView):
