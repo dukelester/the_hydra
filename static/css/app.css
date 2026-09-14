@@ -1049,13 +1049,25 @@ textarea {
 }
 .project-hero-aside .muted { color: rgba(243, 239, 228, 0.78); margin: 0; }
 .project-hero-aside .meter { background: rgba(243, 239, 228, 0.18); margin-top: 0.45rem; }
+.project-hero-brand {
+  display: grid;
+  justify-items: center;
+  gap: 0.45rem;
+  margin: 1rem 0 0;
+}
 .project-hero-mark {
   display: block;
   width: 4.5rem;
   height: 4.5rem;
-  margin: 1rem auto 0;
   border-radius: 50%;
   box-shadow: 0 0 0 2px rgba(196, 163, 90, 0.45);
+}
+.project-hero-name {
+  font-family: var(--font-display);
+  letter-spacing: 0.18em;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--cream);
 }
 .project-panel {
   padding: 1.25rem 1.3rem 1.3rem;
