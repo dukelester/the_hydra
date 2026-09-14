@@ -2,47 +2,125 @@
 {% load static %}
 {% block title %}About Hydra{% endblock %}
 {% block content %}
-<article class="prose hydra-page">
-  <img class="hero-mark" src="{% static 'img/mark.png' %}" alt="H.Y.D.R.A. emblem: hydra tentacles around a map of Africa" width="120" height="120">
-  <p class="kicker">About</p>
-  <h1>About Hydra</h1>
-  <p class="tagline">Human-centered Yield, Data, Rights &amp; Accountability</p>
-  <p>This is a dedicated page. Each letter below is its own section. The shorter version also appears as a section on the home page.</p>
-  <p class="muted">Why this name: it describes the platform without implying guilt, and it keeps citizens, evidence, and public results in one frame.</p>
+<article class="about-page">
+  <header class="about-hero">
+    <img class="hero-mark" src="{% static 'img/mark.png' %}" alt="H.Y.D.R.A. emblem: hydra tentacles around a map of Africa" width="160" height="160">
+    <div>
+      <p class="kicker">About</p>
+      <h1>About Hydra</h1>
+      <p class="tagline">Human-centered Yield, Data, Rights &amp; Accountability</p>
+      <p class="lede">H.Y.D.R.A. is an evidence-first civic record for public projects, budgets, institutions, policies, and source documents. It helps people follow the money, see what the record actually supports, and take action — without turning a gap in the files into a finding of guilt.</p>
+    </div>
+  </header>
+
+  <section class="about-block" aria-labelledby="name-heading">
+    <h2 id="name-heading">Why this name</h2>
+    <p>The name is an acronym, not a verdict. Each letter is a principle the platform is built to keep in view: people first, results over announcements, verifiable information, the right to know, and a path from evidence to oversight.</p>
+    <p>It was chosen because it describes the work without implying corruption. A missing document is recorded as missing. A citizen observation stays an observation. A report stays a structured comparison, not a conviction.</p>
+    {% include "components/hydra_letters.html" %}
+  </section>
+
+  <section class="letter-section" aria-labelledby="h-heading">
+    <p class="letter-mark">H</p>
+    <h2 id="h-heading">Human-centered</h2>
+    <p>Citizens are at the heart of the platform. H.Y.D.R.A. is built for people who need to inspect public work — residents, journalists, researchers, and oversight bodies — not for institutions to speak over them.</p>
+    <p>An account keeps your investigations and reports with you. The public record remains readable without signing in. You should never have to invent a story to make a page look complete.</p>
+  </section>
+
+  <section class="letter-section" aria-labelledby="y-heading">
+    <p class="letter-mark">Y</p>
+    <h2 id="y-heading">Yield</h2>
+    <p>Yield asks whether public money and policies actually deliver results. An allocation in a budget is not the same as a finished classroom, a working borehole, or a completed road.</p>
+    <p>Project pages keep status, contractor, financial year, and timeline stages only as far as the record goes. If a stage has no evidence, the page says evidence is unavailable — it does not fill the gap.</p>
+  </section>
+
+  <section class="letter-section" aria-labelledby="d-heading">
+    <p class="letter-mark">D</p>
+    <h2 id="d-heading">Data</h2>
+    <p>Data here means verifiable public information: project records, budget figures, policies, and source files such as PDFs, spreadsheets, and notices. Search can match a name, a county, a contractor, a filename, or words inside an extracted document.</p>
+    <p>Every claim should point to a source and a verification status. Evidence coverage measures how much of the recorded information is supported. It is not a corruption score, a fraud score, or a trust score.</p>
+  </section>
+
+  <section class="letter-section" aria-labelledby="r-heading">
+    <p class="letter-mark">R</p>
+    <h2 id="r-heading">Rights</h2>
+    <p>The right to know what was budgeted, who is responsible, and what the attached files actually say is the starting point for action. H.Y.D.R.A. is meant to make that information easier to find and harder to blur.</p>
+    <p>It does not replace access-to-information law, a court, or an auditor. It holds the public record in one place so people can use those other channels with a clearer file.</p>
+  </section>
+
+  <section class="letter-section" aria-labelledby="a-heading">
+    <p class="letter-mark">A</p>
+    <h2 id="a-heading">Accountability</h2>
+    <p>Accountability on this platform means a path: search a project, read the evidence, record what you observed, and generate a structured report. Official information and citizen observation stay in separate columns so one cannot quietly overwrite the other.</p>
+    <p>Reports remain private by default. Language stays neutral — potential discrepancy, evidence indicates, information unavailable, requires further verification. The report does not determine wrongdoing.</p>
+  </section>
+
+  <section class="about-block split about-split">
+    <article class="panel">
+      <h2>What H.Y.D.R.A. does</h2>
+      <ul class="plain-list about-list">
+        <li>Publishes labelled civic records for projects, institutions, policies, and source documents.</li>
+        <li>Shows budget, status, and evidence coverage only as far as sources support them.</li>
+        <li>Lets you search names, places, contractors, and text inside uploaded files.</li>
+        <li>Keeps a citizen observation distinct from the official record.</li>
+        <li>Turns an investigation into a structured report you can review before anything is saved.</li>
+      </ul>
+    </article>
+    <article class="panel">
+      <h2>What it does not do</h2>
+      <ul class="plain-list about-list">
+        <li>It does not determine guilt, corruption, or fraud.</li>
+        <li>It does not invent missing facts or complete a timeline the files do not support.</li>
+        <li>It does not treat a photo, a rumour, or an observation as verified by default.</li>
+        <li>It does not score people, counties, or contractors for trust.</li>
+        <li>It does not publish your investigation or report unless you take the next step, or an administrator reviews it.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="about-block" aria-labelledby="emblem-heading">
+    <h2 id="emblem-heading">The emblem</h2>
+    <p>The circular mark is original to this platform: a map of Africa, including Madagascar, held by gold tentacles on teal. Many arms, one record — public work should be inspectable from more than one direction, and no single missing page should erase the rest of the file.</p>
+    <p>It is not a copy of a comic-book hydra. There is no skull and no claim of conspiracy. The image is a civic seal: continent at the centre, evidence reaching around it.</p>
+  </section>
+
+  <section class="about-block" aria-labelledby="who-heading">
+    <h2 id="who-heading">Who it is for</h2>
+    <p>Anyone who needs a clear view of a public project: a resident checking a local clinic, a student tracing a bursary, a journalist confirming a contractor name, or an official comparing what was allocated with what was built.</p>
+    <p>Some records on the site are labelled <strong>[DEMO]</strong>. Those are fictional examples for learning the interface. They are not live public data and must not be quoted as fact.</p>
+  </section>
+
+  <section class="about-block" aria-labelledby="path-heading">
+    <h2 id="path-heading">How to use it</h2>
+    <ol class="steps about-steps">
+      <li>
+        <span class="step-num">1</span>
+        <div>
+          <h3>Search the record</h3>
+          <p>Find a project, institution, policy, or document by name, county, or words inside a file.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <div>
+          <h3>Read the evidence</h3>
+          <p>Open claims, source files, coverage, and notes that say when information is unavailable.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <div>
+          <h3>Investigate and report</h3>
+          <p>Record what you observed, compare it with the official line, and generate a structured report.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
 </article>
 
-<section class="section letter-section" aria-labelledby="h-heading">
-  <p class="letter-mark">H</p>
-  <h2 id="h-heading">Human-centered</h2>
-  <p>Citizens are at the heart of the platform. TheHydra is built for people who need to inspect public work, not for institutions to speak over them.</p>
-</section>
-
-<section class="section letter-section" aria-labelledby="y-heading">
-  <p class="letter-mark">Y</p>
-  <h2 id="y-heading">Yield</h2>
-  <p>Asks whether public money and policies actually deliver results. Allocation is not the same as completion. The timeline and evidence records make that gap visible.</p>
-</section>
-
-<section class="section letter-section" aria-labelledby="d-heading">
-  <p class="letter-mark">D</p>
-  <h2 id="d-heading">Data</h2>
-  <p>Grounds investigations in verifiable public information. Claims stay attached to source documents, pages, and verification status. If evidence is unavailable, the page says so.</p>
-</section>
-
-<section class="section letter-section" aria-labelledby="r-heading">
-  <p class="letter-mark">R</p>
-  <h2 id="r-heading">Rights</h2>
-  <p>Helps citizens access information and public services. The right to know what was budgeted, who is responsible, and what the record actually supports is the starting point for action.</p>
-</section>
-
-<section class="section letter-section" aria-labelledby="a-heading">
-  <p class="letter-mark">A</p>
-  <h2 id="a-heading">Accountability</h2>
-  <p>Turns evidence into action and oversight. A citizen observation can be compared with official information and saved as a structured report. The report does not determine wrongdoing.</p>
-</section>
-
-<p class="section hydra-page-actions">
-  <a class="btn btn-secondary" href="{% url 'core:home' %}#hydra-meaning">Back to the home-page section</a>
+<p class="hydra-page-actions">
   <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a project</a>
+  <a class="btn btn-secondary" href="{% url 'core:how-it-works' %}">How it works</a>
+  <a class="btn btn-secondary" href="{% url 'core:home' %}">Back to home</a>
 </p>
 {% endblock %}

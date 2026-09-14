@@ -36,7 +36,11 @@ class PageTests(TestCase):
         self.assertEqual(meaning.status_code, 200)
         self.assertContains(meaning, "About Hydra")
         self.assertNotContains(meaning, "Section on this page")
+        self.assertNotContains(meaning, "This is a dedicated page")
         self.assertContains(meaning, "Citizens are at the heart of the platform.")
+        self.assertContains(meaning, "Human-centered Yield, Data, Rights")
+        self.assertContains(meaning, "What H.Y.D.R.A. does")
+        self.assertContains(meaning, "What it does not do")
 
         detail = self.client.get(self.project.get_absolute_url())
         self.assertEqual(detail.status_code, 200)
