@@ -83,8 +83,46 @@ class User(AbstractUser):
         return {"bg": background, "fg": foreground, "accent": accent}
 
     def is_watching_area(self):
-        return self.track_area and bool((self.county or "").strip())
+        if not self.pk:
+            return False
+        return self.area_watches.exists()
 
     def area_label(self):
+        labels = [watch.label() for watch in self.area_watches.all()]
+        if labels:
+            return "; ".join(labels)
+        parts = [part for part in (self.county, self.constituency, self.ward) if (part or "").strip()]
+        return " · ".join(parts)
+
+    def sync_area_tracking(self):
+        watching = self.area_watches.exists()
+        if self.track_area != watching:
+            self.track_area = watching
+            self.save(update_fields=["track_area"])
+
+
+class AreaWatch(models.Model):
+    MAX_PER_USER = 4
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="area_watches")
+    county = models.CharField(max_length=120)
+    constituency = models.CharField(max_length=120, blank=True)
+    ward = models.CharField(max_length=120, blank=True)
+    last_seen_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["county", "constituency", "ward"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "county", "constituency", "ward"],
+                name="unique_user_area_watch",
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.user} · {self.label()}"
+
+    def label(self):
         parts = [part for part in (self.county, self.constituency, self.ward) if (part or "").strip()]
         return " · ".join(parts)

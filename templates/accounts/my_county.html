@@ -2,43 +2,69 @@
 {% block title %}Track my county{% endblock %}
 {% block content %}
 <section class="page-head">
-  <p class="kicker">Your area</p>
+  <p class="kicker">Your areas</p>
   <h1>Track my county</h1>
-  <p class="lede">Choose your county, then optionally a constituency and ward. H.Y.D.R.A. will show public projects recorded for that area, and flag them on your dashboard when the record changes.</p>
+  <p class="lede">Follow up to {{ area.max_watches }} areas. Choose a county, then optionally a constituency and ward. H.Y.D.R.A. will show public projects recorded for those places, and flag them on your dashboard when the record changes.</p>
 </section>
 
 <section class="area-page">
-  <form class="area-form" method="post">
-    {% csrf_token %}
-    {% if form.non_field_errors %}<p class="error" role="alert">{{ form.non_field_errors|striptags }}</p>{% endif %}
-    <div class="form-grid area-grid">
-      <div class="field{% if form.county.errors %} is-invalid{% endif %}">
-        <label for="{{ form.county.id_for_label }}">County <span class="req" title="Required">*</span></label>
-        {{ form.county }}
-        {% if form.county.errors %}<p class="error" role="alert">{{ form.county.errors|striptags }}</p>{% endif %}
-      </div>
-      <div id="area-dependent" class="area-dependent">
-        <div class="field{% if form.constituency.errors %} is-invalid{% endif %}">
-          <label for="{{ form.constituency.id_for_label }}">Constituency</label>
-          {{ form.constituency }}
-          {% if form.constituency.errors %}<p class="error" role="alert">{{ form.constituency.errors|striptags }}</p>{% endif %}
+  {% if area.watches %}
+    <ul class="area-watch-list">
+      {% for watch in area.watches %}
+        <li>
+          <span>{{ watch.label }}</span>
+          <form method="post">
+            {% csrf_token %}
+            <button class="text-link" type="submit" name="remove" value="{{ watch.pk }}">Remove</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+    <p class="muted">{{ area.watch_count }} of {{ area.max_watches }} area{{ area.max_watches|pluralize }}.</p>
+  {% endif %}
+
+  {% if area.can_add %}
+    <form class="area-form" method="post">
+      {% csrf_token %}
+      {% if form.non_field_errors %}<p class="error" role="alert">{{ form.non_field_errors|striptags }}</p>{% endif %}
+      <div class="form-grid area-grid">
+        <div class="field{% if form.county.errors %} is-invalid{% endif %}">
+          <label for="{{ form.county.id_for_label }}">County <span class="req" title="Required">*</span></label>
+          {{ form.county }}
+          {% if form.county.errors %}<p class="error" role="alert">{{ form.county.errors|striptags }}</p>{% endif %}
         </div>
-        <div class="field{% if form.ward.errors %} is-invalid{% endif %}" id="ward-field">
-          <label for="{{ form.ward.id_for_label }}">Ward</label>
-          {{ form.ward }}
-          {% if form.ward.errors %}<p class="error" role="alert">{{ form.ward.errors|striptags }}</p>{% endif %}
+        <div id="area-dependent" class="area-dependent">
+          <div class="field{% if form.constituency.errors %} is-invalid{% endif %}">
+            <label for="{{ form.constituency.id_for_label }}">Constituency</label>
+            {{ form.constituency }}
+            {% if form.constituency.errors %}<p class="error" role="alert">{{ form.constituency.errors|striptags }}</p>{% endif %}
+          </div>
+          <div class="field{% if form.ward.errors %} is-invalid{% endif %}" id="ward-field">
+            <label for="{{ form.ward.id_for_label }}">Ward</label>
+            {{ form.ward }}
+            {% if form.ward.errors %}<p class="error" role="alert">{{ form.ward.errors|striptags }}</p>{% endif %}
+          </div>
         </div>
       </div>
-    </div>
-    <p class="help area-form-help">County is required. Constituency and ward are optional and only show units inside the selection above.</p>
+      <p class="help area-form-help">Add another county, or narrow one with constituency and ward. You can track up to {{ area.max_watches }}.</p>
+      <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Track this area</button>
+        {% if area.watching %}
+          <button class="btn btn-secondary" type="submit" name="intent" value="stop">Stop all</button>
+        {% endif %}
+        <a class="btn btn-secondary" href="{% url 'accounts:dashboard' %}">Dashboard</a>
+      </div>
+    </form>
+  {% else %}
+    <p class="search-empty">You are tracking {{ area.max_watches }} areas. Remove one to add another.</p>
     <div class="form-actions">
-      <button class="btn btn-primary" type="submit">Track this area</button>
-      {% if user.is_watching_area %}
-        <button class="btn btn-secondary" type="submit" name="intent" value="stop">Stop tracking</button>
-      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-secondary" type="submit" name="intent" value="stop">Stop all</button>
+      </form>
       <a class="btn btn-secondary" href="{% url 'accounts:dashboard' %}">Dashboard</a>
     </div>
-  </form>
+  {% endif %}
 
   {% if area.watching %}
     <header class="area-feed-head">
@@ -84,7 +110,7 @@
       </section>
     {% endif %}
     <section>
-      <h2>Projects in this area</h2>
+      <h2>Projects in these areas</h2>
       <div class="card-grid">
         {% for project in area.projects %}
           {% include "components/project_card.html" %}
@@ -94,7 +120,7 @@
       </div>
     </section>
   {% else %}
-    <p class="search-empty">Choose a county to start the feed. Constituency and ward are optional and only narrow the list.</p>
+    <p class="search-empty">Choose a county to start the feed. You can add up to {{ area.max_watches }} areas.</p>
   {% endif %}
 </section>
 {% endblock %}

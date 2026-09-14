@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from apps.investigations.models import Investigation
-from apps.projects.models import Institution, Project
+from apps.projects.models import Institution, Project, ProjectCategory, ProjectStatus
 from apps.reports.models import IssueReport, ReportStatus
 from apps.reports.services import generate_report_from_investigation
 
@@ -24,6 +24,20 @@ class ReportTests(TestCase):
             county="Kisumu",
             institution=self.institution,
             allocated_amount=Decimal("35000000"),
+            category=ProjectCategory.WATER,
+            financial_year="2025/2026",
+            status=ProjectStatus.IN_PROGRESS,
+        )
+        Project.objects.create(
+            name="Nairobi Drain Works",
+            description="Demo roads project.",
+            location="Nairobi",
+            county="Nairobi",
+            institution=self.institution,
+            allocated_amount=Decimal("50000000"),
+            category=ProjectCategory.ROADS,
+            financial_year="2025/2026",
+            status=ProjectStatus.DELAYED,
         )
         self.user = User.objects.create_user(username="reporter", password="pass12345")
         self.other = User.objects.create_user(username="stranger", password="pass12345")
@@ -59,6 +73,28 @@ class ReportTests(TestCase):
         allowed = self.client.get(report.get_absolute_url())
         self.assertEqual(allowed.status_code, 200)
         self.assertContains(allowed, "Accountability report")
+        self.assertContains(allowed, "County file")
+        self.assertContains(allowed, "Kisumu")
+        self.assertContains(allowed, "Recorded allocation")
+        self.assertContains(allowed, "Delivery mix")
+
+    def test_county_report_shows_allocation_and_delivery_charts(self):
+        page = self.client.get(reverse("reports:counties"))
+        self.assertEqual(page.status_code, 200)
+        self.assertContains(page, "County report")
+        self.assertContains(page, "Recorded allocation by county")
+        self.assertContains(page, "Kisumu")
+        self.assertContains(page, "Nairobi")
+        self.assertContains(page, "Allocation by sector")
+        self.assertContains(page, "Water")
+        self.assertContains(page, "Roads")
+        self.assertContains(page, "Highest delayed share")
+
+        filtered = self.client.get(reverse("reports:counties"), {"county": "Kisumu"})
+        self.assertContains(filtered, "County file")
+        self.assertContains(filtered, "Kisumu")
+        self.assertContains(filtered, "Delivery mix")
+        self.assertContains(filtered, "Allocation by sector")
 
     def test_save_report_from_review_form(self):
         report = generate_report_from_investigation(self.investigation, user=self.user)

@@ -23,6 +23,7 @@
     <a href="#dashboard">Dashboard</a>
     <a href="#investigations">Investigations</a>
     <a href="#reports">Reports</a>
+    <a href="#county-report">County report</a>
     <a href="#accounts">Accounts and privacy</a>
   </nav>
 
@@ -59,8 +60,8 @@
   <section class="about-block feature-detail" id="my-county" aria-labelledby="county-heading">
     <p class="kicker">Your area</p>
     <h2 id="county-heading">Track my county</h2>
-    <p>After you sign in, choose a county, then optionally a constituency and ward. The lists cascade: Kajiado only offers Kajiado constituencies; a constituency only offers its own wards. You can leave constituency or ward blank to watch the whole county.</p>
-    <p>H.Y.D.R.A. then shows public projects recorded for that area — status, budget, evidence coverage — and flags records that changed since your last visit. The same feed appears on your dashboard under My county. Stop tracking hides the feed; the location can stay on your profile.</p>
+    <p>After you sign in, choose a county, then optionally a constituency and ward. The lists cascade: Kajiado only offers Kajiado constituencies; a constituency only offers its own wards. You can leave constituency or ward blank to watch the whole county. You can track up to four areas at once.</p>
+    <p>H.Y.D.R.A. then shows public projects recorded for those areas — status, budget, evidence coverage — and flags records that changed since your last visit. The same feed appears on your dashboard under My areas. Remove one area, or stop all; the location can stay on your profile.</p>
     <p>This is a watch on the public record, not a ranking of your county and not a claim that work is complete.</p>
     <p><a class="text-link" href="{% url 'accounts:my-county' %}">Track my county</a></p>
   </section>
@@ -103,8 +104,19 @@
     <p class="kicker">A structured file</p>
     <h2 id="reports-heading">Reports</h2>
     <p>A report is generated from the structured investigation fields. It is a comparison you can review before it is saved, not a conviction. Neutral wording is required: potential discrepancy, evidence indicates, information unavailable, requires further verification.</p>
-    <p>Reports stay private by default. They do not determine guilt, corruption, or fraud.</p>
-    <p><a class="text-link" href="{% url 'reports:list' %}">Your reports</a></p>
+    <p>Each accountability report also shows a visual snapshot of that project’s county: recorded allocation, delivery mix, and sector budgets. Reports stay private by default. They do not determine guilt, corruption, or fraud.</p>
+    <p>
+      <a class="text-link" href="{% url 'reports:list' %}">Your reports</a>
+      · <a class="text-link" href="{% url 'reports:counties' %}">County report</a>
+    </p>
+  </section>
+
+  <section class="about-block feature-detail" id="county-report" aria-labelledby="county-report-heading">
+    <p class="kicker">The numbers, drawn</p>
+    <h2 id="county-report-heading">County report</h2>
+    <p>The county report turns the public project file into charts: recorded allocation by county, delivery mix (completed, in progress, delayed), and budgets by sector and financial year. Choose a county to zoom in. Bar length is relative to the largest figure in the set.</p>
+    <p>These visuals are a reading of recorded allocation and status. They are not paid-out expenditure unless a source records a spend, and they are not a performance or corruption score.</p>
+    <p><a class="text-link" href="{% url 'reports:counties' %}">Open the county report</a></p>
   </section>
 
   <section class="about-block feature-detail" id="accounts" aria-labelledby="accounts-heading">

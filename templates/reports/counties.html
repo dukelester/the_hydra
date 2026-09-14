@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}County report{% endblock %}
+{% block content %}
+<section class="page-head">
+  <p class="kicker">Public record</p>
+  <h1>County report</h1>
+  <p class="lede">Visual reading of recorded allocation, delivery status, and sector mix across counties. Figures come from project files. They are not a corruption score, and they are not paid-out expenditure unless a source records a spend.</p>
+</section>
+
+<section class="county-report">
+  <form class="area-form county-filter" method="get">
+    <div class="field">
+      <label for="id_report_county">County</label>
+      <select class="form-select" id="id_report_county" name="county" onchange="this.form.submit()">
+        <option value="">All counties</option>
+        {% for name in counties %}
+          <option value="{{ name }}"{% if name == selected_county %} selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <p class="help area-form-help">Choose a county to see its delivery mix and sector allocation. Leave blank for the national comparison.</p>
+  </form>
+
+  {% if highlights %}
+    <div class="dashboard-stats area-stats">
+      <div>
+        <strong>{{ highlights.total_budget }}</strong>
+        <span>Recorded allocation</span>
+      </div>
+      <div>
+        <strong>{{ highlights.project_count }}</strong>
+        <span>Project{{ highlights.project_count|pluralize }}</span>
+      </div>
+      <div>
+        <strong>{{ highlights.county_count }}</strong>
+        <span>Count{{ highlights.county_count|pluralize:"y,ies" }}</span>
+      </div>
+      <div>
+        <strong>{{ highlights.highest_budget.county }}</strong>
+        <span>Highest recorded budget</span>
+      </div>
+      <div>
+        <strong>{{ highlights.most_delayed.county }}</strong>
+        <span>Highest delayed share · {{ highlights.most_delayed.delayed_share }}%</span>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if county_view %}
+    {% include "reports/_county_snapshot.html" with county_view=county_view %}
+  {% endif %}
+
+  <article class="chart-panel">
+    <h3>Recorded allocation by county</h3>
+    <p class="help">Bar length is relative to the largest recorded county budget in this set.</p>
+    {% if rankings %}
+      <ol class="chart-bars" aria-label="Recorded allocation by county">
+        {% for row in rankings %}
+          <li>
+            <div class="chart-bar-meta">
+              <strong><a href="?county={{ row.county|urlencode }}">{{ row.county }}</a></strong>
+              <span>{{ row.formatted_budget }} · {{ row.project_count }} project{{ row.project_count|pluralize }}</span>
+            </div>
+            <div class="chart-track" role="img" aria-label="{{ row.county }} {{ row.formatted_budget }}">
+              <span class="chart-fill" style="width: {{ row.budget_width }}%"></span>
+            </div>
+            <div class="stack-track stack-track-sm" role="img" aria-label="{{ row.county }} delivery mix">
+              <span class="stack-fill is-completed" style="width: {{ row.completed_width }}%"></span>
+              <span class="stack-fill is-progress" style="width: {{ row.progress_width }}%"></span>
+              <span class="stack-fill is-delayed" style="width: {{ row.delayed_width }}%"></span>
+              <span class="stack-fill is-other" style="width: {{ row.other_width }}%"></span>
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+      <ul class="chart-legend chart-legend-inline">
+        <li><span class="swatch swatch-completed" aria-hidden="true"></span> Completed</li>
+        <li><span class="swatch swatch-in-progress" aria-hidden="true"></span> In progress</li>
+        <li><span class="swatch swatch-delayed" aria-hidden="true"></span> Delayed</li>
+        <li><span class="swatch swatch-other" aria-hidden="true"></span> Other / unknown</li>
+      </ul>
+    {% else %}
+      <p class="search-empty">No county records are available yet.</p>
+    {% endif %}
+  </article>
+
+  {% if not selected_county %}
+    <div class="chart-split">
+      <article class="chart-panel">
+        <h3>Allocation by sector</h3>
+        <p class="help">Recorded project budgets across all counties, by category.</p>
+        {% include "reports/_chart_bars.html" with rows=categories caption="Allocation by sector" %}
+      </article>
+      <article class="chart-panel">
+        <h3>Allocation by financial year</h3>
+        <p class="help">Project budgets grouped by the financial year on the file.</p>
+        {% include "reports/_chart_bars.html" with rows=years caption="Allocation by financial year" empty="No financial year is recorded on these projects." %}
+      </article>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

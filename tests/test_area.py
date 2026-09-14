@@ -69,8 +69,9 @@ class AreaWatchTests(TestCase):
         self.assertContains(feed, "Kisumu")
 
         dashboard = self.client.get(reverse("accounts:dashboard"))
-        self.assertContains(dashboard, "My county")
+        self.assertContains(dashboard, "My areas")
         self.assertContains(dashboard, "Watching Kisumu")
+        self.assertTrue(self.user.area_watches.filter(county="Kisumu").exists())
 
     def test_constituency_narrows_the_feed(self):
         self.client.force_login(self.user)
@@ -133,4 +134,38 @@ class AreaWatchTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.user.refresh_from_db()
         self.assertFalse(self.user.track_area)
+        self.assertFalse(self.user.area_watches.exists())
         self.assertContains(response, "valid choice")
+
+    def test_user_can_track_up_to_four_areas(self):
+        self.client.force_login(self.user)
+        self.client.post(reverse("accounts:my-county"), {"county": "Kisumu"})
+        self.client.post(reverse("accounts:my-county"), {"county": "Nairobi"})
+        feed = self.client.get(reverse("accounts:my-county"))
+        self.assertContains(feed, "Community Water Access Project")
+        self.assertContains(feed, "Nairobi Drain Works")
+        self.assertContains(feed, "2 of 4 areas")
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.area_watches.count(), 2)
+        self.assertEqual(self.user.area_label(), "Kisumu; Nairobi")
+
+        dashboard = self.client.get(reverse("accounts:dashboard"))
+        self.assertContains(dashboard, "2 areas")
+
+        for county in ("Kajiado", "Mombasa"):
+            self.client.post(reverse("accounts:my-county"), {"county": county})
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.area_watches.count(), 4)
+
+        blocked = self.client.post(reverse("accounts:my-county"), {"county": "Nakuru"})
+        self.assertEqual(blocked.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.area_watches.count(), 4)
+        self.assertContains(blocked, "You are tracking 4 areas")
+
+        first = self.user.area_watches.get(county="Kisumu")
+        removed = self.client.post(reverse("accounts:my-county"), {"remove": str(first.pk)})
+        self.assertRedirects(removed, reverse("accounts:my-county"))
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.area_watches.count(), 3)
+        self.assertFalse(self.user.area_watches.filter(county="Kisumu").exists())

@@ -4,7 +4,9 @@
 <article class="report-page">
   <p class="kicker">Accountability report · {{ report.get_status_display }} · Private</p>
   <h1>{{ report.title }}</h1>
-  <p>Project: <a href="{{ project.get_absolute_url }}">{{ project.name }}</a></p>
+  <p>Project: <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>{% if project.county %} · {{ project.county }}{% if project.constituency %} · {{ project.constituency }}{% endif %}{% endif %}</p>
+
+  {% include "reports/_county_snapshot.html" with county_view=county_view show_link=True %}
 
   <section>
     <h2>Official information</h2>

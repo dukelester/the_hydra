@@ -1,0 +1,17 @@
+{% if rows %}
+  <ol class="chart-bars" aria-label="{{ caption }}">
+    {% for row in rows %}
+      <li>
+        <div class="chart-bar-meta">
+          <strong>{{ row.label }}</strong>
+          <span>{{ row.formatted_budget }}{% if row.project_count %} · {{ row.project_count }} project{{ row.project_count|pluralize }}{% endif %}</span>
+        </div>
+        <div class="chart-track" role="img" aria-label="{{ row.label }} {{ row.formatted_budget }}">
+          <span class="chart-fill" style="width: {{ row.budget_width }}%"></span>
+        </div>
+      </li>
+    {% endfor %}
+  </ol>
+{% else %}
+  <p class="search-empty">{{ empty|default:"No recorded allocation is available for this view." }}</p>
+{% endif %}

@@ -110,27 +110,71 @@ def area_project_queryset(county, constituency="", ward=""):
     return qs.order_by("-updated_at", "name")
 
 
+def area_projects_for_watches(watches):
+    qs = Project.objects.none()
+    for watch in watches:
+        qs = qs | area_project_queryset(watch.county, watch.constituency, watch.ward)
+    return qs.distinct().select_related("institution").prefetch_related("evidence_items").order_by(
+        "-updated_at", "name"
+    )
+
+
+def _watch_matches_project(watch, project):
+    if (project.county or "").lower() != (watch.county or "").lower():
+        return False
+    constituency = (watch.constituency or "").strip().lower()
+    ward = (watch.ward or "").strip().lower()
+    if constituency:
+        haystack = " ".join(
+            part for part in (project.constituency, project.ward, project.location) if part
+        ).lower()
+        if constituency not in haystack:
+            return False
+    if ward:
+        haystack = " ".join(part for part in (project.ward, project.location) if part).lower()
+        if ward not in haystack:
+            return False
+    return True
+
+
 def area_watch_context(user, mark_seen=False):
     from django.utils import timezone
 
-    if not user.is_authenticated or not user.is_watching_area():
-        return {
-            "watching": False,
-            "projects": [],
-            "area_updates": [],
-            "area_update_count": 0,
-            "area_count": 0,
-            "status_totals": [],
-            "total_budget": "Information unavailable",
-            "label": "",
-        }
+    empty = {
+        "watching": False,
+        "watches": [],
+        "watch_count": 0,
+        "can_add": True,
+        "max_watches": 4,
+        "projects": [],
+        "area_updates": [],
+        "area_update_count": 0,
+        "area_count": 0,
+        "status_totals": [],
+        "total_budget": "Information unavailable",
+        "label": "",
+    }
+    if not user.is_authenticated:
+        return empty
 
-    projects = list(area_project_queryset(user.county, user.constituency, user.ward))
-    last_seen = user.area_last_seen_at
+    watches = list(user.area_watches.all())
+    if not watches:
+        empty["max_watches"] = user.area_watches.model.MAX_PER_USER
+        return empty
+
+    projects = list(area_projects_for_watches(watches))
     updates = []
     for project in projects:
         project.coverage = calculate_evidence_coverage(project)
-        project.is_new_in_area = bool(last_seen and project.updated_at > last_seen)
+        project.is_new_in_area = False
+        for watch in watches:
+            if (
+                watch.last_seen_at
+                and project.updated_at > watch.last_seen_at
+                and _watch_matches_project(watch, project)
+            ):
+                project.is_new_in_area = True
+                break
         if project.is_new_in_area:
             updates.append(project)
 
@@ -144,11 +188,18 @@ def area_watch_context(user, mark_seen=False):
     ]
     total = sum((project.allocated_amount or Decimal("0")) for project in projects)
     if mark_seen:
-        user.area_last_seen_at = timezone.now()
+        now = timezone.now()
+        user.area_watches.update(last_seen_at=now)
+        user.area_last_seen_at = now
         user.save(update_fields=["area_last_seen_at"])
 
+    max_watches = user.area_watches.model.MAX_PER_USER
     return {
         "watching": True,
+        "watches": watches,
+        "watch_count": len(watches),
+        "can_add": len(watches) < max_watches,
+        "max_watches": max_watches,
         "projects": projects,
         "area_updates": updates,
         "area_update_count": len(updates),

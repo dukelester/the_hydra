@@ -1,0 +1,75 @@
+{% if county_view %}
+  <div class="county-snapshot">
+    <header class="section-head">
+      <div>
+        <p class="eyebrow">County file</p>
+        <h2>{{ county_view.county }}</h2>
+        <p class="muted">Recorded allocation and delivery status from the public project file. This is not a corruption or performance score. Actual expenditure appears only when a source records it.</p>
+      </div>
+      {% if show_link %}
+        <a class="text-link" href="{% url 'reports:counties' %}?county={{ county_view.county|urlencode }}">Open county report</a>
+      {% endif %}
+    </header>
+
+    <div class="dashboard-stats area-stats">
+      <div>
+        <strong>{{ county_view.row.formatted_budget }}</strong>
+        <span>Recorded allocation</span>
+      </div>
+      <div>
+        <strong>{{ county_view.allocation_total }}</strong>
+        <span>Line allocations</span>
+      </div>
+      <div>
+        <strong>{{ county_view.row.project_count }}</strong>
+        <span>Project{{ county_view.row.project_count|pluralize }}</span>
+      </div>
+      <div>
+        <strong>{{ county_view.row.completed_share }}%</strong>
+        <span>Completed</span>
+      </div>
+      <div>
+        <strong>{{ county_view.row.delayed_share }}%</strong>
+        <span>Delayed</span>
+      </div>
+      <div>
+        <strong>{{ county_view.coverage.percent }}%</strong>
+        <span>Average evidence coverage</span>
+      </div>
+    </div>
+
+    <div class="chart-split">
+      <article class="chart-panel">
+        <h3>Delivery mix</h3>
+        <p class="help">Share of projects by recorded status in {{ county_view.county }}.</p>
+        <div class="donut-wrap">
+          <div class="donut" style="background: conic-gradient({{ county_view.mix.stops }})" role="img" aria-label="Delivery mix for {{ county_view.county }}"></div>
+          <ul class="chart-legend">
+            {% for key, label, width, color in county_view.mix.items %}
+              <li><span class="swatch swatch-{{ key }}" aria-hidden="true"></span> {{ label }} · {{ width }}%</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="stack-track" role="img" aria-label="Stacked delivery status">
+          <span class="stack-fill is-completed" style="width: {{ county_view.row.completed_width }}%"></span>
+          <span class="stack-fill is-progress" style="width: {{ county_view.row.progress_width }}%"></span>
+          <span class="stack-fill is-delayed" style="width: {{ county_view.row.delayed_width }}%"></span>
+          <span class="stack-fill is-other" style="width: {{ county_view.row.other_width }}%"></span>
+        </div>
+      </article>
+      <article class="chart-panel">
+        <h3>Allocation by sector</h3>
+        <p class="help">Recorded project budgets by category{% if county_view.county %} in {{ county_view.county }}{% endif %}.</p>
+        {% include "reports/_chart_bars.html" with rows=county_view.categories caption="Allocation by sector" %}
+      </article>
+    </div>
+
+    {% if county_view.years %}
+      <article class="chart-panel">
+        <h3>Allocation by financial year</h3>
+        <p class="help">Project budgets grouped by the financial year on the file.</p>
+        {% include "reports/_chart_bars.html" with rows=county_view.years caption="Allocation by financial year" %}
+      </article>
+    {% endif %}
+  </div>
+{% endif %}

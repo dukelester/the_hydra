@@ -11,6 +11,13 @@ from apps.core.permissions import (
     remember_id,
 )
 from apps.investigations.models import Investigation
+from apps.projects.compare import county_rankings, ranking_highlights
+from apps.reports.analytics import (
+    category_chart_rows,
+    county_snapshot,
+    decorate_county_charts,
+    year_chart_rows,
+)
 from apps.reports.models import IssueReport
 from apps.reports.services import generate_report_from_investigation
 
@@ -86,5 +93,30 @@ def report_detail(request, pk):
             "investigation": report.investigation,
             "form": form,
             "sources": sources,
+            "county_view": county_snapshot(report.project.county),
+        },
+    )
+
+
+def county_report_view(request):
+    rankings = decorate_county_charts(county_rankings())
+    names = [row["county"] for row in rankings]
+    selected = (request.GET.get("county") or "").strip()
+    if not selected and request.user.is_authenticated:
+        selected = (request.user.county or "").strip()
+    if selected and selected not in names:
+        selected = next((name for name in names if name.lower() == selected.lower()), "")
+    snapshot = county_snapshot(selected) if selected else None
+    return render(
+        request,
+        "reports/counties.html",
+        {
+            "rankings": rankings,
+            "highlights": ranking_highlights(rankings),
+            "categories": category_chart_rows(selected),
+            "years": year_chart_rows(selected),
+            "county_view": snapshot,
+            "selected_county": selected,
+            "counties": names,
         },
     )

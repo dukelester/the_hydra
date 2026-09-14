@@ -10,7 +10,7 @@ from django.contrib.auth.forms import (
 )
 from django import forms
 
-from apps.accounts.models import User, UserRole
+from apps.accounts.models import AreaWatch, User, UserRole
 from apps.investigations.models import Investigation
 from apps.projects.area import area_counties, constituencies_for, wards_for
 from apps.reports.models import IssueReport, ReportStatus
@@ -165,28 +165,16 @@ class ProfileForm(StyledFormMixin, forms.ModelForm):
         self._style_fields()
 
 
-class AreaWatchForm(StyledFormMixin, forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ("county", "constituency", "ward")
-        labels = {
-            "county": "County",
-            "constituency": "Constituency",
-            "ward": "Ward",
-        }
-        help_texts = {
-            "county": "",
-            "constituency": "",
-            "ward": "",
-        }
-
-    def __init__(self, *args, **kwargs):
+class AreaWatchForm(StyledFormMixin, forms.Form):
+    def __init__(self, *args, user=None, **kwargs):
         kwargs.pop("counties", None)
         kwargs.pop("constituencies", None)
         kwargs.pop("wards", None)
+        kwargs.pop("instance", None)
+        self.user = user
         super().__init__(*args, **kwargs)
-        county = self._posted_or_instance("county")
-        constituency = self._posted_or_instance("constituency")
+        county = self._posted_value("county")
+        constituency = self._posted_value("constituency")
         if constituency and constituency not in constituencies_for(county):
             constituency = ""
 
@@ -236,10 +224,10 @@ class AreaWatchForm(StyledFormMixin, forms.ModelForm):
         )
         self.fields["ward"].widget.attrs.update({"autocomplete": "off"})
 
-    def _posted_or_instance(self, name):
+    def _posted_value(self, name):
         if self.is_bound:
             return (self.data.get(name) or "").strip()
-        return (getattr(self.instance, name, None) or "").strip()
+        return ""
 
     def clean_county(self):
         county = (self.cleaned_data.get("county") or "").strip()
@@ -258,9 +246,35 @@ class AreaWatchForm(StyledFormMixin, forms.ModelForm):
             self.add_error("ward", "Choose a constituency before a ward.")
         elif ward and ward not in wards_for(county, constituency):
             self.add_error("ward", "Choose a ward in that constituency.")
+        if self.user and self.user.pk and not self.errors:
+            watches = self.user.area_watches.all()
+            if watches.count() >= AreaWatch.MAX_PER_USER:
+                raise forms.ValidationError(
+                    f"You can track up to {AreaWatch.MAX_PER_USER} areas. Remove one to add another."
+                )
+            if watches.filter(county=county, constituency=constituency, ward=ward).exists():
+                raise forms.ValidationError("You are already tracking this area.")
         cleaned["constituency"] = constituency
         cleaned["ward"] = ward
         return cleaned
+
+    def save(self):
+        from django.utils import timezone
+
+        watch = AreaWatch.objects.create(
+            user=self.user,
+            county=self.cleaned_data["county"],
+            constituency=self.cleaned_data.get("constituency") or "",
+            ward=self.cleaned_data.get("ward") or "",
+            last_seen_at=timezone.now(),
+        )
+        if not (self.user.county or "").strip():
+            self.user.county = watch.county
+            self.user.constituency = watch.constituency
+            self.user.ward = watch.ward
+            self.user.save(update_fields=["county", "constituency", "ward"])
+        self.user.sync_area_tracking()
+        return watch
 
 
 class StyledPasswordResetForm(StyledFormMixin, PasswordResetForm):

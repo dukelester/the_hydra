@@ -148,17 +148,25 @@ def my_county_view(request):
     user = request.user
 
     if request.method == "POST" and request.POST.get("intent") == "stop":
-        user.track_area = False
-        user.save(update_fields=["track_area"])
-        messages.success(request, "Stopped tracking this area. Location details are still on your profile.")
+        user.area_watches.all().delete()
+        user.sync_area_tracking()
+        messages.success(request, "Stopped tracking all areas. Location details are still on your profile.")
         return redirect("accounts:my-county")
 
-    form = AreaWatchForm(request.POST if request.method == "POST" else None, instance=user)
-    if request.method == "POST" and form.is_valid():
-        watch = form.save(commit=False)
-        watch.track_area = True
-        watch.save()
-        messages.success(request, f"Tracking {watch.area_label()}. New work in this area will show here.")
+    if request.method == "POST" and request.POST.get("remove"):
+        removed = user.area_watches.filter(pk=request.POST.get("remove")).first()
+        if removed:
+            label = removed.label()
+            removed.delete()
+            user.sync_area_tracking()
+            messages.success(request, f"Stopped tracking {label}.")
+        return redirect("accounts:my-county")
+
+    adding = request.method == "POST" and request.POST.get("intent") not in {"stop", "remove"}
+    form = AreaWatchForm(request.POST if adding else None, user=user)
+    if adding and form.is_valid():
+        watch = form.save()
+        messages.success(request, f"Tracking {watch.label()}. You can follow up to {watch.MAX_PER_USER} areas.")
         return redirect("accounts:my-county")
 
     area = area_watch_context(user, mark_seen=user.is_watching_area())
