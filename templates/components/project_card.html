@@ -1,5 +1,5 @@
 <article class="card project-card">
-  <p class="eyebrow">{{ project.county }} · {{ project.get_category_display }}</p>
+  <p class="eyebrow">{{ project.county }}{% if project.constituency %} · {{ project.constituency }}{% endif %}{% if project.ward %} · {{ project.ward }}{% endif %} · {{ project.get_category_display }}{% if project.is_new_in_area %} <span class="watch-pill is-alert">Updated</span>{% endif %}</p>
   <h3><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></h3>
   <p class="muted">{{ project.institution.name }}</p>
   <dl class="mini-facts">

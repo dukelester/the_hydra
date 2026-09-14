@@ -103,6 +103,7 @@ class Project(models.Model):
     )
     location = models.CharField(max_length=255)
     county = models.CharField(max_length=120, db_index=True)
+    constituency = models.CharField(max_length=120, blank=True, db_index=True)
     ward = models.CharField(max_length=120, blank=True)
     institution = models.ForeignKey(
         Institution,
@@ -143,6 +144,7 @@ class Project(models.Model):
         ordering = ["name"]
         indexes = [
             models.Index(fields=["county", "status"]),
+            models.Index(fields=["county", "constituency"]),
             models.Index(fields=["name"]),
             models.Index(fields=["category"]),
             models.Index(fields=["ward"]),

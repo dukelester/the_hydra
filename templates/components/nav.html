@@ -24,6 +24,7 @@
           <a href="{% url 'policies:list' %}">Policies<span>Public rules and plans</span></a>
           <a href="{% url 'core:search' %}">Search<span>Ranked civic search</span></a>
           <a href="{% url 'projects:compare' %}">Compare<span>Projects, counties, rankings</span></a>
+          <a href="{% url 'accounts:my-county' %}">Track my county<span>County, constituency, ward</span></a>
         </div>
       </details>
       <a href="{% url 'core:what-hydra-means' %}">About Hydra</a>
@@ -47,6 +48,7 @@
             <span>@{{ user.username }}</span>
           </p>
           <a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+          <a href="{% url 'accounts:my-county' %}">Track my county</a>
           <a href="{% url 'accounts:profile' %}">Profile</a>
           <a href="{% url 'investigations:list' %}">Investigations</a>
           <a href="{% url 'reports:list' %}">Reports</a>
@@ -67,10 +69,12 @@
         <a href="{% url 'policies:list' %}">Policies</a>
         <a href="{% url 'core:search' %}">Search</a>
         <a href="{% url 'projects:compare' %}">Compare</a>
+        <a href="{% url 'accounts:my-county' %}">Track my county</a>
         <a href="{% url 'core:what-hydra-means' %}">About Hydra</a>
         <a href="{% url 'core:how-it-works' %}">How it works</a>
         {% if user.is_authenticated %}
           <a href="{% url 'accounts:dashboard' %}">Dashboard</a>
+          <a href="{% url 'accounts:my-county' %}">Track my county</a>
           <a href="{% url 'accounts:profile' %}">Profile</a>
           <a href="{% url 'investigations:list' %}">Investigations</a>
           <a href="{% url 'reports:list' %}">Reports</a>

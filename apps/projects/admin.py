@@ -47,6 +47,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "county",
+        "constituency",
         "institution",
         "status",
         "financial_year",
@@ -54,7 +55,7 @@ class ProjectAdmin(admin.ModelAdmin):
         "is_featured",
         "is_demo",
     )
-    search_fields = ("name", "description", "county", "ward", "location", "contractor")
+    search_fields = ("name", "description", "county", "constituency", "ward", "location", "contractor")
     list_filter = ("status", "category", "county", "financial_year", "is_featured", "is_demo")
     prepopulated_fields = {"slug": ("name",)}
     autocomplete_fields = ["institution"]

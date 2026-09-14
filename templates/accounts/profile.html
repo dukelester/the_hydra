@@ -40,8 +40,11 @@
       {% include "components/form_field.html" with field=form.role %}
       <div class="form-grid">
         {% include "components/form_field.html" with field=form.county %}
+        {% include "components/form_field.html" with field=form.constituency %}
+        {% include "components/form_field.html" with field=form.ward %}
         {% include "components/form_field.html" with field=form.location %}
       </div>
+      <p class="help"><a href="{% url 'accounts:my-county' %}">Track this area</a> to see projects on your dashboard as the record is updated.</p>
       {% include "components/form_field.html" with field=form.bio %}
     </fieldset>
     <div class="form-actions">

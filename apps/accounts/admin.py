@@ -15,6 +15,8 @@ class UserAdmin(DjangoUserAdmin):
         "last_name",
         "affiliation",
         "county",
+        "constituency",
+        "ward",
     )
     list_filter = ("is_staff", "is_superuser", "is_active")
     fieldsets = DjangoUserAdmin.fieldsets + (
@@ -26,7 +28,10 @@ class UserAdmin(DjangoUserAdmin):
                     "affiliation",
                     "role",
                     "county",
+                    "constituency",
+                    "ward",
                     "location",
+                    "track_area",
                     "website",
                     "bio",
                 )

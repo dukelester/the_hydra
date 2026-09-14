@@ -23,6 +23,7 @@
           <li><a href="{% url 'policies:list' %}">Policies</a></li>
           <li><a href="{% url 'core:search' %}">Search</a></li>
           <li><a href="{% url 'projects:compare' %}">Compare</a></li>
+          <li><a href="{% url 'accounts:my-county' %}">Track my county</a></li>
         </ul>
       </nav>
 
@@ -34,6 +35,7 @@
           <li><a href="{% url 'core:terms' %}">Terms of use</a></li>
           {% if user.is_authenticated %}
             <li><a href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'accounts:my-county' %}">Track my county</a></li>
             <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
             <li><a href="{% url 'investigations:list' %}">Investigations</a></li>
             <li><a href="{% url 'reports:list' %}">Reports</a></li>

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Track my county{% endblock %}
+{% block content %}
+<section class="page-head">
+  <p class="kicker">Your area</p>
+  <h1>Track my county</h1>
+  <p class="lede">Enter your county, and optionally constituency and ward. H.Y.D.R.A. will show public projects recorded for that area, and flag them on your dashboard when the record changes.</p>
+</section>
+
+<section class="area-page">
+  <form class="area-form" method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}<p class="error" role="alert">{{ form.non_field_errors|striptags }}</p>{% endif %}
+    <div class="form-grid">
+      {% include "components/form_field.html" with field=form.county %}
+      {% include "components/form_field.html" with field=form.constituency %}
+      {% include "components/form_field.html" with field=form.ward %}
+    </div>
+    <datalist id="known-constituencies">
+      {% for name in constituencies %}<option value="{{ name }}">{% endfor %}
+    </datalist>
+    <datalist id="known-wards">
+      {% for name in wards %}<option value="{{ name }}">{% endfor %}
+    </datalist>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Track this area</button>
+      {% if user.is_watching_area %}
+        <button class="btn btn-secondary" type="submit" name="intent" value="stop">Stop tracking</button>
+      {% endif %}
+      <a class="btn btn-secondary" href="{% url 'accounts:dashboard' %}">Dashboard</a>
+    </div>
+  </form>
+
+  {% if area.watching %}
+    <header class="area-feed-head">
+      <div>
+        <p class="eyebrow">Watching</p>
+        <h2>{{ area.label }}</h2>
+        <p class="muted">{{ area.area_count }} project{{ area.area_count|pluralize }} in the public record{% if area.total_budget %} · {{ area.total_budget }} recorded{% endif %}</p>
+      </div>
+    </header>
+    <div class="dashboard-stats area-stats">
+      <div>
+        <strong>{{ area.area_count }}</strong>
+        <span>Project{{ area.area_count|pluralize }}</span>
+      </div>
+      <div>
+        <strong>{{ area.in_progress_count }}</strong>
+        <span>In progress</span>
+      </div>
+      <div>
+        <strong>{{ area.delayed_count }}</strong>
+        <span>Delayed</span>
+      </div>
+      <div>
+        <strong>{{ area.area_update_count }}</strong>
+        <span>Updated since last visit</span>
+      </div>
+    </div>
+    {% if area.status_totals %}
+      <ul class="status-chips">
+        {% for item in area.status_totals %}
+          <li><strong>{{ item.count }}</strong> <span>{{ item.label }}</span></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% if area.area_updates %}
+      <section>
+        <h2>Updated since you last looked</h2>
+        <div class="card-grid">
+          {% for project in area.area_updates %}
+            {% include "components/project_card.html" %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+    <section>
+      <h2>Projects in this area</h2>
+      <div class="card-grid">
+        {% for project in area.projects %}
+          {% include "components/project_card.html" %}
+        {% empty %}
+          <p class="search-empty">No projects are recorded for {{ area.label }} yet. The feed will fill as records are added.</p>
+        {% endfor %}
+      </div>
+    </section>
+  {% else %}
+    <p class="search-empty">Choose a county to start the feed. Constituency and ward are optional and only narrow the list.</p>
+  {% endif %}
+</section>
+{% endblock %}

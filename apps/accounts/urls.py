@@ -26,5 +26,6 @@ urlpatterns = [
     ),
     path("password-change/", views.TheHydraPasswordChangeView.as_view(), name="password-change"),
     path("dashboard/", views.dashboard_view, name="dashboard"),
+    path("my-county/", views.my_county_view, name="my-county"),
     path("profile/", views.profile_view, name="profile"),
 ]

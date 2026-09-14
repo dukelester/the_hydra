@@ -124,8 +124,8 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row">County / ward</th>
-              {% for project in projects %}<td>{{ project.county }}{% if project.ward %} · {{ project.ward }}{% endif %}</td>{% endfor %}
+              <th scope="row">County / area</th>
+              {% for project in projects %}<td>{{ project.county }}{% if project.constituency %} · {{ project.constituency }}{% endif %}{% if project.ward %} · {{ project.ward }}{% endif %}</td>{% endfor %}
             </tr>
             <tr>
               <th scope="row">Institution</th>

@@ -114,6 +114,7 @@ class ProjectListSerializer(serializers.ModelSerializer):
             "category",
             "location",
             "county",
+            "constituency",
             "ward",
             "institution",
             "contractor",

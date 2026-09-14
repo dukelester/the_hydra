@@ -81,7 +81,8 @@ summary:focus-visible {
 .investigation-page,
 .report-page,
 .filters,
-.compare-page {
+.compare-page,
+.area-page {
   width: min(var(--max), calc(100% - 2rem));
   margin-inline: auto;
 }
@@ -1442,6 +1443,16 @@ textarea:focus,
   padding: 1.1rem 1.2rem;
 }
 .dashboard-stats a:hover { color: inherit; transform: translateY(-3px); }
+.dashboard-stats > div {
+  display: grid;
+  gap: 0.2rem;
+  background: var(--card);
+  border: 1px solid rgba(213, 204, 184, 0.9);
+  border-left: 5px solid var(--gold);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.1rem 1.2rem;
+}
 .dashboard-stats strong {
   font-family: var(--font-display);
   font-size: 1.8rem;
@@ -1452,6 +1463,24 @@ textarea:focus,
 .dashboard-split .plain-list { display: grid; gap: 0.85rem; }
 .dashboard-split .card { margin: 0; }
 .dashboard-page > section { margin: 0 0 2rem; }
+.area-page { padding: 0 0 3.4rem; }
+.area-form {
+  background: var(--card);
+  border: 1px solid rgba(213, 204, 184, 0.9);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.3rem 1.2rem;
+  margin-bottom: 1.8rem;
+}
+.area-form .form-grid {
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-bottom: 1rem;
+}
+.area-feed-head { margin: 0 0 1rem; }
+.area-feed-head h2 { margin-bottom: 0.25rem; }
+.area-stats { margin-bottom: 1.2rem; }
+.area-page .card-grid { margin-top: 0.4rem; }
+.area-page > section { margin: 1.8rem 0 0; }
 .dashboard-recent { margin-top: 0.2rem; }
 .dashboard-recent .search-empty { grid-column: 1 / -1; }
 .project-toolbar {

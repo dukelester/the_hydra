@@ -40,11 +40,18 @@ class User(AbstractUser):
         help_text="How you usually use this record. Optional.",
     )
     county = models.CharField(max_length=120, blank=True)
+    constituency = models.CharField(max_length=120, blank=True)
+    ward = models.CharField(max_length=120, blank=True)
     location = models.CharField(
         max_length=255,
         blank=True,
         help_text="Town, ward, or area you follow.",
     )
+    track_area = models.BooleanField(
+        default=False,
+        help_text="Show projects from this county on the dashboard.",
+    )
+    area_last_seen_at = models.DateTimeField(null=True, blank=True)
     website = models.URLField(blank=True)
     bio = models.TextField(blank=True)
 
@@ -74,3 +81,10 @@ class User(AbstractUser):
         index = sum(ord(char) for char in self.username) % len(AVATAR_PALETTES)
         background, foreground, accent = AVATAR_PALETTES[index]
         return {"bg": background, "fg": foreground, "accent": accent}
+
+    def is_watching_area(self):
+        return self.track_area and bool((self.county or "").strip())
+
+    def area_label(self):
+        parts = [part for part in (self.county, self.constituency, self.ward) if (part or "").strip()]
+        return " · ".join(parts)

@@ -15,6 +15,7 @@ from django.urls import reverse_lazy
 from django.views.decorators.http import require_http_methods
 
 from apps.core.forms import (
+    AreaWatchForm,
     LoginForm,
     ProfileForm,
     RegisterForm,
@@ -25,6 +26,12 @@ from apps.core.forms import (
 )
 from apps.core.services.coverage import calculate_evidence_coverage
 from apps.projects.activity import favourite_projects, recent_projects_for, tracked_follows
+from apps.projects.area import (
+    area_watch_context,
+    known_constituencies,
+    known_wards,
+    trackable_counties,
+)
 
 
 class TheHydraLoginView(LoginView):
@@ -106,6 +113,7 @@ def dashboard_view(request):
     for project in recent_projects + favourites + [follow.project for follow in follows]:
         project.coverage = calculate_evidence_coverage(project)
     updates = [follow for follow in follows if follow.needs_attention]
+    area = area_watch_context(request.user)
     return render(
         request,
         "accounts/dashboard.html",
@@ -121,6 +129,7 @@ def dashboard_view(request):
             "tracked_count": len(follows),
             "favourite_count": len(favourites),
             "update_count": len(updates),
+            "area": area,
         },
     )
 
@@ -133,6 +142,46 @@ def profile_view(request):
         messages.success(request, "Profile saved.")
         return redirect("accounts:profile")
     return render(request, "accounts/profile.html", {"form": form})
+
+
+@login_required
+def my_county_view(request):
+    counties = trackable_counties()
+    constituencies = known_constituencies()
+    wards = known_wards()
+    user = request.user
+
+    if request.method == "POST" and request.POST.get("intent") == "stop":
+        user.track_area = False
+        user.save(update_fields=["track_area"])
+        messages.success(request, "Stopped tracking this area. Location details are still on your profile.")
+        return redirect("accounts:my-county")
+
+    form = AreaWatchForm(
+        request.POST if request.method == "POST" else None,
+        instance=user,
+        counties=counties,
+        constituencies=constituencies,
+        wards=wards,
+    )
+    if request.method == "POST" and form.is_valid():
+        watch = form.save(commit=False)
+        watch.track_area = True
+        watch.save()
+        messages.success(request, f"Tracking {watch.area_label()}. New work in this area will show here.")
+        return redirect("accounts:my-county")
+
+    area = area_watch_context(user, mark_seen=user.is_watching_area())
+    return render(
+        request,
+        "accounts/my_county.html",
+        {
+            "form": form,
+            "area": area,
+            "constituencies": constituencies,
+            "wards": wards,
+        },
+    )
 
 
 class TheHydraPasswordResetView(PasswordResetView):

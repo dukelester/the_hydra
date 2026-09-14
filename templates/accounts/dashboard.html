@@ -11,6 +11,7 @@
       <div class="hero-actions dashboard-actions">
         <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a project</a>
         <a class="btn btn-secondary" href="{% url 'projects:compare' %}">Compare</a>
+        <a class="btn btn-secondary" href="{% url 'accounts:my-county' %}">Track my county</a>
         <a class="btn btn-secondary" href="{% url 'accounts:profile' %}">Edit profile</a>
       </div>
     </div>
@@ -37,7 +38,30 @@
       <strong>{{ favourite_count }}</strong>
       <span>Favourite{{ favourite_count|pluralize }}</span>
     </a>
+    <a href="{% url 'accounts:my-county' %}">
+      <strong>{% if area.watching %}{{ area.area_count }}{% else %}—{% endif %}</strong>
+      <span>{% if area.watching %}{{ area.label }}{% else %}Track my county{% endif %}</span>
+    </a>
   </div>
+
+  <section id="my-county">
+    <div class="section-head">
+      <h2>My county</h2>
+      <a class="text-link" href="{% url 'accounts:my-county' %}">{% if area.watching %}Open feed{% else %}Set up{% endif %}</a>
+    </div>
+    {% if area.watching %}
+      <p class="muted">Watching {{ area.label }}. {{ area.area_count }} project{{ area.area_count|pluralize }} in the record{% if area.area_update_count %} · {{ area.area_update_count }} updated since your last visit{% endif %}.</p>
+      <div class="card-grid dashboard-recent">
+        {% for project in area.projects|slice:":4" %}
+          {% include "components/project_card.html" %}
+        {% empty %}
+          <p class="search-empty">No projects are recorded for this area yet.</p>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="search-empty">Tell us your county, constituency, or ward to follow public works as the record is updated.</p>
+    {% endif %}
+  </section>
 
   <section id="project-updates">
     <div class="section-head">

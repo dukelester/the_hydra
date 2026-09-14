@@ -105,6 +105,8 @@ class ProfileForm(StyledFormMixin, forms.ModelForm):
             "affiliation",
             "role",
             "county",
+            "constituency",
+            "ward",
             "location",
             "website",
             "bio",
@@ -117,6 +119,8 @@ class ProfileForm(StyledFormMixin, forms.ModelForm):
             "affiliation": "Affiliation",
             "role": "How you use H.Y.D.R.A.",
             "county": "County",
+            "constituency": "Constituency",
+            "ward": "Ward",
             "location": "Town or area",
             "website": "Website",
             "bio": "About you",
@@ -128,8 +132,10 @@ class ProfileForm(StyledFormMixin, forms.ModelForm):
             "email": "Optional, but needed to reset a forgotten password.",
             "affiliation": "Newsroom, university, department, or organisation — if you want it recorded.",
             "role": "Optional. Helps us understand who uses the record.",
-            "county": "Optional. A county you follow or work in.",
-            "location": "Optional. Town, ward, or area.",
+            "county": "Optional. Used if you track your county.",
+            "constituency": "Optional. Narrows the county feed.",
+            "ward": "Optional. Narrows the county feed further.",
+            "location": "Optional. Town or neighbourhood.",
             "website": "Optional. A public page, not a private profile.",
             "bio": "Optional. A short note about how you use this platform.",
         }
@@ -149,10 +155,59 @@ class ProfileForm(StyledFormMixin, forms.ModelForm):
         self.fields["email"].widget.attrs["autocomplete"] = "email"
         self.fields["affiliation"].widget.attrs["placeholder"] = "Optional organisation"
         self.fields["county"].widget.attrs["placeholder"] = "Optional county"
-        self.fields["location"].widget.attrs["placeholder"] = "Optional town or ward"
+        self.fields["constituency"].widget.attrs["placeholder"] = "Optional constituency"
+        self.fields["ward"].widget.attrs["placeholder"] = "Optional ward"
+        self.fields["location"].widget.attrs["placeholder"] = "Optional town"
         self.fields["website"].widget.attrs["placeholder"] = "https://"
         self.fields["website"].widget.attrs["autocomplete"] = "url"
         self._style_fields()
+
+
+class AreaWatchForm(StyledFormMixin, forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ("county", "constituency", "ward")
+        labels = {
+            "county": "County",
+            "constituency": "Constituency",
+            "ward": "Ward",
+        }
+        help_texts = {
+            "county": "Required. Projects in this county appear on your dashboard.",
+            "constituency": "Optional. Leave blank to see the whole county.",
+            "ward": "Optional. Leave blank to see the whole constituency or county.",
+        }
+
+    def __init__(self, *args, **kwargs):
+        counties = kwargs.pop("counties", [])
+        constituencies = kwargs.pop("constituencies", [])
+        wards = kwargs.pop("wards", [])
+        super().__init__(*args, **kwargs)
+        current = (self.instance.county if self.instance and self.instance.pk else "") or ""
+        choices = [("", "Choose a county")] + [(name, name) for name in counties]
+        if current and current not in counties:
+            choices.insert(1, (current, current))
+        self.fields["county"] = forms.ChoiceField(
+            choices=choices,
+            required=True,
+            label="County",
+            help_text="Required. Projects in this county appear on your dashboard.",
+        )
+        self.fields["constituency"].required = False
+        self.fields["ward"].required = False
+        self.fields["constituency"].widget.attrs["list"] = "known-constituencies"
+        self.fields["ward"].widget.attrs["list"] = "known-wards"
+        self.fields["constituency"].widget.attrs["placeholder"] = "Optional, e.g. Kisumu Central"
+        self.fields["ward"].widget.attrs["placeholder"] = "Optional, e.g. Market Milimani"
+        self.constituencies = constituencies
+        self.wards = wards
+        self._style_fields()
+
+    def clean_county(self):
+        county = (self.cleaned_data.get("county") or "").strip()
+        if not county:
+            raise forms.ValidationError("Choose a county to track.")
+        return county
 
 
 class StyledPasswordResetForm(StyledFormMixin, PasswordResetForm):

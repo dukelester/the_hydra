@@ -23,6 +23,8 @@
     <ul class="meta-list">
       <li>Category: {{ project.get_category_display }}</li>
       <li>County: {{ project.county }}</li>
+      {% if project.constituency %}<li>Constituency: {{ project.constituency }}</li>{% endif %}
+      {% if project.ward %}<li>Ward: {{ project.ward }}</li>{% endif %}
       <li>Start date: {{ project.start_date|date:"j F Y"|default:"Information unavailable" }}</li>
       <li>Expected completion: {{ project.expected_completion_date|date:"j F Y"|default:"Information unavailable" }}</li>
       <li>Actual completion: {{ project.actual_completion_date|date:"j F Y"|default:"Information unavailable" }}</li>

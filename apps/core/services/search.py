@@ -102,6 +102,7 @@ def _project_queryset(query, county, status, category, suggest):
         Q(name__icontains=query)
         | Q(slug__icontains=query)
         | Q(county__icontains=query)
+        | Q(constituency__icontains=query)
         | Q(ward__icontains=query)
         | Q(location__icontains=query)
         | Q(contractor__icontains=query)
@@ -124,6 +125,7 @@ def _project_queryset(query, county, status, category, suggest):
             (Q(name__iexact=query), 100),
             (Q(name__istartswith=query), 85),
             (Q(county__iexact=query), 70),
+            (Q(constituency__iexact=query), 68),
             (Q(ward__iexact=query), 65),
             (Q(name__icontains=query), 50),
             (Q(institution__name__icontains=query), 40),
