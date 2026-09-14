@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}TheHydra{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="kicker">Evidence-first civic accountability</p>
+  <h1>THEHYDRA</h1>
+  <p class="tagline">Follow the money. Find the evidence. Take action.</p>
+  <p class="hero-copy">An evidence-first civic accountability platform that helps people understand public projects, budgets, decisions, and the evidence behind them.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a Project</a>
+    <a class="btn btn-secondary" href="#explore">Explore Civic Data</a>
+  </div>
+</section>
+
+<section class="concepts" aria-label="Core concepts">
+  <article>
+    <span class="step-num">01</span>
+    <h2>Follow the money</h2>
+    <p>Trace allocations, approvals, procurement, contracts, implementation, and completion — without filling gaps that sources do not support.</p>
+  </article>
+  <article>
+    <span class="step-num">02</span>
+    <h2>Find the evidence</h2>
+    <p>Every claim should point to a source document, a page, and a verification status. If evidence is missing, TheHydra says so.</p>
+  </article>
+  <article>
+    <span class="step-num">03</span>
+    <h2>Take action</h2>
+    <p>Submit a citizen observation, compare it with official information, and generate a structured accountability report.</p>
+  </article>
+</section>
+
+<section id="explore" class="search-panel">
+  <h2>What can I investigate?</h2>
+  <form class="search-form" method="get" action="{% url 'core:search' %}" role="search">
+    <label for="q">Search projects, institutions, policies, and documents</label>
+    <input id="q" name="q" type="search" placeholder="Search projects, institutions, policies..." autocomplete="off" hx-get="{% url 'core:search' %}" hx-trigger="keyup changed delay:300ms, search" hx-target="#search-results" hx-swap="innerHTML">
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  <div id="search-results" class="search-results" aria-live="polite">
+    <p class="muted">Try “Community Water Access” or “Kisumu”.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Featured projects</h2>
+    <a href="{% url 'projects:list' %}">View all projects</a>
+  </div>
+  <div class="card-grid">
+    {% for project in featured_projects %}
+      {% include "components/project_card.html" %}
+    {% empty %}
+      <p>No projects are available yet.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section split">
+  <div>
+    <h2>Evidence coverage</h2>
+    <p>Coverage only measures whether recorded claims are supported by sources. It never scores corruption, fraud, or trust.</p>
+    <ul class="legend">
+      <li><span class="swatch swatch-verified" aria-hidden="true"></span> Verified</li>
+      <li><span class="swatch swatch-partial" aria-hidden="true"></span> Partially verified</li>
+      <li><span class="swatch swatch-conflict" aria-hidden="true"></span> Conflicting information</li>
+      <li><span class="swatch swatch-unknown" aria-hidden="true"></span> Unknown</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Recent investigations</h2>
+    <ul class="plain-list">
+      {% for item in recent_investigations %}
+        <li>
+          <span class="eyebrow">Citizen observation · {{ item.created_at|date:"j M Y" }}</span>
+          <strong>{{ item.project.name }}</strong>
+          <p class="muted">{{ item.location }}</p>
+        </li>
+      {% empty %}
+        <li class="muted">No citizen observations have been submitted yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section how">
+  <h2>How TheHydra works</h2>
+  <ol class="steps">
+    <li>
+      <h3>Find a project</h3>
+      <p>Search public projects, institutions, and policies.</p>
+    </li>
+    <li>
+      <h3>Examine the evidence</h3>
+      <p>Read claims, source documents, and missing-information notes.</p>
+    </li>
+    <li>
+      <h3>Investigate and report</h3>
+      <p>Submit an observation and generate a structured report. No AI required.</p>
+    </li>
+  </ol>
+</section>
+{% endblock %}

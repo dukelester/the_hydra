@@ -1,0 +1,49 @@
+{% if query %}
+  {% if total %}
+    <p class="search-meta">{{ total }} result{{ total|pluralize }} for “{{ query }}”</p>
+    {% if projects %}
+      <section class="result-group">
+        <h2>Projects</h2>
+        <ul class="result-list">
+          {% for project in projects %}
+            <li><a href="{{ project.get_absolute_url }}">{{ project.name }}</a> <span class="muted">{{ project.county }} · {{ project.get_status_display }}</span></li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+    {% if institutions %}
+      <section class="result-group">
+        <h2>Institutions</h2>
+        <ul class="result-list">
+          {% for institution in institutions %}
+            <li><a href="{{ institution.get_absolute_url }}">{{ institution.name }}</a> <span class="muted">{{ institution.location }}</span></li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+    {% if policies %}
+      <section class="result-group">
+        <h2>Policies</h2>
+        <ul class="result-list">
+          {% for policy in policies %}
+            <li><a href="{{ policy.get_absolute_url }}">{{ policy.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+    {% if documents %}
+      <section class="result-group">
+        <h2>Source documents</h2>
+        <ul class="result-list">
+          {% for document in documents %}
+            <li><a href="{{ document.get_absolute_url }}">{{ document.title }}</a> <span class="muted">{{ document.publisher }}</span></li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+  {% else %}
+    <p class="search-meta">No matching projects, institutions, policies, or documents for “{{ query }}”.</p>
+  {% endif %}
+{% else %}
+  <p class="search-meta muted">Start typing to search civic data.</p>
+{% endif %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Projects{% endblock %}
+{% block content %}
+<section class="page-head">
+  <p class="kicker">Public record</p>
+  <h1>Explore projects</h1>
+  <p>Browse labelled civic projects. Status and budget figures are only as reliable as the attached evidence.</p>
+</section>
+<form class="filters" method="get">
+  <label for="q">Search by name</label>
+  <input id="q" name="q" type="search" value="{{ request.GET.q }}" placeholder="Project name">
+  <label for="county">County</label>
+  <select id="county" name="county">
+    <option value="">All counties</option>
+    {% for county in counties %}
+      <option value="{{ county }}" {% if selected_county == county %}selected{% endif %}>{{ county }}</option>
+    {% endfor %}
+  </select>
+  <button class="btn btn-primary" type="submit">Filter</button>
+</form>
+<div class="card-grid">
+  {% for project in projects %}
+    {% include "components/project_card.html" %}
+  {% empty %}
+    <p>No projects match these filters.</p>
+  {% endfor %}
+</div>
+{% include "components/pagination.html" %}
+{% endblock %}

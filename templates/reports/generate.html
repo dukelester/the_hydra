@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Generate report{% endblock %}
+{% block content %}
+<article class="prose">
+  <h1>Generate an accountability report</h1>
+  <p>This will create a structured report from the investigation for <strong>{{ project.name }}</strong>. No AI is used. The report stays private by default.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-primary" type="submit">Generate report</button>
+  </form>
+</article>
+{% endblock %}

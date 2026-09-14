@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}How TheHydra works{% endblock %}
+{% block content %}
+<article class="prose">
+  <p class="kicker">Method</p>
+  <h1>How TheHydra works</h1>
+  <p>TheHydra is built around a single path: <strong>Search → Project → Evidence → Investigation → Report</strong>.</p>
+  <h2>Evidence first</h2>
+  <p>The source of truth is always the underlying evidence and source documents. The platform never invents missing facts, never auto-detects corruption, and never treats a citizen observation as verified by default.</p>
+  <h2>Evidence coverage</h2>
+  <p>Coverage measures how many recorded claims are supported by sources. It is not a corruption score, fraud score, or trust score.</p>
+  <ul>
+    <li><strong>Verified</strong> — a cited source supports the claim.</li>
+    <li><strong>Partially verified</strong> — the source supports only part of the claim.</li>
+    <li><strong>Conflicting information</strong> — sources disagree and further verification is required.</li>
+    <li><strong>Unknown</strong> — evidence is unavailable or insufficient.</li>
+  </ul>
+  <h2>Official information and citizen observation</h2>
+  <p>These are kept distinct. An official document and a citizen photo can both be recorded. Neither is automatically preferred as fact.</p>
+  <h2>Reports</h2>
+  <p>Reports are generated from structured investigation fields, not from an AI model. They remain private by default. Language stays neutral: potential discrepancy, evidence indicates, information unavailable, requires further verification.</p>
+  <p><a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a project</a></p>
+</article>
+{% endblock %}

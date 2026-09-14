@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Page not found{% endblock %}
+{% block content %}
+<article class="prose">
+  <h1>Page not found</h1>
+  <p>That page is not available. Search for a project or return home.</p>
+  <p><a class="btn btn-primary" href="{% url 'core:home' %}">Back to TheHydra</a></p>
+</article>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ policy.title }}{% endblock %}
+{% block content %}
+<article class="prose">
+  <p class="kicker">{{ policy.get_policy_type_display }}</p>
+  <h1>{{ policy.title }}</h1>
+  <p>{{ policy.description }}</p>
+  <ul class="meta-list">
+    <li>Status: {{ policy.get_status_display }}</li>
+    <li>Institution: {% if policy.institution %}<a href="{{ policy.institution.get_absolute_url }}">{{ policy.institution.name }}</a>{% else %}Not recorded{% endif %}</li>
+    <li>Publication date: {{ policy.publication_date|date:"j F Y"|default:"Information unavailable" }}</li>
+    <li>Source:
+      {% if policy.source_document %}
+        <a href="{{ policy.source_document.get_absolute_url }}">{{ policy.source_document.title }}</a>
+      {% elif policy.source_url %}
+        <a href="{{ policy.source_url }}">Source URL</a>
+      {% else %}
+        Evidence unavailable
+      {% endif %}
+    </li>
+  </ul>
+</article>
+{% endblock %}

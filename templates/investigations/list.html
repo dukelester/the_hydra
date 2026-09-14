@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}My investigations{% endblock %}
+{% block content %}
+<section class="page-head">
+  <h1>My investigations</h1>
+  <p>Private to you unless you are a staff administrator.</p>
+</section>
+<ul class="plain-list">
+  {% for investigation in investigations %}
+    <li class="card">
+      <p class="eyebrow">{{ investigation.get_verification_status_display }}</p>
+      <h2><a href="{{ investigation.get_absolute_url }}">{{ investigation.title }}</a></h2>
+      <p class="muted">{{ investigation.project.name }} · {{ investigation.created_at|date:"j M Y" }}</p>
+    </li>
+  {% empty %}
+    <li>You have not submitted an investigation yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

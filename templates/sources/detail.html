@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ document.title }}{% endblock %}
+{% block content %}
+<article class="prose">
+  {% if document.is_demo %}<p class="kicker">Demo source</p>{% endif %}
+  <h1>{{ document.title }}</h1>
+  <ul class="meta-list">
+    <li>Publisher: {{ document.publisher }}</li>
+    <li>Type: {{ document.get_document_type_display }}</li>
+    <li>Verification: {{ document.get_verification_level_display }}</li>
+    <li>Publication date: {{ document.publication_date|date:"j F Y"|default:"Information unavailable" }}</li>
+  </ul>
+  {% if document.description %}<p>{{ document.description }}</p>{% endif %}
+  {% if document.source_url %}
+    <p><a href="{{ document.source_url }}">Open publisher source</a></p>
+  {% endif %}
+  {% if document.file %}
+    <p><a href="{{ document.file.url }}">Download file</a></p>
+  {% else %}
+    <p class="muted">No file is attached. TheHydra does not fabricate documents.</p>
+  {% endif %}
+</article>
+{% endblock %}

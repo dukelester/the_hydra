@@ -1,0 +1,19 @@
+<article class="card project-card">
+  <p class="eyebrow">{{ project.county }} · {{ project.get_category_display }}</p>
+  <h3><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></h3>
+  <p class="muted">{{ project.institution.name }}</p>
+  <dl class="mini-facts">
+    <div>
+      <dt>Budget</dt>
+      <dd>{{ project.format_amount }}</dd>
+    </div>
+    <div>
+      <dt>Status</dt>
+      <dd>{{ project.get_status_display }}</dd>
+    </div>
+    <div>
+      <dt>Evidence coverage</dt>
+      <dd>{{ project.coverage.percent }}% · {{ project.coverage.supported }}/{{ project.coverage.total_claims }} claims</dd>
+    </div>
+  </dl>
+</article>

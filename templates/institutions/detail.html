@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ institution.name }}{% endblock %}
+{% block content %}
+<article class="prose">
+  <p class="kicker">{{ institution.get_institution_type_display }}</p>
+  <h1>{{ institution.name }}</h1>
+  <p>{{ institution.description }}</p>
+  <p class="muted">{{ institution.location }}{% if institution.website %} · <a href="{{ institution.website }}">Website</a>{% endif %}</p>
+  <h2>Related projects</h2>
+</article>
+<div class="card-grid">
+  {% for project in projects %}
+    {% include "components/project_card.html" %}
+  {% empty %}
+    <p>No projects are linked to this institution.</p>
+  {% endfor %}
+</div>
+{% endblock %}

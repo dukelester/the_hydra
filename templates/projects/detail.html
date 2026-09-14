@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block title %}{{ project.name }}{% endblock %}
+{% load evidence_tags %}
+{% block content %}
+<article class="project-page">
+  <header class="project-hero">
+    {% if project.is_demo %}<p class="kicker">Demo record</p>{% endif %}
+    <h1>{{ project.name }}</h1>
+    <dl class="fact-strip">
+      <div><dt>Location</dt><dd>{{ project.location }}{% if project.ward %} · {{ project.ward }}{% endif %}</dd></div>
+      <div><dt>Institution</dt><dd><a href="{{ project.institution.get_absolute_url }}">{{ project.institution.name }}</a></dd></div>
+      <div><dt>Financial year</dt><dd>{{ project.financial_year|default:"Information unavailable" }}</dd></div>
+      <div><dt>Budget</dt><dd>{{ project.format_amount }}</dd></div>
+      <div><dt>Contractor</dt><dd>{{ project.contractor|default:"Information unavailable" }}</dd></div>
+      <div><dt>Status</dt><dd>{{ project.get_status_display }}</dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h2>Project overview</h2>
+    <p>{{ project.description }}</p>
+    <ul class="meta-list">
+      <li>Category: {{ project.get_category_display }}</li>
+      <li>County: {{ project.county }}</li>
+      <li>Start date: {{ project.start_date|date:"j F Y"|default:"Information unavailable" }}</li>
+      <li>Expected completion: {{ project.expected_completion_date|date:"j F Y"|default:"Information unavailable" }}</li>
+      <li>Actual completion: {{ project.actual_completion_date|date:"j F Y"|default:"Information unavailable" }}</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Follow the money</h2>
+    <p class="muted">Stages without a linked source are marked “Evidence unavailable”. TheHydra does not guess missing information.</p>
+    <ol class="timeline">
+      {% for item in timeline %}
+        <li class="{% if item.has_evidence %}has-evidence{% else %}no-evidence{% endif %}">
+          <p class="timeline-stage">{{ item.stage_label }}</p>
+          {% if item.event %}
+            <h3>{{ item.event.title }}</h3>
+            {% if item.event.format_amount %}<p class="amount">{{ item.event.format_amount }}</p>{% endif %}
+            {% if item.event.description %}<p>{{ item.event.description }}</p>{% endif %}
+            {% if item.event.occurred_on %}<p class="muted">{{ item.event.occurred_on|date:"j F Y" }}</p>{% endif %}
+          {% else %}
+            <h3>No record</h3>
+          {% endif %}
+          {% if item.evidence_unavailable %}
+            <p class="unavailable">Evidence unavailable</p>
+          {% else %}
+            <p class="available">Linked to evidence</p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  </section>
+
+  <section>
+    <h2>Budget</h2>
+    {% if allocations %}
+      <div class="table-wrap">
+        <table>
+          <caption class="sr-only">Budget allocations</caption>
+          <thead>
+            <tr>
+              <th scope="col">Financial year</th>
+              <th scope="col">Type</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for allocation in allocations %}
+              <tr>
+                <td>{{ allocation.financial_year }}</td>
+                <td>{{ allocation.get_allocation_type_display }}</td>
+                <td>{{ allocation.format_amount }}</td>
+                <td>
+                  {% if allocation.source_document %}
+                    <a href="{{ allocation.source_document.get_absolute_url }}">{{ allocation.source_document.title }}</a>
+                  {% else %}
+                    Evidence unavailable
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p>Evidence unavailable. No budget allocation records are attached.</p>
+    {% endif %}
+  </section>
+
+  <section>
+    <h2>Evidence</h2>
+    {% if evidence_items %}
+      <div class="evidence-stack">
+        {% for item in evidence_items %}
+          <article class="evidence-card">
+            <p class="eyebrow">Claim</p>
+            <blockquote>“{{ item.claim }}”</blockquote>
+            <p class="eyebrow">Evidence</p>
+            <p>{% if item.evidence_text %}{{ item.evidence_text }}{% else %}Evidence unavailable{% endif %}</p>
+            <dl class="mini-facts">
+              <div>
+                <dt>Source</dt>
+                <dd>
+                  {% if item.source_document %}
+                    <a href="{{ item.source_document.get_absolute_url }}">{{ item.source_document.title }}</a>
+                  {% elif item.source_url %}
+                    <a href="{{ item.source_url }}">Source URL</a>
+                  {% else %}
+                    Evidence unavailable
+                  {% endif %}
+                </dd>
+              </div>
+              <div>
+                <dt>Page</dt>
+                <dd>{% if item.page_number %}Page {{ item.page_number }}{% else %}Not recorded{% endif %}</dd>
+              </div>
+              <div>
+                <dt>Status</dt>
+                <dd>{% evidence_badge item.verification_status %}</dd>
+              </div>
+            </dl>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No evidence records have been attached to this project.</p>
+    {% endif %}
+  </section>
+
+  {% include "components/coverage.html" %}
+
+  <section>
+    <h2>Source documents</h2>
+    {% if documents %}
+      <ul class="doc-list">
+        {% for document in documents %}
+          <li>
+            <a href="{{ document.get_absolute_url }}">{{ document.title }}</a>
+            <span class="muted">{{ document.publisher }} · {{ document.get_document_type_display }} · {{ document.get_verification_level_display }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Evidence unavailable. No source documents are attached.</p>
+    {% endif %}
+  </section>
+
+  <section>
+    <h2>Missing information</h2>
+    {% if coverage.missing %}
+      <ul>
+        {% for gap in coverage.missing %}
+          <li>{{ gap }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No missing-information notes are recorded for the current claims and timeline.</p>
+    {% endif %}
+  </section>
+
+  <section class="cta-panel">
+    <h2>Investigate this project</h2>
+    <p>Submit a citizen observation. Official information and your observation will be stored separately. Observations are not treated as verified facts.</p>
+    <a class="btn btn-primary btn-large" href="{% url 'projects:investigate' project.slug %}">Investigate This Project</a>
+  </section>
+</article>
+{% endblock %}

@@ -1,0 +1,14 @@
+<section class="coverage-panel" aria-labelledby="coverage-heading">
+  <h2 id="coverage-heading">Evidence Coverage</h2>
+  <p class="lede">This figure describes how much recorded project information is supported by evidence. It is not a corruption, fraud, or trust score.</p>
+  <p class="coverage-figure">
+    <span class="coverage-percent">{{ coverage.percent }}%</span>
+    <span>Supported information: {{ coverage.supported }}/{{ coverage.total_claims }} claims</span>
+  </p>
+  <ul class="legend">
+    <li><span class="swatch swatch-verified" aria-hidden="true"></span> Verified — {{ coverage.verified }} claim{{ coverage.verified|pluralize }} supported by a cited source</li>
+    <li><span class="swatch swatch-partial" aria-hidden="true"></span> Partially verified — {{ coverage.partially_verified }} claim{{ coverage.partially_verified|pluralize }} only partly supported</li>
+    <li><span class="swatch swatch-conflict" aria-hidden="true"></span> Conflicting information — {{ coverage.conflicting }} claim{{ coverage.conflicting|pluralize }} with disagreeing sources</li>
+    <li><span class="swatch swatch-unknown" aria-hidden="true"></span> Unknown — {{ coverage.unknown }} claim{{ coverage.unknown|pluralize }} without sufficient evidence</li>
+  </ul>
+</section>

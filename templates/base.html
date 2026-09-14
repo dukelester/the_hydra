@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}TheHydra{% endblock %} — Follow the money. Find the evidence. Take action.</title>
+  <meta name="description" content="TheHydra is an evidence-first civic accountability platform for public projects, budgets, source documents, and citizen investigations.">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <link rel="icon" href="{% static 'img/mark.svg' %}" type="image/svg+xml">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  {% include "components/nav.html" %}
+  <main id="main">
+    {% if messages %}
+      <div class="flash-wrap" role="status">
+        {% for message in messages %}
+          <p class="flash flash-{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+  {% include "components/footer.html" %}
+  <script src="{% static 'js/htmx.min.js' %}" defer></script>
+</body>
+</html>

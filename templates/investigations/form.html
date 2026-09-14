@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Investigate {{ project.name }}{% endblock %}
+{% block content %}
+<article class="form-page">
+  <p class="kicker">Citizen observation</p>
+  <h1>Investigate this project</h1>
+  <p>You are submitting a <strong>citizen observation</strong> about <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>. It will be stored separately from official information and will not be treated as a verified fact.</p>
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<p class="help">{{ field.help_text }}</p>{% endif %}
+        {% if field.errors %}<p class="error">{{ field.errors|striptags }}</p>{% endif %}
+      </div>
+    {% endfor %}
+    <p class="muted">You may submit without creating an account. Do not include unnecessary personal information.</p>
+    <button class="btn btn-primary" type="submit">Submit observation</button>
+  </form>
+</article>
+{% endblock %}

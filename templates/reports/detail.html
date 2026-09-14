@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{ report.title }}{% endblock %}
+{% block content %}
+<article class="report-page">
+  <p class="kicker">Accountability report · {{ report.get_status_display }} · Private</p>
+  <h1>{{ report.title }}</h1>
+  <p>Project: <a href="{{ project.get_absolute_url }}">{{ project.name }}</a></p>
+
+  <section>
+    <h2>Official information</h2>
+    <p>{{ report.official_information|linebreaksbr }}</p>
+  </section>
+  <section>
+    <h2>Citizen observation</h2>
+    <p>{{ report.citizen_observation|linebreaksbr }}</p>
+  </section>
+  <section>
+    <h2>Evidence</h2>
+    <pre class="evidence-pre">{{ report.evidence_summary }}</pre>
+  </section>
+  <section>
+    <h2>Potential discrepancy</h2>
+    <p>{{ report.potential_discrepancy|linebreaksbr }}</p>
+  </section>
+  <section>
+    <h2>Recommended next steps</h2>
+    <p>{{ report.recommended_next_steps|linebreaksbr }}</p>
+  </section>
+  <section>
+    <h2>Sources</h2>
+    <ul>
+      {% for source in sources %}
+        <li><a href="{{ source.get_absolute_url }}">{{ source.title }}</a> — {{ source.publisher }}</li>
+      {% empty %}
+        <li>No source documents are attached to the project.</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="form-page">
+    <h2>Review and save</h2>
+    <p class="muted">Edit if needed, then save. Reports are not published automatically.</p>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="field">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<p class="error">{{ field.errors|striptags }}</p>{% endif %}
+        </div>
+      {% endfor %}
+      <button class="btn btn-primary" type="submit">Save report</button>
+    </form>
+  </section>
+</article>
+{% endblock %}

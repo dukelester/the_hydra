@@ -1,0 +1,6 @@
+<span class="badge badge-{{ status }}">
+  {% if status == "verified" %}Verified
+  {% elif status == "partially_verified" %}Partially verified
+  {% elif status == "conflicting" %}Conflicting information
+  {% else %}Unknown{% endif %}
+</span>

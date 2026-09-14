@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}My reports{% endblock %}
+{% block content %}
+<section class="page-head">
+  <h1>My reports</h1>
+  <p>Reports are private by default.</p>
+</section>
+<ul class="plain-list">
+  {% for report in reports %}
+    <li class="card">
+      <p class="eyebrow">{{ report.get_status_display }}</p>
+      <h2><a href="{{ report.get_absolute_url }}">{{ report.title }}</a></h2>
+      <p class="muted">{{ report.project.name }} · {{ report.created_at|date:"j M Y" }}</p>
+    </li>
+  {% empty %}
+    <li>You have not saved a report yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
