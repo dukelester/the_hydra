@@ -1,10 +1,17 @@
 <section class="coverage-panel" aria-labelledby="coverage-heading">
-  <h2 id="coverage-heading">Evidence Coverage</h2>
-  <p class="lede">This figure describes how much recorded project information is supported by evidence. It is not a corruption, fraud, or trust score.</p>
-  <p class="coverage-figure">
-    <span class="coverage-percent">{{ coverage.percent }}%</span>
-    <span>Supported information: {{ coverage.supported }}/{{ coverage.total_claims }} claims</span>
-  </p>
+  <div class="coverage-top">
+    <div>
+      <h2 id="coverage-heading">Evidence Coverage</h2>
+      <p class="lede">This figure describes how much recorded project information is supported by evidence. It is not a corruption, fraud, or trust score.</p>
+    </div>
+    <p class="coverage-figure">
+      <span class="coverage-percent">{{ coverage.percent }}%</span>
+      <span>Supported {{ coverage.supported }}/{{ coverage.total_claims }} claims</span>
+    </p>
+  </div>
+  <div class="meter meter-lg" role="img" aria-label="Evidence coverage {{ coverage.percent }} percent">
+    <span class="meter-fill" style="width: {{ coverage.percent }}%"></span>
+  </div>
   <ul class="legend">
     <li><span class="swatch swatch-verified" aria-hidden="true"></span> Verified — {{ coverage.verified }} claim{{ coverage.verified|pluralize }} supported by a cited source</li>
     <li><span class="swatch swatch-partial" aria-hidden="true"></span> Partially verified — {{ coverage.partially_verified }} claim{{ coverage.partially_verified|pluralize }} only partly supported</li>

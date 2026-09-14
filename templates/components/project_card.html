@@ -11,9 +11,9 @@
       <dt>Status</dt>
       <dd>{{ project.get_status_display }}</dd>
     </div>
-    <div>
-      <dt>Evidence coverage</dt>
-      <dd>{{ project.coverage.percent }}% · {{ project.coverage.supported }}/{{ project.coverage.total_claims }} claims</dd>
-    </div>
   </dl>
+  <p class="coverage-label">Evidence coverage {{ project.coverage.percent }}% · {{ project.coverage.supported }}/{{ project.coverage.total_claims }}</p>
+  <div class="meter" role="img" aria-label="Evidence coverage {{ project.coverage.percent }} percent">
+    <span class="meter-fill tone-{{ project.coverage.percent|default:0 }}" style="width: {{ project.coverage.percent }}%"></span>
+  </div>
 </article>

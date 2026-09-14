@@ -1,6 +1,10 @@
+{% load static %}
 <footer class="site-footer">
   <div class="footer-inner">
-    <p><strong>H.Y.D.R.A.</strong> — Human-centered Yield, Data, Rights &amp; Accountability. An evidence-first civic platform. It does not determine guilt, corruption, or fraud.</p>
-    <p>Source of truth: underlying evidence and source documents. AI is intentionally excluded from this MVP.</p>
+    <div class="footer-brand">
+      <img src="{% static 'img/mark.png' %}" alt="" width="48" height="48">
+      <p><strong>H.Y.D.R.A.</strong><br>Human-centered Yield, Data, Rights &amp; Accountability</p>
+    </div>
+    <p>An evidence-first civic platform. It does not determine guilt, corruption, or fraud. Source of truth: underlying evidence and source documents. AI is intentionally excluded from this MVP.</p>
   </div>
 </footer>

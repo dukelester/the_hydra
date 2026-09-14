@@ -4,7 +4,7 @@
 <article class="form-page">
   <p class="kicker">Citizen observation</p>
   <h1>Investigate this project</h1>
-  <p>You are submitting a <strong>citizen observation</strong> about <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>. It will be stored separately from official information and will not be treated as a verified fact.</p>
+  <p class="lede">You are submitting a <strong>citizen observation</strong> about <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>. It will be stored separately from official information and will not be treated as a verified fact.</p>
   <form method="post" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
     {% for field in form %}
