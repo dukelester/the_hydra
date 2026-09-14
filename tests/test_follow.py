@@ -135,6 +135,10 @@ class ProjectFollowTests(TestCase):
         self.assertContains(response, "Nairobi")
         self.assertContains(response, "Highest recorded budget")
         self.assertContains(response, "County comparison")
+        self.assertContains(response, "Clear projects")
+        self.assertContains(response, "Build a comparison")
+        self.assertContains(response, 'type="checkbox"')
+        self.assertContains(response, "Projects (up to")
 
     def test_compare_url_is_not_a_project_slug(self):
         response = self.client.get(reverse("projects:compare"))
