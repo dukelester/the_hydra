@@ -75,3 +75,33 @@ class PageTests(TestCase):
         self.assertContains(detail, "Follow the money")
         self.assertContains(detail, "Investigate This Project")
         self.assertContains(detail, "Evidence Coverage")
+        self.assertContains(detail, "All projects")
+
+    def test_project_page_links_to_neighbors(self):
+        later = Project.objects.create(
+            name="Kisumu Drain Works",
+            description="Another Kisumu record.",
+            location="Kisumu",
+            county="Kisumu",
+            institution=self.project.institution,
+        )
+        Project.objects.create(
+            name="Nairobi Drain Works",
+            description="A Nairobi record.",
+            location="Nairobi",
+            county="Nairobi",
+            institution=self.project.institution,
+        )
+
+        first = self.client.get(self.project.get_absolute_url())
+        self.assertContains(first, "Start of the list")
+        self.assertContains(first, later.get_absolute_url())
+        self.assertContains(first, "Kisumu Drain Works")
+        self.assertContains(first, "Other projects in Kisumu")
+        self.assertContains(first, "More in Kisumu")
+
+        middle = self.client.get(later.get_absolute_url())
+        self.assertContains(middle, self.project.get_absolute_url())
+        self.assertContains(middle, "Community Water Access Project")
+        self.assertContains(middle, "Nairobi Drain Works")
+        self.assertContains(middle, reverse("projects:list"))

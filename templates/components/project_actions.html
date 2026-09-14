@@ -1,4 +1,5 @@
 <div class="project-toolbar">
+  <a class="btn btn-primary" href="{% url 'projects:investigate' project.slug %}">Investigate this project</a>
   {% if user.is_authenticated %}
     <form method="post" action="{% url 'projects:toggle-track' project.slug %}">
       {% csrf_token %}

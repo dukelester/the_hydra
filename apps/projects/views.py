@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count, Prefetch
+from django.db.models import Count, Prefetch, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
@@ -82,6 +82,23 @@ class ProjectListView(ListView):
         return context
 
 
+def project_neighbors(project):
+    ordered = Project.objects.order_by("name", "pk")
+    previous_project = ordered.filter(
+        Q(name__lt=project.name) | Q(name=project.name, pk__lt=project.pk)
+    ).only("name", "slug", "county").last()
+    next_project = ordered.filter(
+        Q(name__gt=project.name) | Q(name=project.name, pk__gt=project.pk)
+    ).only("name", "slug", "county").first()
+    county_projects = list(
+        Project.objects.filter(county__iexact=project.county)
+        .exclude(pk=project.pk)
+        .order_by("name")
+        .only("name", "slug", "county", "status")[:4]
+    )
+    return previous_project, next_project, county_projects
+
+
 class ProjectDetailView(DetailView):
     model = Project
     template_name = "projects/detail.html"
@@ -117,6 +134,10 @@ class ProjectDetailView(DetailView):
         context["is_tracked"] = bool(follow and follow.is_tracked)
         context["is_favourite"] = bool(follow and follow.is_favourite)
         context["in_compare"] = project.slug in compare_slugs(self.request)
+        previous_project, next_project, county_projects = project_neighbors(project)
+        context["previous_project"] = previous_project
+        context["next_project"] = next_project
+        context["county_projects"] = county_projects
         return context
 
 
