@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.db.models import Count, Sum
 
 from apps.core.services.coverage import calculate_evidence_coverage
-from apps.projects.compare import county_rankings, format_budget
+from apps.projects.compare import county_rankings, format_budget, format_budget_compact
 from apps.projects.models import BudgetAllocation, Project, ProjectCategory, ProjectStatus
 
 
@@ -107,7 +107,10 @@ def allocation_total(county=""):
     if county:
         qs = qs.filter(project__county__iexact=county)
     amount = qs.aggregate(total=Sum("amount"))["total"]
-    return format_budget(amount)
+    return {
+        "formatted": format_budget(amount),
+        "compact": format_budget_compact(amount),
+    }
 
 
 def county_coverage(county):

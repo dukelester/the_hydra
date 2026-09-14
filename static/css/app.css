@@ -1431,13 +1431,15 @@ textarea:focus,
 .dashboard-actions { margin-top: 1.1rem; }
 .dashboard-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
   gap: 0.9rem;
   margin-bottom: 1.8rem;
 }
 .dashboard-stats a {
   display: grid;
   gap: 0.2rem;
+  min-width: 0;
+  overflow: hidden;
   text-decoration: none;
   color: inherit;
   background: var(--card);
@@ -1451,6 +1453,8 @@ textarea:focus,
 .dashboard-stats > div {
   display: grid;
   gap: 0.2rem;
+  min-width: 0;
+  overflow: hidden;
   background: var(--card);
   border: 1px solid rgba(213, 204, 184, 0.9);
   border-left: 5px solid var(--gold);
@@ -1460,9 +1464,10 @@ textarea:focus,
 }
 .dashboard-stats strong {
   font-family: var(--font-display);
-  font-size: 1.8rem;
-  line-height: 1;
+  font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+  line-height: 1.15;
   color: var(--sea);
+  overflow-wrap: anywhere;
 }
 .dashboard-stats span { color: var(--ink-soft); font-size: 0.9rem; }
 .dashboard-split .plain-list { display: grid; gap: 0.85rem; }

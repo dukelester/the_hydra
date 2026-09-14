@@ -15,6 +15,21 @@ def format_budget(amount, currency="KES"):
     return f"{currency} {value}"
 
 
+def format_budget_compact(amount, currency="KES"):
+    if amount is None:
+        return "Information unavailable"
+    amount = Decimal(amount)
+    prefix = "KSh" if currency == "KES" else currency
+    magnitude = abs(amount)
+    if magnitude >= Decimal("1000000000"):
+        value = f"{amount / Decimal('1000000000'):.1f}".rstrip("0").rstrip(".")
+        return f"{prefix} {value}bn"
+    if magnitude >= Decimal("1000000"):
+        value = f"{amount / Decimal('1000000'):.1f}".rstrip("0").rstrip(".")
+        return f"{prefix} {value}m"
+    return format_budget(amount, currency)
+
+
 def project_compare_rows(projects):
     rows = []
     for project in projects:
@@ -50,6 +65,7 @@ def county_rankings():
                 **row,
                 "rank": index,
                 "formatted_budget": format_budget(row["total_budget"]),
+                "compact_budget": format_budget_compact(row["total_budget"]),
                 "delayed_share": round((delayed / count) * 100) if count else 0,
                 "completed_share": round(((row["completed_count"] or 0) / count) * 100) if count else 0,
             }
@@ -90,4 +106,5 @@ def ranking_highlights(rankings):
         "county_count": len(rankings),
         "project_count": sum(row["project_count"] for row in rankings),
         "total_budget": format_budget(total_budget),
+        "compact_budget": format_budget_compact(total_budget),
     }
