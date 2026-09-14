@@ -44,6 +44,10 @@ class HowItWorksView(TemplateView):
     template_name = "home/how_it_works.html"
 
 
+class WhatHydraMeansView(TemplateView):
+    template_name = "home/what_hydra_means.html"
+
+
 def search_view(request):
     query = request.GET.get("q", "")
     results = search_civic_data(query, limit=8)

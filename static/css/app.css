@@ -103,6 +103,13 @@ textarea:focus-visible {
   font-size: 0.82rem;
   font-weight: 700;
 }
+.brand-mark {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--rule);
+}
 
 .nav {
   display: flex;
@@ -137,6 +144,14 @@ textarea:focus-visible {
 .hero {
   padding: 3.2rem 0 2.2rem;
   border-bottom: 1px solid var(--rule);
+}
+.hero-mark {
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin: 0 0 1.1rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--rule);
 }
 .kicker, .eyebrow {
   text-transform: uppercase;
@@ -401,6 +416,61 @@ blockquote {
 }
 
 .pagination { display: flex; gap: 1rem; align-items: center; margin: 1.5rem 0; }
+
+.place-label {
+  display: inline-block;
+  margin: 0 0 0.65rem;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hydra-letters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin: 1.1rem 0 1.25rem;
+}
+
+.letter-card {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  padding: 1rem 1.05rem;
+}
+
+.letter-mark {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.35rem;
+  color: var(--gold);
+}
+
+.letter-card h3,
+.letter-section h2 {
+  font-family: var(--font-display);
+  margin: 0 0 0.4rem;
+}
+
+.letter-section {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--gold);
+  padding: 1.3rem 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.hydra-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 3rem;
+}
 
 @media (max-width: 720px) {
   .nav { width: 100%; }

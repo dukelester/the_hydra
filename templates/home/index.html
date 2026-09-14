@@ -1,15 +1,26 @@
 {% extends "base.html" %}
-{% block title %}TheHydra{% endblock %}
+{% load static %}
+{% block title %}H.Y.D.R.A.{% endblock %}
 {% block content %}
 <section class="hero">
+  <p class="place-label">Home page · Hero section</p>
+  <img class="hero-mark" src="{% static 'img/mark.png' %}" alt="H.Y.D.R.A. emblem: hydra tentacles around a map of Africa" width="120" height="120">
   <p class="kicker">Evidence-first civic accountability</p>
-  <h1>THEHYDRA</h1>
-  <p class="tagline">Follow the money. Find the evidence. Take action.</p>
-  <p class="hero-copy">An evidence-first civic accountability platform that helps people understand public projects, budgets, decisions, and the evidence behind them.</p>
+  <h1>H.Y.D.R.A.</h1>
+  <p class="tagline">Human-centered Yield, Data, Rights &amp; Accountability</p>
+  <p class="hero-copy">Follow the money. Find the evidence. Take action. An evidence-first civic accountability platform that helps people understand public projects, budgets, decisions, and the evidence behind them.</p>
   <div class="hero-actions">
     <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a Project</a>
-    <a class="btn btn-secondary" href="#explore">Explore Civic Data</a>
+    <a class="btn btn-secondary" href="#hydra-meaning">Read what H.Y.D.R.A. means</a>
   </div>
+</section>
+
+<section id="hydra-meaning" class="section hydra-meaning" aria-labelledby="hydra-heading">
+  <p class="place-label">Home page · Section</p>
+  <h2 id="hydra-heading">What H.Y.D.R.A. means</h2>
+  <p class="lede">This is a section of the home page. Open the full page if you want each letter explained on its own.</p>
+  {% include "components/hydra_letters.html" %}
+  <p><a class="btn btn-secondary" href="{% url 'core:what-hydra-means' %}">Open the full page: What H.Y.D.R.A. means</a></p>
 </section>
 
 <section class="concepts" aria-label="Core concepts">

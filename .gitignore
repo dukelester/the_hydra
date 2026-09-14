@@ -24,9 +24,11 @@ db.sqlite3-journal
 *.pot
 
 # Environment
+.env.example
 .env
 .env.local
 .env.production
+
 
 # Editors / OS
 .idea/

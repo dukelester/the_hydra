@@ -25,9 +25,18 @@ class PageTests(TestCase):
     def test_home_and_project_pages(self):
         home = self.client.get(reverse("core:home"))
         self.assertEqual(home.status_code, 200)
-        self.assertContains(home, "THEHYDRA")
+        self.assertContains(home, "H.Y.D.R.A.")
+        self.assertContains(home, "Human-centered Yield, Data, Rights")
         self.assertContains(home, "Follow the money. Find the evidence. Take action.")
         self.assertContains(home, "Investigate a Project")
+        self.assertContains(home, "Home page · Section")
+
+        meaning = self.client.get(reverse("core:what-hydra-means"))
+        self.assertEqual(meaning.status_code, 200)
+        self.assertContains(meaning, "What H.Y.D.R.A. means")
+        self.assertContains(meaning, "Page")
+        self.assertContains(meaning, "Section on this page")
+        self.assertContains(meaning, "Citizens are at the heart of the platform.")
 
         detail = self.client.get(self.project.get_absolute_url())
         self.assertEqual(detail.status_code, 200)

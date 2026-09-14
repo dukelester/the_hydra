@@ -102,7 +102,7 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Open [http://localhost:8080](http://localhost:8080).
+Open [http://localhost:8080](http://localhost:8080). If port 8080 is already in use, set `NGINX_PORT=8088` in `.env` (or the environment) and open that port instead.
 
 Default demo admin (change in `.env`):
 
