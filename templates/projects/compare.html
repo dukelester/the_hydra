@@ -1,28 +1,28 @@
 {% extends "accounts/base_workspace.html" %}
-{% load static %}
-{% block title %}Compare projects and counties{% endblock %}
+{% load static i18n %}
+{% block title %}{% trans "Compare projects and counties" %}{% endblock %}
 {% block workspace %}
 <section class="page-head">
-  <p class="kicker">Rankings and reports</p>
-  <h1>Compare</h1>
-  <p class="lede">Put projects and counties side by side. Rankings use recorded budgets and statuses only — they are not a corruption or performance score.</p>
+  <p class="kicker">{% trans "Rankings and reports" %}</p>
+  <h1>{% trans "Compare" %}</h1>
+  <p class="lede">{% trans "Put projects and counties side by side. Rankings use recorded budgets and statuses only — they are not a corruption or performance score." %}</p>
 </section>
 
 <section class="compare-page">
   {% if highlights %}
     <div class="compare-highlights">
       <article>
-        <p class="eyebrow">Recorded budget</p>
+        <p class="eyebrow">{% trans "Recorded budget" %}</p>
         <strong>{{ highlights.compact_budget }}</strong>
         <span>{{ highlights.project_count }} project{{ highlights.project_count|pluralize }} across {{ highlights.county_count }} {{ highlights.county_count|pluralize:"county,counties" }}</span>
       </article>
       <article>
-        <p class="eyebrow">Highest recorded budget</p>
+        <p class="eyebrow">{% trans "Highest recorded budget" %}</p>
         <strong>{{ highlights.highest_budget.county }}</strong>
         <span>{{ highlights.highest_budget.formatted_budget }} · rank {{ highlights.highest_budget.rank }}</span>
       </article>
       <article>
-        <p class="eyebrow">Highest delayed share</p>
+        <p class="eyebrow">{% trans "Highest delayed share" %}</p>
         <strong>{{ highlights.most_delayed.county }}</strong>
         <span>{{ highlights.most_delayed.delayed_share }}% delayed · {{ highlights.most_delayed.delayed_count }} of {{ highlights.most_delayed.project_count }}</span>
       </article>

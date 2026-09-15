@@ -5,6 +5,8 @@ from __future__ import annotations
 import struct
 from pathlib import Path
 
+from i18n_extra import EXTRA
+
 ROOT = Path(__file__).resolve().parent.parent
 LOCALE_DIR = ROOT / "locale"
 
@@ -328,6 +330,8 @@ CATALOG = {
         "pt": "Um relatório coloca a informação oficial e a sua observação em colunas separadas. Mantenha-o privado até o partilhar com um órgão de fiscalização, um jornalista ou a assembleia do condado. Não determina culpa.",
     },
 }
+
+CATALOG.update(EXTRA)
 
 
 def _escape_po(text: str) -> str:

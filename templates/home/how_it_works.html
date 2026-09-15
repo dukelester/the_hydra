@@ -1,39 +1,39 @@
 {% extends "base.html" %}
-{% load static %}
-{% block title %}How it works{% endblock %}
+{% load static i18n %}
+{% block title %}{% trans "How it works" %}{% endblock %}
 {% block content %}
 <article class="about-page">
   <header class="about-hero">
     <img class="hero-mark" src="{% static 'img/mark.png' %}" alt="" width="160" height="160">
     <div>
-      <p class="kicker">Method</p>
-      <h1>How it works</h1>
-      <p class="tagline">From the record to a report — without filling gaps</p>
-      <p class="lede">H.Y.D.R.A. is built around one path: <strong>Search → Project → Evidence → Investigation → Report</strong>. You can also watch a county, track a project, or compare files along the way. The source of truth stays the evidence. The platform never invents missing facts and never treats an observation as verified by default.</p>
+      <p class="kicker">{% trans "Method" %}</p>
+      <h1>{% trans "How it works" %}</h1>
+      <p class="tagline">{% trans "From the record to a report — without filling gaps" %}</p>
+      <p class="lede">{% trans "H.Y.D.R.A. is built around one path: Search → Project → Evidence → Investigation → Report. You can also watch a county, track a project, or compare files along the way. The source of truth stays the evidence. The platform never invents missing facts and never treats an observation as verified by default." %}</p>
     </div>
   </header>
 
   <section class="about-block" aria-labelledby="path-heading">
-    <h2 id="path-heading">The main path</h2>
+        <h2 id="path-heading">{% trans "The main path" %}</h2>
     <ol class="steps about-steps">
       <li>
         <span class="step-num">1</span>
         <div>
-          <h3>Search the record</h3>
+        <h3>{% trans "Search the record" %}</h3>
           <p>Find a project, institution, policy, or document by name, county, constituency, contractor, or words inside a file.</p>
         </div>
       </li>
       <li>
         <span class="step-num">2</span>
         <div>
-          <h3>Open the project</h3>
+        <h3>{% trans "Open the project" %}</h3>
           <p>Read location, budget, status, institution, and the timeline. Stages without a source say evidence is unavailable.</p>
         </div>
       </li>
       <li>
         <span class="step-num">3</span>
         <div>
-          <h3>Read the evidence</h3>
+        <h3>{% trans "Read the evidence" %}</h3>
           <p>Check claims, source files, and coverage. Coverage measures support in the file. It is not a corruption or trust score.</p>
         </div>
       </li>

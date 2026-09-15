@@ -1,29 +1,30 @@
+{% load i18n %}
 <div class="project-toolbar">
-  <a class="btn btn-primary" href="{% url 'projects:investigate' project.slug %}">Investigate this project</a>
+  <a class="btn btn-primary" href="{% url 'projects:investigate' project.slug %}">{% trans "Investigate this project" %}</a>
   {% if user.is_authenticated %}
     <form method="post" action="{% url 'projects:toggle-track' project.slug %}">
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ request.get_full_path }}">
       <button class="btn {% if is_tracked %}btn-primary{% else %}btn-secondary{% endif %}" type="submit">
-        {% if is_tracked %}Tracking{% else %}Track{% endif %}
+        {% if is_tracked %}{% trans "Tracking" %}{% else %}{% trans "Track" %}{% endif %}
       </button>
     </form>
     <form method="post" action="{% url 'projects:toggle-favourite' project.slug %}">
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ request.get_full_path }}">
       <button class="btn {% if is_favourite %}btn-primary{% else %}btn-secondary{% endif %}" type="submit">
-        {% if is_favourite %}Favourited{% else %}Favourite{% endif %}
+        {% if is_favourite %}{% trans "Favourited" %}{% else %}{% trans "Favourite" %}{% endif %}
       </button>
     </form>
   {% else %}
-    <a class="btn btn-secondary" href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}">Log in to track</a>
+    <a class="btn btn-secondary" href="{% url 'accounts:login' %}?next={{ request.get_full_path|urlencode }}">{% trans "Log in to track" %}</a>
   {% endif %}
   {% if in_compare %}
-    <a class="btn btn-secondary" href="{% url 'projects:compare' %}">In compare</a>
+    <a class="btn btn-secondary" href="{% url 'projects:compare' %}">{% trans "In compare" %}</a>
   {% else %}
     <form method="post" action="{% url 'projects:compare-add' project.slug %}">
       {% csrf_token %}
-      <button class="btn btn-secondary" type="submit">Compare</button>
+      <button class="btn btn-secondary" type="submit">{% trans "Compare" %}</button>
     </form>
   {% endif %}
 </div>

@@ -263,3 +263,1095 @@ msgstr "Tengeneza ripoti ya faragha"
 
 msgid "A report puts official information and your observation in separate columns. Keep it private until you choose to share it with an oversight office, a journalist, or the county assembly. It does not determine guilt."
 msgstr "Ripoti huweka taarifa rasmi na maoni yako kwenye safu tofauti. Iweke faragha hadi uchague kushiriki na ofisi ya usimamizi, mwandishi, au bunge la kaunti. Haiamui hatia."
+
+msgid "Finding the record is only the start. These steps follow the rules recorded for %(country)s. They are not legal advice, and they do not decide guilt."
+msgstr "Kupata rekodi ni mwanzo tu. Hatua hizi zinafuata kanuni zilizorekodiwa kwa %(country)s. Si ushauri wa kisheria, wala haziamui hatia."
+
+msgid "your %(unit)s"
+msgstr "%(unit)s yako"
+
+msgid "%(unit)s: %(place)s"
+msgstr "%(unit)s: %(place)s"
+
+msgid "A report puts official information and your observation in separate columns. Keep it private until you choose to share it with an oversight office, a journalist, or the %(assembly)s. It does not determine guilt."
+msgstr "Ripoti huweka taarifa rasmi na maoni yako kwenye safu tofauti. Iweke faragha hadi uchague kushiriki na ofisi ya usimamizi, mwandishi, au %(assembly)s. Haiamui hatia."
+
+msgid "Write to the public body that holds the file. Name the project, the financial year, and where to send the reply. If your country has an access-to-information law or an ombudsman, that office is the next step when there is no useful answer."
+msgstr "Andikia chombo cha umma kinachoshikilia faili. Taja mradi, mwaka wa fedha, na wapi kujibu. Ikiwa nchi yako ina sheria ya taarifa au ombudsman, ofisi hiyo ndiyo hatua inayofuata bila jibu la maana."
+
+msgid "You are offline"
+msgstr "Uko nje ya mtandao"
+
+msgid "No connection"
+msgstr "Hakuna muunganisho"
+
+msgid "H.Y.D.R.A. is using a saved copy of pages you already opened. Search the public record again when the connection returns. This is not a finding, and missing pages stay missing."
+msgstr "H.Y.D.R.A. inatumia nakala iliyohifadhiwa ya kurasa ulizofungua. Tafuta rekodi ya umma tena muunganisho urudi. Hii si uamuzi, na kurasa zilizokosekana zinabaki zikikosekana."
+
+msgid "Try home"
+msgstr "Jaribu ukurasa wa kwanza"
+
+msgid "Open projects"
+msgstr "Fungua miradi"
+
+msgid "Evidence-first civic accountability"
+msgstr "Uwajibikaji wa kiraia unaotegemea ushahidi"
+
+msgid "Human-centered Yield, Data, Rights & Accountability"
+msgstr "Mavuno yanayomlenga binadamu, Data, Haki na Uwajibikaji"
+
+msgid "Follow the money. Find the evidence. Take action. A platform for public projects, budgets, source documents, and citizen investigations — always tied to evidence."
+msgstr "Fuata pesa. Pata ushahidi. Chukua hatua. Jukwaa la miradi ya umma, bajeti, nyaraka, na uchunguzi wa wananchi — daima limefungamana na ushahidi."
+
+msgid "Investigate a Project"
+msgstr "Chunguza mradi"
+
+msgid "What can I investigate?"
+msgstr "Naweza kuchunguza nini?"
+
+msgid "Results appear as you type. Ranked matches use project name, county, contractor, and institution — built to stay fast across thousands of records."
+msgstr "Matokeo yanaonekana unapoandika. Mechi zilizopangwa hutumia jina la mradi, kaunti, mkandarasi, na taasisi — ili ibaki haraka kwenye maelfu ya rekodi."
+
+msgid "Search projects, institutions, policies, and documents"
+msgstr "Tafuta miradi, taasisi, sera, na nyaraka"
+
+msgid "Projects, documents, counties, filenames…"
+msgstr "Miradi, nyaraka, kaunti, majina ya faili…"
+
+msgid "Try a project name, county, or institution. Two characters is enough to start."
+msgstr "Jaribu jina la mradi, kaunti, au taasisi. Herufi mbili zinatosha kuanza."
+
+msgid "What H.Y.D.R.A. means"
+msgstr "H.Y.D.R.A. inamaanisha nini"
+
+msgid "Each letter is a principle: people, results, evidence, the right to know, and a path to oversight."
+msgstr "Kila herufi ni kanuni: watu, matokeo, ushahidi, haki ya kujua, na njia ya usimamizi."
+
+msgid "The work"
+msgstr "Kazi"
+
+msgid "Follow. Find. Act."
+msgstr "Fuata. Pata. Chukua hatua."
+
+msgid "Three moves on the public record — only as far as the files go."
+msgstr "Hatua tatu kwenye rekodi ya umma — kadri faili zinavyoruhusu."
+
+msgid "Find the evidence"
+msgstr "Pata ushahidi"
+
+msgid "Trace allocation, approval, procurement, contract, implementation, and completion — without filling gaps that sources do not support."
+msgstr "Fuatilia mgao, idhini, ununuzi, mkataba, utekelezaji, na ukamilishaji — bila kujaza pengo ambalo vyanzo haviungi mkono."
+
+msgid "Every claim should point to a source document, a page, and a verification status. If evidence is missing, H.Y.D.R.A. says so."
+msgstr "Kila dai linapaswa kuelekeza kwenye waraka, ukurasa, na hali ya uthibitisho. Ushahidi ukikosekana, H.Y.D.R.A. inasema hivyo."
+
+msgid "Take action"
+msgstr "Chukua hatua"
+
+msgid "Submit a citizen observation, compare it with official information, and generate a structured accountability report."
+msgstr "Wasilisha maoni ya mwananchi, yalinganishe na taarifa rasmi, na utengeneze ripoti ya uwajibikaji."
+
+msgid "The file"
+msgstr "Faili"
+
+msgid "On the record"
+msgstr "Kwenye rekodi"
+
+msgid "A featured file, how coverage is labelled, and the latest citizen observations."
+msgstr "Faili iliyoangaziwa, jinsi ufunikaji unavyoandikwa, na maoni ya hivi karibuni."
+
+msgid "View all projects"
+msgstr "Tazama miradi yote"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "Budget"
+msgstr "Bajeti"
+
+msgid "Status"
+msgstr "Hali"
+
+msgid "Evidence coverage"
+msgstr "Ufunikaji wa ushahidi"
+
+msgid "Investigate this project"
+msgstr "Chunguza mradi huu"
+
+msgid "Investigate This Project"
+msgstr "Chunguza mradi huu"
+
+msgid "Open the file"
+msgstr "Fungua faili"
+
+msgid "No projects are available yet."
+msgstr "Hakuna miradi bado."
+
+msgid "Coverage only measures whether recorded claims are supported by sources. It never scores corruption, fraud, or trust."
+msgstr "Ufunikaji hupima tu kama madai yaliyorekodiwa yanaungwa mkono na vyanzo. Haupei alama ya ufisadi, ulaghai, wala uaminifu."
+
+msgid "Verified"
+msgstr "Imethibitishwa"
+
+msgid "Partially verified"
+msgstr "Imethibitishwa kiasi"
+
+msgid "Partially Verified"
+msgstr "Imethibitishwa kiasi"
+
+msgid "Conflicting information"
+msgstr "Taarifa zinazokinzana"
+
+msgid "Conflicting"
+msgstr "Zinazokinzana"
+
+msgid "Unknown"
+msgstr "Haijulikani"
+
+msgid "Recent investigations"
+msgstr "Uchunguzi wa hivi karibuni"
+
+msgid "Citizen observation"
+msgstr "Maoni ya mwananchi"
+
+msgid "No citizen observations have been submitted yet."
+msgstr "Hakuna maoni ya wananchi yaliyowasilishwa bado."
+
+msgid "How H.Y.D.R.A. works"
+msgstr "H.Y.D.R.A. inafanya kazi vipi"
+
+msgid "All features"
+msgstr "Vipengele vyote"
+
+msgid "Find a project"
+msgstr "Tafuta mradi"
+
+msgid "Search public projects, institutions, and policies — or track your county."
+msgstr "Tafuta miradi, taasisi, na sera — au fuatilia kaunti yako."
+
+msgid "Examine the evidence"
+msgstr "Chunguza ushahidi"
+
+msgid "Read claims, source documents, and missing-information notes. Compare files if you need them side by side."
+msgstr "Soma madai, nyaraka, na maelezo ya taarifa zinazokosekana. Linganisha faili ukihitaji kuziona pamoja."
+
+msgid "Investigate and report"
+msgstr "Chunguza na ripoti"
+
+msgid "Submit an observation and generate a structured report."
+msgstr "Wasilisha maoni na utengeneze ripoti iliyopangwa."
+
+msgid "Human-centered"
+msgstr "Inayomlenga binadamu"
+
+msgid "Citizens are at the heart of the platform."
+msgstr "Wananchi wako moyoni mwa jukwaa."
+
+msgid "Yield"
+msgstr "Mavuno"
+
+msgid "Asks whether public money and policies actually deliver results."
+msgstr "Huuliza kama pesa na sera za umma zinatoa matokeo."
+
+msgid "Data"
+msgstr "Data"
+
+msgid "Grounds investigations in verifiable public information."
+msgstr "Huweka uchunguzi kwenye taarifa za umma zinazothibitika."
+
+msgid "Rights"
+msgstr "Haki"
+
+msgid "Helps citizens access information and public services."
+msgstr "Husadia wananchi kupata taarifa na huduma za umma."
+
+msgid "Accountability"
+msgstr "Uwajibikaji"
+
+msgid "Turns evidence into action and oversight."
+msgstr "Hugeuza ushahidi kuwa hatua na usimamizi."
+
+msgid "H.Y.D.R.A. letters"
+msgstr "Herufi za H.Y.D.R.A."
+
+msgid "Public record"
+msgstr "Rekodi ya umma"
+
+msgid "Explore projects"
+msgstr "Chunguza miradi"
+
+msgid "Browse labelled civic projects in %(country)s. Status and budget figures are only as reliable as the attached evidence."
+msgstr "Vinjari miradi ya kiraia iliyoandikwa nchini %(country)s. Hali na bajeti ni sahihi kadri ushahidi unavyounga mkono."
+
+msgid "Filter"
+msgstr "Chuja"
+
+msgid "All"
+msgstr "Zote"
+
+msgid "No projects match these filters."
+msgstr "Hakuna miradi inayolingana na vichujio hivi."
+
+msgid "Updated"
+msgstr "Imesasishwa"
+
+msgid "Pagination"
+msgstr "Kurasa"
+
+msgid "Showing %(start)s–%(end)s of %(total)s"
+msgstr "Inaonyesha %(start)s–%(end)s kati ya %(total)s"
+
+msgid "Previous"
+msgstr "Iliyotangulia"
+
+msgid "Next"
+msgstr "Ifuatayo"
+
+msgid "Page %(current)s of %(total)s"
+msgstr "Ukurasa %(current)s kati ya %(total)s"
+
+msgid "Project overview"
+msgstr "Muhtasari wa mradi"
+
+msgid "Location"
+msgstr "Mahali"
+
+msgid "Information unavailable"
+msgstr "Taarifa haipatikani"
+
+msgid "Institution"
+msgstr "Taasisi"
+
+msgid "Contractor"
+msgstr "Mkandarasi"
+
+msgid "Category"
+msgstr "Aina"
+
+msgid "Financial year"
+msgstr "Mwaka wa fedha"
+
+msgid "Start date"
+msgstr "Tarehe ya kuanza"
+
+msgid "Expected completion"
+msgstr "Ukamilishaji unaotarajiwa"
+
+msgid "Actual completion"
+msgstr "Ukamilishaji halisi"
+
+msgid "Year unavailable"
+msgstr "Mwaka haupatikani"
+
+msgid "Stages without a linked source are marked “Evidence unavailable”. H.Y.D.R.A. does not guess missing information."
+msgstr "Hatua zisizo na chanzo zimeandikwa “Ushahidi haupatikani”. H.Y.D.R.A. haikisi taarifa zinazokosekana."
+
+msgid "No record"
+msgstr "Hakuna rekodi"
+
+msgid "Evidence unavailable"
+msgstr "Ushahidi haupatikani"
+
+msgid "Linked to evidence"
+msgstr "Imeunganishwa na ushahidi"
+
+msgid "Evidence Coverage"
+msgstr "Ufunikaji wa ushahidi"
+
+msgid "This figure describes how much recorded project information is supported by evidence. It is not a corruption, fraud, or trust score."
+msgstr "Takwimu hii inaeleza kiasi cha taarifa ya mradi inayoungwa mkono na ushahidi. Si alama ya ufisadi, ulaghai, wala uaminifu."
+
+msgid "Source documents"
+msgstr "Nyaraka za chanzo"
+
+msgid "Evidence unavailable. No source documents are attached."
+msgstr "Ushahidi haupatikani. Hakuna nyaraka zilizoambatishwa."
+
+msgid "Missing information"
+msgstr "Taarifa inayokosekana"
+
+msgid "No missing-information notes are recorded for the current claims and timeline."
+msgstr "Hakuna maelezo ya taarifa inayokosekana kwa madai na ratiba ya sasa."
+
+msgid "Budget allocations"
+msgstr "Mgao wa bajeti"
+
+msgid "Type"
+msgstr "Aina"
+
+msgid "Amount"
+msgstr "Kiasi"
+
+msgid "Source"
+msgstr "Chanzo"
+
+msgid "Evidence unavailable. No budget allocation records are attached."
+msgstr "Ushahidi haupatikani. Hakuna rekodi za mgao wa bajeti."
+
+msgid "Evidence"
+msgstr "Ushahidi"
+
+msgid "Claim"
+msgstr "Dai"
+
+msgid "Page"
+msgstr "Ukurasa"
+
+msgid "Page %(number)s"
+msgstr "Ukurasa %(number)s"
+
+msgid "Not recorded"
+msgstr "Haijaandikwa"
+
+msgid "Source URL"
+msgstr "URL ya chanzo"
+
+msgid "No evidence records have been attached to this project."
+msgstr "Hakuna rekodi za ushahidi zilizoambatishwa kwenye mradi huu."
+
+msgid "Submit a citizen observation. Official information and your observation will be stored separately. Observations are not treated as verified facts."
+msgstr "Wasilisha maoni ya mwananchi. Taarifa rasmi na maoni yako yatahifadhiwa kando. Maoni hayachukuliwi kama ukweli uliothibitishwa."
+
+msgid "Other projects"
+msgstr "Miradi mingine"
+
+msgid "Other projects in %(place)s"
+msgstr "Miradi mingine katika %(place)s"
+
+msgid "See all projects in %(place)s"
+msgstr "Tazama miradi yote katika %(place)s"
+
+msgid "All projects"
+msgstr "Miradi yote"
+
+msgid "More in %(place)s"
+msgstr "Zaidi katika %(place)s"
+
+msgid "Start of the list"
+msgstr "Mwanzo wa orodha"
+
+msgid "End of the list"
+msgstr "Mwisho wa orodha"
+
+msgid "Tracking"
+msgstr "Inafuatiliwa"
+
+msgid "Track"
+msgstr "Fuatilia"
+
+msgid "Favourited"
+msgstr "Imependwa"
+
+msgid "Favourite"
+msgstr "Penda"
+
+msgid "Log in to track"
+msgstr "Ingia ili kufuatilia"
+
+msgid "In compare"
+msgstr "Katika kulinganisha"
+
+msgid "Page not found"
+msgstr "Ukurasa haujapatikana"
+
+msgid "That page is not available. Search for a project or return home."
+msgstr "Ukurasa huo haupatikani. Tafuta mradi au rudi nyumbani."
+
+msgid "Back to TheHydra"
+msgstr "Rudi TheHydra"
+
+msgid "Welcome back"
+msgstr "Karibu tena"
+
+msgid "Sign in to see tracked projects, investigations, and reports. You can still search the public record without an account."
+msgstr "Ingia uone miradi inayofuatiliwa, uchunguzi, na ripoti. Bado unaweza kutafuta rekodi ya umma bila akaunti."
+
+msgid "Use the username you chose when you registered. Forgot the password? Reset it with the email on your profile."
+msgstr "Tumia jina la mtumiaji ulilochagua. Umesahau nenosiri? Weka upya kwa barua pepe iliyo kwenye wasifu."
+
+msgid "Forgot password?"
+msgstr "Umesahau nenosiri?"
+
+msgid "Browse without signing in"
+msgstr "Vinjari bila kuingia"
+
+msgid "Need an account?"
+msgstr "Unahitaji akaunti?"
+
+msgid "Create one in two steps"
+msgstr "Fungua kwa hatua mbili"
+
+msgid "Civic search"
+msgstr "Utafutaji wa kiraia"
+
+msgid "Search the public record"
+msgstr "Tafuta rekodi ya umma"
+
+msgid "Results for “%(query)s”"
+msgstr "Matokeo ya “%(query)s”"
+
+msgid "Water"
+msgstr "Maji"
+
+msgid "Health"
+msgstr "Afya"
+
+msgid "Education"
+msgstr "Elimu"
+
+msgid "Roads"
+msgstr "Barabara"
+
+msgid "Energy"
+msgstr "Nishati"
+
+msgid "Sanitation"
+msgstr "Usafi"
+
+msgid "Agriculture"
+msgstr "Kilimo"
+
+msgid "Markets"
+msgstr "Masoko"
+
+msgid "Other"
+msgstr "Nyingine"
+
+msgid "Planned"
+msgstr "Imepangwa"
+
+msgid "Approved"
+msgstr "Imeidhinishwa"
+
+msgid "Procurement"
+msgstr "Ununuzi"
+
+msgid "In Progress"
+msgstr "Inaendelea"
+
+msgid "Completed"
+msgstr "Imekamilika"
+
+msgid "Delayed"
+msgstr "Imechelewa"
+
+msgid "Allocation"
+msgstr "Mgao"
+
+msgid "Approval"
+msgstr "Idhini"
+
+msgid "Implementation"
+msgstr "Utekelezaji"
+
+msgid "Completion"
+msgstr "Ukamilishaji"
+
+msgid "Official"
+msgstr "Rasmi"
+
+msgid "Unverified"
+msgstr "Haijathibitishwa"
+
+msgid "Tender"
+msgstr "Zabuni"
+
+msgid "Audit"
+msgstr "Ukaguzi"
+
+msgid "Policy"
+msgstr "Sera"
+
+msgid "Project Report"
+msgstr "Ripoti ya mradi"
+
+msgid "Government Report"
+msgstr "Ripoti ya serikali"
+
+msgid "County"
+msgstr "Kaunti"
+
+msgid "counties"
+msgstr "kaunti"
+
+msgid "Constituency"
+msgstr "Eneo bunge"
+
+msgid "constituencies"
+msgstr "maeneo bunge"
+
+msgid "Ward"
+msgstr "Wadi"
+
+msgid "wards"
+msgstr "wadi"
+
+msgid "Whole county"
+msgstr "Kaunti nzima"
+
+msgid "county assembly"
+msgstr "bunge la kaunti"
+
+msgid "District"
+msgstr "Wilaya"
+
+msgid "districts"
+msgstr "wilaya"
+
+msgid "Track my district"
+msgstr "Fuatilia wilaya yangu"
+
+msgid "Whole district"
+msgstr "Wilaya nzima"
+
+msgid "district council"
+msgstr "halmashauri ya wilaya"
+
+msgid "Region"
+msgstr "Mkoa"
+
+msgid "regions"
+msgstr "mikoa"
+
+msgid "Track my region"
+msgstr "Fuatilia mkoa wangu"
+
+msgid "Whole region"
+msgstr "Mkoa mzima"
+
+msgid "regional or district council"
+msgstr "halmashauri ya mkoa au wilaya"
+
+msgid "Province"
+msgstr "Mkoa"
+
+msgid "provinces"
+msgstr "mikoa"
+
+msgid "Track my province"
+msgstr "Fuatilia mkoa wangu"
+
+msgid "Whole province"
+msgstr "Mkoa mzima"
+
+msgid "State"
+msgstr "Jimbo"
+
+msgid "states"
+msgstr "majimbo"
+
+msgid "Track my state"
+msgstr "Fuatilia jimbo langu"
+
+msgid "Whole state"
+msgstr "Jimbo zima"
+
+msgid "Local Government Area"
+msgstr "Eneo la serikali ya mtaa"
+
+msgid "local government areas"
+msgstr "maeneo ya serikali ya mtaa"
+
+msgid "Kenya"
+msgstr "Kenya"
+
+msgid "Tanzania"
+msgstr "Tanzania"
+
+msgid "Burundi"
+msgstr "Burundi"
+
+msgid "Nigeria"
+msgstr "Nigeria"
+
+msgid "Uganda"
+msgstr "Uganda"
+
+msgid "Rwanda"
+msgstr "Rwanda"
+
+msgid "Democratic Republic of the Congo"
+msgstr "Jamhuri ya Kidemokrasia ya Kongo"
+
+msgid "Demo record"
+msgstr "Rekodi ya demo"
+
+msgid "Your workspace"
+msgstr "Nafasi yako ya kazi"
+
+msgid "Create an account"
+msgstr "Fungua akaunti"
+
+msgid "Create a password"
+msgstr "Tengeneza nenosiri"
+
+msgid "Continue"
+msgstr "Endelea"
+
+msgid "Your name"
+msgstr "Jina lako"
+
+msgid "Password"
+msgstr "Nenosiri"
+
+msgid "Find projects, institutions, policies, and source documents. Choose a type to browse, or type a name, county, contractor, or words inside a file."
+msgstr "Tafuta miradi, taasisi, sera, na nyaraka. Chagua aina kuvinjari, au andika jina, kaunti, mkandarasi, au maneno ndani ya faili."
+
+msgid "The main path"
+msgstr "Njia kuu"
+
+msgid "Country"
+msgstr "Nchi"
+
+msgid "No institutions match these filters."
+msgstr "Hakuna taasisi zinazolingana na vichujio hivi."
+
+msgid "No source documents match these filters."
+msgstr "Hakuna nyaraka zinazolingana na vichujio hivi."
+
+msgid "Show"
+msgstr "Onyesha"
+
+msgid "All types"
+msgstr "Aina zote"
+
+msgid "Any status"
+msgstr "Hali yoyote"
+
+msgid "Any category"
+msgstr "Aina yoyote"
+
+msgid "matches"
+msgstr "mechi"
+
+msgid "Browse by type, or search above"
+msgstr "Vinjari kwa aina, au tafuta hapo juu"
+
+msgid "Result type"
+msgstr "Aina ya matokeo"
+
+msgid "No institutions match this search."
+msgstr "Hakuna taasisi zinazolingana na utafutaji huu."
+
+msgid "No policies match this search."
+msgstr "Hakuna sera zinazolingana na utafutaji huu."
+
+msgid "No documents match this search."
+msgstr "Hakuna nyaraka zinazolingana na utafutaji huu."
+
+msgid "Budgets, status, contractors, and evidence coverage."
+msgstr "Bajeti, hali, makandarasi, na ufunikaji wa ushahidi."
+
+msgid "County departments, agencies, and oversight bodies."
+msgstr "Idara za kaunti, mashirika, na vyombo vya usimamizi."
+
+msgid "Public rules and plans tied to institutions."
+msgstr "Kanuni na mipango ya umma iliyofungamana na taasisi."
+
+msgid "Source files you can open, search, and cite."
+msgstr "Faili za chanzo unazoweza kufungua, kutafuta, na kunukuu."
+
+msgid "Project, county, contractor, filename, or words inside a document…"
+msgstr "Mradi, kaunti, mkandarasi, jina la faili, au maneno ndani ya waraka…"
+
+msgid "View all"
+msgstr "Tazama zote"
+
+msgid "Contractor not recorded"
+msgstr "Mkandarasi hajaandikwa"
+
+msgid "Financial year not recorded"
+msgstr "Mwaka wa fedha haujaandikwa"
+
+msgid "No matching projects, institutions, policies, or documents for “%(query)s”."
+msgstr "Hakuna miradi, taasisi, sera, wala nyaraka zinazolingana na “%(query)s”."
+
+msgid "Start typing to search civic data."
+msgstr "Anza kuandika kutafuta data ya kiraia."
+
+msgid "Join the record"
+msgstr "Jiunge na rekodi"
+
+msgid "Lock the account"
+msgstr "Funga akaunti"
+
+msgid "Choose a password and accept the terms. You can add email and other details later from your profile."
+msgstr "Chagua nenosiri na ukubali masharti. Unaweza kuongeza barua pepe baadaye kutoka wasifu."
+
+msgid "Two short steps. Choose a username and the country whose public record you follow. If you skip country, Kenya is used. Display name stays optional."
+msgstr "Hatua mbili fupi. Chagua jina la mtumiaji na nchi unayofuata rekodi yake. Ukiruka nchi, Kenya inatumiwa. Jina la kuonyesha ni hiari."
+
+msgid "Step 1 is a username and country. Country defaults to Kenya. Step 2 is a password and the terms."
+msgstr "Hatua 1 ni jina la mtumiaji na nchi. Nchi chaguomsingi ni Kenya. Hatua 2 ni nenosiri na masharti."
+
+msgid "Tracking uses that country’s administrative units — counties in Kenya, regions in Tanzania, states in Nigeria."
+msgstr "Ufuatiliaji hutumia vitengo vya nchi hiyo — kaunti Kenya, mikoa Tanzania, majimbo Nigeria."
+
+msgid "The public record remains readable without signing in."
+msgstr "Rekodi ya umma bado inasomwa bila kuingia."
+
+msgid "Signing up as"
+msgstr "Unajisajili kama"
+
+msgid "Keeps investigations with you. If you skip country, Kenya is used so the dashboard can follow the right local units."
+msgstr "Huweka uchunguzi pamoja nawe. Ukiruka nchi, Kenya inatumiwa ili dashibodi ifuate vitengo sahihi."
+
+msgid "Sign up steps"
+msgstr "Hatua za kujisajili"
+
+msgid "I agree to the"
+msgstr "Ninakubali"
+
+msgid "Required"
+msgstr "Inahitajika"
+
+msgid "Back"
+msgstr "Rudi"
+
+msgid "Already have an account?"
+msgstr "Tayari una akaunti?"
+
+msgid "Username"
+msgstr "Jina la mtumiaji"
+
+msgid "Display name"
+msgstr "Jina la kuonyesha"
+
+msgid "Choose a username"
+msgstr "Chagua jina la mtumiaji"
+
+msgid "Optional public name"
+msgstr "Jina la umma (hiari)"
+
+msgid "Confirm password"
+msgstr "Thibitisha nenosiri"
+
+msgid "Letters, digits, and @/./+/-/_ only."
+msgstr "Herufi, tarakimu, na @/./+/-/_ tu."
+
+msgid "Optional. Shown on your dashboard instead of the username."
+msgstr "Hiari. Inaonyeshwa kwenye dashibodi badala ya jina la mtumiaji."
+
+msgid "Filters, tracking, and next steps follow this country. If you skip it, H.Y.D.R.A. uses Kenya. You can change it later on your profile."
+msgstr "Vichujio, ufuatiliaji, na hatua zinazofuata hufuata nchi hii. Ukiruka, H.Y.D.R.A. hutumia Kenya. Unaweza kubadilisha baadaye kwenye wasifu."
+
+msgid "I agree to the terms of use"
+msgstr "Ninakubali masharti ya matumizi"
+
+msgid "Projects, area watches, and updates in one place. Investigations and reports stay private unless an administrator reviews them."
+msgstr "Miradi, maeneo yanayotazamwa, na masasisho mahali pamoja. Uchunguzi na ripoti zinabaki faragha isipokuwa msimamizi azipitie."
+
+msgid "Workspace counts"
+msgstr "Hesabu za nafasi ya kazi"
+
+msgid "Updates"
+msgstr "Masasisho"
+
+msgid "Favourites"
+msgstr "Vipendwa"
+
+msgid "My areas"
+msgstr "Maeneo yangu"
+
+msgid "Open feed"
+msgstr "Fungua mlisho"
+
+msgid "Set up"
+msgstr "Sanidi"
+
+msgid "No projects are recorded for this area yet."
+msgstr "Hakuna miradi iliyorekodiwa kwa eneo hili bado."
+
+msgid "Updates on tracked projects"
+msgstr "Masasisho ya miradi inayofuatiliwa"
+
+msgid "Status changed"
+msgstr "Hali imebadilika"
+
+msgid "Record updated"
+msgstr "Rekodi imesasishwa"
+
+msgid "No status or record changes on tracked projects. Track a project to see updates here."
+msgstr "Hakuna mabadiliko ya hali au rekodi kwenye miradi inayofuatiliwa. Fuatilia mradi uone masasisho hapa."
+
+msgid "Recently viewed"
+msgstr "Zilizotazamwa hivi karibuni"
+
+msgid "Browse projects"
+msgstr "Vinjari miradi"
+
+msgid "Projects you open will appear here — up to five of the most recent."
+msgstr "Miradi unayofungua itaonekana hapa — hadi tano za hivi karibuni."
+
+msgid "Stop tracking"
+msgstr "Acha kufuatilia"
+
+msgid "Track a project from its page to watch status and record updates."
+msgstr "Fuatilia mradi kutoka ukurasa wake ili kuona hali na masasisho."
+
+msgid "Remove favourite"
+msgstr "Ondoa kipendwa"
+
+msgid "Favourite a project to keep it on this dashboard."
+msgstr "Penda mradi ili ubaki kwenye dashibodi hii."
+
+msgid "Recent reports"
+msgstr "Ripoti za hivi karibuni"
+
+msgid "You have not submitted an investigation yet. Open a project and record what you observed."
+msgstr "Bado hujawasilisha uchunguzi. Fungua mradi uandike ulichoona."
+
+msgid "No reports yet. Generate one from an investigation when you are ready to structure the record."
+msgstr "Hakuna ripoti bado. Tengeneza kutoka uchunguzi ukiwa tayari kupanga rekodi."
+
+msgid "Investigate"
+msgstr "Chunguza"
+
+msgid "Record what you saw, keep it next to the official record, and attach evidence if you have it. This is stored as a citizen observation — not a verified finding, and not an accusation."
+msgstr "Andika ulichoona, kiweke kando ya rekodi rasmi, na uambatishe ushahidi ukiwa nao. Hii huhifadhiwa kama maoni ya mwananchi — si uamuzi uliothibitishwa, wala shtaka."
+
+msgid "How this form works"
+msgstr "Fomu hii inafanya kazi vipi"
+
+msgid "What you saw"
+msgstr "Ulichoona"
+
+msgid "Compare the record"
+msgstr "Linganisha rekodi"
+
+msgid "Attach evidence"
+msgstr "Ambatisha ushahidi"
+
+msgid "Supporting evidence"
+msgstr "Ushahidi unaounga mkono"
+
+msgid "Describe the site or service in your own words. Date and place help others follow up."
+msgstr "Eleza eneo au huduma kwa maneno yako. Tarehe na mahali husaidia wengine kufuatilia."
+
+msgid "Official information and your observation are stored in separate columns. Do not mix them."
+msgstr "Taarifa rasmi na maoni yako huhifadhiwa kwenye safu tofauti. Usichanganye."
+
+msgid "Photos, PDFs, Word files, or spreadsheets help. You can attach several files, or none."
+msgstr "Picha, PDF, faili za Word, au lahajedwali husaidia. Unaweza kuambatisha kadhaa, au hakuna."
+
+msgid "Do not include other people’s private details. Guest submissions are stored without an account name."
+msgstr "Usiweke taarifa binafsi za watu wengine. Maoni ya mgeni huhifadhiwa bila jina la akaunti."
+
+msgid "Submit observation"
+msgstr "Wasilisha maoni"
+
+msgid "You can submit without an account. Do not include unnecessary personal information. Observations stay unverified until independently reviewed."
+msgstr "Unaweza kuwasilisha bila akaunti. Usiweke taarifa binafsi zisizohitajika. Maoni yanabaki bila kuthibitishwa hadi yapitiwe."
+
+msgid "Status on record"
+msgstr "Hali kwenye rekodi"
+
+msgid "Unavailable"
+msgstr "Haipatikani"
+
+msgid "Review evidence first"
+msgstr "Kagua ushahidi kwanza"
+
+msgid "How H.Y.D.R.A. treats this"
+msgstr "H.Y.D.R.A. inachukuliaje hii"
+
+msgid "Your words are labelled as a citizen observation."
+msgstr "Maneno yako yameandikwa kama maoni ya mwananchi."
+
+msgid "Official claims stay in their own field."
+msgstr "Madai rasmi yanabaki kwenye uga wao."
+
+msgid "Nothing here is a finding of corruption or fraud."
+msgstr "Hakuna hapa kilicho uamuzi wa ufisadi au ulaghai."
+
+msgid "Guest observations are anonymous. Signed-in users can hide their account name."
+msgstr "Maoni ya mgeni hayana jina. Walioingia wanaweza kuficha jina la akaunti."
+
+msgid "What you can attach"
+msgstr "Unachoweza kuambatisha"
+
+msgid "PDF, Word, Excel, CSV, or image — up to %(files)s files, %(size)s MB each. Files are streamed to disk, then processed after you submit."
+msgstr "PDF, Word, Excel, CSV, au picha — hadi faili %(files)s, MB %(size)s kila moja. Faili hutumwa diski, kisha kuchakatwa baada ya kuwasilisha."
+
+msgid "What did you observe?"
+msgstr "Umeona nini?"
+
+msgid "Where?"
+msgstr "Wapi?"
+
+msgid "When?"
+msgstr "Lini?"
+
+msgid "Official information on record"
+msgstr "Taarifa rasmi kwenye rekodi"
+
+msgid "What is different?"
+msgstr "Nini tofauti?"
+
+msgid "What does your evidence show? (optional)"
+msgstr "Ushahidi wako unaonyesha nini? (hiari)"
+
+msgid "Upload files (optional)"
+msgstr "Pakia faili (hiari)"
+
+msgid "Do not show my account name on this observation"
+msgstr "Usionyeshe jina la akaunti yangu kwenye maoni haya"
+
+msgid "The observation stays attached to your account so you can find it later. Public and shared copies can be labelled anonymous."
+msgstr "Maoni yanabaki yamefungamana na akaunti yako ili uyapate baadaye. Nakala za umma zinaweza kuandikwa zisizo na jina."
+
+msgid "Compare projects and counties"
+msgstr "Linganisha miradi na kaunti"
+
+msgid "Rankings and reports"
+msgstr "Orodha na ripoti"
+
+msgid "Put projects and counties side by side. Rankings use recorded budgets and statuses only — they are not a corruption or performance score."
+msgstr "Weka miradi na kaunti pamoja. Orodha hutumia bajeti na hali zilizorekodiwa tu — si alama ya ufisadi wala utendaji."
+
+msgid "Recorded budget"
+msgstr "Bajeti iliyorekodiwa"
+
+msgid "Highest recorded budget"
+msgstr "Bajeti kubwa iliyorekodiwa"
+
+msgid "Highest delayed share"
+msgstr "Sehemu kubwa iliyochelewa"
+
+msgid "report"
+msgstr "ripoti"
+
+msgid "Visual reading of recorded allocation, delivery status, and sector mix. Figures come from project files. They are not a corruption score, and they are not paid-out expenditure unless a source records a spend."
+msgstr "Usomaji wa mgao uliorekodiwa, hali ya utoaji, na mchanganyiko wa sekta. Takwimu zinatoka faili za miradi. Si alama ya ufisadi, wala matumizi yaliyolipwa isipokuwa chanzo kirekodi malipo."
+
+msgid "Recorded allocation"
+msgstr "Mgao uliorekodiwa"
+
+msgid "Method"
+msgstr "Mbinu"
+
+msgid "From the record to a report — without filling gaps"
+msgstr "Kutoka rekodi hadi ripoti — bila kujaza pengo"
+
+msgid "H.Y.D.R.A. is built around one path: Search → Project → Evidence → Investigation → Report. You can also watch a county, track a project, or compare files along the way. The source of truth stays the evidence. The platform never invents missing facts and never treats an observation as verified by default."
+msgstr "H.Y.D.R.A. imejengwa kwenye njia moja: Tafuta → Mradi → Ushahidi → Uchunguzi → Ripoti. Unaweza pia kutazama kaunti, kufuatilia mradi, au kulinganisha faili. Chanzo cha ukweli kinabaki ushahidi. Jukwaa halizui ukweli unaokosekana wala halichukulii maoni kama yaliyothibitishwa."
+
+msgid "Search the record"
+msgstr "Tafuta rekodi"
+
+msgid "Open the project"
+msgstr "Fungua mradi"
+
+msgid "Read the evidence"
+msgstr "Soma ushahidi"
+
+msgid "The platform"
+msgstr "Jukwaa"
+
+msgid "Follow the money. Find the evidence. Take action."
+msgstr "Fuata pesa. Pata ushahidi. Chukua hatua."
+
+msgid "H.Y.D.R.A. is an evidence-first civic record. Every feature below either helps you find what the files say, watch an area or a project as the record changes, or turn an observation into a structured report. Nothing here scores guilt, corruption, or trust."
+msgstr "H.Y.D.R.A. ni rekodi ya kiraia inayotegemea ushahidi. Kila kipengele husaidia kupata faili zinavyosema, kutazama eneo au mradi, au kugeuza maoni kuwa ripoti. Hakuna hapa kinatoa alama ya hatia, ufisadi, wala uaminifu."
+
+msgid "Departments, agencies, and other public bodies linked to projects and policies. The file shows what is recorded — not a score of the institution."
+msgstr "Idara, mashirika, na vyombo vingine vya umma vilivyounganishwa na miradi na sera. Faili inaonyesha kilichorekodiwa — si alama ya taasisi."
+
+msgid "Name, location, or description…"
+msgstr "Jina, mahali, au maelezo…"
+
+msgid "Browse recorded policies and the documents they cite. Status and dates are only as reliable as the attached evidence."
+msgstr "Vinjari sera zilizorekodiwa na nyaraka zinazonukuu. Hali na tarehe ni sahihi kadri ushahidi unavyounga mkono."
+
+msgid "Policy title or institution…"
+msgstr "Kichwa cha sera au taasisi…"
+
+msgid "Search titles, filenames, and extracted text from PDFs, Word, and Excel. Large files are streamed; previews show the first pages rather than loading everything at once."
+msgstr "Tafuta vichwa, majina ya faili, na maandishi yaliyotolewa kutoka PDF, Word, na Excel. Faili kubwa hutumwa taratibu; hakikisho huonyesha kurasa za kwanza."
+
+msgid "Search text or filename"
+msgstr "Tafuta maandishi au jina la faili"
+
+msgid "Filename, title, or words inside the file…"
+msgstr "Jina la faili, kichwa, au maneno ndani ya faili…"
+
+msgid "County Department"
+msgstr "Idara ya kaunti"
+
+msgid "County Government"
+msgstr "Serikali ya kaunti"
+
+msgid "National Ministry"
+msgstr "Wizara ya taifa"
+
+msgid "Agency"
+msgstr "Shirika"
+
+msgid "Oversight Body"
+msgstr "Chombo cha usimamizi"
+
+msgid "Original allocation"
+msgstr "Mgao asilia"
+
+msgid "Supplementary"
+msgstr "Nyongeza"
+
+msgid "Revised"
+msgstr "Iliyorekebishwa"
+
+msgid "Recurrent"
+msgstr "Unaorudiwa"
+
+msgid "Development"
+msgstr "Maendeleo"
+
+msgid "Contract"
+msgstr "Mkataba"
+
+msgid "Commune"
+msgstr "Komuni"
+
+msgid "communes"
+msgstr "komuni"
+
+msgid "Zone"
+msgstr "Eneo"
+
+msgid "zones"
+msgstr "maeneo"
+
+msgid "communal or provincial council"
+msgstr "baraza la komuni au mkoa"
+
+msgid "Territory"
+msgstr "Eneo"
+
+msgid "territories"
+msgstr "maeneo"
+
+msgid "Sector"
+msgstr "Sekta"
+
+msgid "sectors"
+msgstr "sekta"
+
+msgid "provincial assembly"
+msgstr "bunge la mkoa"
+
+msgid "state house of assembly"
+msgstr "bunge la jimbo"
+
+msgid "Sub-county"
+msgstr "Kaunti ndogo"
+
+msgid "sub-counties"
+msgstr "kaunti ndogo"
+
+msgid "In Tanzania, the Access to Information Act, 2016 lets you ask a public body for records. Name the project and the financial year, and say where to send the reply. If there is no useful answer, the Commission for Human Rights and Good Governance is the national oversight office."
+msgstr "Nchini Tanzania, Sheria ya Upatikanaji wa Taarifa, 2016 inakuruhusu kuomba rekodi. Taja mradi na mwaka wa fedha, na wapi kujibu. Bila jibu la maana, Tume ya Haki za Binadamu na Utawala Bora ndiyo ofisi ya kitaifa ya usimamizi."
+
+msgid "Burundi does not yet have a standalone access-to-information statute. The Constitution recognizes the right to information. Write to the public body that holds the file. Name the project, the financial year, and where to send the reply. If there is no useful answer, the Ombudsman (Médiateur de la République) is a national civic route. This is not legal advice."
+msgstr "Burundi bado haina sheria pekee ya upatikanaji wa taarifa. Katiba inatambua haki ya taarifa. Andikia chombo cha umma kinachoshikilia faili. Taja mradi, mwaka wa fedha, na wapi kujibu. Bila jibu la maana, Ombudsman (Médiateur de la République) ni njia ya kitaifa. Hii si ushauri wa kisheria."
+
+msgid "In Nigeria, the Freedom of Information Act, 2011 lets you ask a public institution for records. Put the request in writing, name the project, and say where to send the reply. If there is no useful answer, you can apply to a court. The Public Complaints Commission is a further civic route."
+msgstr "Nchini Nigeria, Sheria ya Uhuru wa Taarifa, 2011 inakuruhusu kuomba rekodi. Andika ombi, taja mradi, na wapi kujibu. Bila jibu la maana, unaweza kwenda mahakamani. Tume ya Malalamiko ya Umma ni njia nyingine ya kiraia."

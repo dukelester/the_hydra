@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% block title %}{{ project.name }}{% endblock %}
-{% load static evidence_tags %}
+{% load static evidence_tags i18n %}
 {% block content %}
 <article class="project-page">
   <header class="project-hero">
     <div class="project-hero-main">
-      <p class="kicker">{% if project.is_demo %}Demo record · {% endif %}{{ project.get_category_display }} · {{ project.county }}</p>
+      <p class="kicker">{% if project.is_demo %}{% trans "Demo record" %} · {% endif %}{{ project.get_category_display }} · {{ project.county }}</p>
       <h1>{{ project.name }}</h1>
       <p class="lede">{{ project.description }}</p>
       <ul class="project-pills">
         <li class="project-pill is-status is-{{ project.status }}">{{ project.get_status_display }}</li>
         <li class="project-pill">{{ project.format_amount }}</li>
-        <li class="project-pill">{{ project.financial_year|default:"Year unavailable" }}</li>
+        <li class="project-pill">{% if project.financial_year %}{{ project.financial_year }}{% else %}{% trans "Year unavailable" %}{% endif %}</li>
         <li class="project-pill">{{ project.get_category_display }}</li>
       </ul>
       {% include "components/project_actions.html" %}
@@ -31,54 +31,54 @@
   </header>
 
   <section class="project-panel">
-    <h2>Project overview</h2>
+    <h2>{% trans "Project overview" %}</h2>
     <dl class="record-facts">
       <div>
-        <dt>Location</dt>
-        <dd>{{ project.location|default:"Information unavailable" }}</dd>
+        <dt>{% trans "Location" %}</dt>
+        <dd>{% if project.location %}{{ project.location }}{% else %}{% trans "Information unavailable" %}{% endif %}</dd>
       </div>
       <div>
-        <dt>{{ project_gov.labels.level1|default:"County" }}</dt>
-        <dd>{{ project.county|default:"Information unavailable" }}</dd>
+        <dt>{{ project_gov.labels.level1 }}</dt>
+        <dd>{% if project.county %}{{ project.county }}{% else %}{% trans "Information unavailable" %}{% endif %}</dd>
       </div>
       <div>
-        <dt>{{ project_gov.labels.level2|default:"Constituency" }}</dt>
-        <dd>{{ project.constituency|default:"Information unavailable" }}</dd>
+        <dt>{{ project_gov.labels.level2 }}</dt>
+        <dd>{% if project.constituency %}{{ project.constituency }}{% else %}{% trans "Information unavailable" %}{% endif %}</dd>
       </div>
       <div>
-        <dt>{{ project_gov.labels.level3|default:"Ward" }}</dt>
-        <dd>{{ project.ward|default:"Information unavailable" }}</dd>
+        <dt>{{ project_gov.labels.level3 }}</dt>
+        <dd>{% if project.ward %}{{ project.ward }}{% else %}{% trans "Information unavailable" %}{% endif %}</dd>
       </div>
       <div>
-        <dt>Institution</dt>
+        <dt>{% trans "Institution" %}</dt>
         <dd><a href="{{ project.institution.get_absolute_url }}">{{ project.institution.name }}</a></dd>
       </div>
       <div>
-        <dt>Contractor</dt>
-        <dd>{{ project.contractor|default:"Information unavailable" }}</dd>
+        <dt>{% trans "Contractor" %}</dt>
+        <dd>{% if project.contractor %}{{ project.contractor }}{% else %}{% trans "Information unavailable" %}{% endif %}</dd>
       </div>
       <div>
-        <dt>Category</dt>
+        <dt>{% trans "Category" %}</dt>
         <dd>{{ project.get_category_display }}</dd>
       </div>
       <div>
-        <dt>Financial year</dt>
-        <dd>{{ project.financial_year|default:"Information unavailable" }}</dd>
+        <dt>{% trans "Financial year" %}</dt>
+        <dd>{% if project.financial_year %}{{ project.financial_year }}{% else %}{% trans "Information unavailable" %}{% endif %}</dd>
       </div>
       <div>
-        <dt>Start date</dt>
-        <dd>{{ project.start_date|date:"j F Y"|default:"Information unavailable" }}</dd>
+        <dt>{% trans "Start date" %}</dt>
+        <dd>{% if project.start_date %}{{ project.start_date|date:"j F Y" }}{% else %}{% trans "Information unavailable" %}{% endif %}</dd>
       </div>
       <div>
-        <dt>Expected completion</dt>
-        <dd>{{ project.expected_completion_date|date:"j F Y"|default:"Information unavailable" }}</dd>
+        <dt>{% trans "Expected completion" %}</dt>
+        <dd>{% if project.expected_completion_date %}{{ project.expected_completion_date|date:"j F Y" }}{% else %}{% trans "Information unavailable" %}{% endif %}</dd>
       </div>
       <div>
-        <dt>Actual completion</dt>
-        <dd>{{ project.actual_completion_date|date:"j F Y"|default:"Information unavailable" }}</dd>
+        <dt>{% trans "Actual completion" %}</dt>
+        <dd>{% if project.actual_completion_date %}{{ project.actual_completion_date|date:"j F Y" }}{% else %}{% trans "Information unavailable" %}{% endif %}</dd>
       </div>
       <div>
-        <dt>Status</dt>
+        <dt>{% trans "Status" %}</dt>
         <dd>{{ project.get_status_display }}</dd>
       </div>
     </dl>
@@ -86,8 +86,8 @@
 
   <div class="project-columns">
     <section class="project-panel">
-      <h2>Follow the money</h2>
-      <p class="muted">Stages without a linked source are marked “Evidence unavailable”. H.Y.D.R.A. does not guess missing information.</p>
+      <h2>{% trans "Follow the money" %}</h2>
+      <p class="muted">{% trans "Stages without a linked source are marked “Evidence unavailable”. H.Y.D.R.A. does not guess missing information." %}</p>
       <ol class="timeline">
         {% for item in timeline %}
           <li class="{% if item.has_evidence %}has-evidence{% else %}no-evidence{% endif %}">
@@ -98,12 +98,12 @@
               {% if item.event.description %}<p>{{ item.event.description }}</p>{% endif %}
               {% if item.event.occurred_on %}<p class="muted">{{ item.event.occurred_on|date:"j F Y" }}</p>{% endif %}
             {% else %}
-              <h3>No record</h3>
+              <h3>{% trans "No record" %}</h3>
             {% endif %}
             {% if item.evidence_unavailable %}
-              <p class="unavailable">Evidence unavailable</p>
+              <p class="unavailable">{% trans "Evidence unavailable" %}</p>
             {% else %}
-              <p class="available">Linked to evidence</p>
+              <p class="available">{% trans "Linked to evidence" %}</p>
             {% endif %}
           </li>
         {% endfor %}
@@ -113,7 +113,7 @@
     <div class="project-side">
       {% include "components/coverage.html" %}
       <section class="project-panel">
-        <h2>Source documents</h2>
+        <h2>{% trans "Source documents" %}</h2>
         {% if documents %}
           <ul class="doc-list">
             {% for document in documents %}
@@ -124,14 +124,14 @@
             {% endfor %}
           </ul>
         {% else %}
-          <p class="muted">Evidence unavailable. No source documents are attached.</p>
+          <p class="muted">{% trans "Evidence unavailable. No source documents are attached." %}</p>
         {% endif %}
       </section>
     </div>
   </div>
 
   <section class="project-panel">
-    <h2>Missing information</h2>
+    <h2>{% trans "Missing information" %}</h2>
     {% if coverage.missing %}
       <ul class="gap-list">
         {% for gap in coverage.missing %}
@@ -139,22 +139,22 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p class="muted">No missing-information notes are recorded for the current claims and timeline.</p>
+      <p class="muted">{% trans "No missing-information notes are recorded for the current claims and timeline." %}</p>
     {% endif %}
   </section>
 
   <section class="project-panel">
-    <h2>Budget</h2>
+    <h2>{% trans "Budget" %}</h2>
     {% if allocations %}
       <div class="table-wrap">
         <table>
-          <caption class="sr-only">Budget allocations</caption>
+          <caption class="sr-only">{% trans "Budget allocations" %}</caption>
           <thead>
             <tr>
-              <th scope="col">Financial year</th>
-              <th scope="col">Type</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Source</th>
+              <th scope="col">{% trans "Financial year" %}</th>
+              <th scope="col">{% trans "Type" %}</th>
+              <th scope="col">{% trans "Amount" %}</th>
+              <th scope="col">{% trans "Source" %}</th>
             </tr>
           </thead>
           <tbody>
@@ -167,7 +167,7 @@
                   {% if allocation.source_document %}
                     <a href="{{ allocation.source_document.get_absolute_url }}">{{ allocation.source_document.title }}</a>
                   {% else %}
-                    Evidence unavailable
+                    {% trans "Evidence unavailable" %}
                   {% endif %}
                 </td>
               </tr>
@@ -176,39 +176,39 @@
         </table>
       </div>
     {% else %}
-      <p class="muted">Evidence unavailable. No budget allocation records are attached.</p>
+      <p class="muted">{% trans "Evidence unavailable. No budget allocation records are attached." %}</p>
     {% endif %}
   </section>
 
   <section class="project-panel">
-    <h2>Evidence</h2>
+    <h2>{% trans "Evidence" %}</h2>
     {% if evidence_items %}
       <div class="evidence-stack">
         {% for item in evidence_items %}
           <article class="evidence-card">
-            <p class="eyebrow">Claim</p>
+            <p class="eyebrow">{% trans "Claim" %}</p>
             <blockquote>“{{ item.claim }}”</blockquote>
-            <p class="eyebrow">Evidence</p>
-            <p>{% if item.evidence_text %}{{ item.evidence_text }}{% else %}Evidence unavailable{% endif %}</p>
+            <p class="eyebrow">{% trans "Evidence" %}</p>
+            <p>{% if item.evidence_text %}{{ item.evidence_text }}{% else %}{% trans "Evidence unavailable" %}{% endif %}</p>
             <dl class="mini-facts">
               <div>
-                <dt>Source</dt>
+                <dt>{% trans "Source" %}</dt>
                 <dd>
                   {% if item.source_document %}
                     <a href="{{ item.source_document.get_absolute_url }}">{{ item.source_document.title }}</a>
                   {% elif item.source_url %}
-                    <a href="{{ item.source_url }}">Source URL</a>
+                    <a href="{{ item.source_url }}">{% trans "Source URL" %}</a>
                   {% else %}
-                    Evidence unavailable
+                    {% trans "Evidence unavailable" %}
                   {% endif %}
                 </dd>
               </div>
               <div>
-                <dt>Page</dt>
-                <dd>{% if item.page_number %}Page {{ item.page_number }}{% else %}Not recorded{% endif %}</dd>
+                <dt>{% trans "Page" %}</dt>
+                <dd>{% if item.page_number %}{% blocktrans with number=item.page_number %}Page {{ number }}{% endblocktrans %}{% else %}{% trans "Not recorded" %}{% endif %}</dd>
               </div>
               <div>
-                <dt>Status</dt>
+                <dt>{% trans "Status" %}</dt>
                 <dd>{% evidence_badge item.verification_status %}</dd>
               </div>
             </dl>
@@ -216,23 +216,23 @@
         {% endfor %}
       </div>
     {% else %}
-      <p class="muted">No evidence records have been attached to this project.</p>
+      <p class="muted">{% trans "No evidence records have been attached to this project." %}</p>
     {% endif %}
   </section>
 
   {% include "components/next_steps.html" %}
 
   <section class="cta-panel">
-    <h2>Investigate this project</h2>
-    <p>Submit a citizen observation. Official information and your observation will be stored separately. Observations are not treated as verified facts.</p>
-    <a class="btn btn-primary btn-large" href="{% url 'projects:investigate' project.slug %}">Investigate This Project</a>
+    <h2>{% trans "Investigate this project" %}</h2>
+    <p>{% trans "Submit a citizen observation. Official information and your observation will be stored separately. Observations are not treated as verified facts." %}</p>
+    <a class="btn btn-primary btn-large" href="{% url 'projects:investigate' project.slug %}">{% trans "Investigate This Project" %}</a>
   </section>
 
   {% if county_projects %}
   <section class="project-panel">
     <div class="section-head">
-      <h2>Other projects in {{ project.county }}</h2>
-      <a class="text-link" href="{% url 'projects:list' %}?county={{ project.county|urlencode }}">See all projects in {{ project.county }}</a>
+      <h2>{% blocktrans with place=project.county %}Other projects in {{ place }}{% endblocktrans %}</h2>
+      <a class="text-link" href="{% url 'projects:list' %}?county={{ project.county|urlencode }}">{% blocktrans with place=project.county %}See all projects in {{ place }}{% endblocktrans %}</a>
     </div>
     <ul class="project-siblings">
       {% for other in county_projects %}

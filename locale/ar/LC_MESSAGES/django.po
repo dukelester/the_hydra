@@ -263,3 +263,1095 @@ msgstr "أنشئ تقريراً خاصاً"
 
 msgid "A report puts official information and your observation in separate columns. Keep it private until you choose to share it with an oversight office, a journalist, or the county assembly. It does not determine guilt."
 msgstr "يضع التقرير المعلومات الرسمية وملاحظتك في عمودين منفصلين. أبقه خاصاً حتى تختار مشاركته مع جهة رقابة أو صحفي أو مجلس المقاطعة. لا يقرر الذنب."
+
+msgid "Finding the record is only the start. These steps follow the rules recorded for %(country)s. They are not legal advice, and they do not decide guilt."
+msgstr "العثور على السجل مجرد بداية. هذه الخطوات تتبع القواعد المسجّلة ل%(country)s. ليست استشارة قانونية ولا تقرر الذنب."
+
+msgid "your %(unit)s"
+msgstr "%(unit)s الخاصة بك"
+
+msgid "%(unit)s: %(place)s"
+msgstr "%(unit)s: %(place)s"
+
+msgid "A report puts official information and your observation in separate columns. Keep it private until you choose to share it with an oversight office, a journalist, or the %(assembly)s. It does not determine guilt."
+msgstr "يضع التقرير المعلومات الرسمية وملاحظتك في عمودين منفصلين. أبقه خاصاً حتى تختار مشاركته مع جهة رقابة أو صحفي أو %(assembly)s. لا يقرر الذنب."
+
+msgid "Write to the public body that holds the file. Name the project, the financial year, and where to send the reply. If your country has an access-to-information law or an ombudsman, that office is the next step when there is no useful answer."
+msgstr "اكتب إلى الهيئة العامة التي تحتفظ بالملف. سمِّ المشروع والسنة المالية وأين يُرسل الرد. إن وُجد قانون للوصول إلى المعلومات أو ديوان مظالم، فتلك الجهة هي الخطوة التالية إن لم يأتِ جواب مفيد."
+
+msgid "You are offline"
+msgstr "أنت دون اتصال"
+
+msgid "No connection"
+msgstr "لا اتصال"
+
+msgid "H.Y.D.R.A. is using a saved copy of pages you already opened. Search the public record again when the connection returns. This is not a finding, and missing pages stay missing."
+msgstr "هيدرا تستخدم نسخة محفوظة من الصفحات التي فتحتها. ابحث في السجل العام مجدداً عند عودة الاتصال. هذا ليس حكماً، والصفحات الناقصة تبقى ناقصة."
+
+msgid "Try home"
+msgstr "جرّب الصفحة الرئيسية"
+
+msgid "Open projects"
+msgstr "افتح المشاريع"
+
+msgid "Evidence-first civic accountability"
+msgstr "مساءلة مدنية مبنية على الأدلة"
+
+msgid "Human-centered Yield, Data, Rights & Accountability"
+msgstr "عائد يضع الناس أولاً، وبيانات، وحقوق، ومساءلة"
+
+msgid "Follow the money. Find the evidence. Take action. A platform for public projects, budgets, source documents, and citizen investigations — always tied to evidence."
+msgstr "تابع المال. اعثر على الدليل. اتخذ خطوة. منصة للمشاريع العامة والميزانيات ووثائق المصدر وتحقيقات المواطنين — مرتبطة دائماً بالدليل."
+
+msgid "Investigate a Project"
+msgstr "حقّق في مشروع"
+
+msgid "What can I investigate?"
+msgstr "ماذا يمكنني أن أحقّق؟"
+
+msgid "Results appear as you type. Ranked matches use project name, county, contractor, and institution — built to stay fast across thousands of records."
+msgstr "تظهر النتائج أثناء الكتابة. الترتيب يستخدم اسم المشروع والمنطقة والمقاول والمؤسسة — ليبقى سريعاً عبر آلاف السجلات."
+
+msgid "Search projects, institutions, policies, and documents"
+msgstr "ابحث في المشاريع والمؤسسات والسياسات والوثائق"
+
+msgid "Projects, documents, counties, filenames…"
+msgstr "مشاريع، وثائق، مناطق، أسماء ملفات…"
+
+msgid "Try a project name, county, or institution. Two characters is enough to start."
+msgstr "جرّب اسم مشروع أو منطقة أو مؤسسة. حرفان يكفيان للبدء."
+
+msgid "What H.Y.D.R.A. means"
+msgstr "ماذا تعني هيدرا"
+
+msgid "Each letter is a principle: people, results, evidence, the right to know, and a path to oversight."
+msgstr "كل حرف مبدأ: الناس، النتائج، الدليل، حق المعرفة، ومسار للرقابة."
+
+msgid "The work"
+msgstr "العمل"
+
+msgid "Follow. Find. Act."
+msgstr "تابع. اعثر. اتصرف."
+
+msgid "Three moves on the public record — only as far as the files go."
+msgstr "ثلاث حركات على السجل العام — فقط بقدر ما تسمح الملفات."
+
+msgid "Find the evidence"
+msgstr "اعثر على الدليل"
+
+msgid "Trace allocation, approval, procurement, contract, implementation, and completion — without filling gaps that sources do not support."
+msgstr "تتبّع التخصيص والموافقة والتعاقد والتنفيذ والإنجاز — دون سد فجوات لا تدعمها المصادر."
+
+msgid "Every claim should point to a source document, a page, and a verification status. If evidence is missing, H.Y.D.R.A. says so."
+msgstr "كل ادّعاء يجب أن يشير إلى وثيقة مصدر وصفحة وحالة تحقق. إن نقص الدليل، هيدرا تقوله."
+
+msgid "Take action"
+msgstr "اتخذ خطوة"
+
+msgid "Submit a citizen observation, compare it with official information, and generate a structured accountability report."
+msgstr "أرسل ملاحظة مواطن، قارنها بالمعلومات الرسمية، وأنشئ تقريراً منظّماً للمساءلة."
+
+msgid "The file"
+msgstr "الملف"
+
+msgid "On the record"
+msgstr "في السجل"
+
+msgid "A featured file, how coverage is labelled, and the latest citizen observations."
+msgstr "ملف بارز، وكيف تُوسم التغطية، وأحدث ملاحظات المواطنين."
+
+msgid "View all projects"
+msgstr "عرض كل المشاريع"
+
+msgid "Demo"
+msgstr "تجريبي"
+
+msgid "Budget"
+msgstr "الميزانية"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "Evidence coverage"
+msgstr "تغطية الأدلة"
+
+msgid "Investigate this project"
+msgstr "حقّق في هذا المشروع"
+
+msgid "Investigate This Project"
+msgstr "حقّق في هذا المشروع"
+
+msgid "Open the file"
+msgstr "افتح الملف"
+
+msgid "No projects are available yet."
+msgstr "لا مشاريع بعد."
+
+msgid "Coverage only measures whether recorded claims are supported by sources. It never scores corruption, fraud, or trust."
+msgstr "التغطية تقيس فقط ما إذا كانت الادعاءات المسجّلة مدعومة بمصادر. لا تقيّم فساداً أو احتيالاً أو ثقة."
+
+msgid "Verified"
+msgstr "موثّق"
+
+msgid "Partially verified"
+msgstr "موثّق جزئياً"
+
+msgid "Partially Verified"
+msgstr "موثّق جزئياً"
+
+msgid "Conflicting information"
+msgstr "معلومات متعارضة"
+
+msgid "Conflicting"
+msgstr "متعارض"
+
+msgid "Unknown"
+msgstr "غير معروف"
+
+msgid "Recent investigations"
+msgstr "تحقيقات حديثة"
+
+msgid "Citizen observation"
+msgstr "ملاحظة مواطن"
+
+msgid "No citizen observations have been submitted yet."
+msgstr "لم تُرسل ملاحظات مواطنين بعد."
+
+msgid "How H.Y.D.R.A. works"
+msgstr "كيف تعمل هيدرا"
+
+msgid "All features"
+msgstr "كل الميزات"
+
+msgid "Find a project"
+msgstr "اعثر على مشروع"
+
+msgid "Search public projects, institutions, and policies — or track your county."
+msgstr "ابحث في المشاريع والمؤسسات والسياسات — أو تابع منطقتك."
+
+msgid "Examine the evidence"
+msgstr "افحص الدليل"
+
+msgid "Read claims, source documents, and missing-information notes. Compare files if you need them side by side."
+msgstr "اقرأ الادعاءات ووثائق المصدر وملاحظات المعلومات الناقصة. قارن الملفات جنباً إلى جنب إن احتجت."
+
+msgid "Investigate and report"
+msgstr "حقّق وأبلغ"
+
+msgid "Submit an observation and generate a structured report."
+msgstr "أرسل ملاحظة وأنشئ تقريراً منظّماً."
+
+msgid "Human-centered"
+msgstr "يضع الناس أولاً"
+
+msgid "Citizens are at the heart of the platform."
+msgstr "المواطنون في قلب المنصة."
+
+msgid "Yield"
+msgstr "العائد"
+
+msgid "Asks whether public money and policies actually deliver results."
+msgstr "يسأل إن كان المال العام والسياسات يحققان نتائج فعلاً."
+
+msgid "Data"
+msgstr "بيانات"
+
+msgid "Grounds investigations in verifiable public information."
+msgstr "يرسي التحقيقات على معلومات عامة يمكن التحقق منها."
+
+msgid "Rights"
+msgstr "حقوق"
+
+msgid "Helps citizens access information and public services."
+msgstr "يساعد المواطنين على الوصول إلى المعلومات والخدمات العامة."
+
+msgid "Accountability"
+msgstr "المساءلة"
+
+msgid "Turns evidence into action and oversight."
+msgstr "يحوّل الدليل إلى فعل ورقابة."
+
+msgid "H.Y.D.R.A. letters"
+msgstr "حروف هيدرا"
+
+msgid "Public record"
+msgstr "السجل العام"
+
+msgid "Explore projects"
+msgstr "استكشف المشاريع"
+
+msgid "Browse labelled civic projects in %(country)s. Status and budget figures are only as reliable as the attached evidence."
+msgstr "تصفّح المشاريع المدنية المسجّلة في %(country)s. الحالة والميزانية موثوقتان بقدر الأدلة المرفقة فقط."
+
+msgid "Filter"
+msgstr "صفِّ"
+
+msgid "All"
+msgstr "الكل"
+
+msgid "No projects match these filters."
+msgstr "لا مشاريع تطابق هذه المرشحات."
+
+msgid "Updated"
+msgstr "محدّث"
+
+msgid "Pagination"
+msgstr "ترقيم الصفحات"
+
+msgid "Showing %(start)s–%(end)s of %(total)s"
+msgstr "عرض %(start)s–%(end)s من %(total)s"
+
+msgid "Previous"
+msgstr "السابق"
+
+msgid "Next"
+msgstr "التالي"
+
+msgid "Page %(current)s of %(total)s"
+msgstr "صفحة %(current)s من %(total)s"
+
+msgid "Project overview"
+msgstr "نظرة عامة على المشروع"
+
+msgid "Location"
+msgstr "الموقع"
+
+msgid "Information unavailable"
+msgstr "المعلومات غير متاحة"
+
+msgid "Institution"
+msgstr "المؤسسة"
+
+msgid "Contractor"
+msgstr "المقاول"
+
+msgid "Category"
+msgstr "الفئة"
+
+msgid "Financial year"
+msgstr "السنة المالية"
+
+msgid "Start date"
+msgstr "تاريخ البدء"
+
+msgid "Expected completion"
+msgstr "الإنجاز المتوقع"
+
+msgid "Actual completion"
+msgstr "الإنجاز الفعلي"
+
+msgid "Year unavailable"
+msgstr "السنة غير متاحة"
+
+msgid "Stages without a linked source are marked “Evidence unavailable”. H.Y.D.R.A. does not guess missing information."
+msgstr "المراحل بلا مصدر مرتبط وُسمت «الدليل غير متاح». هيدرا لا تخمّن المعلومات الناقصة."
+
+msgid "No record"
+msgstr "لا سجل"
+
+msgid "Evidence unavailable"
+msgstr "الدليل غير متاح"
+
+msgid "Linked to evidence"
+msgstr "مرتبط بدليل"
+
+msgid "Evidence Coverage"
+msgstr "تغطية الأدلة"
+
+msgid "This figure describes how much recorded project information is supported by evidence. It is not a corruption, fraud, or trust score."
+msgstr "هذا الرقم يصف كم من معلومات المشروع المسجّلة مدعومة بدليل. ليس درجة فساد أو احتيال أو ثقة."
+
+msgid "Source documents"
+msgstr "وثائق المصدر"
+
+msgid "Evidence unavailable. No source documents are attached."
+msgstr "الدليل غير متاح. لا وثائق مصدر مرفقة."
+
+msgid "Missing information"
+msgstr "معلومات ناقصة"
+
+msgid "No missing-information notes are recorded for the current claims and timeline."
+msgstr "لا ملاحظات عن معلومات ناقصة للادعاءات والجدول الحاليين."
+
+msgid "Budget allocations"
+msgstr "مخصصات الميزانية"
+
+msgid "Type"
+msgstr "النوع"
+
+msgid "Amount"
+msgstr "المبلغ"
+
+msgid "Source"
+msgstr "المصدر"
+
+msgid "Evidence unavailable. No budget allocation records are attached."
+msgstr "الدليل غير متاح. لا سجلات تخصيص ميزانية مرفقة."
+
+msgid "Evidence"
+msgstr "الدليل"
+
+msgid "Claim"
+msgstr "الادّعاء"
+
+msgid "Page"
+msgstr "الصفحة"
+
+msgid "Page %(number)s"
+msgstr "الصفحة %(number)s"
+
+msgid "Not recorded"
+msgstr "غير مسجّل"
+
+msgid "Source URL"
+msgstr "رابط المصدر"
+
+msgid "No evidence records have been attached to this project."
+msgstr "لا سجلات أدلة مرفقة بهذا المشروع."
+
+msgid "Submit a citizen observation. Official information and your observation will be stored separately. Observations are not treated as verified facts."
+msgstr "أرسل ملاحظة مواطن. تُحفظ المعلومات الرسمية وملاحظتك منفصلتين. الملاحظة لا تُعامل كحقيقة موثّقة."
+
+msgid "Other projects"
+msgstr "مشاريع أخرى"
+
+msgid "Other projects in %(place)s"
+msgstr "مشاريع أخرى في %(place)s"
+
+msgid "See all projects in %(place)s"
+msgstr "عرض كل المشاريع في %(place)s"
+
+msgid "All projects"
+msgstr "كل المشاريع"
+
+msgid "More in %(place)s"
+msgstr "المزيد في %(place)s"
+
+msgid "Start of the list"
+msgstr "بداية القائمة"
+
+msgid "End of the list"
+msgstr "نهاية القائمة"
+
+msgid "Tracking"
+msgstr "قيد المتابعة"
+
+msgid "Track"
+msgstr "تابع"
+
+msgid "Favourited"
+msgstr "في المفضلة"
+
+msgid "Favourite"
+msgstr "مفضّل"
+
+msgid "Log in to track"
+msgstr "سجّل الدخول للمتابعة"
+
+msgid "In compare"
+msgstr "في المقارنة"
+
+msgid "Page not found"
+msgstr "الصفحة غير موجودة"
+
+msgid "That page is not available. Search for a project or return home."
+msgstr "تلك الصفحة غير متاحة. ابحث عن مشروع أو عد إلى البداية."
+
+msgid "Back to TheHydra"
+msgstr "العودة إلى TheHydra"
+
+msgid "Welcome back"
+msgstr "مرحباً بعودتك"
+
+msgid "Sign in to see tracked projects, investigations, and reports. You can still search the public record without an account."
+msgstr "سجّل الدخول لترى المشاريع المتابعة والتحقيقات والتقارير. ما زال بإمكانك البحث في السجل العام دون حساب."
+
+msgid "Use the username you chose when you registered. Forgot the password? Reset it with the email on your profile."
+msgstr "استخدم اسم المستخدم الذي اخترته عند التسجيل. نسيت كلمة المرور؟ أعد ضبطها بالبريد على ملفك."
+
+msgid "Forgot password?"
+msgstr "نسيت كلمة المرور؟"
+
+msgid "Browse without signing in"
+msgstr "تصفّح دون تسجيل الدخول"
+
+msgid "Need an account?"
+msgstr "تحتاج حساباً؟"
+
+msgid "Create one in two steps"
+msgstr "أنشئ واحداً بخطوتين"
+
+msgid "Civic search"
+msgstr "بحث مدني"
+
+msgid "Search the public record"
+msgstr "ابحث في السجل العام"
+
+msgid "Results for “%(query)s”"
+msgstr "نتائج «%(query)s»"
+
+msgid "Water"
+msgstr "ماء"
+
+msgid "Health"
+msgstr "صحة"
+
+msgid "Education"
+msgstr "تعليم"
+
+msgid "Roads"
+msgstr "طرق"
+
+msgid "Energy"
+msgstr "طاقة"
+
+msgid "Sanitation"
+msgstr "صرف صحي"
+
+msgid "Agriculture"
+msgstr "زراعة"
+
+msgid "Markets"
+msgstr "أسواق"
+
+msgid "Other"
+msgstr "أخرى"
+
+msgid "Planned"
+msgstr "مخطط"
+
+msgid "Approved"
+msgstr "موافق عليه"
+
+msgid "Procurement"
+msgstr "مشتريات"
+
+msgid "In Progress"
+msgstr "قيد التنفيذ"
+
+msgid "Completed"
+msgstr "مكتمل"
+
+msgid "Delayed"
+msgstr "متأخر"
+
+msgid "Allocation"
+msgstr "تخصيص"
+
+msgid "Approval"
+msgstr "موافقة"
+
+msgid "Implementation"
+msgstr "تنفيذ"
+
+msgid "Completion"
+msgstr "إنجاز"
+
+msgid "Official"
+msgstr "رسمي"
+
+msgid "Unverified"
+msgstr "غير موثّق"
+
+msgid "Tender"
+msgstr "مناقصة"
+
+msgid "Audit"
+msgstr "تدقيق"
+
+msgid "Policy"
+msgstr "سياسة"
+
+msgid "Project Report"
+msgstr "تقرير المشروع"
+
+msgid "Government Report"
+msgstr "تقرير حكومي"
+
+msgid "County"
+msgstr "مقاطعة"
+
+msgid "counties"
+msgstr "مقاطعات"
+
+msgid "Constituency"
+msgstr "دائرة"
+
+msgid "constituencies"
+msgstr "دوائر"
+
+msgid "Ward"
+msgstr "حي"
+
+msgid "wards"
+msgstr "أحياء"
+
+msgid "Whole county"
+msgstr "المقاطعة كلها"
+
+msgid "county assembly"
+msgstr "مجلس المقاطعة"
+
+msgid "District"
+msgstr "منطقة"
+
+msgid "districts"
+msgstr "مناطق"
+
+msgid "Track my district"
+msgstr "تابع منطقتي"
+
+msgid "Whole district"
+msgstr "المنطقة كلها"
+
+msgid "district council"
+msgstr "مجلس المنطقة"
+
+msgid "Region"
+msgstr "إقليم"
+
+msgid "regions"
+msgstr "أقاليم"
+
+msgid "Track my region"
+msgstr "تابع إقليمي"
+
+msgid "Whole region"
+msgstr "الإقليم كله"
+
+msgid "regional or district council"
+msgstr "مجلس إقليمي أو منطقي"
+
+msgid "Province"
+msgstr "محافظة"
+
+msgid "provinces"
+msgstr "محافظات"
+
+msgid "Track my province"
+msgstr "تابع محافظتي"
+
+msgid "Whole province"
+msgstr "المحافظة كلها"
+
+msgid "State"
+msgstr "ولاية"
+
+msgid "states"
+msgstr "ولايات"
+
+msgid "Track my state"
+msgstr "تابع ولايتي"
+
+msgid "Whole state"
+msgstr "الولاية كلها"
+
+msgid "Local Government Area"
+msgstr "منطقة حكم محلي"
+
+msgid "local government areas"
+msgstr "مناطق حكم محلي"
+
+msgid "Kenya"
+msgstr "كينيا"
+
+msgid "Tanzania"
+msgstr "تنزانيا"
+
+msgid "Burundi"
+msgstr "بوروندي"
+
+msgid "Nigeria"
+msgstr "نيجيريا"
+
+msgid "Uganda"
+msgstr "أوغندا"
+
+msgid "Rwanda"
+msgstr "رواندا"
+
+msgid "Democratic Republic of the Congo"
+msgstr "جمهورية الكونغو الديمقراطية"
+
+msgid "Demo record"
+msgstr "سجل تجريبي"
+
+msgid "Your workspace"
+msgstr "مساحتك"
+
+msgid "Create an account"
+msgstr "إنشاء حساب"
+
+msgid "Create a password"
+msgstr "إنشاء كلمة مرور"
+
+msgid "Continue"
+msgstr "متابعة"
+
+msgid "Your name"
+msgstr "اسمك"
+
+msgid "Password"
+msgstr "كلمة المرور"
+
+msgid "Find projects, institutions, policies, and source documents. Choose a type to browse, or type a name, county, contractor, or words inside a file."
+msgstr "اعثر على مشاريع ومؤسسات وسياسات ووثائق. اختر نوعاً للتصفح، أو اكتب اسماً أو منطقة أو مقاولاً أو كلمات داخل ملف."
+
+msgid "The main path"
+msgstr "المسار الرئيسي"
+
+msgid "Country"
+msgstr "البلد"
+
+msgid "No institutions match these filters."
+msgstr "لا مؤسسات تطابق هذه المرشحات."
+
+msgid "No source documents match these filters."
+msgstr "لا وثائق مصدر تطابق هذه المرشحات."
+
+msgid "Show"
+msgstr "اعرض"
+
+msgid "All types"
+msgstr "كل الأنواع"
+
+msgid "Any status"
+msgstr "أي حالة"
+
+msgid "Any category"
+msgstr "أي فئة"
+
+msgid "matches"
+msgstr "نتائج"
+
+msgid "Browse by type, or search above"
+msgstr "تصفّح حسب النوع، أو ابحث أعلاه"
+
+msgid "Result type"
+msgstr "نوع النتيجة"
+
+msgid "No institutions match this search."
+msgstr "لا مؤسسات تطابق هذا البحث."
+
+msgid "No policies match this search."
+msgstr "لا سياسات تطابق هذا البحث."
+
+msgid "No documents match this search."
+msgstr "لا وثائق تطابق هذا البحث."
+
+msgid "Budgets, status, contractors, and evidence coverage."
+msgstr "ميزانيات وحالة ومقاولون وتغطية الأدلة."
+
+msgid "County departments, agencies, and oversight bodies."
+msgstr "إدارات المقاطعات وهيئات وأجهزة رقابة."
+
+msgid "Public rules and plans tied to institutions."
+msgstr "قواعد وخطط عامة مرتبطة بالمؤسسات."
+
+msgid "Source files you can open, search, and cite."
+msgstr "ملفات مصدر يمكن فتحها والبحث فيها والاستشهاد بها."
+
+msgid "Project, county, contractor, filename, or words inside a document…"
+msgstr "مشروع أو منطقة أو مقاول أو اسم ملف أو كلمات داخل وثيقة…"
+
+msgid "View all"
+msgstr "عرض الكل"
+
+msgid "Contractor not recorded"
+msgstr "المقاول غير مسجّل"
+
+msgid "Financial year not recorded"
+msgstr "السنة المالية غير مسجّلة"
+
+msgid "No matching projects, institutions, policies, or documents for “%(query)s”."
+msgstr "لا مشاريع أو مؤسسات أو سياسات أو وثائق تطابق «%(query)s»."
+
+msgid "Start typing to search civic data."
+msgstr "ابدأ بالكتابة للبحث في البيانات المدنية."
+
+msgid "Join the record"
+msgstr "انضم إلى السجل"
+
+msgid "Lock the account"
+msgstr "اقفل الحساب"
+
+msgid "Choose a password and accept the terms. You can add email and other details later from your profile."
+msgstr "اختر كلمة مرور واقبل الشروط. يمكنك إضافة البريد لاحقاً من الملف."
+
+msgid "Two short steps. Choose a username and the country whose public record you follow. If you skip country, Kenya is used. Display name stays optional."
+msgstr "خطوتان قصيرتان. اختر اسم مستخدم والبلد الذي تتابع سجله. إن تجاوزت البلد تُستخدم كينيا. الاسم المعروض اختياري."
+
+msgid "Step 1 is a username and country. Country defaults to Kenya. Step 2 is a password and the terms."
+msgstr "الخطوة 1 اسم مستخدم وبلد. البلد الافتراضي كينيا. الخطوة 2 كلمة مرور والشروط."
+
+msgid "Tracking uses that country’s administrative units — counties in Kenya, regions in Tanzania, states in Nigeria."
+msgstr "المتابعة تستخدم وحدات ذلك البلد — مقاطعات في كينيا، أقاليم في تنزانيا، ولايات في نيجيريا."
+
+msgid "The public record remains readable without signing in."
+msgstr "السجل العام يبقى قابلاً للقراءة دون تسجيل الدخول."
+
+msgid "Signing up as"
+msgstr "التسجيل باسم"
+
+msgid "Keeps investigations with you. If you skip country, Kenya is used so the dashboard can follow the right local units."
+msgstr "يبقي التحقيقات معك. إن تجاوزت البلد تُستخدم كينيا لتتبع الوحدات المحلية الصحيحة."
+
+msgid "Sign up steps"
+msgstr "خطوات التسجيل"
+
+msgid "I agree to the"
+msgstr "أوافق على"
+
+msgid "Required"
+msgstr "مطلوب"
+
+msgid "Back"
+msgstr "رجوع"
+
+msgid "Already have an account?"
+msgstr "لديك حساب أصلاً؟"
+
+msgid "Username"
+msgstr "اسم المستخدم"
+
+msgid "Display name"
+msgstr "الاسم المعروض"
+
+msgid "Choose a username"
+msgstr "اختر اسم مستخدم"
+
+msgid "Optional public name"
+msgstr "اسم عام اختياري"
+
+msgid "Confirm password"
+msgstr "أكّد كلمة المرور"
+
+msgid "Letters, digits, and @/./+/-/_ only."
+msgstr "أحرف وأرقام و@/./+/-/_ فقط."
+
+msgid "Optional. Shown on your dashboard instead of the username."
+msgstr "اختياري. يظهر على اللوحة بدل اسم المستخدم."
+
+msgid "Filters, tracking, and next steps follow this country. If you skip it, H.Y.D.R.A. uses Kenya. You can change it later on your profile."
+msgstr "المرشحات والمتابعة والخطوات تتبع هذا البلد. إن تجاوزته تستخدم هيدرا كينيا. يمكنك تغييره لاحقاً."
+
+msgid "I agree to the terms of use"
+msgstr "أوافق على شروط الاستخدام"
+
+msgid "Projects, area watches, and updates in one place. Investigations and reports stay private unless an administrator reviews them."
+msgstr "المشاريع ومناطق المتابعة والتحديثات في مكان واحد. التحقيقات والتقارير تبقى خاصة ما لم يراجعها مشرف."
+
+msgid "Workspace counts"
+msgstr "عدادات مساحة العمل"
+
+msgid "Updates"
+msgstr "تحديثات"
+
+msgid "Favourites"
+msgstr "المفضّلة"
+
+msgid "My areas"
+msgstr "مناطقي"
+
+msgid "Open feed"
+msgstr "افتح التغذية"
+
+msgid "Set up"
+msgstr "إعداد"
+
+msgid "No projects are recorded for this area yet."
+msgstr "لا مشاريع مسجّلة لهذه المنطقة بعد."
+
+msgid "Updates on tracked projects"
+msgstr "تحديثات المشاريع المتابعة"
+
+msgid "Status changed"
+msgstr "تغيّرت الحالة"
+
+msgid "Record updated"
+msgstr "حُدّث السجل"
+
+msgid "No status or record changes on tracked projects. Track a project to see updates here."
+msgstr "لا تغييرات حالة أو سجل على المشاريع المتابعة. تابع مشروعاً لترى التحديثات هنا."
+
+msgid "Recently viewed"
+msgstr "شوهدت مؤخراً"
+
+msgid "Browse projects"
+msgstr "تصفّح المشاريع"
+
+msgid "Projects you open will appear here — up to five of the most recent."
+msgstr "المشاريع التي تفتحها تظهر هنا — حتى خمسة من الأحدث."
+
+msgid "Stop tracking"
+msgstr "إيقاف المتابعة"
+
+msgid "Track a project from its page to watch status and record updates."
+msgstr "تابع مشروعاً من صفحته لمشاهدة الحالة وتحديثات السجل."
+
+msgid "Remove favourite"
+msgstr "إزالة من المفضّلة"
+
+msgid "Favourite a project to keep it on this dashboard."
+msgstr "أضف مشروعاً إلى المفضّلة ليبقى على هذه اللوحة."
+
+msgid "Recent reports"
+msgstr "تقارير حديثة"
+
+msgid "You have not submitted an investigation yet. Open a project and record what you observed."
+msgstr "لم ترسل تحقيقاً بعد. افتح مشروعاً وسجّل ما لاحظت."
+
+msgid "No reports yet. Generate one from an investigation when you are ready to structure the record."
+msgstr "لا تقارير بعد. أنشئ واحداً من تحقيق عندما تكون جاهزاً لتنظيم السجل."
+
+msgid "Investigate"
+msgstr "حقّق"
+
+msgid "Record what you saw, keep it next to the official record, and attach evidence if you have it. This is stored as a citizen observation — not a verified finding, and not an accusation."
+msgstr "سجّل ما رأيت بجانب السجل الرسمي وأرفق دليلاً إن وُجد. تُحفظ كملاحظة مواطن — ليست حكماً موثّقاً ولا اتهاماً."
+
+msgid "How this form works"
+msgstr "كيف يعمل هذا النموذج"
+
+msgid "What you saw"
+msgstr "ما رأيته"
+
+msgid "Compare the record"
+msgstr "قارن السجل"
+
+msgid "Attach evidence"
+msgstr "أرفق الدليل"
+
+msgid "Supporting evidence"
+msgstr "أدلة داعمة"
+
+msgid "Describe the site or service in your own words. Date and place help others follow up."
+msgstr "صف الموقع أو الخدمة بكلماتك. التاريخ والمكان يساعدان المتابعة."
+
+msgid "Official information and your observation are stored in separate columns. Do not mix them."
+msgstr "المعلومات الرسمية وملاحظتك في عمودين منفصلين. لا تخلطهما."
+
+msgid "Photos, PDFs, Word files, or spreadsheets help. You can attach several files, or none."
+msgstr "الصور وPDF وملفات وورد والجداول تساعد. يمكنك إرفاق عدة ملفات أو لا شيء."
+
+msgid "Do not include other people’s private details. Guest submissions are stored without an account name."
+msgstr "لا تضع بيانات خاصة بآخرين. إرسالات الزائر تُحفظ دون اسم حساب."
+
+msgid "Submit observation"
+msgstr "أرسل الملاحظة"
+
+msgid "You can submit without an account. Do not include unnecessary personal information. Observations stay unverified until independently reviewed."
+msgstr "يمكنك الإرسال دون حساب. لا تضع معلومات شخصية غير لازمة. تبقى الملاحظات غير موثّقة حتى المراجعة."
+
+msgid "Status on record"
+msgstr "الحالة في السجل"
+
+msgid "Unavailable"
+msgstr "غير متاح"
+
+msgid "Review evidence first"
+msgstr "راجع الدليل أولاً"
+
+msgid "How H.Y.D.R.A. treats this"
+msgstr "كيف تعامل هيدرا هذا"
+
+msgid "Your words are labelled as a citizen observation."
+msgstr "كلامك موسوم كملاحظة مواطن."
+
+msgid "Official claims stay in their own field."
+msgstr "الادعاءات الرسمية تبقى في حقلها."
+
+msgid "Nothing here is a finding of corruption or fraud."
+msgstr "لا شيء هنا حكم بفساد أو احتيال."
+
+msgid "Guest observations are anonymous. Signed-in users can hide their account name."
+msgstr "ملاحظات الزائر دون اسم. المستخدمون المسجّلون يمكنهم إخفاء اسم الحساب."
+
+msgid "What you can attach"
+msgstr "ما يمكنك إرفاقه"
+
+msgid "PDF, Word, Excel, CSV, or image — up to %(files)s files, %(size)s MB each. Files are streamed to disk, then processed after you submit."
+msgstr "PDF أو وورد أو إكسل أو CSV أو صورة — حتى %(files)s ملفات، %(size)s ميغابايت لكل منها. تُرسل إلى القرص ثم تُعالج بعد الإرسال."
+
+msgid "What did you observe?"
+msgstr "ماذا لاحظت؟"
+
+msgid "Where?"
+msgstr "أين؟"
+
+msgid "When?"
+msgstr "متى؟"
+
+msgid "Official information on record"
+msgstr "المعلومات الرسمية في السجل"
+
+msgid "What is different?"
+msgstr "ما الذي يختلف؟"
+
+msgid "What does your evidence show? (optional)"
+msgstr "ماذا يُظهر دليلك؟ (اختياري)"
+
+msgid "Upload files (optional)"
+msgstr "رفع ملفات (اختياري)"
+
+msgid "Do not show my account name on this observation"
+msgstr "لا تُظهر اسم حسابي على هذه الملاحظة"
+
+msgid "The observation stays attached to your account so you can find it later. Public and shared copies can be labelled anonymous."
+msgstr "تبقى الملاحظة مربوطة بحسابك لتجدها لاحقاً. النسخ العامة يمكن وسمها دون اسم."
+
+msgid "Compare projects and counties"
+msgstr "قارن المشاريع والمقاطعات"
+
+msgid "Rankings and reports"
+msgstr "الترتيب والتقارير"
+
+msgid "Put projects and counties side by side. Rankings use recorded budgets and statuses only — they are not a corruption or performance score."
+msgstr "ضع المشاريع والمقاطعات جنباً إلى جنب. الترتيب يستخدم الميزانيات والحالات المسجّلة فقط — ليس درجة فساد أو أداء."
+
+msgid "Recorded budget"
+msgstr "الميزانية المسجّلة"
+
+msgid "Highest recorded budget"
+msgstr "أعلى ميزانية مسجّلة"
+
+msgid "Highest delayed share"
+msgstr "أعلى حصة متأخرة"
+
+msgid "report"
+msgstr "تقرير"
+
+msgid "Visual reading of recorded allocation, delivery status, and sector mix. Figures come from project files. They are not a corruption score, and they are not paid-out expenditure unless a source records a spend."
+msgstr "قراءة بصرية للتخصيص المسجّل وحالة التسليم ومزيج القطاعات. الأرقام من ملفات المشاريع. ليست درجة فساد وليست إنفاقاً مدفوعاً إلا إذا سجّل مصدر صرفاً."
+
+msgid "Recorded allocation"
+msgstr "التخصيص المسجّل"
+
+msgid "Method"
+msgstr "المنهج"
+
+msgid "From the record to a report — without filling gaps"
+msgstr "من السجل إلى التقرير — دون سد الفجوات"
+
+msgid "H.Y.D.R.A. is built around one path: Search → Project → Evidence → Investigation → Report. You can also watch a county, track a project, or compare files along the way. The source of truth stays the evidence. The platform never invents missing facts and never treats an observation as verified by default."
+msgstr "هيدرا مبنية على مسار واحد: بحث ← مشروع ← دليل ← تحقيق ← تقرير. يمكنك أيضاً متابعة مقاطعة أو مشروع أو مقارنة ملفات. الدليل يبقى مصدر الحقيقة. المنصة لا تخترع وقائع ناقصة."
+
+msgid "Search the record"
+msgstr "ابحث في السجل"
+
+msgid "Open the project"
+msgstr "افتح المشروع"
+
+msgid "Read the evidence"
+msgstr "اقرأ الدليل"
+
+msgid "The platform"
+msgstr "المنصة"
+
+msgid "Follow the money. Find the evidence. Take action."
+msgstr "تابع المال. اعثر على الدليل. اتخذ خطوة."
+
+msgid "H.Y.D.R.A. is an evidence-first civic record. Every feature below either helps you find what the files say, watch an area or a project as the record changes, or turn an observation into a structured report. Nothing here scores guilt, corruption, or trust."
+msgstr "هيدرا سجل مدني مبني على الأدلة. كل ميزة تساعد على قراءة الملفات أو متابعة منطقة أو مشروع أو تحويل ملاحظة إلى تقرير. لا شيء هنا يقيّم ذنباً أو فساداً أو ثقة."
+
+msgid "Departments, agencies, and other public bodies linked to projects and policies. The file shows what is recorded — not a score of the institution."
+msgstr "وزارات وهيئات وأجهزة عامة مربوطة بمشاريع وسياسات. الملف يُظهر ما سُجّل — وليس درجة للمؤسسة."
+
+msgid "Name, location, or description…"
+msgstr "اسم أو موقع أو وصف…"
+
+msgid "Browse recorded policies and the documents they cite. Status and dates are only as reliable as the attached evidence."
+msgstr "تصفّح السياسات المسجّلة والوثائق التي تستشهد بها. الحالة والتواريخ موثوقتان بقدر الأدلة المرفقة."
+
+msgid "Policy title or institution…"
+msgstr "عنوان سياسة أو مؤسسة…"
+
+msgid "Search titles, filenames, and extracted text from PDFs, Word, and Excel. Large files are streamed; previews show the first pages rather than loading everything at once."
+msgstr "ابحث في العناوين وأسماء الملفات والنص المستخرج من PDF ووورد وإكسل. الملفات الكبيرة تُبث؛ المعاينة تعرض الصفحات الأولى."
+
+msgid "Search text or filename"
+msgstr "ابحث في النص أو اسم الملف"
+
+msgid "Filename, title, or words inside the file…"
+msgstr "اسم ملف أو عنوان أو كلمات داخل الملف…"
+
+msgid "County Department"
+msgstr "إدارة المقاطعة"
+
+msgid "County Government"
+msgstr "حكومة المقاطعة"
+
+msgid "National Ministry"
+msgstr "وزارة وطنية"
+
+msgid "Agency"
+msgstr "هيئة"
+
+msgid "Oversight Body"
+msgstr "جهة رقابة"
+
+msgid "Original allocation"
+msgstr "التخصيص الأصلي"
+
+msgid "Supplementary"
+msgstr "تكميلي"
+
+msgid "Revised"
+msgstr "منقّح"
+
+msgid "Recurrent"
+msgstr "جاري"
+
+msgid "Development"
+msgstr "تنمية"
+
+msgid "Contract"
+msgstr "عقد"
+
+msgid "Commune"
+msgstr "بلدية"
+
+msgid "communes"
+msgstr "بلديات"
+
+msgid "Zone"
+msgstr "منطقة"
+
+msgid "zones"
+msgstr "مناطق"
+
+msgid "communal or provincial council"
+msgstr "مجلس بلدي أو إقليمي"
+
+msgid "Territory"
+msgstr "إقليم"
+
+msgid "territories"
+msgstr "أقاليم"
+
+msgid "Sector"
+msgstr "قطاع"
+
+msgid "sectors"
+msgstr "قطاعات"
+
+msgid "provincial assembly"
+msgstr "الجمعية الإقليمية"
+
+msgid "state house of assembly"
+msgstr "مجلس الولاية"
+
+msgid "Sub-county"
+msgstr "مقاطعة فرعية"
+
+msgid "sub-counties"
+msgstr "مقاطعات فرعية"
+
+msgid "In Tanzania, the Access to Information Act, 2016 lets you ask a public body for records. Name the project and the financial year, and say where to send the reply. If there is no useful answer, the Commission for Human Rights and Good Governance is the national oversight office."
+msgstr "في تنزانيا يتيح قانون الوصول إلى المعلومات لعام 2016 طلب السجلات. سمِّ المشروع والسنة المالية وأين يُرسل الرد. إن لم يأتِ جواب مفيد، فاللجنة المعنية بحقوق الإنسان والحكم الرشيد هي جهة الرقابة الوطنية."
+
+msgid "Burundi does not yet have a standalone access-to-information statute. The Constitution recognizes the right to information. Write to the public body that holds the file. Name the project, the financial year, and where to send the reply. If there is no useful answer, the Ombudsman (Médiateur de la République) is a national civic route. This is not legal advice."
+msgstr "بوروندي لا تملك بعد قانوناً مستقلاً للوصول إلى المعلومات. الدستور يعترف بحق المعلومات. اكتب إلى الهيئة التي تحتفظ بالملف. سمِّ المشروع والسنة المالية وأين يُرسل الرد. إن لم يأتِ جواب مفيد، فديوان المظالم (Médiateur de la République) مسار مدني وطني. هذه ليست استشارة قانونية."
+
+msgid "In Nigeria, the Freedom of Information Act, 2011 lets you ask a public institution for records. Put the request in writing, name the project, and say where to send the reply. If there is no useful answer, you can apply to a court. The Public Complaints Commission is a further civic route."
+msgstr "في نيجيريا يتيح قانون حرية المعلومات لعام 2011 طلب السجلات. اكتب الطلب وسمِّ المشروع وأين يُرسل الرد. إن لم يأتِ جواب مفيد يمكنك اللجوء إلى محكمة. لجنة الشكاوى العامة مسار مدني إضافي."

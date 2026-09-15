@@ -1,10 +1,11 @@
 {% extends "accounts/base_workspace.html" %}
-{% block title %}{{ governance.labels.level1 }} report{% endblock %}
+{% load i18n %}
+{% block title %}{{ governance.labels.level1 }} {% trans "report" %}{% endblock %}
 {% block workspace %}
 <section class="page-head">
-  <p class="kicker">Public record · {{ governance.name }}</p>
-  <h1>{{ governance.labels.level1 }} report</h1>
-  <p class="lede">Visual reading of recorded allocation, delivery status, and sector mix across {{ governance.labels.level1_plural }}. Figures come from project files. They are not a corruption score, and they are not paid-out expenditure unless a source records a spend.</p>
+  <p class="kicker">{% trans "Public record" %} · {{ governance.name }}</p>
+  <h1>{{ governance.labels.level1 }} {% trans "report" %}</h1>
+  <p class="lede">{% trans "Visual reading of recorded allocation, delivery status, and sector mix. Figures come from project files. They are not a corruption score, and they are not paid-out expenditure unless a source records a spend." %}</p>
 </section>
 
 <section class="county-report">
@@ -12,7 +13,7 @@
     <div class="field">
       <label for="id_report_county">{{ governance.labels.level1 }}</label>
       <select class="form-select" id="id_report_county" name="county" onchange="this.form.submit()">
-        <option value="">All {{ governance.labels.level1_plural }}</option>
+        <option value="">{% trans "All" %} {{ governance.labels.level1_plural }}</option>
         {% for name in counties %}
           <option value="{{ name }}"{% if name == selected_county %} selected{% endif %}>{{ name }}</option>
         {% endfor %}
@@ -25,11 +26,11 @@
     <div class="dashboard-stats area-stats">
       <div>
         <strong>{{ highlights.compact_budget }}</strong>
-        <span>Recorded allocation</span>
+        <span>{% trans "Recorded allocation" %}</span>
       </div>
       <div>
         <strong>{{ highlights.project_count }}</strong>
-        <span>Project{{ highlights.project_count|pluralize }}</span>
+        <span>{% trans "Projects" %}</span>
       </div>
       <div>
         <strong>{{ highlights.county_count }}</strong>
@@ -37,7 +38,7 @@
       </div>
       <div>
         <strong>{{ highlights.highest_budget.county }}</strong>
-        <span>Highest recorded budget</span>
+        <span>{% trans "Highest recorded budget" %}</span>
       </div>
       <div>
         <strong>{{ highlights.most_delayed.county }}</strong>

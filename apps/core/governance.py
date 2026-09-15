@@ -8,6 +8,8 @@ deeper units appear when a project record names them.
 from functools import lru_cache
 from pathlib import Path
 
+from django.utils.translation import gettext as _
+
 DEFAULT_COUNTRY = "KE"
 
 _UNITS_PATH = Path(__file__).resolve().parent.parent / "projects" / "data" / "country_units.json"
@@ -538,18 +540,22 @@ def normalize_country(code):
 
 def country_profile(code=None):
     profile = COUNTRIES[normalize_country(code)]
+    law = profile.get("law") or _DEFAULT_LAW
     return {
         "code": normalize_country(code),
-        "name": profile["name"],
+        "name": _(profile["name"]),
         "currency": profile["currency"],
         "currency_prefix": profile["currency_prefix"],
-        "labels": profile["labels"],
-        "law": profile.get("law") or _DEFAULT_LAW,
+        "labels": {key: _(value) for key, value in profile["labels"].items()},
+        "law": {
+            "title": _(law["title"]),
+            "body": _(law["body"]),
+        },
     }
 
 
 def country_choices():
-    items = [(code, data["name"]) for code, data in COUNTRIES.items()]
+    items = [(code, _(data["name"])) for code, data in COUNTRIES.items()]
     items.sort(key=lambda item: (item[0] != DEFAULT_COUNTRY, item[1]))
     return items
 

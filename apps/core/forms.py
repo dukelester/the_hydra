@@ -9,6 +9,7 @@ from django.contrib.auth.forms import (
     UserCreationForm,
 )
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from apps.accounts.models import AreaWatch, User, UserRole
 from apps.core.governance import country_choices, country_profile, normalize_country, user_country
@@ -38,9 +39,9 @@ class LoginForm(StyledFormMixin, AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["username"].widget.attrs["autocomplete"] = "username"
-        self.fields["username"].widget.attrs["placeholder"] = "Username"
+        self.fields["username"].widget.attrs["placeholder"] = str(_("Username"))
         self.fields["password"].widget.attrs["autocomplete"] = "current-password"
-        self.fields["password"].widget.attrs["placeholder"] = "Password"
+        self.fields["password"].widget.attrs["placeholder"] = str(_("Password"))
         self._style_fields()
 
 
@@ -48,27 +49,30 @@ class RegisterIdentityForm(StyledFormMixin, forms.Form):
     username = forms.CharField(
         max_length=150,
         validators=[UnicodeUsernameValidator()],
-        help_text="Letters, digits, and @/./+/-/_ only.",
+        label=_("Username"),
+        help_text=_("Letters, digits, and @/./+/-/_ only."),
     )
     display_name = forms.CharField(
         max_length=150,
         required=False,
-        label="Display name",
-        help_text="Optional. Shown on your dashboard instead of the username.",
+        label=_("Display name"),
+        help_text=_("Optional. Shown on your dashboard instead of the username."),
     )
     country = forms.ChoiceField(
-        choices=country_choices(),
+        choices=country_choices,
         required=False,
         initial="KE",
-        label="Country",
-        help_text="Filters, tracking, and next steps follow this country. If you skip it, H.Y.D.R.A. uses Kenya. You can change it later on your profile.",
+        label=_("Country"),
+        help_text=_(
+            "Filters, tracking, and next steps follow this country. If you skip it, H.Y.D.R.A. uses Kenya. You can change it later on your profile."
+        ),
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["username"].widget.attrs["placeholder"] = "Choose a username"
+        self.fields["username"].widget.attrs["placeholder"] = str(_("Choose a username"))
         self.fields["username"].widget.attrs["autocomplete"] = "username"
-        self.fields["display_name"].widget.attrs["placeholder"] = "Optional public name"
+        self.fields["display_name"].widget.attrs["placeholder"] = str(_("Optional public name"))
         self.fields["display_name"].widget.attrs["autocomplete"] = "nickname"
         self.fields["country"].widget.attrs["autocomplete"] = "country"
         self._style_fields()
@@ -84,11 +88,11 @@ class RegisterIdentityForm(StyledFormMixin, forms.Form):
 
 
 class RegisterForm(StyledFormMixin, UserCreationForm):
-    display_name = forms.CharField(max_length=150, required=False, label="Display name")
+    display_name = forms.CharField(max_length=150, required=False, label=_("Display name"))
     agree_to_terms = forms.BooleanField(
         required=True,
-        label="I agree to the terms of use",
-        error_messages={"required": "You must agree to the terms of use to create an account."},
+        label=_("I agree to the terms of use"),
+        error_messages={"required": _("You must agree to the terms of use to create an account.")},
     )
 
     class Meta:
@@ -97,15 +101,17 @@ class RegisterForm(StyledFormMixin, UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["username"].widget.attrs["placeholder"] = "Choose a username"
-        self.fields["display_name"].widget.attrs["placeholder"] = "Optional public name"
-        self.fields["password1"].widget.attrs["placeholder"] = "Password"
+        self.fields["username"].widget.attrs["placeholder"] = str(_("Choose a username"))
+        self.fields["display_name"].widget.attrs["placeholder"] = str(_("Optional public name"))
+        self.fields["password1"].widget.attrs["placeholder"] = str(_("Password"))
         self.fields["password1"].widget.attrs["autocomplete"] = "new-password"
-        self.fields["password2"].widget.attrs["placeholder"] = "Confirm password"
+        self.fields["password2"].widget.attrs["placeholder"] = str(_("Confirm password"))
         self.fields["password2"].widget.attrs["autocomplete"] = "new-password"
-        self.fields["username"].help_text = "Letters, digits, and @/./+/-/_ only."
-        self.fields["password1"].help_text = "At least 8 characters. Avoid common words or a password that is only numbers."
-        self.fields["password2"].help_text = "Enter the same password again."
+        self.fields["username"].help_text = _("Letters, digits, and @/./+/-/_ only.")
+        self.fields["password1"].help_text = _(
+            "At least 8 characters. Avoid common words or a password that is only numbers."
+        )
+        self.fields["password2"].help_text = _("Enter the same password again.")
         self._style_fields()
 
 
@@ -415,12 +421,12 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
             "evidence_description",
         )
         labels = {
-            "observation": "What did you observe?",
-            "location": "Where?",
-            "observed_at": "When?",
-            "official_information": "Official information on record",
-            "difference_description": "What is different?",
-            "evidence_description": "What does your evidence show? (optional)",
+            "observation": _("What did you observe?"),
+            "location": _("Where?"),
+            "observed_at": _("When?"),
+            "official_information": _("Official information on record"),
+            "difference_description": _("What is different?"),
+            "evidence_description": _("What does your evidence show? (optional)"),
         }
         widgets = {
             "observation": forms.Textarea(attrs={"rows": 6, "placeholder": "Describe what you saw, in plain language."}),
@@ -451,7 +457,7 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
             )
         max_mb = settings.THEHYDRA_MAX_UPLOAD_BYTES // (1024 * 1024)
         max_files = getattr(settings, "THEHYDRA_MAX_UPLOAD_FILES", 8)
-        self.fields["attachment"].label = "Upload files (optional)"
+        self.fields["attachment"].label = _("Upload files (optional)")
         self.fields["attachment"].help_text = (
             f"Optional. Up to {max_files} files, {max_mb} MB each. "
             "PDF, Word (.docx), Excel (.xlsx), CSV, or image. Files are stored on disk and processed after submit."
@@ -459,8 +465,10 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
         if self.user and getattr(self.user, "is_authenticated", False):
             self.fields["hide_account"] = forms.BooleanField(
                 required=False,
-                label="Do not show my account name on this observation",
-                help_text="The observation stays attached to your account so you can find it later. Public and shared copies can be labelled anonymous.",
+                label=_("Do not show my account name on this observation"),
+                help_text=_(
+                    "The observation stays attached to your account so you can find it later. Public and shared copies can be labelled anonymous."
+                ),
             )
         self._style_fields()
 

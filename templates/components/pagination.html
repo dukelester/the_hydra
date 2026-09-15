@@ -1,15 +1,15 @@
-{% load query_tags %}
+{% load i18n query_tags %}
 {% if page_obj %}
-  <nav class="pagination" aria-label="Pagination">
-    <p class="pagination-count">Showing {{ page_obj.start_index }}–{{ page_obj.end_index }} of {{ page_obj.paginator.count }}</p>
+  <nav class="pagination" aria-label="{% trans 'Pagination' %}">
+    <p class="pagination-count">{% blocktrans with start=page_obj.start_index end=page_obj.end_index total=page_obj.paginator.count %}Showing {{ start }}–{{ end }} of {{ total }}{% endblocktrans %}</p>
     {% if page_obj.paginator.num_pages > 1 %}
       <div class="pagination-links">
         {% if page_obj.has_previous %}
-          <a href="{% page_query page_obj.previous_page_number %}">Previous</a>
+          <a href="{% page_query page_obj.previous_page_number %}">{% trans "Previous" %}</a>
         {% endif %}
-        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        <span>{% blocktrans with current=page_obj.number total=page_obj.paginator.num_pages %}Page {{ current }} of {{ total }}{% endblocktrans %}</span>
         {% if page_obj.has_next %}
-          <a href="{% page_query page_obj.next_page_number %}">Next</a>
+          <a href="{% page_query page_obj.next_page_number %}">{% trans "Next" %}</a>
         {% endif %}
       </div>
     {% endif %}

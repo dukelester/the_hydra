@@ -1,30 +1,31 @@
-<nav class="project-pager" aria-label="Other projects">
+{% load i18n %}
+<nav class="project-pager" aria-label="{% trans 'Other projects' %}">
   {% if previous_project %}
     <a class="project-pager-link is-prev" href="{{ previous_project.get_absolute_url }}">
-      <span class="eyebrow">Previous</span>
+      <span class="eyebrow">{% trans "Previous" %}</span>
       <strong>{{ previous_project.name }}</strong>
     </a>
   {% else %}
     <p class="project-pager-link is-prev is-disabled">
-      <span class="eyebrow">Previous</span>
-      <strong>Start of the list</strong>
+      <span class="eyebrow">{% trans "Previous" %}</span>
+      <strong>{% trans "Start of the list" %}</strong>
     </p>
   {% endif %}
   <div class="project-pager-index">
-    <a class="text-link" href="{% url 'projects:list' %}">All projects</a>
+    <a class="text-link" href="{% url 'projects:list' %}">{% trans "All projects" %}</a>
     {% if project.county %}
-      <a class="text-link" href="{% url 'projects:list' %}?county={{ project.county|urlencode }}">More in {{ project.county }}</a>
+      <a class="text-link" href="{% url 'projects:list' %}?county={{ project.county|urlencode }}">{% blocktrans with place=project.county %}More in {{ place }}{% endblocktrans %}</a>
     {% endif %}
   </div>
   {% if next_project %}
     <a class="project-pager-link is-next" href="{{ next_project.get_absolute_url }}">
-      <span class="eyebrow">Next</span>
+      <span class="eyebrow">{% trans "Next" %}</span>
       <strong>{{ next_project.name }}</strong>
     </a>
   {% else %}
     <p class="project-pager-link is-next is-disabled">
-      <span class="eyebrow">Next</span>
-      <strong>End of the list</strong>
+      <span class="eyebrow">{% trans "Next" %}</span>
+      <strong>{% trans "End of the list" %}</strong>
     </p>
   {% endif %}
 </nav>

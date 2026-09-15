@@ -129,6 +129,14 @@ class AccessConstraintTests(TestCase):
         self.assertContains(home, 'lang="sw"')
         self.assertContains(home, "Miradi")
         self.assertContains(home, "Fuata pesa")
+        self.assertContains(home, "Chunguza mradi")
+        projects = self.client.get(reverse("projects:list"))
+        self.assertContains(projects, "Chunguza miradi")
+        detail = self.client.get(self.project.get_absolute_url())
+        self.assertContains(detail, "Chunguza mradi huu")
+        self.assertContains(detail, "Muhtasari wa mradi")
+        search = self.client.get(reverse("core:search"))
+        self.assertContains(search, "Utafutaji wa kiraia")
 
     def test_signed_in_user_can_hide_account_name(self):
         self.client.login(username="observer", password="pass12345")

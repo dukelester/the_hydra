@@ -1,33 +1,34 @@
 {% extends "base.html" %}
-{% block title %}Projects{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Projects" %}{% endblock %}
 {% block content %}
 <section class="page-head">
-  <p class="kicker">Public record</p>
-  <h1>Explore projects</h1>
-  <p class="lede">Browse labelled civic projects in {{ governance.name }}. Status and budget figures are only as reliable as the attached evidence.</p>
+  <p class="kicker">{% trans "Public record" %}</p>
+  <h1>{% trans "Explore projects" %}</h1>
+  <p class="lede">{% blocktrans with country=governance.name %}Browse labelled civic projects in {{ country }}. Status and budget figures are only as reliable as the attached evidence.{% endblocktrans %}</p>
 </section>
 <form class="filters" method="get">
   <div class="field">
-    <label for="q">Search</label>
-    <input id="q" name="q" type="search" value="{{ request.GET.q }}" placeholder="Name, {{ governance.labels.level1|lower }}, contractor, institution…">
+    <label for="q">{% trans "Search" %}</label>
+    <input id="q" name="q" type="search" value="{{ request.GET.q }}" placeholder="{% trans 'Projects, documents, counties, filenames…' %}">
   </div>
   <div class="field">
     <label for="county">{{ governance.labels.level1 }}</label>
     <select id="county" name="county">
-      <option value="">All {{ governance.labels.level1_plural }}</option>
+      <option value="">{% trans "All" %} {{ governance.labels.level1_plural }}</option>
       {% for county in counties %}
         <option value="{{ county }}" {% if selected_county == county %}selected{% endif %}>{{ county }}</option>
       {% endfor %}
     </select>
   </div>
-  <button class="btn btn-primary" type="submit">Filter</button>
+  <button class="btn btn-primary" type="submit">{% trans "Filter" %}</button>
 </form>
 <section class="section tight">
 <div class="card-grid">
   {% for project in projects %}
     {% include "components/project_card.html" %}
   {% empty %}
-    <p>No projects match these filters.</p>
+    <p>{% trans "No projects match these filters." %}</p>
   {% endfor %}
 </div>
 </section>

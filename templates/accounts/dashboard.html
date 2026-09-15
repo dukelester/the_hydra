@@ -1,39 +1,40 @@
 {% extends "accounts/base_workspace.html" %}
-{% block title %}Dashboard{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Dashboard" %}{% endblock %}
 {% block workspace %}
 <section class="dashboard-page">
   <header class="dashboard-hero">
     <div class="dashboard-identity">
       {% include "components/avatar.html" with person=user extra_class="user-avatar-lg" %}
       <div>
-        <p class="kicker">Your workspace</p>
+        <p class="kicker">{% trans "Your workspace" %}</p>
         <h1>{{ user.public_name }}</h1>
-        <p class="lede">Projects, area watches, and updates in one place. Investigations and reports stay private unless an administrator reviews them.</p>
+        <p class="lede">{% trans "Projects, area watches, and updates in one place. Investigations and reports stay private unless an administrator reviews them." %}</p>
       </div>
     </div>
-    <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a project</a>
+    <a class="btn btn-primary" href="{% url 'projects:list' %}">{% trans "Investigate a project" %}</a>
   </header>
 
-  <nav class="dashboard-stats" aria-label="Workspace counts">
+  <nav class="dashboard-stats" aria-label="{% trans 'Workspace counts' %}">
     <a href="{% url 'investigations:list' %}">
       <strong>{{ investigation_count }}</strong>
-      <span>Investigation{{ investigation_count|pluralize }}</span>
+      <span>{% trans "Investigations" %}</span>
     </a>
     <a href="{% url 'reports:list' %}">
       <strong>{{ report_count }}</strong>
-      <span>Report{{ report_count|pluralize }}</span>
+      <span>{% trans "Reports" %}</span>
     </a>
     <a href="#tracked-projects">
       <strong>{{ tracked_count }}</strong>
-      <span>Tracked</span>
+      <span>{% trans "Tracked" %}</span>
     </a>
     <a href="#project-updates">
       <strong>{{ update_count }}</strong>
-      <span>Update{{ update_count|pluralize }}</span>
+      <span>{% trans "Updates" %}</span>
     </a>
     <a href="#favourite-projects">
       <strong>{{ favourite_count }}</strong>
-      <span>Favourite{{ favourite_count|pluralize }}</span>
+      <span>{% trans "Favourites" %}</span>
     </a>
     <a href="{% url 'accounts:my-county' %}">
       <strong>{% if area.watching %}{{ area.area_count }}{% else %}—{% endif %}</strong>
@@ -44,8 +45,8 @@
   <div class="dashboard-columns">
     <section class="dashboard-panel" id="my-county">
       <div class="section-head">
-        <h2>My areas</h2>
-        <a class="text-link" href="{% url 'accounts:my-county' %}">{% if area.watching %}Open feed{% else %}Set up{% endif %}</a>
+        <h2>{% trans "My areas" %}</h2>
+        <a class="text-link" href="{% url 'accounts:my-county' %}">{% if area.watching %}{% trans "Open feed" %}{% else %}{% trans "Set up" %}{% endif %}</a>
       </div>
       {% if area.watching %}
         <p class="muted">{{ area.watch_count }} area{{ area.watch_count|pluralize }} · {{ area.area_count }} project{{ area.area_count|pluralize }} in the record{% if area.area_update_count %} · {{ area.area_update_count }} updated since your last visit{% endif %}.</p>
@@ -58,7 +59,7 @@
               <p class="muted">{{ project.format_amount }} · Evidence {{ project.coverage.percent }}%</p>
             </li>
           {% empty %}
-            <li class="search-empty">No projects are recorded for this area yet.</li>
+            <li class="search-empty">{% trans "No projects are recorded for this area yet." %}</li>
           {% endfor %}
         </ul>
       {% else %}
@@ -68,15 +69,15 @@
 
     <section class="dashboard-panel" id="project-updates">
       <div class="section-head">
-        <h2>Updates on tracked projects</h2>
-        <a class="text-link" href="{% url 'projects:compare' %}">Compare</a>
+        <h2>{% trans "Updates on tracked projects" %}</h2>
+        <a class="text-link" href="{% url 'projects:compare' %}">{% trans "Compare" %}</a>
       </div>
       <ul class="plain-list dashboard-list">
         {% for follow in tracked_updates %}
           <li class="card record-card update-card">
             <p class="eyebrow">
-              {% if follow.status_changed %}<span class="watch-pill is-status">Status changed</span>{% endif %}
-              {% if follow.record_updated %}<span class="watch-pill is-alert">Record updated</span>{% endif %}
+              {% if follow.status_changed %}<span class="watch-pill is-status">{% trans "Status changed" %}</span>{% endif %}
+              {% if follow.record_updated %}<span class="watch-pill is-alert">{% trans "Record updated" %}</span>{% endif %}
             </p>
             <h3><a href="{{ follow.project.get_absolute_url }}">{{ follow.project.name }}</a></h3>
             <p class="muted">
@@ -90,7 +91,7 @@
             <p class="help">Open the project to review the change. Visiting it clears this alert.</p>
           </li>
         {% empty %}
-          <li class="search-empty">No status or record changes on tracked projects. Track a project to see updates here.</li>
+          <li class="search-empty">{% trans "No status or record changes on tracked projects. Track a project to see updates here." %}</li>
         {% endfor %}
       </ul>
     </section>
@@ -99,8 +100,8 @@
   <div class="dashboard-columns is-three">
     <section class="dashboard-panel">
       <div class="section-head">
-        <h2>Recently viewed</h2>
-        <a class="text-link" href="{% url 'projects:list' %}">Browse projects</a>
+        <h2>{% trans "Recently viewed" %}</h2>
+        <a class="text-link" href="{% url 'projects:list' %}">{% trans "Browse projects" %}</a>
       </div>
       <ul class="plain-list dashboard-list">
         {% for project in recent_projects %}
@@ -110,39 +111,39 @@
             <p class="muted">{{ project.format_amount }}</p>
           </li>
         {% empty %}
-          <li class="search-empty">Projects you open will appear here — up to five of the most recent.</li>
+          <li class="search-empty">{% trans "Projects you open will appear here — up to five of the most recent." %}</li>
         {% endfor %}
       </ul>
     </section>
 
     <section class="dashboard-panel" id="tracked-projects">
       <div class="section-head">
-        <h2>Tracked</h2>
+        <h2>{% trans "Tracked" %}</h2>
       </div>
       <ul class="plain-list dashboard-list">
         {% for follow in tracked_follows %}
           <li class="card record-card">
             <p class="eyebrow">
               {{ follow.project.county }} · {{ follow.project.get_status_display }}
-              {% if follow.needs_attention %}<span class="watch-pill is-alert">Updated</span>{% endif %}
+              {% if follow.needs_attention %}<span class="watch-pill is-alert">{% trans "Updated" %}</span>{% endif %}
             </p>
             <h3><a href="{{ follow.project.get_absolute_url }}">{{ follow.project.name }}</a></h3>
             <p class="muted">{{ follow.project.format_amount }}</p>
             <form method="post" action="{% url 'projects:toggle-track' follow.project.slug %}">
               {% csrf_token %}
               <input type="hidden" name="next" value="{{ request.path }}">
-              <button class="text-link" type="submit">Stop tracking</button>
+              <button class="text-link" type="submit">{% trans "Stop tracking" %}</button>
             </form>
           </li>
         {% empty %}
-          <li class="search-empty">Track a project from its page to watch status and record updates.</li>
+          <li class="search-empty">{% trans "Track a project from its page to watch status and record updates." %}</li>
         {% endfor %}
       </ul>
     </section>
 
     <section class="dashboard-panel" id="favourite-projects">
       <div class="section-head">
-        <h2>Favourites</h2>
+        <h2>{% trans "Favourites" %}</h2>
       </div>
       <ul class="plain-list dashboard-list">
         {% for project in favourite_projects %}
@@ -153,11 +154,11 @@
             <form method="post" action="{% url 'projects:toggle-favourite' project.slug %}">
               {% csrf_token %}
               <input type="hidden" name="next" value="{{ request.path }}">
-              <button class="text-link" type="submit">Remove favourite</button>
+              <button class="text-link" type="submit">{% trans "Remove favourite" %}</button>
             </form>
           </li>
         {% empty %}
-          <li class="search-empty">Favourite a project to keep it on this dashboard.</li>
+          <li class="search-empty">{% trans "Favourite a project to keep it on this dashboard." %}</li>
         {% endfor %}
       </ul>
     </section>
@@ -166,8 +167,8 @@
   <div class="dashboard-columns">
     <section class="dashboard-panel">
       <div class="section-head">
-        <h2>Recent investigations</h2>
-        <a class="text-link" href="{% url 'investigations:list' %}">View all</a>
+        <h2>{% trans "Recent investigations" %}</h2>
+        <a class="text-link" href="{% url 'investigations:list' %}">{% trans "View all" %}</a>
       </div>
       <ul class="plain-list dashboard-list">
         {% for investigation in recent_investigations %}
@@ -177,14 +178,14 @@
             <p class="muted">{{ investigation.project.name }} · {{ investigation.created_at|date:"j M Y" }}</p>
           </li>
         {% empty %}
-          <li class="search-empty">You have not submitted an investigation yet. Open a project and record what you observed.</li>
+          <li class="search-empty">{% trans "You have not submitted an investigation yet. Open a project and record what you observed." %}</li>
         {% endfor %}
       </ul>
     </section>
     <section class="dashboard-panel">
       <div class="section-head">
-        <h2>Recent reports</h2>
-        <a class="text-link" href="{% url 'reports:list' %}">View all</a>
+        <h2>{% trans "Recent reports" %}</h2>
+        <a class="text-link" href="{% url 'reports:list' %}">{% trans "View all" %}</a>
       </div>
       <ul class="plain-list dashboard-list">
         {% for report in recent_reports %}
@@ -194,7 +195,7 @@
             <p class="muted">{{ report.project.name }} · {{ report.created_at|date:"j M Y" }}</p>
           </li>
         {% empty %}
-          <li class="search-empty">No reports yet. Generate one from an investigation when you are ready to structure the record.</li>
+          <li class="search-empty">{% trans "No reports yet. Generate one from an investigation when you are ready to structure the record." %}</li>
         {% endfor %}
       </ul>
     </section>

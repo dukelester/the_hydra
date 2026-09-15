@@ -42,8 +42,8 @@ def project_next_steps(project, country=None):
         },
         {
             "kicker": _("3 · The law"),
-            "title": _(law["title"]),
-            "body": _(law["body"]),
+            "title": law["title"],
+            "body": law["body"],
             "extra": _("%(unit)s: %(place)s") % {"unit": labels["level1"], "place": place},
         },
         {

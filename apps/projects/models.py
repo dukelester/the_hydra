@@ -1,57 +1,58 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from apps.core.models import UUIDModel
 from apps.core.utils import unique_slug
 
 
 class InstitutionType(models.TextChoices):
-    COUNTY_DEPARTMENT = "county_department", "County Department"
-    COUNTY_GOVERNMENT = "county_government", "County Government"
-    NATIONAL_MINISTRY = "national_ministry", "National Ministry"
-    AGENCY = "agency", "Agency"
-    OVERSIGHT = "oversight", "Oversight Body"
-    OTHER = "other", "Other"
+    COUNTY_DEPARTMENT = "county_department", _("County Department")
+    COUNTY_GOVERNMENT = "county_government", _("County Government")
+    NATIONAL_MINISTRY = "national_ministry", _("National Ministry")
+    AGENCY = "agency", _("Agency")
+    OVERSIGHT = "oversight", _("Oversight Body")
+    OTHER = "other", _("Other")
 
 
 class ProjectStatus(models.TextChoices):
-    PLANNED = "planned", "Planned"
-    APPROVED = "approved", "Approved"
-    PROCUREMENT = "procurement", "Procurement"
-    IN_PROGRESS = "in_progress", "In Progress"
-    COMPLETED = "completed", "Completed"
-    DELAYED = "delayed", "Delayed"
-    UNKNOWN = "unknown", "Unknown"
+    PLANNED = "planned", _("Planned")
+    APPROVED = "approved", _("Approved")
+    PROCUREMENT = "procurement", _("Procurement")
+    IN_PROGRESS = "in_progress", _("In Progress")
+    COMPLETED = "completed", _("Completed")
+    DELAYED = "delayed", _("Delayed")
+    UNKNOWN = "unknown", _("Unknown")
 
 
 class ProjectCategory(models.TextChoices):
-    WATER = "water", "Water"
-    HEALTH = "health", "Health"
-    EDUCATION = "education", "Education"
-    ROADS = "roads", "Roads"
-    ENERGY = "energy", "Energy"
-    SANITATION = "sanitation", "Sanitation"
-    AGRICULTURE = "agriculture", "Agriculture"
-    MARKETS = "markets", "Markets"
-    OTHER = "other", "Other"
+    WATER = "water", _("Water")
+    HEALTH = "health", _("Health")
+    EDUCATION = "education", _("Education")
+    ROADS = "roads", _("Roads")
+    ENERGY = "energy", _("Energy")
+    SANITATION = "sanitation", _("Sanitation")
+    AGRICULTURE = "agriculture", _("Agriculture")
+    MARKETS = "markets", _("Markets")
+    OTHER = "other", _("Other")
 
 
 class AllocationType(models.TextChoices):
-    ORIGINAL = "original", "Original allocation"
-    SUPPLEMENTARY = "supplementary", "Supplementary"
-    REVISED = "revised", "Revised"
-    RECURRENT = "recurrent", "Recurrent"
-    DEVELOPMENT = "development", "Development"
+    ORIGINAL = "original", _("Original allocation")
+    SUPPLEMENTARY = "supplementary", _("Supplementary")
+    REVISED = "revised", _("Revised")
+    RECURRENT = "recurrent", _("Recurrent")
+    DEVELOPMENT = "development", _("Development")
 
 
 class TimelineStage(models.TextChoices):
-    ALLOCATION = "allocation", "Allocation"
-    APPROVAL = "approval", "Approval"
-    PROCUREMENT = "procurement", "Procurement"
-    CONTRACT = "contract", "Contract"
-    IMPLEMENTATION = "implementation", "Implementation"
-    COMPLETION = "completion", "Completion"
+    ALLOCATION = "allocation", _("Allocation")
+    APPROVAL = "approval", _("Approval")
+    PROCUREMENT = "procurement", _("Procurement")
+    CONTRACT = "contract", _("Contract")
+    IMPLEMENTATION = "implementation", _("Implementation")
+    COMPLETION = "completion", _("Completion")
 
 
 TIMELINE_STAGE_ORDER = [
@@ -168,7 +169,7 @@ class Project(UUIDModel):
 
     def format_amount(self):
         if self.allocated_amount is None:
-            return "Information unavailable"
+            return _("Information unavailable")
         amount = f"{self.allocated_amount:,.0f}"
         if self.currency == "KES":
             return f"KSh {amount}"

@@ -1,19 +1,20 @@
+{% load i18n %}
 <article class="card project-card">
-  <p class="eyebrow">{{ project.county }}{% if project.constituency %} · {{ project.constituency }}{% endif %}{% if project.ward %} · {{ project.ward }}{% endif %} · {{ project.get_category_display }}{% if project.is_new_in_area %} <span class="watch-pill is-alert">Updated</span>{% endif %}</p>
+  <p class="eyebrow">{{ project.county }}{% if project.constituency %} · {{ project.constituency }}{% endif %}{% if project.ward %} · {{ project.ward }}{% endif %} · {{ project.get_category_display }}{% if project.is_new_in_area %} <span class="watch-pill is-alert">{% trans "Updated" %}</span>{% endif %}</p>
   <h3><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></h3>
   <p class="muted">{{ project.institution.name }}</p>
   <dl class="mini-facts">
     <div>
-      <dt>Budget</dt>
+      <dt>{% trans "Budget" %}</dt>
       <dd>{{ project.format_amount }}</dd>
     </div>
     <div>
-      <dt>Status</dt>
+      <dt>{% trans "Status" %}</dt>
       <dd>{{ project.get_status_display }}</dd>
     </div>
   </dl>
-  <p class="coverage-label">Evidence coverage {{ project.coverage.percent }}% · {{ project.coverage.supported }}/{{ project.coverage.total_claims }}</p>
-  <div class="meter" role="img" aria-label="Evidence coverage {{ project.coverage.percent }} percent">
+  <p class="coverage-label">{% trans "Evidence coverage" %} {{ project.coverage.percent }}% · {{ project.coverage.supported }}/{{ project.coverage.total_claims }}</p>
+  <div class="meter" role="img" aria-label="{% trans 'Evidence coverage' %} {{ project.coverage.percent }}%">
     <span class="meter-fill tone-{{ project.coverage.percent|default:0 }}" style="width: {{ project.coverage.percent }}%"></span>
   </div>
 </article>

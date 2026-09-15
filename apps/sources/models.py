@@ -3,35 +3,36 @@ from pathlib import Path
 from django.db import models
 from django.urls import reverse
 from django.utils.text import get_valid_filename
+from django.utils.translation import gettext_lazy as _
 
 from apps.core.models import UUIDModel
 from apps.core.uploads import SafeUploadTo, validate_upload
 
 
 class DocumentType(models.TextChoices):
-    BUDGET = "budget", "Budget"
-    PROCUREMENT = "procurement", "Procurement"
-    CONTRACT = "contract", "Contract"
-    POLICY = "policy", "Policy"
-    AUDIT = "audit", "Audit"
-    GOVERNMENT_REPORT = "government_report", "Government Report"
-    TENDER = "tender", "Tender"
-    PROJECT_REPORT = "project_report", "Project Report"
-    OTHER = "other", "Other"
+    BUDGET = "budget", _("Budget")
+    PROCUREMENT = "procurement", _("Procurement")
+    CONTRACT = "contract", _("Contract")
+    POLICY = "policy", _("Policy")
+    AUDIT = "audit", _("Audit")
+    GOVERNMENT_REPORT = "government_report", _("Government Report")
+    TENDER = "tender", _("Tender")
+    PROJECT_REPORT = "project_report", _("Project Report")
+    OTHER = "other", _("Other")
 
 
 class VerificationLevel(models.TextChoices):
-    OFFICIAL = "official", "Official"
-    VERIFIED = "verified", "Verified"
-    UNVERIFIED = "unverified", "Unverified"
-    UNKNOWN = "unknown", "Unknown"
+    OFFICIAL = "official", _("Official")
+    VERIFIED = "verified", _("Verified")
+    UNVERIFIED = "unverified", _("Unverified")
+    UNKNOWN = "unknown", _("Unknown")
 
 
 class EvidenceVerificationStatus(models.TextChoices):
-    VERIFIED = "verified", "Verified"
-    PARTIALLY_VERIFIED = "partially_verified", "Partially Verified"
-    CONFLICTING = "conflicting", "Conflicting"
-    UNKNOWN = "unknown", "Unknown"
+    VERIFIED = "verified", _("Verified")
+    PARTIALLY_VERIFIED = "partially_verified", _("Partially Verified")
+    CONFLICTING = "conflicting", _("Conflicting")
+    UNKNOWN = "unknown", _("Unknown")
 
 
 class ExtractionStatus(models.TextChoices):

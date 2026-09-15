@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% load static %}
-{% block title %}Features{% endblock %}
+{% load static i18n %}
+{% block title %}{% trans "Features" %}{% endblock %}
 {% block content %}
 <article class="about-page features-page">
   <header class="about-hero">
     <img class="hero-mark" src="{% static 'img/mark.png' %}" alt="" width="160" height="160">
     <div>
-      <p class="kicker">The platform</p>
-      <h1>Features</h1>
-      <p class="tagline">Follow the money. Find the evidence. Take action.</p>
-      <p class="lede">H.Y.D.R.A. is an evidence-first civic record. Every feature below either helps you find what the files say, watch an area or a project as the record changes, or turn an observation into a structured report. Nothing here scores guilt, corruption, or trust.</p>
+      <p class="kicker">{% trans "The platform" %}</p>
+      <h1>{% trans "Features" %}</h1>
+      <p class="tagline">{% trans "Follow the money. Find the evidence. Take action." %}</p>
+      <p class="lede">{% trans "H.Y.D.R.A. is an evidence-first civic record. Every feature below either helps you find what the files say, watch an area or a project as the record changes, or turn an observation into a structured report. Nothing here scores guilt, corruption, or trust." %}</p>
     </div>
   </header>
 

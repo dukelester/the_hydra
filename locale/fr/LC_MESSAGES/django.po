@@ -263,3 +263,1095 @@ msgstr "Générer un rapport privé"
 
 msgid "A report puts official information and your observation in separate columns. Keep it private until you choose to share it with an oversight office, a journalist, or the county assembly. It does not determine guilt."
 msgstr "Un rapport sépare l’information officielle et votre observation. Gardez-le privé jusqu’à ce que vous le partagiez avec un organe de contrôle, un journaliste ou l’assemblée du comté. Il ne statue pas sur la culpabilité."
+
+msgid "Finding the record is only the start. These steps follow the rules recorded for %(country)s. They are not legal advice, and they do not decide guilt."
+msgstr "Trouver le dossier n’est que le début. Ces étapes suivent les règles enregistrées pour %(country)s. Ce n’est pas un conseil juridique et cela ne statue pas sur la culpabilité."
+
+msgid "your %(unit)s"
+msgstr "votre %(unit)s"
+
+msgid "%(unit)s: %(place)s"
+msgstr "%(unit)s : %(place)s"
+
+msgid "A report puts official information and your observation in separate columns. Keep it private until you choose to share it with an oversight office, a journalist, or the %(assembly)s. It does not determine guilt."
+msgstr "Un rapport sépare l’information officielle et votre observation. Gardez-le privé jusqu’à ce que vous le partagiez avec un organe de contrôle, un journaliste ou %(assembly)s. Il ne statue pas sur la culpabilité."
+
+msgid "Write to the public body that holds the file. Name the project, the financial year, and where to send the reply. If your country has an access-to-information law or an ombudsman, that office is the next step when there is no useful answer."
+msgstr "Écrivez à l’organisme public qui détient le dossier. Nommez le projet, l’exercice, et où répondre. S’il existe une loi d’accès à l’information ou un médiateur, c’est l’étape suivante sans réponse utile."
+
+msgid "You are offline"
+msgstr "Vous êtes hors ligne"
+
+msgid "No connection"
+msgstr "Pas de connexion"
+
+msgid "H.Y.D.R.A. is using a saved copy of pages you already opened. Search the public record again when the connection returns. This is not a finding, and missing pages stay missing."
+msgstr "H.Y.D.R.A. utilise une copie enregistrée des pages déjà ouvertes. Cherchez à nouveau le registre public au retour de la connexion. Ce n’est pas une constatation, et les pages manquantes restent manquantes."
+
+msgid "Try home"
+msgstr "Essayer l’accueil"
+
+msgid "Open projects"
+msgstr "Ouvrir les projets"
+
+msgid "Evidence-first civic accountability"
+msgstr "Redevabilité civique fondée sur les preuves"
+
+msgid "Human-centered Yield, Data, Rights & Accountability"
+msgstr "Rendement centré sur l’humain, données, droits et redevabilité"
+
+msgid "Follow the money. Find the evidence. Take action. A platform for public projects, budgets, source documents, and citizen investigations — always tied to evidence."
+msgstr "Suivez l’argent. Trouvez les preuves. Agissez. Une plateforme pour projets publics, budgets, documents sources et enquêtes citoyennes — toujours liée aux preuves."
+
+msgid "Investigate a Project"
+msgstr "Enquêter sur un projet"
+
+msgid "What can I investigate?"
+msgstr "Que puis-je examiner ?"
+
+msgid "Results appear as you type. Ranked matches use project name, county, contractor, and institution — built to stay fast across thousands of records."
+msgstr "Les résultats apparaissent pendant que vous tapez. Le classement utilise le nom du projet, le territoire, l’entreprise et l’institution — conçu pour rester rapide."
+
+msgid "Search projects, institutions, policies, and documents"
+msgstr "Rechercher projets, institutions, politiques et documents"
+
+msgid "Projects, documents, counties, filenames…"
+msgstr "Projets, documents, territoires, fichiers…"
+
+msgid "Try a project name, county, or institution. Two characters is enough to start."
+msgstr "Essayez un nom de projet, un territoire ou une institution. Deux caractères suffisent."
+
+msgid "What H.Y.D.R.A. means"
+msgstr "Ce que H.Y.D.R.A. signifie"
+
+msgid "Each letter is a principle: people, results, evidence, the right to know, and a path to oversight."
+msgstr "Chaque lettre est un principe : les gens, les résultats, les preuves, le droit de savoir, et un chemin vers le contrôle."
+
+msgid "The work"
+msgstr "Le travail"
+
+msgid "Follow. Find. Act."
+msgstr "Suivre. Trouver. Agir."
+
+msgid "Three moves on the public record — only as far as the files go."
+msgstr "Trois gestes sur le registre public — seulement autant que les dossiers le permettent."
+
+msgid "Find the evidence"
+msgstr "Trouver les preuves"
+
+msgid "Trace allocation, approval, procurement, contract, implementation, and completion — without filling gaps that sources do not support."
+msgstr "Suivez allocation, approbation, marchés, contrat, mise en œuvre et achèvement — sans combler ce que les sources n’étayent pas."
+
+msgid "Every claim should point to a source document, a page, and a verification status. If evidence is missing, H.Y.D.R.A. says so."
+msgstr "Chaque allégation doit renvoyer à un document, une page et un statut de vérification. Si la preuve manque, H.Y.D.R.A. le dit."
+
+msgid "Take action"
+msgstr "Agir"
+
+msgid "Submit a citizen observation, compare it with official information, and generate a structured accountability report."
+msgstr "Envoyez une observation citoyenne, comparez-la à l’information officielle, et générez un rapport structuré."
+
+msgid "The file"
+msgstr "Le dossier"
+
+msgid "On the record"
+msgstr "Au registre"
+
+msgid "A featured file, how coverage is labelled, and the latest citizen observations."
+msgstr "Un dossier mis en avant, le libellé de la couverture, et les dernières observations."
+
+msgid "View all projects"
+msgstr "Voir tous les projets"
+
+msgid "Demo"
+msgstr "Démo"
+
+msgid "Budget"
+msgstr "Budget"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Evidence coverage"
+msgstr "Couverture des preuves"
+
+msgid "Investigate this project"
+msgstr "Enquêter sur ce projet"
+
+msgid "Investigate This Project"
+msgstr "Enquêter sur ce projet"
+
+msgid "Open the file"
+msgstr "Ouvrir le dossier"
+
+msgid "No projects are available yet."
+msgstr "Aucun projet n’est encore disponible."
+
+msgid "Coverage only measures whether recorded claims are supported by sources. It never scores corruption, fraud, or trust."
+msgstr "La couverture mesure seulement si les allégations sont étayées par des sources. Elle ne note ni corruption, ni fraude, ni confiance."
+
+msgid "Verified"
+msgstr "Vérifié"
+
+msgid "Partially verified"
+msgstr "Partiellement vérifié"
+
+msgid "Partially Verified"
+msgstr "Partiellement vérifié"
+
+msgid "Conflicting information"
+msgstr "Informations contradictoires"
+
+msgid "Conflicting"
+msgstr "Contradictoire"
+
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgid "Recent investigations"
+msgstr "Enquêtes récentes"
+
+msgid "Citizen observation"
+msgstr "Observation citoyenne"
+
+msgid "No citizen observations have been submitted yet."
+msgstr "Aucune observation citoyenne n’a encore été envoyée."
+
+msgid "How H.Y.D.R.A. works"
+msgstr "Comment H.Y.D.R.A. fonctionne"
+
+msgid "All features"
+msgstr "Toutes les fonctionnalités"
+
+msgid "Find a project"
+msgstr "Trouver un projet"
+
+msgid "Search public projects, institutions, and policies — or track your county."
+msgstr "Cherchez projets, institutions et politiques — ou suivez votre territoire."
+
+msgid "Examine the evidence"
+msgstr "Examiner les preuves"
+
+msgid "Read claims, source documents, and missing-information notes. Compare files if you need them side by side."
+msgstr "Lisez allégations, documents et notes sur ce qui manque. Comparez les dossiers côte à côte si besoin."
+
+msgid "Investigate and report"
+msgstr "Enquêter et signaler"
+
+msgid "Submit an observation and generate a structured report."
+msgstr "Envoyez une observation et générez un rapport structuré."
+
+msgid "Human-centered"
+msgstr "Centré sur l’humain"
+
+msgid "Citizens are at the heart of the platform."
+msgstr "Les citoyens sont au cœur de la plateforme."
+
+msgid "Yield"
+msgstr "Rendement"
+
+msgid "Asks whether public money and policies actually deliver results."
+msgstr "Demande si l’argent public et les politiques produisent vraiment des résultats."
+
+msgid "Data"
+msgstr "Données"
+
+msgid "Grounds investigations in verifiable public information."
+msgstr "Ancre les enquêtes dans une information publique vérifiable."
+
+msgid "Rights"
+msgstr "Droits"
+
+msgid "Helps citizens access information and public services."
+msgstr "Aide les citoyens à accéder à l’information et aux services publics."
+
+msgid "Accountability"
+msgstr "Redevabilité"
+
+msgid "Turns evidence into action and oversight."
+msgstr "Transforme les preuves en action et en contrôle."
+
+msgid "H.Y.D.R.A. letters"
+msgstr "Lettres H.Y.D.R.A."
+
+msgid "Public record"
+msgstr "Registre public"
+
+msgid "Explore projects"
+msgstr "Explorer les projets"
+
+msgid "Browse labelled civic projects in %(country)s. Status and budget figures are only as reliable as the attached evidence."
+msgstr "Parcourez les projets civiques labellisés en %(country)s. Statut et budget ne sont fiables qu’autant que les preuves jointes."
+
+msgid "Filter"
+msgstr "Filtrer"
+
+msgid "All"
+msgstr "Tous"
+
+msgid "No projects match these filters."
+msgstr "Aucun projet ne correspond à ces filtres."
+
+msgid "Updated"
+msgstr "Mis à jour"
+
+msgid "Pagination"
+msgstr "Pagination"
+
+msgid "Showing %(start)s–%(end)s of %(total)s"
+msgstr "Affichage %(start)s–%(end)s sur %(total)s"
+
+msgid "Previous"
+msgstr "Précédent"
+
+msgid "Next"
+msgstr "Suivant"
+
+msgid "Page %(current)s of %(total)s"
+msgstr "Page %(current)s sur %(total)s"
+
+msgid "Project overview"
+msgstr "Aperçu du projet"
+
+msgid "Location"
+msgstr "Lieu"
+
+msgid "Information unavailable"
+msgstr "Information indisponible"
+
+msgid "Institution"
+msgstr "Institution"
+
+msgid "Contractor"
+msgstr "Entrepreneur"
+
+msgid "Category"
+msgstr "Catégorie"
+
+msgid "Financial year"
+msgstr "Exercice"
+
+msgid "Start date"
+msgstr "Date de début"
+
+msgid "Expected completion"
+msgstr "Achèvement prévu"
+
+msgid "Actual completion"
+msgstr "Achèvement réel"
+
+msgid "Year unavailable"
+msgstr "Année indisponible"
+
+msgid "Stages without a linked source are marked “Evidence unavailable”. H.Y.D.R.A. does not guess missing information."
+msgstr "Les étapes sans source liée sont marquées « Preuve indisponible ». H.Y.D.R.A. n’invente pas l’information manquante."
+
+msgid "No record"
+msgstr "Aucun enregistrement"
+
+msgid "Evidence unavailable"
+msgstr "Preuve indisponible"
+
+msgid "Linked to evidence"
+msgstr "Lié à une preuve"
+
+msgid "Evidence Coverage"
+msgstr "Couverture des preuves"
+
+msgid "This figure describes how much recorded project information is supported by evidence. It is not a corruption, fraud, or trust score."
+msgstr "Ce chiffre décrit quelle part de l’information enregistrée est étayée. Ce n’est pas un score de corruption, fraude ou confiance."
+
+msgid "Source documents"
+msgstr "Documents sources"
+
+msgid "Evidence unavailable. No source documents are attached."
+msgstr "Preuve indisponible. Aucun document source n’est joint."
+
+msgid "Missing information"
+msgstr "Information manquante"
+
+msgid "No missing-information notes are recorded for the current claims and timeline."
+msgstr "Aucune note de lacune n’est enregistrée pour les allégations et le calendrier actuels."
+
+msgid "Budget allocations"
+msgstr "Allocations budgétaires"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Amount"
+msgstr "Montant"
+
+msgid "Source"
+msgstr "Source"
+
+msgid "Evidence unavailable. No budget allocation records are attached."
+msgstr "Preuve indisponible. Aucune allocation budgétaire n’est jointe."
+
+msgid "Evidence"
+msgstr "Preuve"
+
+msgid "Claim"
+msgstr "Allégation"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Page %(number)s"
+msgstr "Page %(number)s"
+
+msgid "Not recorded"
+msgstr "Non consigné"
+
+msgid "Source URL"
+msgstr "URL source"
+
+msgid "No evidence records have been attached to this project."
+msgstr "Aucun enregistrement de preuve n’est joint à ce projet."
+
+msgid "Submit a citizen observation. Official information and your observation will be stored separately. Observations are not treated as verified facts."
+msgstr "Envoyez une observation citoyenne. L’information officielle et la vôtre sont stockées séparément. Une observation n’est pas un fait vérifié."
+
+msgid "Other projects"
+msgstr "Autres projets"
+
+msgid "Other projects in %(place)s"
+msgstr "Autres projets à %(place)s"
+
+msgid "See all projects in %(place)s"
+msgstr "Voir tous les projets à %(place)s"
+
+msgid "All projects"
+msgstr "Tous les projets"
+
+msgid "More in %(place)s"
+msgstr "Plus à %(place)s"
+
+msgid "Start of the list"
+msgstr "Début de la liste"
+
+msgid "End of the list"
+msgstr "Fin de la liste"
+
+msgid "Tracking"
+msgstr "Suivi"
+
+msgid "Track"
+msgstr "Suivre"
+
+msgid "Favourited"
+msgstr "Favori"
+
+msgid "Favourite"
+msgstr "Favori"
+
+msgid "Log in to track"
+msgstr "Connectez-vous pour suivre"
+
+msgid "In compare"
+msgstr "En comparaison"
+
+msgid "Page not found"
+msgstr "Page introuvable"
+
+msgid "That page is not available. Search for a project or return home."
+msgstr "Cette page n’est pas disponible. Cherchez un projet ou revenez à l’accueil."
+
+msgid "Back to TheHydra"
+msgstr "Retour à TheHydra"
+
+msgid "Welcome back"
+msgstr "Bon retour"
+
+msgid "Sign in to see tracked projects, investigations, and reports. You can still search the public record without an account."
+msgstr "Connectez-vous pour voir projets suivis, enquêtes et rapports. Vous pouvez toujours chercher le registre sans compte."
+
+msgid "Use the username you chose when you registered. Forgot the password? Reset it with the email on your profile."
+msgstr "Utilisez le nom d’utilisateur choisi à l’inscription. Mot de passe oublié ? Réinitialisez-le avec l’e-mail du profil."
+
+msgid "Forgot password?"
+msgstr "Mot de passe oublié ?"
+
+msgid "Browse without signing in"
+msgstr "Parcourir sans connexion"
+
+msgid "Need an account?"
+msgstr "Besoin d’un compte ?"
+
+msgid "Create one in two steps"
+msgstr "Créez-en un en deux étapes"
+
+msgid "Civic search"
+msgstr "Recherche civique"
+
+msgid "Search the public record"
+msgstr "Chercher le registre public"
+
+msgid "Results for “%(query)s”"
+msgstr "Résultats pour « %(query)s »"
+
+msgid "Water"
+msgstr "Eau"
+
+msgid "Health"
+msgstr "Santé"
+
+msgid "Education"
+msgstr "Éducation"
+
+msgid "Roads"
+msgstr "Routes"
+
+msgid "Energy"
+msgstr "Énergie"
+
+msgid "Sanitation"
+msgstr "Assainissement"
+
+msgid "Agriculture"
+msgstr "Agriculture"
+
+msgid "Markets"
+msgstr "Marchés"
+
+msgid "Other"
+msgstr "Autre"
+
+msgid "Planned"
+msgstr "Planifié"
+
+msgid "Approved"
+msgstr "Approuvé"
+
+msgid "Procurement"
+msgstr "Marchés publics"
+
+msgid "In Progress"
+msgstr "En cours"
+
+msgid "Completed"
+msgstr "Terminé"
+
+msgid "Delayed"
+msgstr "En retard"
+
+msgid "Allocation"
+msgstr "Allocation"
+
+msgid "Approval"
+msgstr "Approbation"
+
+msgid "Implementation"
+msgstr "Mise en œuvre"
+
+msgid "Completion"
+msgstr "Achèvement"
+
+msgid "Official"
+msgstr "Officiel"
+
+msgid "Unverified"
+msgstr "Non vérifié"
+
+msgid "Tender"
+msgstr "Appel d’offres"
+
+msgid "Audit"
+msgstr "Audit"
+
+msgid "Policy"
+msgstr "Politique"
+
+msgid "Project Report"
+msgstr "Rapport de projet"
+
+msgid "Government Report"
+msgstr "Rapport gouvernemental"
+
+msgid "County"
+msgstr "Comté"
+
+msgid "counties"
+msgstr "comtés"
+
+msgid "Constituency"
+msgstr "Circonscription"
+
+msgid "constituencies"
+msgstr "circonscriptions"
+
+msgid "Ward"
+msgstr "Quartier"
+
+msgid "wards"
+msgstr "quartiers"
+
+msgid "Whole county"
+msgstr "Tout le comté"
+
+msgid "county assembly"
+msgstr "assemblée du comté"
+
+msgid "District"
+msgstr "District"
+
+msgid "districts"
+msgstr "districts"
+
+msgid "Track my district"
+msgstr "Suivre mon district"
+
+msgid "Whole district"
+msgstr "Tout le district"
+
+msgid "district council"
+msgstr "conseil de district"
+
+msgid "Region"
+msgstr "Région"
+
+msgid "regions"
+msgstr "régions"
+
+msgid "Track my region"
+msgstr "Suivre ma région"
+
+msgid "Whole region"
+msgstr "Toute la région"
+
+msgid "regional or district council"
+msgstr "conseil régional ou de district"
+
+msgid "Province"
+msgstr "Province"
+
+msgid "provinces"
+msgstr "provinces"
+
+msgid "Track my province"
+msgstr "Suivre ma province"
+
+msgid "Whole province"
+msgstr "Toute la province"
+
+msgid "State"
+msgstr "État"
+
+msgid "states"
+msgstr "états"
+
+msgid "Track my state"
+msgstr "Suivre mon État"
+
+msgid "Whole state"
+msgstr "Tout l’État"
+
+msgid "Local Government Area"
+msgstr "Collectivité locale"
+
+msgid "local government areas"
+msgstr "collectivités locales"
+
+msgid "Kenya"
+msgstr "Kenya"
+
+msgid "Tanzania"
+msgstr "Tanzanie"
+
+msgid "Burundi"
+msgstr "Burundi"
+
+msgid "Nigeria"
+msgstr "Nigéria"
+
+msgid "Uganda"
+msgstr "Ouganda"
+
+msgid "Rwanda"
+msgstr "Rwanda"
+
+msgid "Democratic Republic of the Congo"
+msgstr "République démocratique du Congo"
+
+msgid "Demo record"
+msgstr "Dossier démo"
+
+msgid "Your workspace"
+msgstr "Votre espace"
+
+msgid "Create an account"
+msgstr "Créer un compte"
+
+msgid "Create a password"
+msgstr "Créer un mot de passe"
+
+msgid "Continue"
+msgstr "Continuer"
+
+msgid "Your name"
+msgstr "Votre nom"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "Find projects, institutions, policies, and source documents. Choose a type to browse, or type a name, county, contractor, or words inside a file."
+msgstr "Trouvez projets, institutions, politiques et documents. Choisissez un type, ou tapez un nom, un territoire, un entrepreneur ou des mots dans un fichier."
+
+msgid "The main path"
+msgstr "Le chemin principal"
+
+msgid "Country"
+msgstr "Pays"
+
+msgid "No institutions match these filters."
+msgstr "Aucune institution ne correspond à ces filtres."
+
+msgid "No source documents match these filters."
+msgstr "Aucun document source ne correspond à ces filtres."
+
+msgid "Show"
+msgstr "Afficher"
+
+msgid "All types"
+msgstr "Tous les types"
+
+msgid "Any status"
+msgstr "Tout statut"
+
+msgid "Any category"
+msgstr "Toute catégorie"
+
+msgid "matches"
+msgstr "correspondances"
+
+msgid "Browse by type, or search above"
+msgstr "Parcourez par type, ou cherchez ci-dessus"
+
+msgid "Result type"
+msgstr "Type de résultat"
+
+msgid "No institutions match this search."
+msgstr "Aucune institution ne correspond à cette recherche."
+
+msgid "No policies match this search."
+msgstr "Aucune politique ne correspond à cette recherche."
+
+msgid "No documents match this search."
+msgstr "Aucun document ne correspond à cette recherche."
+
+msgid "Budgets, status, contractors, and evidence coverage."
+msgstr "Budgets, statut, entrepreneurs et couverture des preuves."
+
+msgid "County departments, agencies, and oversight bodies."
+msgstr "Départements de comté, agences et organes de contrôle."
+
+msgid "Public rules and plans tied to institutions."
+msgstr "Règles et plans publics liés aux institutions."
+
+msgid "Source files you can open, search, and cite."
+msgstr "Fichiers sources à ouvrir, chercher et citer."
+
+msgid "Project, county, contractor, filename, or words inside a document…"
+msgstr "Projet, territoire, entrepreneur, fichier, ou mots dans un document…"
+
+msgid "View all"
+msgstr "Tout voir"
+
+msgid "Contractor not recorded"
+msgstr "Entrepreneur non consigné"
+
+msgid "Financial year not recorded"
+msgstr "Exercice non consigné"
+
+msgid "No matching projects, institutions, policies, or documents for “%(query)s”."
+msgstr "Aucun projet, institution, politique ou document pour « %(query)s »."
+
+msgid "Start typing to search civic data."
+msgstr "Commencez à taper pour chercher les données civiques."
+
+msgid "Join the record"
+msgstr "Rejoindre le registre"
+
+msgid "Lock the account"
+msgstr "Verrouiller le compte"
+
+msgid "Choose a password and accept the terms. You can add email and other details later from your profile."
+msgstr "Choisissez un mot de passe et acceptez les conditions. Vous pourrez ajouter l’e-mail plus tard depuis le profil."
+
+msgid "Two short steps. Choose a username and the country whose public record you follow. If you skip country, Kenya is used. Display name stays optional."
+msgstr "Deux étapes. Choisissez un nom d’utilisateur et le pays dont vous suivez le registre. Sans pays, le Kenya est utilisé. Le nom affiché reste facultatif."
+
+msgid "Step 1 is a username and country. Country defaults to Kenya. Step 2 is a password and the terms."
+msgstr "L’étape 1 est un nom d’utilisateur et un pays. Le pays par défaut est le Kenya. L’étape 2 est un mot de passe et les conditions."
+
+msgid "Tracking uses that country’s administrative units — counties in Kenya, regions in Tanzania, states in Nigeria."
+msgstr "Le suivi utilise les unités de ce pays — comtés au Kenya, régions en Tanzanie, États au Nigeria."
+
+msgid "The public record remains readable without signing in."
+msgstr "Le registre public reste lisible sans connexion."
+
+msgid "Signing up as"
+msgstr "Inscription en tant que"
+
+msgid "Keeps investigations with you. If you skip country, Kenya is used so the dashboard can follow the right local units."
+msgstr "Garde les enquêtes avec vous. Sans pays, le Kenya est utilisé pour que le tableau suive les bonnes unités."
+
+msgid "Sign up steps"
+msgstr "Étapes d’inscription"
+
+msgid "I agree to the"
+msgstr "J’accepte les"
+
+msgid "Required"
+msgstr "Obligatoire"
+
+msgid "Back"
+msgstr "Retour"
+
+msgid "Already have an account?"
+msgstr "Vous avez déjà un compte ?"
+
+msgid "Username"
+msgstr "Nom d’utilisateur"
+
+msgid "Display name"
+msgstr "Nom affiché"
+
+msgid "Choose a username"
+msgstr "Choisissez un nom d’utilisateur"
+
+msgid "Optional public name"
+msgstr "Nom public facultatif"
+
+msgid "Confirm password"
+msgstr "Confirmer le mot de passe"
+
+msgid "Letters, digits, and @/./+/-/_ only."
+msgstr "Lettres, chiffres et @/./+/-/_ uniquement."
+
+msgid "Optional. Shown on your dashboard instead of the username."
+msgstr "Facultatif. Affiché sur le tableau de bord à la place du nom d’utilisateur."
+
+msgid "Filters, tracking, and next steps follow this country. If you skip it, H.Y.D.R.A. uses Kenya. You can change it later on your profile."
+msgstr "Filtres, suivi et étapes suivent ce pays. Sans choix, H.Y.D.R.A. utilise le Kenya. Vous pourrez le changer plus tard."
+
+msgid "I agree to the terms of use"
+msgstr "J’accepte les conditions d’utilisation"
+
+msgid "Projects, area watches, and updates in one place. Investigations and reports stay private unless an administrator reviews them."
+msgstr "Projets, zones suivies et mises à jour au même endroit. Enquêtes et rapports restent privés sauf revue par un administrateur."
+
+msgid "Workspace counts"
+msgstr "Compteurs de l’espace"
+
+msgid "Updates"
+msgstr "Mises à jour"
+
+msgid "Favourites"
+msgstr "Favoris"
+
+msgid "My areas"
+msgstr "Mes zones"
+
+msgid "Open feed"
+msgstr "Ouvrir le fil"
+
+msgid "Set up"
+msgstr "Configurer"
+
+msgid "No projects are recorded for this area yet."
+msgstr "Aucun projet n’est encore enregistré pour cette zone."
+
+msgid "Updates on tracked projects"
+msgstr "Mises à jour des projets suivis"
+
+msgid "Status changed"
+msgstr "Statut modifié"
+
+msgid "Record updated"
+msgstr "Dossier mis à jour"
+
+msgid "No status or record changes on tracked projects. Track a project to see updates here."
+msgstr "Aucun changement de statut ou de dossier sur les projets suivis. Suivez un projet pour voir les mises à jour."
+
+msgid "Recently viewed"
+msgstr "Consultés récemment"
+
+msgid "Browse projects"
+msgstr "Parcourir les projets"
+
+msgid "Projects you open will appear here — up to five of the most recent."
+msgstr "Les projets que vous ouvrez apparaissent ici — jusqu’à cinq des plus récents."
+
+msgid "Stop tracking"
+msgstr "Arrêter le suivi"
+
+msgid "Track a project from its page to watch status and record updates."
+msgstr "Suivez un projet depuis sa page pour voir statut et mises à jour."
+
+msgid "Remove favourite"
+msgstr "Retirer des favoris"
+
+msgid "Favourite a project to keep it on this dashboard."
+msgstr "Ajoutez un projet aux favoris pour le garder ici."
+
+msgid "Recent reports"
+msgstr "Rapports récents"
+
+msgid "You have not submitted an investigation yet. Open a project and record what you observed."
+msgstr "Vous n’avez pas encore envoyé d’enquête. Ouvrez un projet et consignez ce que vous avez vu."
+
+msgid "No reports yet. Generate one from an investigation when you are ready to structure the record."
+msgstr "Pas encore de rapport. Générez-en un depuis une enquête lorsque vous êtes prêt."
+
+msgid "Investigate"
+msgstr "Enquêter"
+
+msgid "Record what you saw, keep it next to the official record, and attach evidence if you have it. This is stored as a citizen observation — not a verified finding, and not an accusation."
+msgstr "Consignez ce que vous avez vu, à côté du dossier officiel, et joignez des preuves si vous en avez. C’est une observation citoyenne — pas une constatation vérifiée ni une accusation."
+
+msgid "How this form works"
+msgstr "Fonctionnement du formulaire"
+
+msgid "What you saw"
+msgstr "Ce que vous avez vu"
+
+msgid "Compare the record"
+msgstr "Comparer le dossier"
+
+msgid "Attach evidence"
+msgstr "Joindre des preuves"
+
+msgid "Supporting evidence"
+msgstr "Preuves à l’appui"
+
+msgid "Describe the site or service in your own words. Date and place help others follow up."
+msgstr "Décrivez le site ou le service avec vos mots. Date et lieu aident le suivi."
+
+msgid "Official information and your observation are stored in separate columns. Do not mix them."
+msgstr "L’information officielle et votre observation sont dans des colonnes séparées. Ne les mélangez pas."
+
+msgid "Photos, PDFs, Word files, or spreadsheets help. You can attach several files, or none."
+msgstr "Photos, PDF, Word ou tableurs aident. Vous pouvez joindre plusieurs fichiers, ou aucun."
+
+msgid "Do not include other people’s private details. Guest submissions are stored without an account name."
+msgstr "N’ajoutez pas les données privées d’autrui. Les envois invités n’ont pas de nom de compte."
+
+msgid "Submit observation"
+msgstr "Envoyer l’observation"
+
+msgid "You can submit without an account. Do not include unnecessary personal information. Observations stay unverified until independently reviewed."
+msgstr "Vous pouvez envoyer sans compte. N’ajoutez pas d’informations personnelles inutiles. Les observations restent non vérifiées jusqu’à revue."
+
+msgid "Status on record"
+msgstr "Statut au dossier"
+
+msgid "Unavailable"
+msgstr "Indisponible"
+
+msgid "Review evidence first"
+msgstr "Examiner les preuves d’abord"
+
+msgid "How H.Y.D.R.A. treats this"
+msgstr "Comment H.Y.D.R.A. traite ceci"
+
+msgid "Your words are labelled as a citizen observation."
+msgstr "Vos propos sont étiquetés comme observation citoyenne."
+
+msgid "Official claims stay in their own field."
+msgstr "Les allégations officielles restent dans leur champ."
+
+msgid "Nothing here is a finding of corruption or fraud."
+msgstr "Rien ici n’est une constatation de corruption ou de fraude."
+
+msgid "Guest observations are anonymous. Signed-in users can hide their account name."
+msgstr "Les observations invitées sont anonymes. Les comptes connectés peuvent masquer le nom."
+
+msgid "What you can attach"
+msgstr "Ce que vous pouvez joindre"
+
+msgid "PDF, Word, Excel, CSV, or image — up to %(files)s files, %(size)s MB each. Files are streamed to disk, then processed after you submit."
+msgstr "PDF, Word, Excel, CSV ou image — jusqu’à %(files)s fichiers, %(size)s Mo chacun. Fichiers envoyés sur disque, puis traités après envoi."
+
+msgid "What did you observe?"
+msgstr "Qu’avez-vous observé ?"
+
+msgid "Where?"
+msgstr "Où ?"
+
+msgid "When?"
+msgstr "Quand ?"
+
+msgid "Official information on record"
+msgstr "Information officielle au dossier"
+
+msgid "What is different?"
+msgstr "Qu’est-ce qui diffère ?"
+
+msgid "What does your evidence show? (optional)"
+msgstr "Que montre votre preuve ? (facultatif)"
+
+msgid "Upload files (optional)"
+msgstr "Envoyer des fichiers (facultatif)"
+
+msgid "Do not show my account name on this observation"
+msgstr "Ne pas afficher mon nom de compte sur cette observation"
+
+msgid "The observation stays attached to your account so you can find it later. Public and shared copies can be labelled anonymous."
+msgstr "L’observation reste liée à votre compte. Les copies publiques peuvent être étiquetées anonymes."
+
+msgid "Compare projects and counties"
+msgstr "Comparer projets et comtés"
+
+msgid "Rankings and reports"
+msgstr "Classements et rapports"
+
+msgid "Put projects and counties side by side. Rankings use recorded budgets and statuses only — they are not a corruption or performance score."
+msgstr "Placez projets et comtés côte à côte. Les classements n’utilisent que budgets et statuts enregistrés — ce n’est pas un score de corruption ou de performance."
+
+msgid "Recorded budget"
+msgstr "Budget enregistré"
+
+msgid "Highest recorded budget"
+msgstr "Plus haut budget enregistré"
+
+msgid "Highest delayed share"
+msgstr "Plus forte part en retard"
+
+msgid "report"
+msgstr "rapport"
+
+msgid "Visual reading of recorded allocation, delivery status, and sector mix. Figures come from project files. They are not a corruption score, and they are not paid-out expenditure unless a source records a spend."
+msgstr "Lecture visuelle de l’allocation enregistrée, du statut de livraison et du mix sectoriel. Les chiffres viennent des dossiers. Ce n’est pas un score de corruption, ni une dépense versée sauf si une source consigne un paiement."
+
+msgid "Recorded allocation"
+msgstr "Allocation enregistrée"
+
+msgid "Method"
+msgstr "Méthode"
+
+msgid "From the record to a report — without filling gaps"
+msgstr "Du dossier au rapport — sans combler les lacunes"
+
+msgid "H.Y.D.R.A. is built around one path: Search → Project → Evidence → Investigation → Report. You can also watch a county, track a project, or compare files along the way. The source of truth stays the evidence. The platform never invents missing facts and never treats an observation as verified by default."
+msgstr "H.Y.D.R.A. suit un chemin : Recherche → Projet → Preuves → Enquête → Rapport. Vous pouvez aussi suivre un comté, un projet, ou comparer des dossiers. La preuve reste la source de vérité. La plateforme n’invente pas les faits manquants."
+
+msgid "Search the record"
+msgstr "Chercher le dossier"
+
+msgid "Open the project"
+msgstr "Ouvrir le projet"
+
+msgid "Read the evidence"
+msgstr "Lire les preuves"
+
+msgid "The platform"
+msgstr "La plateforme"
+
+msgid "Follow the money. Find the evidence. Take action."
+msgstr "Suivez l’argent. Trouvez les preuves. Agissez."
+
+msgid "H.Y.D.R.A. is an evidence-first civic record. Every feature below either helps you find what the files say, watch an area or a project as the record changes, or turn an observation into a structured report. Nothing here scores guilt, corruption, or trust."
+msgstr "H.Y.D.R.A. est un registre civique fondé sur les preuves. Chaque fonction aide à lire les dossiers, suivre une zone ou un projet, ou transformer une observation en rapport. Rien ici ne note culpabilité, corruption ou confiance."
+
+msgid "Departments, agencies, and other public bodies linked to projects and policies. The file shows what is recorded — not a score of the institution."
+msgstr "Ministères, agences et autres organismes liés aux projets et politiques. Le dossier montre ce qui est enregistré — pas un score de l’institution."
+
+msgid "Name, location, or description…"
+msgstr "Nom, lieu ou description…"
+
+msgid "Browse recorded policies and the documents they cite. Status and dates are only as reliable as the attached evidence."
+msgstr "Parcourez les politiques enregistrées et les documents cités. Statut et dates ne sont fiables qu’autant que les preuves."
+
+msgid "Policy title or institution…"
+msgstr "Titre de politique ou institution…"
+
+msgid "Search titles, filenames, and extracted text from PDFs, Word, and Excel. Large files are streamed; previews show the first pages rather than loading everything at once."
+msgstr "Cherchez titres, noms de fichiers et texte extrait des PDF, Word et Excel. Les gros fichiers sont diffusés ; l’aperçu montre les premières pages."
+
+msgid "Search text or filename"
+msgstr "Chercher texte ou nom de fichier"
+
+msgid "Filename, title, or words inside the file…"
+msgstr "Nom de fichier, titre, ou mots dans le fichier…"
+
+msgid "County Department"
+msgstr "Département de comté"
+
+msgid "County Government"
+msgstr "Gouvernement de comté"
+
+msgid "National Ministry"
+msgstr "Ministère national"
+
+msgid "Agency"
+msgstr "Agence"
+
+msgid "Oversight Body"
+msgstr "Organe de contrôle"
+
+msgid "Original allocation"
+msgstr "Allocation initiale"
+
+msgid "Supplementary"
+msgstr "Supplémentaire"
+
+msgid "Revised"
+msgstr "Révisé"
+
+msgid "Recurrent"
+msgstr "Récurrent"
+
+msgid "Development"
+msgstr "Développement"
+
+msgid "Contract"
+msgstr "Contrat"
+
+msgid "Commune"
+msgstr "Commune"
+
+msgid "communes"
+msgstr "communes"
+
+msgid "Zone"
+msgstr "Zone"
+
+msgid "zones"
+msgstr "zones"
+
+msgid "communal or provincial council"
+msgstr "conseil communal ou provincial"
+
+msgid "Territory"
+msgstr "Territoire"
+
+msgid "territories"
+msgstr "territoires"
+
+msgid "Sector"
+msgstr "Secteur"
+
+msgid "sectors"
+msgstr "secteurs"
+
+msgid "provincial assembly"
+msgstr "assemblée provinciale"
+
+msgid "state house of assembly"
+msgstr "assemblée d’État"
+
+msgid "Sub-county"
+msgstr "Sous-comté"
+
+msgid "sub-counties"
+msgstr "sous-comtés"
+
+msgid "In Tanzania, the Access to Information Act, 2016 lets you ask a public body for records. Name the project and the financial year, and say where to send the reply. If there is no useful answer, the Commission for Human Rights and Good Governance is the national oversight office."
+msgstr "En Tanzanie, la loi de 2016 sur l’accès à l’information permet de demander des dossiers. Nommez le projet et l’exercice, et où répondre. Sans réponse utile, la Commission des droits de l’homme et de la bonne gouvernance est l’organe national."
+
+msgid "Burundi does not yet have a standalone access-to-information statute. The Constitution recognizes the right to information. Write to the public body that holds the file. Name the project, the financial year, and where to send the reply. If there is no useful answer, the Ombudsman (Médiateur de la République) is a national civic route. This is not legal advice."
+msgstr "Le Burundi n’a pas encore de loi autonome d’accès à l’information. La Constitution reconnaît le droit à l’information. Écrivez à l’organisme qui détient le dossier. Nommez le projet, l’exercice, et où répondre. Sans réponse utile, le Médiateur de la République est une voie civique nationale. Ce n’est pas un conseil juridique."
+
+msgid "In Nigeria, the Freedom of Information Act, 2011 lets you ask a public institution for records. Put the request in writing, name the project, and say where to send the reply. If there is no useful answer, you can apply to a court. The Public Complaints Commission is a further civic route."
+msgstr "Au Nigeria, la loi de 2011 sur la liberté d’information permet de demander des dossiers. Formulez la demande par écrit, nommez le projet, et où répondre. Sans réponse utile, vous pouvez saisir un tribunal. La Public Complaints Commission est une autre voie civique."

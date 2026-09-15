@@ -1,18 +1,18 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 {% block title %}H.Y.D.R.A.{% endblock %}
 {% block content %}
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-copy-col">
-      <p class="kicker">Evidence-first civic accountability</p>
+      <p class="kicker">{% trans "Evidence-first civic accountability" %}</p>
       <h1>H.Y.D.R.A.</h1>
-      <p class="tagline">Human-centered Yield, Data, Rights &amp; Accountability</p>
-      <p class="hero-copy">Follow the money. Find the evidence. Take action. A platform for public projects, budgets, source documents, and citizen investigations — always tied to evidence.</p>
+      <p class="tagline">{% trans "Human-centered Yield, Data, Rights & Accountability" %}</p>
+      <p class="hero-copy">{% trans "Follow the money. Find the evidence. Take action. A platform for public projects, budgets, source documents, and citizen investigations — always tied to evidence." %}</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a Project</a>
-        <a class="btn btn-ghost" href="{% url 'core:what-hydra-means' %}">About Hydra</a>
-        <a class="btn btn-ghost" href="{% url 'core:features' %}">Features</a>
+        <a class="btn btn-primary" href="{% url 'projects:list' %}">{% trans "Investigate a Project" %}</a>
+        <a class="btn btn-ghost" href="{% url 'core:what-hydra-means' %}">{% trans "About Hydra" %}</a>
+        <a class="btn btn-ghost" href="{% url 'core:features' %}">{% trans "Features" %}</a>
       </div>
     </div>
     <div class="hero-emblem-col">
@@ -23,17 +23,17 @@
 
 <section id="explore" class="search-panel">
   <div class="search-card">
-    <h2>What can I investigate?</h2>
-    <p class="search-hint">Results appear as you type. Ranked matches use project name, county, contractor, and institution — built to stay fast across thousands of records.</p>
+    <h2>{% trans "What can I investigate?" %}</h2>
+    <p class="search-hint">{% trans "Results appear as you type. Ranked matches use project name, county, contractor, and institution — built to stay fast across thousands of records." %}</p>
     <form class="search-form search-live" method="get" action="{% url 'core:search' %}" role="search" data-search-root>
-      <label class="sr-only" for="q">Search projects, institutions, policies, and documents</label>
+      <label class="sr-only" for="q">{% trans "Search projects, institutions, policies, and documents" %}</label>
       <div class="search-bar">
-        <input id="q" name="q" type="search" placeholder="Projects, documents, counties, filenames…" autocomplete="off" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" hx-get="{% url 'core:search-suggest' %}" hx-trigger="keyup changed delay:180ms, search" hx-target="#search-results" hx-swap="innerHTML" hx-sync="closest form:abort" hx-indicator="#home-search-indicator">
-        <button type="submit" class="btn btn-primary">Search</button>
+        <input id="q" name="q" type="search" placeholder="{% trans 'Projects, documents, counties, filenames…' %}" autocomplete="off" aria-autocomplete="list" aria-controls="search-results" aria-expanded="false" hx-get="{% url 'core:search-suggest' %}" hx-trigger="keyup changed delay:180ms, search" hx-target="#search-results" hx-swap="innerHTML" hx-sync="closest form:abort" hx-indicator="#home-search-indicator">
+        <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
       </div>
-      <p id="home-search-indicator" class="search-indicator htmx-indicator" aria-live="polite">Searching…</p>
+      <p id="home-search-indicator" class="search-indicator htmx-indicator" aria-live="polite">{% trans "Searching…" %}</p>
       <div id="search-results" class="search-results" data-search-panel aria-live="polite">
-        <p class="muted">Try a project name, county, or institution. Two characters is enough to start.</p>
+        <p class="muted">{% trans "Try a project name, county, or institution. Two characters is enough to start." %}</p>
       </div>
     </form>
   </div>
@@ -42,10 +42,10 @@
 <section id="hydra-meaning" class="section hydra-meaning" aria-labelledby="hydra-heading">
   <div class="section-head">
     <div>
-      <h2 id="hydra-heading">What H.Y.D.R.A. means</h2>
-      <p class="lede">Each letter is a principle: people, results, evidence, the right to know, and a path to oversight.</p>
+      <h2 id="hydra-heading">{% trans "What H.Y.D.R.A. means" %}</h2>
+      <p class="lede">{% trans "Each letter is a principle: people, results, evidence, the right to know, and a path to oversight." %}</p>
     </div>
-    <a class="text-link" href="{% url 'core:what-hydra-means' %}">About Hydra</a>
+    <a class="text-link" href="{% url 'core:what-hydra-means' %}">{% trans "About Hydra" %}</a>
   </div>
   {% include "components/hydra_letters.html" %}
 </section>
@@ -53,27 +53,27 @@
 <section class="section method-path" aria-labelledby="method-heading">
   <div class="section-head">
     <div>
-      <p class="kicker">The work</p>
-      <h2 id="method-heading">Follow. Find. Act.</h2>
-      <p class="lede">Three moves on the public record — only as far as the files go.</p>
+      <p class="kicker">{% trans "The work" %}</p>
+      <h2 id="method-heading">{% trans "Follow. Find. Act." %}</h2>
+      <p class="lede">{% trans "Three moves on the public record — only as far as the files go." %}</p>
     </div>
-    <a class="text-link" href="{% url 'core:how-it-works' %}">How it works</a>
+    <a class="text-link" href="{% url 'core:how-it-works' %}">{% trans "How it works" %}</a>
   </div>
   <ol class="method-track">
     <li>
       <span class="step-num">01</span>
-      <h3>Follow the money</h3>
-      <p>Trace allocation, approval, procurement, contract, implementation, and completion — without filling gaps that sources do not support.</p>
+      <h3>{% trans "Follow the money" %}</h3>
+      <p>{% trans "Trace allocation, approval, procurement, contract, implementation, and completion — without filling gaps that sources do not support." %}</p>
     </li>
     <li>
       <span class="step-num">02</span>
-      <h3>Find the evidence</h3>
-      <p>Every claim should point to a source document, a page, and a verification status. If evidence is missing, H.Y.D.R.A. says so.</p>
+      <h3>{% trans "Find the evidence" %}</h3>
+      <p>{% trans "Every claim should point to a source document, a page, and a verification status. If evidence is missing, H.Y.D.R.A. says so." %}</p>
     </li>
     <li>
       <span class="step-num">03</span>
-      <h3>Take action</h3>
-      <p>Submit a citizen observation, compare it with official information, and generate a structured accountability report.</p>
+      <h3>{% trans "Take action" %}</h3>
+      <p>{% trans "Submit a citizen observation, compare it with official information, and generate a structured accountability report." %}</p>
     </li>
   </ol>
 </section>
@@ -81,11 +81,11 @@
 <section class="section home-record" aria-labelledby="record-heading">
   <div class="section-head">
     <div>
-      <p class="kicker">The file</p>
-      <h2 id="record-heading">On the record</h2>
-      <p class="lede">A featured file, how coverage is labelled, and the latest citizen observations.</p>
+      <p class="kicker">{% trans "The file" %}</p>
+      <h2 id="record-heading">{% trans "On the record" %}</h2>
+      <p class="lede">{% trans "A featured file, how coverage is labelled, and the latest citizen observations." %}</p>
     </div>
-    <a class="text-link" href="{% url 'projects:list' %}">View all projects</a>
+    <a class="text-link" href="{% url 'projects:list' %}">{% trans "View all projects" %}</a>
   </div>
   <div class="home-record-board">
     <div class="home-record-projects">
@@ -95,7 +95,7 @@
             <p class="eyebrow">
               {{ project.county }}{% if project.constituency %} · {{ project.constituency }}{% endif %}{% if project.ward %} · {{ project.ward }}{% endif %}
               · {{ project.get_category_display }}
-              {% if project.is_demo %}<span class="chip chip-demo">Demo</span>{% endif %}
+              {% if project.is_demo %}<span class="chip chip-demo">{% trans "Demo" %}</span>{% endif %}
             </p>
             <h3><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></h3>
             <p class="muted">{{ project.institution.name }}</p>
@@ -104,21 +104,21 @@
             {% endif %}
             <dl class="mini-facts">
               <div>
-                <dt>Budget</dt>
+                <dt>{% trans "Budget" %}</dt>
                 <dd>{{ project.format_amount }}</dd>
               </div>
               <div>
-                <dt>Status</dt>
+                <dt>{% trans "Status" %}</dt>
                 <dd>{{ project.get_status_display }}</dd>
               </div>
             </dl>
-            <p class="coverage-label">Evidence coverage {{ project.coverage.percent }}% · {{ project.coverage.supported }}/{{ project.coverage.total_claims }}</p>
-            <div class="meter" role="img" aria-label="Evidence coverage {{ project.coverage.percent }} percent">
+            <p class="coverage-label">{% trans "Evidence coverage" %} {{ project.coverage.percent }}% · {{ project.coverage.supported }}/{{ project.coverage.total_claims }}</p>
+            <div class="meter" role="img" aria-label="{% trans 'Evidence coverage' %} {{ project.coverage.percent }}%">
               <span class="meter-fill tone-{{ project.coverage.percent|default:0 }}" style="width: {{ project.coverage.percent }}%"></span>
             </div>
             <p class="home-record-actions">
-              <a class="btn btn-primary btn-compact" href="{% url 'projects:investigate' project.slug %}">Investigate this project</a>
-              <a class="text-link" href="{{ project.get_absolute_url }}">Open the file</a>
+              <a class="btn btn-primary btn-compact" href="{% url 'projects:investigate' project.slug %}">{% trans "Investigate this project" %}</a>
+              <a class="text-link" href="{{ project.get_absolute_url }}">{% trans "Open the file" %}</a>
             </p>
           </article>
         {% else %}
@@ -127,9 +127,9 @@
           {% endif %}
           <li>
             <a href="{{ project.get_absolute_url }}">
-              <span class="eyebrow">{{ project.county }} · {{ project.get_status_display }}{% if project.is_demo %} · Demo{% endif %}</span>
+              <span class="eyebrow">{{ project.county }} · {{ project.get_status_display }}{% if project.is_demo %} · {% trans "Demo" %}{% endif %}</span>
               <strong>{{ project.name }}</strong>
-              <span class="muted">{{ project.format_amount }} · evidence {{ project.coverage.percent }}%</span>
+              <span class="muted">{{ project.format_amount }} · {% trans "Evidence coverage" %} {{ project.coverage.percent }}%</span>
             </a>
           </li>
           {% if forloop.last %}
@@ -137,33 +137,33 @@
           {% endif %}
         {% endif %}
       {% empty %}
-        <p class="muted">No projects are available yet.</p>
+        <p class="muted">{% trans "No projects are available yet." %}</p>
       {% endfor %}
     </div>
     <aside class="home-record-aside">
       <section class="home-record-coverage" aria-labelledby="coverage-heading">
-        <h3 id="coverage-heading">Evidence coverage</h3>
-        <p>Coverage only measures whether recorded claims are supported by sources. It never scores corruption, fraud, or trust.</p>
+        <h3 id="coverage-heading">{% trans "Evidence coverage" %}</h3>
+        <p>{% trans "Coverage only measures whether recorded claims are supported by sources. It never scores corruption, fraud, or trust." %}</p>
         <ul class="home-record-key">
-          <li><span class="swatch swatch-verified" aria-hidden="true"></span> Verified</li>
-          <li><span class="swatch swatch-partial" aria-hidden="true"></span> Partially verified</li>
-          <li><span class="swatch swatch-conflict" aria-hidden="true"></span> Conflicting information</li>
-          <li><span class="swatch swatch-unknown" aria-hidden="true"></span> Unknown</li>
+          <li><span class="swatch swatch-verified" aria-hidden="true"></span> {% trans "Verified" %}</li>
+          <li><span class="swatch swatch-partial" aria-hidden="true"></span> {% trans "Partially verified" %}</li>
+          <li><span class="swatch swatch-conflict" aria-hidden="true"></span> {% trans "Conflicting information" %}</li>
+          <li><span class="swatch swatch-unknown" aria-hidden="true"></span> {% trans "Unknown" %}</li>
         </ul>
       </section>
       <section class="home-record-feed" aria-labelledby="investigations-heading">
-        <h3 id="investigations-heading">Recent investigations</h3>
+        <h3 id="investigations-heading">{% trans "Recent investigations" %}</h3>
         <ul class="home-record-obs">
           {% for item in recent_investigations %}
             <li>
               <a href="{{ item.project.get_absolute_url }}">
-                <span class="eyebrow">Citizen observation · {{ item.created_at|date:"j M Y" }}</span>
+                <span class="eyebrow">{% trans "Citizen observation" %} · {{ item.created_at|date:"j M Y" }}</span>
                 <strong>{{ item.project.name }}</strong>
                 <span class="muted">{{ item.location }}</span>
               </a>
             </li>
           {% empty %}
-            <li class="muted">No citizen observations have been submitted yet.</li>
+            <li class="muted">{% trans "No citizen observations have been submitted yet." %}</li>
           {% endfor %}
         </ul>
       </section>
@@ -173,29 +173,29 @@
 
 <section class="section how">
   <div class="section-head">
-    <h2>How H.Y.D.R.A. works</h2>
-    <a class="text-link" href="{% url 'core:features' %}">All features</a>
+    <h2>{% trans "How H.Y.D.R.A. works" %}</h2>
+    <a class="text-link" href="{% url 'core:features' %}">{% trans "All features" %}</a>
   </div>
   <ol class="steps">
     <li>
       <span class="step-num">1</span>
       <div>
-        <h3>Find a project</h3>
-        <p>Search public projects, institutions, and policies — or track your county.</p>
+        <h3>{% trans "Find a project" %}</h3>
+        <p>{% trans "Search public projects, institutions, and policies — or track your county." %}</p>
       </div>
     </li>
     <li>
       <span class="step-num">2</span>
       <div>
-        <h3>Examine the evidence</h3>
-        <p>Read claims, source documents, and missing-information notes. Compare files if you need them side by side.</p>
+        <h3>{% trans "Examine the evidence" %}</h3>
+        <p>{% trans "Read claims, source documents, and missing-information notes. Compare files if you need them side by side." %}</p>
       </div>
     </li>
     <li>
       <span class="step-num">3</span>
       <div>
-        <h3>Investigate and report</h3>
-        <p>Submit an observation and generate a structured report.</p>
+        <h3>{% trans "Investigate and report" %}</h3>
+        <p>{% trans "Submit an observation and generate a structured report." %}</p>
       </div>
     </li>
   </ol>

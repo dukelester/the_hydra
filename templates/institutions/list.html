@@ -1,26 +1,27 @@
 {% extends "base.html" %}
-{% block title %}Institutions{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Institutions" %}{% endblock %}
 {% block content %}
 <section class="page-head">
-  <p class="kicker">Public record</p>
-  <h1>Institutions</h1>
-  <p class="lede">Departments, agencies, and other public bodies linked to projects and policies. The file shows what is recorded — not a score of the institution.</p>
+  <p class="kicker">{% trans "Public record" %}</p>
+  <h1>{% trans "Institutions" %}</h1>
+  <p class="lede">{% trans "Departments, agencies, and other public bodies linked to projects and policies. The file shows what is recorded — not a score of the institution." %}</p>
 </section>
 <form class="filters filters-wide" method="get">
   <div class="field">
-    <label for="q">Search</label>
-    <input id="q" name="q" type="search" value="{{ query }}" placeholder="Name, location, or description…">
+    <label for="q">{% trans "Search" %}</label>
+    <input id="q" name="q" type="search" value="{{ query }}" placeholder="{% trans 'Name, location, or description…' %}">
   </div>
   <div class="field">
-    <label for="type">Type</label>
+    <label for="type">{% trans "Type" %}</label>
     <select id="type" name="type" class="form-select">
-      <option value="">All types</option>
+      <option value="">{% trans "All types" %}</option>
       {% for value, label in type_choices %}
         <option value="{{ value }}" {% if selected_type == value %}selected{% endif %}>{{ label }}</option>
       {% endfor %}
     </select>
   </div>
-  <button class="btn btn-primary" type="submit">Search</button>
+  <button class="btn btn-primary" type="submit">{% trans "Search" %}</button>
 </form>
 <section class="section tight">
   {% if institutions %}
@@ -30,7 +31,7 @@
       {% endfor %}
     </div>
   {% else %}
-    <p class="muted">No institutions match these filters.</p>
+    <p class="muted">{% trans "No institutions match these filters." %}</p>
   {% endif %}
 </section>
 {% include "components/pagination.html" %}

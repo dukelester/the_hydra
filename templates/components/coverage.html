@@ -1,21 +1,22 @@
+{% load i18n %}
 <section class="coverage-panel" aria-labelledby="coverage-heading">
   <div class="coverage-top">
     <div>
-      <h2 id="coverage-heading">Evidence Coverage</h2>
-      <p class="lede">This figure describes how much recorded project information is supported by evidence. It is not a corruption, fraud, or trust score.</p>
+      <h2 id="coverage-heading">{% trans "Evidence Coverage" %}</h2>
+      <p class="lede">{% trans "This figure describes how much recorded project information is supported by evidence. It is not a corruption, fraud, or trust score." %}</p>
     </div>
     <p class="coverage-figure">
       <span class="coverage-percent">{{ coverage.percent }}%</span>
-      <span>Supported {{ coverage.supported }}/{{ coverage.total_claims }} claims</span>
+      <span>{% trans "Evidence coverage" %} {{ coverage.supported }}/{{ coverage.total_claims }}</span>
     </p>
   </div>
-  <div class="meter meter-lg" role="img" aria-label="Evidence coverage {{ coverage.percent }} percent">
+  <div class="meter meter-lg" role="img" aria-label="{% trans 'Evidence coverage' %} {{ coverage.percent }}%">
     <span class="meter-fill" style="width: {{ coverage.percent }}%"></span>
   </div>
   <ul class="legend">
-    <li><span class="swatch swatch-verified" aria-hidden="true"></span> Verified — {{ coverage.verified }} claim{{ coverage.verified|pluralize }} supported by a cited source</li>
-    <li><span class="swatch swatch-partial" aria-hidden="true"></span> Partially verified — {{ coverage.partially_verified }} claim{{ coverage.partially_verified|pluralize }} only partly supported</li>
-    <li><span class="swatch swatch-conflict" aria-hidden="true"></span> Conflicting information — {{ coverage.conflicting }} claim{{ coverage.conflicting|pluralize }} with disagreeing sources</li>
-    <li><span class="swatch swatch-unknown" aria-hidden="true"></span> Unknown — {{ coverage.unknown }} claim{{ coverage.unknown|pluralize }} without sufficient evidence</li>
+    <li><span class="swatch swatch-verified" aria-hidden="true"></span> {% trans "Verified" %} — {{ coverage.verified }}</li>
+    <li><span class="swatch swatch-partial" aria-hidden="true"></span> {% trans "Partially verified" %} — {{ coverage.partially_verified }}</li>
+    <li><span class="swatch swatch-conflict" aria-hidden="true"></span> {% trans "Conflicting information" %} — {{ coverage.conflicting }}</li>
+    <li><span class="swatch swatch-unknown" aria-hidden="true"></span> {% trans "Unknown" %} — {{ coverage.unknown }}</li>
   </ul>
 </section>

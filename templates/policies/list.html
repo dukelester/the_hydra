@@ -1,24 +1,25 @@
 {% extends "base.html" %}
-{% block title %}Policies{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Policies" %}{% endblock %}
 {% block content %}
 <section class="page-head">
-  <p class="kicker">Public record</p>
-  <h1>Policies</h1>
-  <p class="lede">Browse recorded policies and the documents they cite. Status and dates are only as reliable as the attached evidence.</p>
+  <p class="kicker">{% trans "Public record" %}</p>
+  <h1>{% trans "Policies" %}</h1>
+  <p class="lede">{% trans "Browse recorded policies and the documents they cite. Status and dates are only as reliable as the attached evidence." %}</p>
 </section>
 <form class="filters" method="get">
   <div class="field">
-    <label for="q">Search</label>
-    <input id="q" name="q" type="search" value="{{ query }}" placeholder="Policy title or institution…">
+    <label for="q">{% trans "Search" %}</label>
+    <input id="q" name="q" type="search" value="{{ query }}" placeholder="{% trans 'Policy title or institution…' %}">
   </div>
-  <button class="btn btn-primary" type="submit">Search</button>
+  <button class="btn btn-primary" type="submit">{% trans "Search" %}</button>
 </form>
 <section class="section tight">
   <div class="card-grid">
     {% for policy in policies %}
       {% include "components/policy_card.html" %}
     {% empty %}
-      <p>No policies match this search.</p>
+      <p>{% trans "No policies match this search." %}</p>
     {% endfor %}
   </div>
 </section>

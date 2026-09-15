@@ -1,25 +1,26 @@
+{% load i18n %}
 <a class="search-project" href="{{ project.get_absolute_url }}">
   <div class="search-project-copy">
     <div class="search-project-meta">
       <p class="eyebrow">{{ project.county }}{% if project.ward %} · {{ project.ward }}{% endif %}</p>
       <span class="chip">{{ project.get_category_display }}</span>
-      {% if project.is_demo %}<span class="chip chip-demo">Demo</span>{% endif %}
+      {% if project.is_demo %}<span class="chip chip-demo">{% trans "Demo" %}</span>{% endif %}
     </div>
     <h2>{{ project.name }}</h2>
     <p class="search-project-org">{{ project.institution.name }}</p>
     {% if project.contractor %}
-      <p class="search-project-contractor">Contractor · {{ project.contractor }}</p>
+      <p class="search-project-contractor">{% trans "Contractor" %} · {{ project.contractor }}</p>
     {% else %}
-      <p class="search-project-contractor is-missing">Contractor not recorded</p>
+      <p class="search-project-contractor is-missing">{% trans "Contractor not recorded" %}</p>
     {% endif %}
   </div>
   <div class="search-project-aside">
     <p class="search-budget">{{ project.format_amount }}</p>
-    <p class="search-fy">{% if project.financial_year %}FY {{ project.financial_year }}{% else %}Financial year not recorded{% endif %}</p>
+    <p class="search-fy">{% if project.financial_year %}{{ project.financial_year }}{% else %}{% trans "Financial year not recorded" %}{% endif %}</p>
     <span class="status-pill status-{{ project.status }}">{{ project.get_status_display }}</span>
     <div class="search-coverage">
-      <p>Evidence {{ project.coverage.percent|default:0 }}% · {{ project.coverage.supported|default:0 }}/{{ project.coverage.total_claims|default:0 }} claims</p>
-      <div class="meter" role="img" aria-label="Evidence coverage {{ project.coverage.percent|default:0 }} percent">
+      <p>{% trans "Evidence" %} {{ project.coverage.percent|default:0 }}% · {{ project.coverage.supported|default:0 }}/{{ project.coverage.total_claims|default:0 }}</p>
+      <div class="meter" role="img" aria-label="{% trans 'Evidence coverage' %} {{ project.coverage.percent|default:0 }}%">
         <span class="meter-fill level-{{ project.coverage.level|default:'none' }}" style="width: {{ project.coverage.percent|default:0 }}%"></span>
       </div>
     </div>

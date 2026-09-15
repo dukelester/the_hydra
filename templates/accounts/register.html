@@ -1,36 +1,37 @@
 {% extends "accounts/base_auth.html" %}
-{% block title %}Create an account{% endblock %}
-{% block auth_panel_heading %}{% if step == 2 %}Lock the account{% else %}Join the record{% endif %}{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Create an account" %}{% endblock %}
+{% block auth_panel_heading %}{% if step == 2 %}{% trans "Lock the account" %}{% else %}{% trans "Join the record" %}{% endif %}{% endblock %}
 {% block auth_panel_copy %}
   {% if step == 2 %}
-    Choose a password and accept the terms. You can add email and other details later from your profile.
+    {% trans "Choose a password and accept the terms. You can add email and other details later from your profile." %}
   {% else %}
-    Two short steps. Choose a username and the country whose public record you follow. If you skip country, Kenya is used. Display name stays optional.
+    {% trans "Two short steps. Choose a username and the country whose public record you follow. If you skip country, Kenya is used. Display name stays optional." %}
   {% endif %}
 {% endblock %}
 {% block auth_points %}
-  <li>Step 1 is a username and country. Country defaults to Kenya. Step 2 is a password and the terms.</li>
-  <li>Tracking uses that country’s administrative units — counties in Kenya, regions in Tanzania, states in Nigeria.</li>
-  <li>The public record remains readable without signing in.</li>
+  <li>{% trans "Step 1 is a username and country. Country defaults to Kenya. Step 2 is a password and the terms." %}</li>
+  <li>{% trans "Tracking uses that country’s administrative units — counties in Kenya, regions in Tanzania, states in Nigeria." %}</li>
+  <li>{% trans "The public record remains readable without signing in." %}</li>
 {% endblock %}
 {% block auth_card %}
-  <p class="kicker">Create account</p>
-  <h1>{% if step == 2 %}Create a password{% else %}Create an account{% endif %}</h1>
+  <p class="kicker">{% trans "Create account" %}</p>
+  <h1>{% if step == 2 %}{% trans "Create a password" %}{% else %}{% trans "Create an account" %}{% endif %}</h1>
   <p class="lede">
     {% if step == 2 %}
-      Signing up as <strong>@{{ draft.username }}</strong>{% if draft.display_name %} · {{ draft.display_name }}{% endif %}{% if draft_country %} · {{ draft_country.name }}{% endif %}.
+      {% trans "Signing up as" %} <strong>@{{ draft.username }}</strong>{% if draft.display_name %} · {{ draft.display_name }}{% endif %}{% if draft_country %} · {{ draft_country.name }}{% endif %}.
     {% else %}
-      Keeps investigations with you. Country is required so the dashboard can follow the right local units.
+      {% trans "Keeps investigations with you. If you skip country, Kenya is used so the dashboard can follow the right local units." %}
     {% endif %}
   </p>
-  <nav class="auth-steps" aria-label="Sign up steps">
+  <nav class="auth-steps" aria-label="{% trans 'Sign up steps' %}">
     <p class="auth-step{% if step == 1 %} is-current{% endif %}" {% if step == 1 %}aria-current="step"{% endif %}>
       <span class="auth-step-num">1</span>
-      <span>Your name</span>
+      <span>{% trans "Your name" %}</span>
     </p>
     <p class="auth-step{% if step == 2 %} is-current{% endif %}" {% if step == 2 %}aria-current="step"{% endif %}>
       <span class="auth-step-num">2</span>
-      <span>Password</span>
+      <span>{% trans "Password" %}</span>
     </p>
   </nav>
   <form class="form-stack" method="post">
@@ -42,7 +43,7 @@
       {% include "components/form_field.html" with field=form.display_name %}
       {% include "components/form_field.html" with field=form.country %}
       <div class="form-actions">
-        <button class="btn btn-primary btn-large" type="submit">Continue</button>
+        <button class="btn btn-primary btn-large" type="submit">{% trans "Continue" %}</button>
       </div>
     {% else %}
       <input type="hidden" name="step" value="2">
@@ -51,18 +52,18 @@
       <div class="field field-check{% if form.agree_to_terms.errors %} is-invalid{% endif %}">
         {{ form.agree_to_terms }}
         <label for="{{ form.agree_to_terms.id_for_label }}">
-          I agree to the <a href="{% url 'core:terms' %}">terms of use</a>
-          <span class="req" title="Required">*</span>
+          {% trans "I agree to the" %} <a href="{% url 'core:terms' %}">{% trans "terms of use" %}</a>
+          <span class="req" title="{% trans 'Required' %}">*</span>
         </label>
         {% if form.agree_to_terms.errors %}
           <p class="error" role="alert">{{ form.agree_to_terms.errors|striptags }}</p>
         {% endif %}
       </div>
       <div class="form-actions">
-        <button class="btn btn-primary btn-large" type="submit">Create account</button>
-        <button class="btn btn-secondary" type="submit" name="intent" value="back">Back</button>
+        <button class="btn btn-primary btn-large" type="submit">{% trans "Create account" %}</button>
+        <button class="btn btn-secondary" type="submit" name="intent" value="back">{% trans "Back" %}</button>
       </div>
     {% endif %}
   </form>
-  <p class="form-foot">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a> · <a href="{% url 'accounts:password-reset' %}">Forgot password?</a></p>
+  <p class="form-foot">{% trans "Already have an account?" %} <a href="{% url 'accounts:login' %}">{% trans "Log in" %}</a> · <a href="{% url 'accounts:password-reset' %}">{% trans "Forgot password?" %}</a></p>
 {% endblock %}
