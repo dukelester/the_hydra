@@ -1,0 +1,29 @@
+{% extends "staff/base.html" %}
+{% block title %}{{ heading }}{% endblock %}
+{% block staff %}
+<section class="page-head">
+  <p class="kicker">Staff</p>
+  <h1>{{ heading }}</h1>
+  {% if lede %}<p class="lede">{{ lede }}</p>{% endif %}
+  <div class="hero-actions dashboard-actions">
+    {% if create_url %}<a class="btn btn-primary" href="{% url create_url %}">Add new</a>{% endif %}
+  </div>
+</section>
+<form class="filters" method="get">
+  <div class="field">
+    <label for="staff-q">Search</label>
+    <input id="staff-q" name="q" type="search" value="{{ search_q }}" placeholder="Name or keyword">
+  </div>
+  <button class="btn btn-primary" type="submit">Search</button>
+</form>
+<section class="project-panel">
+  <ul class="plain-list dashboard-list">
+    {% for object in object_list %}
+      {% include row_template %}
+    {% empty %}
+      <li class="search-empty">Nothing matches this list.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% include "components/pagination.html" %}
+{% endblock %}

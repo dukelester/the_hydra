@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="workspace-shell">
+  {% include "staff/nav.html" %}
+  <div class="workspace-main">
+    {% block staff %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

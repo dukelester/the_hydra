@@ -56,7 +56,7 @@
           <a href="{% url 'accounts:profile' %}">Profile</a>
           <a href="{% url 'investigations:list' %}">Investigations</a>
           <a href="{% url 'reports:list' %}">Reports</a>
-          {% if user.is_staff %}<a href="{% url 'admin:index' %}">Admin</a>{% endif %}
+          {% if user.is_staff %}<a href="{% url 'staff:dashboard' %}">Admin dashboard</a>{% endif %}
           <form class="nav-form" method="post" action="{% url 'accounts:logout' %}">
             {% csrf_token %}
             <button type="submit">Log out</button>
@@ -86,7 +86,7 @@
           <a href="{% url 'accounts:profile' %}">Profile</a>
           <a href="{% url 'investigations:list' %}">Investigations</a>
           <a href="{% url 'reports:list' %}">Reports</a>
-          {% if user.is_staff %}<a href="{% url 'admin:index' %}">Admin</a>{% endif %}
+          {% if user.is_staff %}<a href="{% url 'staff:dashboard' %}">Admin dashboard</a>{% endif %}
           <form method="post" action="{% url 'accounts:logout' %}">
             {% csrf_token %}
             <button type="submit" class="nav-button">Log out</button>

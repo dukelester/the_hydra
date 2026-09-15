@@ -2333,6 +2333,58 @@ a.project-pager-link:hover strong { color: var(--link); }
 .feature-detail .kicker { margin-bottom: 0.25rem; }
 .feature-detail p:last-child { margin-bottom: 0; }
 .features-page .feature-detail { scroll-margin-top: 5.5rem; }
+.method-coverage {
+  padding: 1.35rem 1.4rem 1.4rem;
+  background: var(--card);
+  border: 1px solid rgba(213, 204, 184, 0.9);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.method-coverage-intro { max-width: 42rem; margin-bottom: 1.1rem; }
+.method-coverage-intro h2 { margin-bottom: 0.4rem; }
+.method-coverage-intro p { margin: 0; color: var(--ink-soft); }
+.method-status-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+.method-status-grid li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 0.55rem;
+  row-gap: 0.2rem;
+  align-content: start;
+  min-width: 0;
+  padding: 0.85rem 0.9rem;
+  background: var(--paper);
+  border: 1px solid rgba(213, 204, 184, 0.85);
+  border-radius: 12px;
+}
+.method-status-grid .swatch {
+  grid-row: 1 / span 2;
+  margin-top: 0.35rem;
+}
+.method-status-grid strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.method-status-grid p {
+  grid-column: 2;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+.method-tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.method-tools .feature-detail { margin: 0; width: auto; }
 .county-report { padding: 0 0 3.4rem; }
 .county-filter { margin-bottom: 1.4rem; }
 .county-filter .field { max-width: 22rem; }
@@ -2523,7 +2575,9 @@ a.project-pager-link:hover strong { color: var(--link); }
   .project-columns,
   .project-page .timeline,
   .project-siblings,
-  .gap-list { grid-template-columns: 1fr; }
+  .gap-list,
+  .method-tools { grid-template-columns: 1fr; }
+  .method-status-grid { grid-template-columns: 1fr 1fr; }
   .record-facts { grid-template-columns: 1fr 1fr; }
   .record-facts > div { border-right: 1px solid rgba(213, 204, 184, 0.75); }
   .record-facts > div:nth-child(2n) { border-right: 0; }
@@ -2574,6 +2628,7 @@ a.project-pager-link:hover strong { color: var(--link); }
   .dashboard-stats a:nth-child(n+3) { border-top: 1px solid rgba(213, 204, 184, 0.75); }
   .dashboard-identity { grid-template-columns: 1fr; }
   .record-facts { grid-template-columns: 1fr; }
+  .method-status-grid { grid-template-columns: 1fr; }
   .record-facts > div { border-right: 0; }
   .record-facts > div:nth-last-child(-n+2) { border-bottom: 1px solid rgba(213, 204, 184, 0.75); }
   .record-facts > div:last-child { border-bottom: 0; }

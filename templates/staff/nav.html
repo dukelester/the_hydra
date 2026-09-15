@@ -1,0 +1,20 @@
+{% with ns=request.resolver_match.namespace name=request.resolver_match.url_name %}
+<nav class="workspace-nav" aria-label="Staff">
+  <p class="eyebrow">Staff</p>
+  <a href="{% url 'staff:dashboard' %}"{% if name == "dashboard" %} class="is-active" aria-current="page"{% endif %}>Overview</a>
+  <p class="workspace-nav-label">Record</p>
+  <a href="{% url 'staff:projects' %}"{% if name == "projects" or name == "project-create" or name == "project-edit" %} class="is-active" aria-current="page"{% endif %}>Projects</a>
+  <a href="{% url 'staff:institutions' %}"{% if "institution" in name %} class="is-active" aria-current="page"{% endif %}>Institutions</a>
+  <a href="{% url 'staff:documents' %}"{% if "document" in name %} class="is-active" aria-current="page"{% endif %}>Documents</a>
+  <a href="{% url 'staff:evidence' %}"{% if "evidence" in name %} class="is-active" aria-current="page"{% endif %}>Evidence</a>
+  <a href="{% url 'staff:policies' %}"{% if "policy" in name %} class="is-active" aria-current="page"{% endif %}>Policies</a>
+  <p class="workspace-nav-label">Review</p>
+  <a href="{% url 'staff:investigations' %}"{% if "investigation" in name %} class="is-active" aria-current="page"{% endif %}>Investigations</a>
+  <a href="{% url 'staff:reports' %}"{% if name == "reports" or name == "report-edit" %} class="is-active" aria-current="page"{% endif %}>Reports</a>
+  <p class="workspace-nav-label">People</p>
+  <a href="{% url 'staff:users' %}"{% if "user" in name %} class="is-active" aria-current="page"{% endif %}>Accounts</a>
+  <p class="workspace-nav-label">Also</p>
+  <a href="{% url 'accounts:dashboard' %}">Your workspace</a>
+  <a href="{% url 'admin:index' %}">Django admin</a>
+</nav>
+{% endwith %}

@@ -53,6 +53,7 @@
               <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
               <li><a href="{% url 'investigations:list' %}">Investigations</a></li>
               <li><a href="{% url 'reports:list' %}">Reports</a></li>
+              {% if user.is_staff %}<li><a href="{% url 'staff:dashboard' %}">Admin dashboard</a></li>{% endif %}
               <li>
                 <form method="post" action="{% url 'accounts:logout' %}">
                   {% csrf_token %}

@@ -1,0 +1,5 @@
+<li class="card record-card">
+  <p class="eyebrow">{{ object.get_institution_type_display }}</p>
+  <h3><a href="{% url 'staff:institution-edit' object.pk %}">{{ object.name }}</a></h3>
+  <p class="muted">{{ object.location|default:"Location not recorded" }}</p>
+</li>

@@ -1,0 +1,5 @@
+<li class="card record-card">
+  <p class="eyebrow">{{ object.get_verification_status_display }} · {{ object.project.county }}</p>
+  <h3><a href="{% url 'staff:investigation-edit' object.pk %}">{{ object.title }}</a></h3>
+  <p class="muted">{{ object.project.name }}</p>
+</li>

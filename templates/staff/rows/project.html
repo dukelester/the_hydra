@@ -1,0 +1,5 @@
+<li class="card record-card">
+  <p class="eyebrow">{{ object.county }} · {{ object.get_status_display }}</p>
+  <h3><a href="{% url 'staff:project-edit' object.pk %}">{{ object.name }}</a></h3>
+  <p class="muted">{{ object.institution.name }} · updated {{ object.updated_at|date:"j M Y" }}</p>
+</li>

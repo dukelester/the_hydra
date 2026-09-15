@@ -9,6 +9,7 @@ admin.site.index_title = "Evidence, projects, and reports"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("admin_dashboard/", include("apps.staff.urls")),
     path("api/v1/", include("config.api_urls")),
     path("accounts/", include("apps.accounts.urls")),
     path("projects/", include("apps.projects.urls")),

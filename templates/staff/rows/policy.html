@@ -1,0 +1,4 @@
+<li class="card record-card">
+  <p class="eyebrow">{{ object.get_policy_type_display }} · {{ object.get_status_display }}</p>
+  <h3><a href="{% url 'staff:policy-edit' object.pk %}">{{ object.title }}</a></h3>
+</li>

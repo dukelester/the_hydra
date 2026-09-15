@@ -1,0 +1,4 @@
+<li class="card record-card">
+  <p class="eyebrow">{{ object.get_verification_status_display }} · {{ object.project.name }}</p>
+  <h3><a href="{% url 'staff:evidence-edit' object.pk %}">{{ object.claim|truncatechars:90 }}</a></h3>
+</li>

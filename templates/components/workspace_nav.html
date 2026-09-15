@@ -10,5 +10,9 @@
   <a href="{% url 'projects:compare' %}"{% if ns == "projects" and name == "compare" %} class="is-active" aria-current="page"{% endif %}>Compare</a>
   <p class="workspace-nav-label">Account</p>
   <a href="{% url 'accounts:profile' %}"{% if ns == "accounts" and name == "profile" %} class="is-active" aria-current="page"{% endif %}>Profile</a>
+  {% if user.is_staff %}
+    <p class="workspace-nav-label">Staff</p>
+    <a href="{% url 'staff:dashboard' %}">Admin dashboard</a>
+  {% endif %}
 </nav>
 {% endwith %}

@@ -1,0 +1,5 @@
+<li class="card record-card">
+  <p class="eyebrow">{% if object.is_staff %}Staff{% else %}Account{% endif %} · {% if object.is_active %}Active{% else %}Inactive{% endif %}</p>
+  <h3><a href="{% url 'staff:user-edit' object.pk %}">{{ object.public_name }}</a></h3>
+  <p class="muted">@{{ object.username }}</p>
+</li>

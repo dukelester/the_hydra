@@ -1,0 +1,18 @@
+{% extends "staff/base.html" %}
+{% block title %}Delete{% endblock %}
+{% block staff %}
+<section class="page-head">
+  <p class="kicker">Staff</p>
+  <h1>Delete this record?</h1>
+  <p class="lede">{{ object }} will be removed from the file. This cannot be undone from this page.</p>
+</section>
+<section class="form-page workspace-form">
+  <form class="form-stack" method="post">
+    {% csrf_token %}
+    <div class="form-actions">
+      <button class="btn btn-primary btn-large" type="submit">Delete</button>
+      <a class="btn btn-secondary" href="{{ request.META.HTTP_REFERER|default:request.path }}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

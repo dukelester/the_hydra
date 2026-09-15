@@ -1,0 +1,5 @@
+<li class="card record-card">
+  <p class="eyebrow">{{ object.get_status_display }} · {% if object.is_public %}Public{% else %}Private{% endif %}</p>
+  <h3><a href="{% url 'staff:report-edit' object.pk %}">{{ object.title }}</a></h3>
+  <p class="muted">{{ object.project.name }}</p>
+</li>

@@ -1,0 +1,5 @@
+<li class="card record-card">
+  <p class="eyebrow">{{ object.get_verification_level_display }}</p>
+  <h3><a href="{% url 'staff:document-edit' object.pk %}">{{ object.title }}</a></h3>
+  <p class="muted">{{ object.publisher }}</p>
+</li>
