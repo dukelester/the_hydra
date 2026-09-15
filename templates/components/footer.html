@@ -70,13 +70,12 @@
       </div>
     </div>
 
-    <div class="footer-access">
-      {% include "components/access_bar.html" %}
-    </div>
-
     <div class="footer-bottom">
-      <p>{% trans "Evidence and source documents are the source of truth. H.Y.D.R.A. does not determine guilt, corruption, or fraud." %}</p>
-      <p class="footer-copy">© {% now "Y" %} H.Y.D.R.A.</p>
+      {% include "components/access_bar.html" %}
+      <div class="footer-legal">
+        <p>{% trans "Evidence and source documents are the source of truth. H.Y.D.R.A. does not determine guilt, corruption, or fraud." %}</p>
+        <p class="footer-copy">© {% now "Y" %} H.Y.D.R.A.</p>
+      </div>
     </div>
   </div>
 </footer>
