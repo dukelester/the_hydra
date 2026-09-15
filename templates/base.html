@@ -1,19 +1,22 @@
-{% load static %}
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if hydra_rtl %}rtl{% else %}ltr{% endif %}"{% if hydra_lite %} class="is-lite"{% endif %}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}H.Y.D.R.A.{% endblock %} — Human-centered Yield, Data, Rights &amp; Accountability</title>
-  <meta name="description" content="H.Y.D.R.A. is an evidence-first civic accountability platform: Human-centered Yield, Data, Rights and Accountability.">
+  <meta name="description" content="{% trans 'H.Y.D.R.A. is an evidence-first civic accountability platform: Human-centered Yield, Data, Rights and Accountability.' %}">
+  {% if not hydra_lite and not hydra_rtl %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  {% endif %}
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
   <link rel="icon" href="{% static 'img/mark.png' %}" type="image/png">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main">{% trans "Skip to content" %}</a>
   {% include "components/nav.html" %}
   <main id="main">
     {% if messages %}
@@ -26,8 +29,10 @@
     {% block content %}{% endblock %}
   </main>
   {% include "components/footer.html" %}
+  {% if not hydra_lite %}
   <script src="{% static 'js/htmx.min.js' %}" defer></script>
   <script src="{% static 'js/search.js' %}" defer></script>
+  {% endif %}
   <script src="{% static 'js/nav.js' %}" defer></script>
   {% block extra_js %}{% endblock %}
 </body>

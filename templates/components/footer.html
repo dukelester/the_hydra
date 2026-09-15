@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
@@ -10,67 +10,72 @@
             <span class="footer-tagline">Human-centered Yield, Data, Rights &amp; Accountability</span>
           </span>
         </a>
-        <p class="footer-lead">Follow the money. Find the evidence. Take action. An evidence-first civic platform for public projects, budgets, and citizen observations.</p>
-        <a class="btn btn-primary" href="{% url 'projects:list' %}">Investigate a project</a>
+        <p class="footer-lead">{% trans "Follow the money. Find the evidence. Take action. An evidence-first civic platform for public projects, budgets, and citizen observations." %}</p>
+        <a class="btn btn-primary" href="{% url 'projects:list' %}">{% trans "Investigate a project" %}</a>
       </div>
 
       <div class="footer-navs">
-        <nav class="footer-col" aria-label="Explore">
-          <h2>Explore</h2>
+        <nav class="footer-col" aria-label="{% trans 'Explore' %}">
+          <h2>{% trans "Explore" %}</h2>
           <ul>
-            <li><a href="{% url 'projects:list' %}">Projects</a></li>
-            <li><a href="{% url 'institutions:list' %}">Institutions</a></li>
-            <li><a href="{% url 'sources:list' %}">Documents</a></li>
-            <li><a href="{% url 'policies:list' %}">Policies</a></li>
-            <li><a href="{% url 'core:search' %}">Search</a></li>
+            <li><a href="{% url 'projects:list' %}">{% trans "Projects" %}</a></li>
+            <li><a href="{% url 'institutions:list' %}">{% trans "Institutions" %}</a></li>
+            <li><a href="{% url 'sources:list' %}">{% trans "Documents" %}</a></li>
+            <li><a href="{% url 'policies:list' %}">{% trans "Policies" %}</a></li>
+            <li><a href="{% url 'core:search' %}">{% trans "Search" %}</a></li>
           </ul>
         </nav>
 
-        <nav class="footer-col" aria-label="Follow">
-          <h2>Follow</h2>
+        <nav class="footer-col" aria-label="{% trans 'Follow' %}">
+          <h2>{% trans "Follow" %}</h2>
           <ul>
-            <li><a href="{% url 'projects:compare' %}">Compare</a></li>
-            <li><a href="{% url 'reports:counties' %}">County report</a></li>
-            <li><a href="{% url 'accounts:my-county' %}">Track my county</a></li>
+            <li><a href="{% url 'projects:compare' %}">{% trans "Compare" %}</a></li>
+            <li><a href="{% url 'reports:counties' %}">{% trans "County report" %}</a></li>
+            <li><a href="{% url 'accounts:my-county' %}">{% trans "Track my county" %}</a></li>
           </ul>
         </nav>
 
-        <nav class="footer-col" aria-label="Learn">
-          <h2>Learn</h2>
+        <nav class="footer-col" aria-label="{% trans 'Learn' %}">
+          <h2>{% trans "Learn" %}</h2>
           <ul>
-            <li><a href="{% url 'core:features' %}">Features</a></li>
-            <li><a href="{% url 'core:what-hydra-means' %}">About Hydra</a></li>
-            <li><a href="{% url 'core:how-it-works' %}">How it works</a></li>
-            <li><a href="{% url 'core:terms' %}">Terms of use</a></li>
+            <li><a href="{% url 'core:features' %}">{% trans "Features" %}</a></li>
+            <li><a href="{% url 'core:what-hydra-means' %}">{% trans "About Hydra" %}</a></li>
+            <li><a href="{% url 'core:how-it-works' %}">{% trans "How it works" %}</a></li>
+            <li><a href="{% url 'core:terms' %}">{% trans "Terms of use" %}</a></li>
+            <li><a href="{% url 'core:privacy' %}">{% trans "Privacy" %}</a></li>
           </ul>
         </nav>
 
-        <nav class="footer-col" aria-label="Account">
-          <h2>Account</h2>
+        <nav class="footer-col" aria-label="{% trans 'Account' %}">
+          <h2>{% trans "Account" %}</h2>
           <ul>
             {% if user.is_authenticated %}
-              <li><a href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
-              <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
-              <li><a href="{% url 'investigations:list' %}">Investigations</a></li>
-              <li><a href="{% url 'reports:list' %}">Reports</a></li>
-              {% if user.is_staff %}<li><a href="{% url 'staff:dashboard' %}">Admin dashboard</a></li>{% endif %}
+              <li><a href="{% url 'accounts:dashboard' %}">{% trans "Dashboard" %}</a></li>
+              <li><a href="{% url 'accounts:profile' %}">{% trans "Profile" %}</a></li>
+              <li><a href="{% url 'investigations:list' %}">{% trans "Investigations" %}</a></li>
+              <li><a href="{% url 'reports:list' %}">{% trans "Reports" %}</a></li>
+              {% if user.is_staff %}<li><a href="{% url 'staff:dashboard' %}">{% trans "Admin dashboard" %}</a></li>{% endif %}
               <li>
                 <form method="post" action="{% url 'accounts:logout' %}">
                   {% csrf_token %}
-                  <button type="submit">Log out</button>
+                  <button type="submit">{% trans "Log out" %}</button>
                 </form>
               </li>
             {% else %}
-              <li><a href="{% url 'accounts:register' %}">Create account</a></li>
-              <li><a href="{% url 'accounts:login' %}">Log in</a></li>
+              <li><a href="{% url 'accounts:register' %}">{% trans "Create account" %}</a></li>
+              <li><a href="{% url 'accounts:login' %}">{% trans "Log in" %}</a></li>
             {% endif %}
           </ul>
         </nav>
       </div>
     </div>
 
+    <div class="footer-access">
+      {% include "components/access_bar.html" %}
+    </div>
+
     <div class="footer-bottom">
-      <p>Evidence and source documents are the source of truth. H.Y.D.R.A. does not determine guilt, corruption, or fraud.</p>
+      <p>{% trans "Evidence and source documents are the source of truth. H.Y.D.R.A. does not determine guilt, corruption, or fraud." %}</p>
       <p class="footer-copy">© {% now "Y" %} H.Y.D.R.A.</p>
     </div>
   </div>

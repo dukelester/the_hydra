@@ -6,6 +6,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, ListView
 
+from apps.core.next_steps import project_next_steps
 from apps.core.services.coverage import calculate_evidence_coverage
 from apps.core.services.search import project_search_queryset
 from apps.core.services.timeline import build_project_timeline
@@ -128,6 +129,8 @@ class ProjectDetailView(DetailView):
         follow = follow_for(self.request.user, project)
         context["timeline"] = build_project_timeline(project)
         context["coverage"] = calculate_evidence_coverage(project)
+        project.coverage = context["coverage"]
+        context["next_steps"] = project_next_steps(project)
         context["allocations"] = project.allocations.all()
         context["evidence_items"] = project.evidence_items.all()
         context["documents"] = project.source_documents.all()

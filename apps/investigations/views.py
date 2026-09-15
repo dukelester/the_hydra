@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 
 from apps.core.forms import InvestigationForm
+from apps.core.next_steps import project_next_steps
+from apps.core.services.coverage import calculate_evidence_coverage
 from apps.core.permissions import (
     SESSION_INVESTIGATIONS,
     can_view_investigation,
@@ -29,14 +31,28 @@ class MyInvestigationsView(ListView):
 
 
 def investigate_project(request, slug):
-    project = get_object_or_404(Project, slug=slug)
-    form = InvestigationForm(request.POST or None, request.FILES or None, project=project)
+    project = get_object_or_404(
+        Project.objects.select_related("institution").prefetch_related(
+            "evidence_items",
+            "allocations",
+            "source_documents",
+            "timeline_events",
+        ),
+        slug=slug,
+    )
+    project.coverage = calculate_evidence_coverage(project)
+    form = InvestigationForm(
+        request.POST or None,
+        request.FILES or None,
+        project=project,
+        user=request.user,
+    )
     if request.method == "POST" and form.is_valid():
         investigation = form.save(commit=False)
         investigation.project = project
         if request.user.is_authenticated:
             investigation.user = request.user
-            investigation.is_anonymous = False
+            investigation.is_anonymous = bool(form.cleaned_data.get("hide_account"))
         else:
             investigation.user = None
             investigation.is_anonymous = True
@@ -56,6 +72,7 @@ def investigate_project(request, slug):
             "project": project,
             "max_upload_mb": settings.THEHYDRA_MAX_UPLOAD_BYTES // (1024 * 1024),
             "max_upload_files": getattr(settings, "THEHYDRA_MAX_UPLOAD_FILES", 8),
+            "next_steps": project_next_steps(project),
         },
     )
 

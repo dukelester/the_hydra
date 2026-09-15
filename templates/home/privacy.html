@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Privacy" %}{% endblock %}
+{% block content %}
+<article class="prose privacy-page">
+  <p class="kicker">{% trans "Your information" %}</p>
+  <h1>{% trans "Privacy" %}</h1>
+  <p class="lede">{% trans "Observations can include sensitive civic, health, or education facts. H.Y.D.R.A. keeps identity and data as small as the work requires, and it does not treat an observation as a finding of guilt." %}</p>
+
+  <h2>{% trans "What you can do without an account" %}</h2>
+  <p>{% trans "You can search, read projects, and submit a citizen observation without signing in. Guest observations are stored as anonymous. The same browser session can open the observation you just sent; another person cannot." %}</p>
+
+  <h2>{% trans "What an account stores" %}</h2>
+  <p>{% trans "An account keeps investigations, reports, tracked projects, favourites, and area watches with you. Username is required. Email is optional, and is only needed to reset a forgotten password. Display name, affiliation, and area are optional profile fields — not a public score." %}</p>
+
+  <h2>{% trans "Anonymous observations" %}</h2>
+  <p>{% trans "If you are signed in, you can choose not to show your account name on an observation. The record still stays in your list so you can find it later. Do not put other people’s private details in the text or in uploads." %}</p>
+
+  <h2>{% trans "Files you upload" %}</h2>
+  <p>{% trans "Photos and documents are stored on disk so staff can review them. Upload only what supports the observation. Remove faces, house numbers, and identity documents that are not needed." %}</p>
+
+  <h2>{% trans "How we protect the session" %}</h2>
+  <p>{% trans "Session cookies are HTTP-only. Pages do not send your referrer to other sites. The public record does not publish a guilt, corruption, or trust score against a person or a county." %}</p>
+
+  <h2>{% trans "Language and access" %}</h2>
+  <p>{% trans "Choose English, Kiswahili, French, Arabic, or Portuguese in the footer. Use less data to skip web fonts and heavy previews on a slow connection." %}</p>
+
+  <p>
+    <a class="btn btn-primary" href="{% url 'core:terms' %}">{% trans "Terms of use" %}</a>
+    <a class="btn btn-secondary" href="{% url 'core:how-it-works' %}">{% trans "How it works" %}</a>
+  </p>
+</article>
+{% endblock %}

@@ -1,0 +1,265 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr\n"
+
+msgid "H.Y.D.R.A. is an evidence-first civic accountability platform: Human-centered Yield, Data, Rights and Accountability."
+msgstr "H.Y.D.R.A. est un registre civique fondé sur les preuves : rendement centré sur l’humain, données, droits et redevabilité."
+
+msgid "Skip to content"
+msgstr "Aller au contenu"
+
+msgid "Follow the money"
+msgstr "Suivre l’argent"
+
+msgid "Search projects"
+msgstr "Rechercher des projets"
+
+msgid "Search thousands of projects…"
+msgstr "Recherchez des milliers de projets…"
+
+msgid "Searching…"
+msgstr "Recherche…"
+
+msgid "Main"
+msgstr "Principal"
+
+msgid "Explore"
+msgstr "Explorer"
+
+msgid "Projects"
+msgstr "Projets"
+
+msgid "Public works and budgets"
+msgstr "Travaux publics et budgets"
+
+msgid "Institutions"
+msgstr "Institutions"
+
+msgid "Departments and agencies"
+msgstr "Ministères et agences"
+
+msgid "Documents"
+msgstr "Documents"
+
+msgid "Source files and evidence"
+msgstr "Fichiers sources et preuves"
+
+msgid "Policies"
+msgstr "Politiques"
+
+msgid "Public rules and plans"
+msgstr "Règles et plans publics"
+
+msgid "Search"
+msgstr "Recherche"
+
+msgid "Ranked civic search"
+msgstr "Recherche civique classée"
+
+msgid "Compare"
+msgstr "Comparer"
+
+msgid "Projects, counties, rankings"
+msgstr "Projets, comtés, classements"
+
+msgid "County report"
+msgstr "Rapport du comté"
+
+msgid "Allocation and delivery charts"
+msgstr "Graphiques d’allocation et d’exécution"
+
+msgid "Track my county"
+msgstr "Suivre mon comté"
+
+msgid "Up to 4 areas"
+msgstr "Jusqu’à 4 zones"
+
+msgid "Features"
+msgstr "Fonctionnalités"
+
+msgid "About Hydra"
+msgstr "À propos d’Hydra"
+
+msgid "How it works"
+msgstr "Comment ça marche"
+
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+msgid "Create account"
+msgstr "Créer un compte"
+
+msgid "Log in"
+msgstr "Connexion"
+
+msgid "Account menu for"
+msgstr "Menu du compte pour"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Investigations"
+msgstr "Enquêtes"
+
+msgid "Reports"
+msgstr "Rapports"
+
+msgid "Admin dashboard"
+msgstr "Tableau de bord staff"
+
+msgid "Log out"
+msgstr "Déconnexion"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Mobile"
+msgstr "Mobile"
+
+msgid "Search projects…"
+msgstr "Rechercher des projets…"
+
+msgid "Follow the money. Find the evidence. Take action. An evidence-first civic platform for public projects, budgets, and citizen observations."
+msgstr "Suivez l’argent. Trouvez les preuves. Agissez. Une plateforme civique fondée sur les preuves pour les projets publics, les budgets et les observations citoyennes."
+
+msgid "Investigate a project"
+msgstr "Enquêter sur un projet"
+
+msgid "Follow"
+msgstr "Suivre"
+
+msgid "Learn"
+msgstr "Comprendre"
+
+msgid "Account"
+msgstr "Compte"
+
+msgid "Terms of use"
+msgstr "Conditions d’utilisation"
+
+msgid "Privacy"
+msgstr "Confidentialité"
+
+msgid "Evidence and source documents are the source of truth. H.Y.D.R.A. does not determine guilt, corruption, or fraud."
+msgstr "Les preuves et documents sources font foi. H.Y.D.R.A. ne statue pas sur la culpabilité, la corruption ou la fraude."
+
+msgid "Language"
+msgstr "Langue"
+
+msgid "Apply"
+msgstr "Appliquer"
+
+msgid "Use less data"
+msgstr "Utiliser moins de données"
+
+msgid "Use full pages"
+msgstr "Utiliser les pages complètes"
+
+msgid "Your information"
+msgstr "Vos informations"
+
+msgid "Observations can include sensitive civic, health, or education facts. H.Y.D.R.A. keeps identity and data as small as the work requires, and it does not treat an observation as a finding of guilt."
+msgstr "Une observation peut contenir des faits civiques, sanitaires ou éducatifs sensibles. H.Y.D.R.A. limite l’identité et les données au nécessaire, et ne traite pas une observation comme une déclaration de culpabilité."
+
+msgid "What you can do without an account"
+msgstr "Sans compte"
+
+msgid "You can search, read projects, and submit a citizen observation without signing in. Guest observations are stored as anonymous. The same browser session can open the observation you just sent; another person cannot."
+msgstr "Vous pouvez chercher, lire les projets et envoyer une observation sans compte. Les observations invitées sont anonymes. La même session de navigateur peut rouvrir celle que vous venez d’envoyer ; une autre personne ne le peut pas."
+
+msgid "What an account stores"
+msgstr "Ce qu’un compte conserve"
+
+msgid "An account keeps investigations, reports, tracked projects, favourites, and area watches with you. Username is required. Email is optional, and is only needed to reset a forgotten password. Display name, affiliation, and area are optional profile fields — not a public score."
+msgstr "Un compte conserve enquêtes, rapports, projets suivis, favoris et zones. Le nom d’utilisateur est obligatoire. L’e-mail est facultatif, utile seulement pour réinitialiser un mot de passe. Nom affiché, affiliation et zone sont optionnels — pas un score public."
+
+msgid "Anonymous observations"
+msgstr "Observations anonymes"
+
+msgid "If you are signed in, you can choose not to show your account name on an observation. The record still stays in your list so you can find it later. Do not put other people’s private details in the text or in uploads."
+msgstr "Connecté, vous pouvez masquer le nom du compte sur une observation. L’enregistrement reste dans votre liste. N’ajoutez pas les données privées d’autrui dans le texte ou les fichiers."
+
+msgid "Files you upload"
+msgstr "Fichiers envoyés"
+
+msgid "Photos and documents are stored on disk so staff can review them. Upload only what supports the observation. Remove faces, house numbers, and identity documents that are not needed."
+msgstr "Photos et documents sont stockés pour relecture. N’envoyez que ce qui appuie l’observation. Retirez visages, numéros de maison et pièces d’identité inutiles."
+
+msgid "How we protect the session"
+msgstr "Protection de la session"
+
+msgid "Session cookies are HTTP-only. Pages do not send your referrer to other sites. The public record does not publish a guilt, corruption, or trust score against a person or a county."
+msgstr "Les cookies de session sont HTTP-only. Les pages n’envoient pas le referrer vers d’autres sites. Le registre public ne publie pas de score de culpabilité, corruption ou confiance contre une personne ou un comté."
+
+msgid "Language and access"
+msgstr "Langue et accès"
+
+msgid "Choose English, Kiswahili, French, Arabic, or Portuguese in the footer. Use less data to skip web fonts and heavy previews on a slow connection."
+msgstr "Choisissez l’anglais, le kiswahili, le français, l’arabe ou le portugais en pied de page. « Moins de données » évite les polices web et les aperçus lourds sur une connexion lente."
+
+msgid "After the file"
+msgstr "Après le dossier"
+
+msgid "What you can do next"
+msgstr "Que faire ensuite"
+
+msgid "Finding the record is only the start. These steps are written for Kenya first. They are not legal advice, and they do not decide guilt."
+msgstr "Trouver le dossier n’est que le début. Ces étapes sont rédigées d’abord pour le Kenya. Ce n’est pas un conseil juridique et cela ne statue pas sur la culpabilité."
+
+msgid "your county"
+msgstr "votre comté"
+
+msgid "the responsible office"
+msgstr "le service responsable"
+
+msgid "1 · The file"
+msgstr "1 · Le dossier"
+
+msgid "Read what is missing"
+msgstr "Lire ce qui manque"
+
+msgid "This page lists claims, sources, and gaps. If a stage says evidence is unavailable, that is the starting point — not a finding of wrongdoing."
+msgstr "Cette page liste revendications, sources et lacunes. Si une étape dit que la preuve est indisponible, c’est le point de départ — pas une constatation de faute."
+
+msgid "Read the timeline, budget, and source documents. Note what the file actually supports before you act."
+msgstr "Lisez le calendrier, le budget et les documents. Notez ce que le dossier étaye réellement avant d’agir."
+
+msgid "2 · The office"
+msgstr "2 · Le service"
+
+msgid "Ask %(institution)s"
+msgstr "Écrire à %(institution)s"
+
+msgid "Write to the implementing office and ask for the missing pages: budget vote, tender, contract, or completion certificate. Name the project and the financial year. Keep a copy of what you send."
+msgstr "Écrivez au service d’exécution et demandez les pages manquantes : vote budgétaire, appel d’offres, contrat ou certificat d’achèvement. Nommez le projet et l’exercice. Conservez une copie."
+
+msgid "3 · The law"
+msgstr "3 · La loi"
+
+msgid "Request information in writing"
+msgstr "Demander l’information par écrit"
+
+msgid "In Kenya, the Access to Information Act, 2016 lets you ask a public body for records. Say what you need, why it is a public project file, and where to send the reply. If there is no useful answer, the Commission on Administrative Justice (Office of the Ombudsman) is the national oversight office for access to information."
+msgstr "Au Kenya, la loi de 2016 sur l’accès à l’information permet de demander des dossiers à un organisme public. Précisez ce dont vous avez besoin, pourquoi il s’agit d’un projet public, et où répondre. Sans réponse utile, la Commission de la justice administrative (médiateur) est l’organe national de contrôle de l’accès à l’information."
+
+msgid "County: %(county)s"
+msgstr "Comté : %(county)s"
+
+msgid "4 · What you saw"
+msgstr "4 · Ce que vous avez vu"
+
+msgid "Record a citizen observation"
+msgstr "Enregistrer une observation citoyenne"
+
+msgid "If you visited the site, write what you saw, when, and where. You can submit without an account. Do not include other people’s private details. An observation is not a finding."
+msgstr "Si vous êtes allé sur place, écrivez ce que vous avez vu, quand et où. Vous pouvez envoyer sans compte. N’incluez pas les données privées d’autrui. Une observation n’est pas une constatation."
+
+msgid "5 · A structured file"
+msgstr "5 · Un dossier structuré"
+
+msgid "Generate a private report"
+msgstr "Générer un rapport privé"
+
+msgid "A report puts official information and your observation in separate columns. Keep it private until you choose to share it with an oversight office, a journalist, or the county assembly. It does not determine guilt."
+msgstr "Un rapport sépare l’information officielle et votre observation. Gardez-le privé jusqu’à ce que vous le partagiez avec un organe de contrôle, un journaliste ou l’assemblée du comté. Il ne statue pas sur la culpabilité."

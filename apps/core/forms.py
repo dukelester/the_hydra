@@ -375,6 +375,7 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.project = kwargs.pop("project", None)
+        self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
         if self.project and not self.initial.get("official_information"):
             self.initial["official_information"] = self.project.status and (
@@ -392,6 +393,12 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
             f"Optional. Up to {max_files} files, {max_mb} MB each. "
             "PDF, Word (.docx), Excel (.xlsx), CSV, or image. Files are stored on disk and processed after submit."
         )
+        if self.user and getattr(self.user, "is_authenticated", False):
+            self.fields["hide_account"] = forms.BooleanField(
+                required=False,
+                label="Do not show my account name on this observation",
+                help_text="The observation stays attached to your account so you can find it later. Public and shared copies can be labelled anonymous.",
+            )
         self._style_fields()
 
     def clean_attachment(self):

@@ -68,9 +68,20 @@
         {% include "components/form_field.html" with field=form.attachment %}
       </fieldset>
 
+      <fieldset class="investigate-step">
+        <legend>
+          <span class="step-index">4</span>
+          Privacy
+        </legend>
+        <p class="fieldset-lead">Do not include other people’s private details. Guest submissions are stored without an account name.</p>
+        {% if form.hide_account %}
+          {% include "components/form_field.html" with field=form.hide_account %}
+        {% endif %}
+      </fieldset>
+
       <div class="investigate-submit">
         <button class="btn btn-primary btn-large" type="submit">Submit observation</button>
-        <p class="muted">You can submit without an account. Do not include unnecessary personal information. Observations stay unverified until independently reviewed.</p>
+        <p class="muted">You can submit without an account. Do not include unnecessary personal information. Observations stay unverified until independently reviewed. <a href="{% url 'core:privacy' %}">Privacy</a></p>
       </div>
     </form>
 
@@ -106,8 +117,11 @@
           <li>Your words are labelled as a citizen observation.</li>
           <li>Official claims stay in their own field.</li>
           <li>Nothing here is a finding of corruption or fraud.</li>
+          <li>Guest observations are anonymous. Signed-in users can hide their account name.</li>
         </ul>
       </section>
+
+      {% include "components/next_steps.html" %}
 
       <section class="card aside-note">
         <h3>What you can attach</h3>

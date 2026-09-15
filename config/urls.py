@@ -8,6 +8,7 @@ admin.site.site_title = "TheHydra admin"
 admin.site.index_title = "Evidence, projects, and reports"
 
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
     path("admin/", admin.site.urls),
     path("admin_dashboard/", include("apps.staff.urls")),
     path("api/v1/", include("config.api_urls")),

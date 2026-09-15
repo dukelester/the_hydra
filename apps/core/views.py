@@ -2,8 +2,13 @@ from urllib.parse import urlencode
 
 from django.core.paginator import Paginator
 from django.db.models import prefetch_related_objects
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.utils.http import url_has_allowed_host_and_scheme
+from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
+
+from apps.core.access import set_lite
 
 from apps.core.services.coverage import calculate_evidence_coverage
 from apps.core.services.search import (
@@ -63,6 +68,23 @@ class FeaturesView(TemplateView):
 
 class TermsView(TemplateView):
     template_name = "home/terms.html"
+
+
+class PrivacyView(TemplateView):
+    template_name = "home/privacy.html"
+
+
+def _safe_next(request):
+    nxt = request.POST.get("next") or "/"
+    if nxt and url_has_allowed_host_and_scheme(nxt, allowed_hosts={request.get_host()}):
+        return nxt
+    return "/"
+
+
+@require_POST
+def toggle_lite(request):
+    set_lite(request, request.POST.get("lite") == "1")
+    return HttpResponseRedirect(_safe_next(request))
 
 
 def search_suggest(request):

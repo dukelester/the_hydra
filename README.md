@@ -28,6 +28,16 @@ Along the way you can watch a county, track a project, compare files, and read c
 
 H.Y.D.R.A. does not determine guilt, corruption, or fraud. It does not invent missing facts. It does not score people, counties, or contractors for trust.
 
+## Access, language, and next steps
+
+The record is meant to stay useful where connections are weak and devices are basic.
+
+- **Low data.** Footer control “Use less data” skips Google fonts, live search suggestions, and auto-loaded PDF/image previews. Browsers that send `Save-Data: on` get the same lighter pages. Search still works as a normal form submit. Document download stays available.
+- **Access.** Skip-to-content, labelled fields, visible focus, and system fonts in lite mode. Arabic uses a right-to-left layout.
+- **Privacy.** Observations can be submitted without an account. Guest records are anonymous. Signed-in users can hide their account name. `/privacy/` explains what is stored. Do not upload other people’s private details.
+- **Languages.** English, Kiswahili, French, Arabic, and Portuguese in the footer. Project names and source files stay in the language they were recorded. Further local languages can be added as translation files.
+- **Local next steps.** Each project page lists what to do after reading the file. Kenya is the first jurisdiction (institution request, Access to Information Act 2016, Commission on Administrative Justice). The same structure can take other local contacts. This is not legal advice and not a finding of wrongdoing.
+
 ## Stack
 
 - Python 3.12+
@@ -52,7 +62,8 @@ the_hydra/
 │   ├── reports/            # Accountability reports and county charts
 │   ├── policies/           # Browseable policies
 │   ├── staff/              # Staff console at /admin_dashboard/
-│   └── core/               # Search, coverage, uploads, shared services
+│   └── core/               # Search, coverage, uploads, i18n, next steps
+├── locale/                 # en, sw, fr, ar, pt translations
 ├── templates/
 ├── static/
 ├── tests/
@@ -144,7 +155,8 @@ Coverage includes projects, search, institutions, evidence, timeline, investigat
 | `/what-hydra-means/` | About H.Y.D.R.A. |
 | `/features/` | Feature list |
 | `/terms/` | Terms of use |
-| `/search/` | Ranked search (HTMX suggestions in the header and on home) |
+| `/privacy/` | Privacy |
+| `/search/` | Ranked search (HTMX suggestions unless lite mode) |
 | `/projects/` | Project list |
 | `/projects/<slug>/` | Project record |
 | `/projects/<slug>/investigate/` | Citizen observation form |

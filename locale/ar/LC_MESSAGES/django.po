@@ -1,0 +1,265 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ar\n"
+
+msgid "H.Y.D.R.A. is an evidence-first civic accountability platform: Human-centered Yield, Data, Rights and Accountability."
+msgstr "هيدرا سجل مدني مبني على الأدلة: عائد يضع الناس أولاً، وبيانات، وحقوق، ومساءلة."
+
+msgid "Skip to content"
+msgstr "تخطٍ إلى المحتوى"
+
+msgid "Follow the money"
+msgstr "تابع المال"
+
+msgid "Search projects"
+msgstr "ابحث في المشاريع"
+
+msgid "Search thousands of projects…"
+msgstr "ابحث في آلاف المشاريع…"
+
+msgid "Searching…"
+msgstr "جارٍ البحث…"
+
+msgid "Main"
+msgstr "رئيسي"
+
+msgid "Explore"
+msgstr "استكشف"
+
+msgid "Projects"
+msgstr "المشاريع"
+
+msgid "Public works and budgets"
+msgstr "أعمال عامة وميزانيات"
+
+msgid "Institutions"
+msgstr "المؤسسات"
+
+msgid "Departments and agencies"
+msgstr "وزارات وهيئات"
+
+msgid "Documents"
+msgstr "الوثائق"
+
+msgid "Source files and evidence"
+msgstr "ملفات المصدر والأدلة"
+
+msgid "Policies"
+msgstr "السياسات"
+
+msgid "Public rules and plans"
+msgstr "قواعد وخطط عامة"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Ranked civic search"
+msgstr "بحث مدني مرتّب"
+
+msgid "Compare"
+msgstr "قارن"
+
+msgid "Projects, counties, rankings"
+msgstr "مشاريع، مقاطعات، ترتيب"
+
+msgid "County report"
+msgstr "تقرير المقاطعة"
+
+msgid "Allocation and delivery charts"
+msgstr "رسوم التخصيص والتنفيذ"
+
+msgid "Track my county"
+msgstr "تابع مقاطعتي"
+
+msgid "Up to 4 areas"
+msgstr "حتى 4 مناطق"
+
+msgid "Features"
+msgstr "الميزات"
+
+msgid "About Hydra"
+msgstr "عن هيدرا"
+
+msgid "How it works"
+msgstr "كيف يعمل"
+
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+msgid "Create account"
+msgstr "إنشاء حساب"
+
+msgid "Log in"
+msgstr "تسجيل الدخول"
+
+msgid "Account menu for"
+msgstr "قائمة الحساب لـ"
+
+msgid "Profile"
+msgstr "الملف"
+
+msgid "Investigations"
+msgstr "التحقيقات"
+
+msgid "Reports"
+msgstr "التقارير"
+
+msgid "Admin dashboard"
+msgstr "لوحة الإدارة"
+
+msgid "Log out"
+msgstr "تسجيل الخروج"
+
+msgid "Menu"
+msgstr "القائمة"
+
+msgid "Mobile"
+msgstr "الجوال"
+
+msgid "Search projects…"
+msgstr "ابحث في المشاريع…"
+
+msgid "Follow the money. Find the evidence. Take action. An evidence-first civic platform for public projects, budgets, and citizen observations."
+msgstr "تابع المال. اعثر على الدليل. اتخذ خطوة. منصة مدنية مبنية على الأدلة للمشاريع العامة والميزانيات وملاحظات المواطنين."
+
+msgid "Investigate a project"
+msgstr "حقّق في مشروع"
+
+msgid "Follow"
+msgstr "تابع"
+
+msgid "Learn"
+msgstr "تعرّف"
+
+msgid "Account"
+msgstr "الحساب"
+
+msgid "Terms of use"
+msgstr "شروط الاستخدام"
+
+msgid "Privacy"
+msgstr "الخصوصية"
+
+msgid "Evidence and source documents are the source of truth. H.Y.D.R.A. does not determine guilt, corruption, or fraud."
+msgstr "الأدلة ووثائق المصدر هي مرجع الحقيقة. هيدرا لا تقرر الذنب أو الفساد أو الاحتيال."
+
+msgid "Language"
+msgstr "اللغة"
+
+msgid "Apply"
+msgstr "تطبيق"
+
+msgid "Use less data"
+msgstr "استخدم بيانات أقل"
+
+msgid "Use full pages"
+msgstr "استخدم الصفحات الكاملة"
+
+msgid "Your information"
+msgstr "معلوماتك"
+
+msgid "Observations can include sensitive civic, health, or education facts. H.Y.D.R.A. keeps identity and data as small as the work requires, and it does not treat an observation as a finding of guilt."
+msgstr "قد تتضمن الملاحظات معلومات مدنية أو صحية أو تعليمية حسّاسة. هيدرا تقلّل الهوية والبيانات إلى ما تحتاجه المهمة، ولا تعامل الملاحظة كحكم بالذنب."
+
+msgid "What you can do without an account"
+msgstr "ما يمكنك فعله دون حساب"
+
+msgid "You can search, read projects, and submit a citizen observation without signing in. Guest observations are stored as anonymous. The same browser session can open the observation you just sent; another person cannot."
+msgstr "يمكنك البحث وقراءة المشاريع وإرسال ملاحظة مواطن دون تسجيل الدخول. ملاحظات الزائر تُحفظ دون اسم. جلسة المتصفح نفسها يمكنها فتح الملاحظة التي أرسلتها؛ شخص آخر لا يستطيع."
+
+msgid "What an account stores"
+msgstr "ماذا يخزّن الحساب"
+
+msgid "An account keeps investigations, reports, tracked projects, favourites, and area watches with you. Username is required. Email is optional, and is only needed to reset a forgotten password. Display name, affiliation, and area are optional profile fields — not a public score."
+msgstr "الحساب يحفظ التحقيقات والتقارير والمشاريع المتابعة والمفضّلة والمناطق. اسم المستخدم مطلوب. البريد اختياري ويُستخدم فقط لإعادة كلمة المرور. الاسم المعروض والجهة والمنطقة حقول اختيارية — وليست درجة عامة."
+
+msgid "Anonymous observations"
+msgstr "ملاحظات دون اسم"
+
+msgid "If you are signed in, you can choose not to show your account name on an observation. The record still stays in your list so you can find it later. Do not put other people’s private details in the text or in uploads."
+msgstr "إن كنت مسجّلاً يمكنك إخفاء اسم حسابك على الملاحظة. السجل يبقى في قائمتك. لا تضع بيانات خاصة بآخرين في النص أو الملفات."
+
+msgid "Files you upload"
+msgstr "الملفات التي ترفعها"
+
+msgid "Photos and documents are stored on disk so staff can review them. Upload only what supports the observation. Remove faces, house numbers, and identity documents that are not needed."
+msgstr "تُحفظ الصور والوثائق على القرص للمراجعة. ارفع فقط ما يدعم الملاحظة. احذف الوجوه وأرقام المنازل ووثائق الهوية غير اللازمة."
+
+msgid "How we protect the session"
+msgstr "كيف نحمي الجلسة"
+
+msgid "Session cookies are HTTP-only. Pages do not send your referrer to other sites. The public record does not publish a guilt, corruption, or trust score against a person or a county."
+msgstr "كوكيز الجلسة HTTP-only. الصفحات لا ترسل المُحيل إلى مواقع أخرى. السجل العام لا ينشر درجة ذنب أو فساد أو ثقة ضد شخص أو مقاطعة."
+
+msgid "Language and access"
+msgstr "اللغة والوصول"
+
+msgid "Choose English, Kiswahili, French, Arabic, or Portuguese in the footer. Use less data to skip web fonts and heavy previews on a slow connection."
+msgstr "اختر الإنجليزية أو السواحيلية أو الفرنسية أو العربية أو البرتغالية من التذييل. استخدم بيانات أقل لتجاوز خطوط الويب والمعاينات الثقيلة على اتصال بطيء."
+
+msgid "After the file"
+msgstr "بعد الملف"
+
+msgid "What you can do next"
+msgstr "ماذا يمكنك أن تفعل بعد ذلك"
+
+msgid "Finding the record is only the start. These steps are written for Kenya first. They are not legal advice, and they do not decide guilt."
+msgstr "العثور على السجل مجرد بداية. هذه الخطوات كُتبت لكينيا أولاً. ليست استشارة قانونية ولا تقرر الذنب."
+
+msgid "your county"
+msgstr "مقاطعتك"
+
+msgid "the responsible office"
+msgstr "المكتب المسؤول"
+
+msgid "1 · The file"
+msgstr "1 · الملف"
+
+msgid "Read what is missing"
+msgstr "اقرأ ما ينقص"
+
+msgid "This page lists claims, sources, and gaps. If a stage says evidence is unavailable, that is the starting point — not a finding of wrongdoing."
+msgstr "هذه الصفحة تسرد الادعاءات والمصادر والفجوات. إن قالت مرحلة إن الدليل غير متاح، فهذه نقطة البداية — وليست حكماً بخطأ."
+
+msgid "Read the timeline, budget, and source documents. Note what the file actually supports before you act."
+msgstr "اقرأ الجدول الزمني والميزانية ووثائق المصدر. سجّل ما يدعمه الملف فعلاً قبل أن تتصرف."
+
+msgid "2 · The office"
+msgstr "2 · المكتب"
+
+msgid "Ask %(institution)s"
+msgstr "اسأل %(institution)s"
+
+msgid "Write to the implementing office and ask for the missing pages: budget vote, tender, contract, or completion certificate. Name the project and the financial year. Keep a copy of what you send."
+msgstr "اكتب إلى جهة التنفيذ واطلب الصفحات الناقصة: اعتماد الميزانية أو المناقصة أو العقد أو شهادة الإنجاز. سمِّ المشروع والسنة المالية. احتفظ بنسخة مما ترسل."
+
+msgid "3 · The law"
+msgstr "3 · القانون"
+
+msgid "Request information in writing"
+msgstr "اطلب المعلومات كتابةً"
+
+msgid "In Kenya, the Access to Information Act, 2016 lets you ask a public body for records. Say what you need, why it is a public project file, and where to send the reply. If there is no useful answer, the Commission on Administrative Justice (Office of the Ombudsman) is the national oversight office for access to information."
+msgstr "في كينيا يتيح قانون الوصول إلى المعلومات لعام 2016 أن تطلب سجلات من هيئة عامة. بيّن ما تحتاجه ولماذا هو ملف مشروع عام وأين يُرسل الرد. إن لم يأتِ جواب مفيد، فاللجنة المعنية بالعدالة الإدارية (ديوان المظالم) هي جهة الرقابة الوطنية للوصول إلى المعلومات."
+
+msgid "County: %(county)s"
+msgstr "المقاطعة: %(county)s"
+
+msgid "4 · What you saw"
+msgstr "4 · ما رأيته"
+
+msgid "Record a citizen observation"
+msgstr "سجّل ملاحظة مواطن"
+
+msgid "If you visited the site, write what you saw, when, and where. You can submit without an account. Do not include other people’s private details. An observation is not a finding."
+msgstr "إن زرت الموقع فاكتب ما رأيته ومتى وأين. يمكنك الإرسال دون حساب. لا تدرج بيانات خاصة بآخرين. الملاحظة ليست حكماً."
+
+msgid "5 · A structured file"
+msgstr "5 · ملف منظّم"
+
+msgid "Generate a private report"
+msgstr "أنشئ تقريراً خاصاً"
+
+msgid "A report puts official information and your observation in separate columns. Keep it private until you choose to share it with an oversight office, a journalist, or the county assembly. It does not determine guilt."
+msgstr "يضع التقرير المعلومات الرسمية وملاحظتك في عمودين منفصلين. أبقه خاصاً حتى تختار مشاركته مع جهة رقابة أو صحفي أو مجلس المقاطعة. لا يقرر الذنب."

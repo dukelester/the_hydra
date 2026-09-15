@@ -1,0 +1,20 @@
+{% load i18n %}
+{% if next_steps %}
+<section class="next-steps" aria-labelledby="next-steps-heading">
+  <div class="next-steps-intro">
+    <p class="kicker">{% trans "After the file" %}</p>
+    <h2 id="next-steps-heading">{% trans "What you can do next" %}</h2>
+    <p>{% trans "Finding the record is only the start. These steps are written for Kenya first. They are not legal advice, and they do not decide guilt." %}</p>
+  </div>
+  <ol class="next-steps-list">
+    {% for step in next_steps %}
+      <li>
+        <p class="kicker">{{ step.kicker }}</p>
+        <h3>{{ step.title }}</h3>
+        <p>{{ step.body }}</p>
+        {% if step.extra %}<p class="muted">{{ step.extra }}</p>{% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endif %}

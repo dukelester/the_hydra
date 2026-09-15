@@ -98,9 +98,18 @@
         <p class="notice">This is a large file. The preview streams in chunks and shows the start of the document. Download the original to read everything.</p>
       {% endif %}
       {% if preview.kind == "pdf" %}
-        <div class="preview-frame">
-          <iframe title="PDF preview of {{ document.title }}" src="{% url 'sources:file' document.pk %}#view=FitH" loading="lazy"></iframe>
-        </div>
+        {% if hydra_lite %}
+          <details class="preview-deferred">
+            <summary>Load PDF preview (uses more data)</summary>
+            <div class="preview-frame">
+              <iframe title="PDF preview of {{ document.title }}" src="{% url 'sources:file' document.pk %}#view=FitH" loading="lazy"></iframe>
+            </div>
+          </details>
+        {% else %}
+          <div class="preview-frame">
+            <iframe title="PDF preview of {{ document.title }}" src="{% url 'sources:file' document.pk %}#view=FitH" loading="lazy"></iframe>
+          </div>
+        {% endif %}
       {% elif preview.kind == "docx" %}
         <div class="doc-preview" aria-label="Word preview">
           {% for paragraph in preview.paragraphs %}
@@ -133,7 +142,14 @@
           {% endfor %}
         </div>
       {% elif preview.kind == "image" %}
-        <img class="doc-image" src="{% url 'sources:file' document.pk %}" alt="{{ document.title }}">
+        {% if hydra_lite %}
+          <details class="preview-deferred">
+            <summary>Load image (uses more data)</summary>
+            <img class="doc-image" src="{% url 'sources:file' document.pk %}" alt="{{ document.title }}">
+          </details>
+        {% else %}
+          <img class="doc-image" src="{% url 'sources:file' document.pk %}" alt="{{ document.title }}">
+        {% endif %}
       {% elif preview.kind == "missing" %}
         <p class="muted">The file is recorded but missing from storage.</p>
       {% else %}

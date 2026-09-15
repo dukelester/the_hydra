@@ -25,6 +25,9 @@
     <a href="#reports">Reports</a>
     <a href="#county-report">County report</a>
     <a href="#accounts">Accounts and privacy</a>
+    <a href="#access">Low data and access</a>
+    <a href="#languages">Languages</a>
+    <a href="#next-steps">What to do next</a>
   </nav>
 
   <section class="about-block feature-detail" id="search" aria-labelledby="search-heading">
@@ -124,10 +127,32 @@
     <h2 id="accounts-heading">Accounts and privacy</h2>
     <p>The public record is readable without signing in. An account keeps investigations, reports, tracked projects, favourites, and your county watch with you. You can add a display name, affiliation, role, and area on your profile. Email is optional, but needed to reset a forgotten password.</p>
     <p>Username stays yours. Display name is what the dashboard and avatar show. Nothing on the profile is a public score.</p>
+    <p>Guest observations are anonymous. Signed-in users can hide their account name on a submission. Do not include other people’s private details. <a class="text-link" href="{% url 'core:privacy' %}">Privacy</a></p>
     <p>
       <a class="text-link" href="{% url 'accounts:register' %}">Create an account</a>
       · <a class="text-link" href="{% url 'core:terms' %}">Terms of use</a>
+      · <a class="text-link" href="{% url 'core:privacy' %}">Privacy</a>
     </p>
+  </section>
+
+  <section class="about-block feature-detail" id="access" aria-labelledby="access-heading">
+    <p class="kicker">Slow connections</p>
+    <h2 id="access-heading">Low data and access</h2>
+    <p>The public record is HTML first. Search still works if you submit the form. Use less data in the footer to skip Google fonts, live search suggestions, and auto-loaded PDF previews. Document pages still offer a download. Pages are readable on a basic phone browser.</p>
+    <p>Choose a language with a native name, not a flag. Skip-to-content, labelled forms, and visible focus are part of the chrome so the same file can be used with a screen reader or a shared handset.</p>
+  </section>
+
+  <section class="about-block feature-detail" id="languages" aria-labelledby="languages-heading">
+    <p class="kicker">Many languages</p>
+    <h2 id="languages-heading">Languages</h2>
+    <p>H.Y.D.R.A. ships with English, Kiswahili, French, Arabic, and Portuguese. Arabic pages use right-to-left layout. Project names and source files stay in the language they were recorded. Local languages can be added as translation files without changing the evidence model.</p>
+  </section>
+
+  <section class="about-block feature-detail" id="next-steps" aria-labelledby="next-steps-heading">
+    <p class="kicker">After you find the file</p>
+    <h2 id="next-steps-heading">What to do next</h2>
+    <p>A project page does not stop at the timeline. It lists next steps written for Kenya first: read the gap, write to the institution, request records under the Access to Information Act, 2016, record what you saw, then generate a private report. Those contacts can be swapped for another community without inventing facts.</p>
+    <p>This is not legal advice and not a finding of wrongdoing.</p>
   </section>
 </article>
 

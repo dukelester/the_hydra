@@ -1,0 +1,265 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en\n"
+
+msgid "H.Y.D.R.A. is an evidence-first civic accountability platform: Human-centered Yield, Data, Rights and Accountability."
+msgstr "H.Y.D.R.A. is an evidence-first civic accountability platform: Human-centered Yield, Data, Rights and Accountability."
+
+msgid "Skip to content"
+msgstr "Skip to content"
+
+msgid "Follow the money"
+msgstr "Follow the money"
+
+msgid "Search projects"
+msgstr "Search projects"
+
+msgid "Search thousands of projects…"
+msgstr "Search thousands of projects…"
+
+msgid "Searching…"
+msgstr "Searching…"
+
+msgid "Main"
+msgstr "Main"
+
+msgid "Explore"
+msgstr "Explore"
+
+msgid "Projects"
+msgstr "Projects"
+
+msgid "Public works and budgets"
+msgstr "Public works and budgets"
+
+msgid "Institutions"
+msgstr "Institutions"
+
+msgid "Departments and agencies"
+msgstr "Departments and agencies"
+
+msgid "Documents"
+msgstr "Documents"
+
+msgid "Source files and evidence"
+msgstr "Source files and evidence"
+
+msgid "Policies"
+msgstr "Policies"
+
+msgid "Public rules and plans"
+msgstr "Public rules and plans"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Ranked civic search"
+msgstr "Ranked civic search"
+
+msgid "Compare"
+msgstr "Compare"
+
+msgid "Projects, counties, rankings"
+msgstr "Projects, counties, rankings"
+
+msgid "County report"
+msgstr "County report"
+
+msgid "Allocation and delivery charts"
+msgstr "Allocation and delivery charts"
+
+msgid "Track my county"
+msgstr "Track my county"
+
+msgid "Up to 4 areas"
+msgstr "Up to 4 areas"
+
+msgid "Features"
+msgstr "Features"
+
+msgid "About Hydra"
+msgstr "About Hydra"
+
+msgid "How it works"
+msgstr "How it works"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Create account"
+msgstr "Create account"
+
+msgid "Log in"
+msgstr "Log in"
+
+msgid "Account menu for"
+msgstr "Account menu for"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Investigations"
+msgstr "Investigations"
+
+msgid "Reports"
+msgstr "Reports"
+
+msgid "Admin dashboard"
+msgstr "Admin dashboard"
+
+msgid "Log out"
+msgstr "Log out"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Mobile"
+msgstr "Mobile"
+
+msgid "Search projects…"
+msgstr "Search projects…"
+
+msgid "Follow the money. Find the evidence. Take action. An evidence-first civic platform for public projects, budgets, and citizen observations."
+msgstr "Follow the money. Find the evidence. Take action. An evidence-first civic platform for public projects, budgets, and citizen observations."
+
+msgid "Investigate a project"
+msgstr "Investigate a project"
+
+msgid "Follow"
+msgstr "Follow"
+
+msgid "Learn"
+msgstr "Learn"
+
+msgid "Account"
+msgstr "Account"
+
+msgid "Terms of use"
+msgstr "Terms of use"
+
+msgid "Privacy"
+msgstr "Privacy"
+
+msgid "Evidence and source documents are the source of truth. H.Y.D.R.A. does not determine guilt, corruption, or fraud."
+msgstr "Evidence and source documents are the source of truth. H.Y.D.R.A. does not determine guilt, corruption, or fraud."
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Apply"
+msgstr "Apply"
+
+msgid "Use less data"
+msgstr "Use less data"
+
+msgid "Use full pages"
+msgstr "Use full pages"
+
+msgid "Your information"
+msgstr "Your information"
+
+msgid "Observations can include sensitive civic, health, or education facts. H.Y.D.R.A. keeps identity and data as small as the work requires, and it does not treat an observation as a finding of guilt."
+msgstr "Observations can include sensitive civic, health, or education facts. H.Y.D.R.A. keeps identity and data as small as the work requires, and it does not treat an observation as a finding of guilt."
+
+msgid "What you can do without an account"
+msgstr "What you can do without an account"
+
+msgid "You can search, read projects, and submit a citizen observation without signing in. Guest observations are stored as anonymous. The same browser session can open the observation you just sent; another person cannot."
+msgstr "You can search, read projects, and submit a citizen observation without signing in. Guest observations are stored as anonymous. The same browser session can open the observation you just sent; another person cannot."
+
+msgid "What an account stores"
+msgstr "What an account stores"
+
+msgid "An account keeps investigations, reports, tracked projects, favourites, and area watches with you. Username is required. Email is optional, and is only needed to reset a forgotten password. Display name, affiliation, and area are optional profile fields — not a public score."
+msgstr "An account keeps investigations, reports, tracked projects, favourites, and area watches with you. Username is required. Email is optional, and is only needed to reset a forgotten password. Display name, affiliation, and area are optional profile fields — not a public score."
+
+msgid "Anonymous observations"
+msgstr "Anonymous observations"
+
+msgid "If you are signed in, you can choose not to show your account name on an observation. The record still stays in your list so you can find it later. Do not put other people’s private details in the text or in uploads."
+msgstr "If you are signed in, you can choose not to show your account name on an observation. The record still stays in your list so you can find it later. Do not put other people’s private details in the text or in uploads."
+
+msgid "Files you upload"
+msgstr "Files you upload"
+
+msgid "Photos and documents are stored on disk so staff can review them. Upload only what supports the observation. Remove faces, house numbers, and identity documents that are not needed."
+msgstr "Photos and documents are stored on disk so staff can review them. Upload only what supports the observation. Remove faces, house numbers, and identity documents that are not needed."
+
+msgid "How we protect the session"
+msgstr "How we protect the session"
+
+msgid "Session cookies are HTTP-only. Pages do not send your referrer to other sites. The public record does not publish a guilt, corruption, or trust score against a person or a county."
+msgstr "Session cookies are HTTP-only. Pages do not send your referrer to other sites. The public record does not publish a guilt, corruption, or trust score against a person or a county."
+
+msgid "Language and access"
+msgstr "Language and access"
+
+msgid "Choose English, Kiswahili, French, Arabic, or Portuguese in the footer. Use less data to skip web fonts and heavy previews on a slow connection."
+msgstr "Choose English, Kiswahili, French, Arabic, or Portuguese in the footer. Use less data to skip web fonts and heavy previews on a slow connection."
+
+msgid "After the file"
+msgstr "After the file"
+
+msgid "What you can do next"
+msgstr "What you can do next"
+
+msgid "Finding the record is only the start. These steps are written for Kenya first. They are not legal advice, and they do not decide guilt."
+msgstr "Finding the record is only the start. These steps are written for Kenya first. They are not legal advice, and they do not decide guilt."
+
+msgid "your county"
+msgstr "your county"
+
+msgid "the responsible office"
+msgstr "the responsible office"
+
+msgid "1 · The file"
+msgstr "1 · The file"
+
+msgid "Read what is missing"
+msgstr "Read what is missing"
+
+msgid "This page lists claims, sources, and gaps. If a stage says evidence is unavailable, that is the starting point — not a finding of wrongdoing."
+msgstr "This page lists claims, sources, and gaps. If a stage says evidence is unavailable, that is the starting point — not a finding of wrongdoing."
+
+msgid "Read the timeline, budget, and source documents. Note what the file actually supports before you act."
+msgstr "Read the timeline, budget, and source documents. Note what the file actually supports before you act."
+
+msgid "2 · The office"
+msgstr "2 · The office"
+
+msgid "Ask %(institution)s"
+msgstr "Ask %(institution)s"
+
+msgid "Write to the implementing office and ask for the missing pages: budget vote, tender, contract, or completion certificate. Name the project and the financial year. Keep a copy of what you send."
+msgstr "Write to the implementing office and ask for the missing pages: budget vote, tender, contract, or completion certificate. Name the project and the financial year. Keep a copy of what you send."
+
+msgid "3 · The law"
+msgstr "3 · The law"
+
+msgid "Request information in writing"
+msgstr "Request information in writing"
+
+msgid "In Kenya, the Access to Information Act, 2016 lets you ask a public body for records. Say what you need, why it is a public project file, and where to send the reply. If there is no useful answer, the Commission on Administrative Justice (Office of the Ombudsman) is the national oversight office for access to information."
+msgstr "In Kenya, the Access to Information Act, 2016 lets you ask a public body for records. Say what you need, why it is a public project file, and where to send the reply. If there is no useful answer, the Commission on Administrative Justice (Office of the Ombudsman) is the national oversight office for access to information."
+
+msgid "County: %(county)s"
+msgstr "County: %(county)s"
+
+msgid "4 · What you saw"
+msgstr "4 · What you saw"
+
+msgid "Record a citizen observation"
+msgstr "Record a citizen observation"
+
+msgid "If you visited the site, write what you saw, when, and where. You can submit without an account. Do not include other people’s private details. An observation is not a finding."
+msgstr "If you visited the site, write what you saw, when, and where. You can submit without an account. Do not include other people’s private details. An observation is not a finding."
+
+msgid "5 · A structured file"
+msgstr "5 · A structured file"
+
+msgid "Generate a private report"
+msgstr "Generate a private report"
+
+msgid "A report puts official information and your observation in separate columns. Keep it private until you choose to share it with an oversight office, a journalist, or the county assembly. It does not determine guilt."
+msgstr "A report puts official information and your observation in separate columns. Keep it private until you choose to share it with an oversight office, a journalist, or the county assembly. It does not determine guilt."
