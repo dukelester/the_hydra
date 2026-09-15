@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import get_valid_filename
 
+from apps.core.models import UUIDModel
 from apps.core.uploads import SafeUploadTo, validate_upload
 
 
@@ -40,7 +41,7 @@ class ExtractionStatus(models.TextChoices):
     SKIPPED = "skipped", "Type not extracted"
 
 
-class SourceDocument(models.Model):
+class SourceDocument(UUIDModel):
     title = models.CharField(max_length=255, db_index=True)
     publisher = models.CharField(max_length=255, db_index=True)
     source_url = models.URLField(blank=True)
@@ -192,7 +193,7 @@ class SourceDocument(models.Model):
         return excerpt
 
 
-class Evidence(models.Model):
+class Evidence(UUIDModel):
     project = models.ForeignKey(
         "projects.Project",
         on_delete=models.CASCADE,
@@ -223,7 +224,7 @@ class Evidence(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["id"]
+        ordering = ["created_at", "id"]
         verbose_name_plural = "evidence"
 
     def __str__(self):

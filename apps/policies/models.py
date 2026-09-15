@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
+from apps.core.models import UUIDModel
 from apps.core.utils import unique_slug
 
 
@@ -20,7 +21,7 @@ class PolicyStatus(models.TextChoices):
     UNKNOWN = "unknown", "Unknown"
 
 
-class Policy(models.Model):
+class Policy(UUIDModel):
     title = models.CharField(max_length=255, db_index=True)
     slug = models.SlugField(max_length=280, unique=True)
     description = models.TextField()

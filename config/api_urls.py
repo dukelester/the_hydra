@@ -14,14 +14,14 @@ from apps.reports.api_views import ReportCreateAPIView, ReportDetailAPIView
 
 urlpatterns = [
     path("projects/", ProjectListAPIView.as_view(), name="api-project-list"),
-    path("projects/<int:pk>/", ProjectDetailAPIView.as_view(), name="api-project-detail"),
+    path("projects/<uuid:pk>/", ProjectDetailAPIView.as_view(), name="api-project-detail"),
     path(
-        "projects/<int:pk>/evidence/",
+        "projects/<uuid:pk>/evidence/",
         ProjectEvidenceAPIView.as_view(),
         name="api-project-evidence",
     ),
     path(
-        "projects/<int:pk>/timeline/",
+        "projects/<uuid:pk>/timeline/",
         ProjectTimelineAPIView.as_view(),
         name="api-project-timeline",
     ),
@@ -30,10 +30,10 @@ urlpatterns = [
     path("search/", SearchAPIView.as_view(), name="api-search"),
     path("investigations/", InvestigationCreateAPIView.as_view(), name="api-investigation-create"),
     path(
-        "investigations/<int:pk>/",
+        "investigations/<uuid:pk>/",
         InvestigationDetailAPIView.as_view(),
         name="api-investigation-detail",
     ),
     path("reports/", ReportCreateAPIView.as_view(), name="api-report-create"),
-    path("reports/<int:pk>/", ReportDetailAPIView.as_view(), name="api-report-detail"),
+    path("reports/<uuid:pk>/", ReportDetailAPIView.as_view(), name="api-report-detail"),
 ]

@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from apps.core.models import UUIDModel
+
 
 AVATAR_PALETTES = (
     ("#163a45", "#f3efe4", "#c4a35a"),
@@ -22,7 +24,7 @@ class UserRole(models.TextChoices):
     OTHER = "other", "Other"
 
 
-class User(AbstractUser):
+class User(UUIDModel, AbstractUser):
     display_name = models.CharField(
         max_length=150,
         blank=True,
@@ -101,7 +103,7 @@ class User(AbstractUser):
             self.save(update_fields=["track_area"])
 
 
-class AreaWatch(models.Model):
+class AreaWatch(UUIDModel):
     MAX_PER_USER = 4
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="area_watches")

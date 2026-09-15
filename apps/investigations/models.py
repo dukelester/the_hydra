@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import get_valid_filename
 
+from apps.core.models import UUIDModel
 from apps.core.uploads import SafeUploadTo, validate_upload
 
 
@@ -13,7 +14,7 @@ class InvestigationVerificationStatus(models.TextChoices):
     DISPUTED = "disputed", "Disputed"
 
 
-class Investigation(models.Model):
+class Investigation(UUIDModel):
     project = models.ForeignKey(
         "projects.Project",
         on_delete=models.CASCADE,
@@ -73,7 +74,7 @@ class Investigation(models.Model):
         return 1 if self.attachment else 0
 
 
-class InvestigationAttachment(models.Model):
+class InvestigationAttachment(UUIDModel):
     investigation = models.ForeignKey(
         Investigation,
         on_delete=models.CASCADE,

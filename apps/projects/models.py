@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
+from apps.core.models import UUIDModel
 from apps.core.utils import unique_slug
 
 
@@ -63,7 +64,7 @@ TIMELINE_STAGE_ORDER = [
 ]
 
 
-class Institution(models.Model):
+class Institution(UUIDModel):
     name = models.CharField(max_length=255, db_index=True)
     slug = models.SlugField(max_length=280, unique=True)
     description = models.TextField(blank=True)
@@ -92,7 +93,7 @@ class Institution(models.Model):
         return reverse("institutions:detail", kwargs={"slug": self.slug})
 
 
-class Project(models.Model):
+class Project(UUIDModel):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=280, unique=True)
     description = models.TextField()
@@ -172,7 +173,7 @@ class Project(models.Model):
         return f"{self.currency} {amount}"
 
 
-class BudgetAllocation(models.Model):
+class BudgetAllocation(UUIDModel):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="allocations")
     financial_year = models.CharField(max_length=20)
     amount = models.DecimalField(max_digits=14, decimal_places=2)
@@ -205,7 +206,7 @@ class BudgetAllocation(models.Model):
         return f"{self.currency} {amount}"
 
 
-class TimelineEvent(models.Model):
+class TimelineEvent(UUIDModel):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="timeline_events")
     stage = models.CharField(max_length=30, choices=TimelineStage.choices)
     title = models.CharField(max_length=255)
@@ -225,7 +226,7 @@ class TimelineEvent(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["sort_order", "id"]
+        ordering = ["sort_order", "created_at"]
 
     def __str__(self):
         return f"{self.project.name}: {self.get_stage_display()}"
@@ -239,7 +240,7 @@ class TimelineEvent(models.Model):
         return f"{self.currency} {amount}"
 
 
-class ProjectView(models.Model):
+class ProjectView(UUIDModel):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -259,7 +260,7 @@ class ProjectView(models.Model):
         return f"{self.user} viewed {self.project}"
 
 
-class ProjectFollow(models.Model):
+class ProjectFollow(UUIDModel):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

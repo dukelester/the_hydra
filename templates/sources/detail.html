@@ -1,88 +1,174 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}{{ document.title }}{% endblock %}
 {% block content %}
-<article class="prose document-page">
-  <p class="kicker">{{ document.get_document_type_display }}</p>
-  <h1>{{ document.title }}</h1>
-  <ul class="meta-list">
-    <li>Publisher: {{ document.publisher }}</li>
-    <li>Verification: {{ document.get_verification_level_display }}</li>
-    <li>Publication date: {{ document.publication_date|date:"j F Y"|default:"Information unavailable" }}</li>
-    {% if document.original_filename %}
-      <li>File: {{ document.original_filename }}{% if document.file_size %} · {{ document.format_file_size }}{% endif %}</li>
-    {% endif %}
-    <li>Full-text search: {{ document.get_extraction_status_display }}</li>
-  </ul>
-  {% if document.description %}<p>{{ document.description }}</p>{% endif %}
-  {% if document.source_url %}
-    <p><a href="{{ document.source_url }}">Open publisher source</a></p>
-  {% endif %}
+<article class="project-page document-page">
+  <header class="project-hero">
+    <div class="project-hero-main">
+      <p class="kicker">{{ document.get_document_type_display }} · {{ document.publisher }}</p>
+      <h1>{{ document.title }}</h1>
+      {% if document.description %}
+        <p class="lede">{{ document.description }}</p>
+      {% else %}
+        <p class="lede">A labelled source file. Claims on project pages should point here — H.Y.D.R.A. does not invent missing pages.</p>
+      {% endif %}
+      <ul class="project-pills">
+        <li class="project-pill">{{ document.get_verification_level_display }}</li>
+        <li class="project-pill">{{ document.publication_date|date:"j F Y"|default:"Date unavailable" }}</li>
+        {% if document.file_extension %}
+          <li class="project-pill">{{ document.file_extension|cut:"."|upper }}</li>
+        {% endif %}
+        {% if document.file_size %}
+          <li class="project-pill">{{ document.format_file_size }}</li>
+        {% endif %}
+        <li class="project-pill">{{ document.get_extraction_status_display }}</li>
+      </ul>
+      <div class="project-toolbar">
+        {% if document.file %}
+          <a class="btn btn-primary" href="{% url 'sources:download' document.pk %}">Download original</a>
+          {% if preview.kind == "pdf" %}
+            <a class="btn btn-secondary" href="{% url 'sources:file' document.pk %}" target="_blank" rel="noopener">Open PDF</a>
+          {% endif %}
+        {% endif %}
+        {% if document.source_url %}
+          <a class="btn btn-secondary" href="{{ document.source_url }}" rel="noopener">Publisher source</a>
+        {% endif %}
+        <a class="text-link" href="{% url 'sources:list' %}">All documents</a>
+      </div>
+    </div>
+    <aside class="project-hero-aside" aria-label="File summary">
+      <p class="eyebrow">This file</p>
+      <p class="coverage-percent">{% if preview.kind == "none" or preview.kind == "missing" %}No file{% else %}{{ preview.kind|title }}{% endif %}</p>
+      <p class="muted">{% if document.original_filename %}{{ document.original_filename }}{% else %}No file is attached.{% endif %}</p>
+      <p class="document-id">
+        <span class="eyebrow">Record ID</span>
+        <code>{{ document.pk }}</code>
+      </p>
+      <p class="project-hero-brand">
+        <img class="project-hero-mark" src="{% static 'img/mark.png' %}" alt="" width="72" height="72">
+        <span class="project-hero-name">H.Y.D.R.A.</span>
+      </p>
+    </aside>
+  </header>
+
+  <section class="project-panel">
+    <h2>File facts</h2>
+    <dl class="record-facts">
+      <div>
+        <dt>Type</dt>
+        <dd>{{ document.get_document_type_display }}</dd>
+      </div>
+      <div>
+        <dt>Publisher</dt>
+        <dd>{{ document.publisher|default:"Information unavailable" }}</dd>
+      </div>
+      <div>
+        <dt>Verification</dt>
+        <dd>{{ document.get_verification_level_display }}</dd>
+      </div>
+      <div>
+        <dt>Publication date</dt>
+        <dd>{{ document.publication_date|date:"j F Y"|default:"Information unavailable" }}</dd>
+      </div>
+      <div>
+        <dt>Filename</dt>
+        <dd>{{ document.original_filename|default:"Information unavailable" }}</dd>
+      </div>
+      <div>
+        <dt>Size</dt>
+        <dd>{{ document.format_file_size|default:"Information unavailable" }}</dd>
+      </div>
+      <div>
+        <dt>Full-text search</dt>
+        <dd>{{ document.get_extraction_status_display }}</dd>
+      </div>
+      <div>
+        <dt>Record ID</dt>
+        <dd><code class="record-id-inline">{{ document.pk }}</code></dd>
+      </div>
+    </dl>
+  </section>
 
   {% if document.file %}
-    <div class="preview-actions">
-      <a class="btn btn-primary" href="{% url 'sources:download' document.pk %}">Download original</a>
-      {% if preview.kind == "pdf" %}
-        <a class="btn btn-secondary" href="{% url 'sources:file' document.pk %}" target="_blank" rel="noopener">Open PDF</a>
-      {% endif %}
-    </div>
-    {% if preview.large %}
-      <p class="notice">This is a large file. The preview streams in chunks and shows the start of the document. Download the original to read everything.</p>
-    {% endif %}
-
-    {% if preview.kind == "pdf" %}
-      <div class="preview-frame">
-        <iframe title="PDF preview of {{ document.title }}" src="{% url 'sources:file' document.pk %}#view=FitH" loading="lazy"></iframe>
+    <section class="project-panel document-preview-panel">
+      <div class="section-head">
+        <h2>Preview</h2>
       </div>
-    {% elif preview.kind == "docx" %}
-      <section class="doc-preview" aria-label="Word preview">
-        <h2>Preview</h2>
-        {% for paragraph in preview.paragraphs %}
-          <p>{{ paragraph }}</p>
-        {% empty %}
-          <p class="muted">No preview text could be read from this Word file.</p>
-        {% endfor %}
-      </section>
-    {% elif preview.kind == "spreadsheet" %}
-      <section class="sheet-preview" aria-label="Spreadsheet preview">
-        <h2>Preview</h2>
-        {% for sheet in preview.sheets %}
-          <h3>{{ sheet.name }}</h3>
-          <div class="table-scroll">
-            <table>
-              <tbody>
-                {% for row in sheet.rows %}
-                  <tr>
-                    {% for cell in row %}
-                      <td>{{ cell }}</td>
-                    {% endfor %}
-                  </tr>
-                {% empty %}
-                  <tr><td>Empty sheet</td></tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        {% empty %}
-          <p class="muted">No spreadsheet rows could be read.</p>
-        {% endfor %}
-      </section>
-    {% elif preview.kind == "image" %}
-      <img class="doc-image" src="{% url 'sources:file' document.pk %}" alt="{{ document.title }}">
-    {% elif preview.kind == "missing" %}
-      <p class="muted">The file is recorded but missing from storage.</p>
-    {% endif %}
+      {% if preview.large %}
+        <p class="notice">This is a large file. The preview streams in chunks and shows the start of the document. Download the original to read everything.</p>
+      {% endif %}
+      {% if preview.kind == "pdf" %}
+        <div class="preview-frame">
+          <iframe title="PDF preview of {{ document.title }}" src="{% url 'sources:file' document.pk %}#view=FitH" loading="lazy"></iframe>
+        </div>
+      {% elif preview.kind == "docx" %}
+        <div class="doc-preview" aria-label="Word preview">
+          {% for paragraph in preview.paragraphs %}
+            <p>{{ paragraph }}</p>
+          {% empty %}
+            <p class="muted">No preview text could be read from this Word file.</p>
+          {% endfor %}
+        </div>
+      {% elif preview.kind == "spreadsheet" %}
+        <div class="sheet-preview" aria-label="Spreadsheet preview">
+          {% for sheet in preview.sheets %}
+            <h3>{{ sheet.name }}</h3>
+            <div class="table-scroll">
+              <table>
+                <tbody>
+                  {% for row in sheet.rows %}
+                    <tr>
+                      {% for cell in row %}
+                        <td>{{ cell }}</td>
+                      {% endfor %}
+                    </tr>
+                  {% empty %}
+                    <tr><td>Empty sheet</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% empty %}
+            <p class="muted">No spreadsheet rows could be read.</p>
+          {% endfor %}
+        </div>
+      {% elif preview.kind == "image" %}
+        <img class="doc-image" src="{% url 'sources:file' document.pk %}" alt="{{ document.title }}">
+      {% elif preview.kind == "missing" %}
+        <p class="muted">The file is recorded but missing from storage.</p>
+      {% else %}
+        <p class="muted">This file type has no inline preview. Download the original to read it.</p>
+      {% endif %}
+    </section>
   {% else %}
-    <p class="muted">No file is attached. TheHydra does not fabricate documents.</p>
+    <section class="project-panel">
+      <h2>Preview</h2>
+      <p class="muted">No file is attached. H.Y.D.R.A. does not fabricate documents.</p>
+    </section>
   {% endif %}
 
   {% if document.extracted_text %}
-    <section class="extracted-text">
+    <section class="project-panel">
       <h2>Searchable text</h2>
       <p class="muted">Extracted for search from the file. Large documents are truncated after the first extractable pages.</p>
       {% if snippet %}
         <p class="search-snippet">Match: {{ snippet }}</p>
       {% endif %}
       <pre class="evidence-pre">{{ document.extracted_text|truncatechars:2500 }}</pre>
+    </section>
+  {% endif %}
+
+  {% if linked_projects %}
+    <section class="project-panel">
+      <h2>Linked projects</h2>
+      <ul class="doc-list">
+        {% for project in linked_projects %}
+          <li>
+            <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
+            <span class="muted">{{ project.county }} · {{ project.get_status_display }}</span>
+          </li>
+        {% endfor %}
+      </ul>
     </section>
   {% endif %}
 </article>

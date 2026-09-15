@@ -2,6 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
+from apps.core.models import UUIDModel
+
 
 class ReportStatus(models.TextChoices):
     DRAFT = "draft", "Draft"
@@ -11,7 +13,7 @@ class ReportStatus(models.TextChoices):
     RESOLVED = "resolved", "Resolved"
 
 
-class IssueReport(models.Model):
+class IssueReport(UUIDModel):
     project = models.ForeignKey(
         "projects.Project",
         on_delete=models.CASCADE,

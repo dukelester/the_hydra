@@ -86,3 +86,7 @@ class DocumentPreviewAndSearchTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Drill twelve boreholes in Kisumu")
         self.assertContains(response, "Preview")
+        self.assertIn(str(self.docx.pk), self.docx.get_absolute_url())
+        self.assertNotRegex(self.docx.get_absolute_url(), r"/sources/\d+/?$")
+        self.assertContains(response, str(self.docx.pk))
+        self.assertContains(response, "File facts")

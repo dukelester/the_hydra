@@ -50,6 +50,7 @@ class SourceDocumentDetailView(DetailView):
     model = SourceDocument
     template_name = "sources/detail.html"
     context_object_name = "document"
+    queryset = SourceDocument.objects.prefetch_related("projects", "evidence_items")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -57,6 +58,7 @@ class SourceDocumentDetailView(DetailView):
         context["preview"] = build_preview(document)
         context["query"] = self.request.GET.get("q", "")
         context["snippet"] = document.snippet_for(context["query"])
+        context["linked_projects"] = document.projects.select_related("institution").all()
         return context
 
 

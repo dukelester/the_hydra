@@ -2229,6 +2229,35 @@ a.project-pager-link:hover strong { color: var(--link); }
   line-height: 1.45;
 }
 .preview-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 1.1rem 0; }
+.document-page .project-hero-aside .coverage-percent {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  text-transform: capitalize;
+}
+.document-id {
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.25rem;
+}
+.document-id code,
+.record-id-inline {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  word-break: break-all;
+  color: var(--ink);
+}
+.project-hero-aside .document-id code {
+  color: rgba(243, 239, 228, 0.88);
+}
+.document-preview-panel .section-head { margin-bottom: 0.85rem; }
+.document-preview-panel .preview-frame { margin: 0; }
+.document-preview-panel .doc-preview,
+.document-preview-panel .sheet-preview {
+  margin: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
 .preview-frame {
   margin: 1rem 0 1.4rem;
   border: 1px solid var(--rule);

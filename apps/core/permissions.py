@@ -2,17 +2,22 @@ SESSION_INVESTIGATIONS = "investigation_ids"
 SESSION_REPORTS = "report_ids"
 
 
+def _as_id(value):
+    return str(value)
+
+
 def remember_id(request, session_key, pk):
-    ids = [int(x) for x in request.session.get(session_key, [])]
-    if pk not in ids:
-        ids.append(pk)
+    key = _as_id(pk)
+    ids = [_as_id(item) for item in request.session.get(session_key, [])]
+    if key not in ids:
+        ids.append(key)
     request.session[session_key] = ids
     request.session.modified = True
 
 
 def session_has_id(request, session_key, pk):
-    ids = {int(x) for x in request.session.get(session_key, [])}
-    return int(pk) in ids
+    ids = {_as_id(item) for item in request.session.get(session_key, [])}
+    return _as_id(pk) in ids
 
 
 def can_view_investigation(request, investigation):
