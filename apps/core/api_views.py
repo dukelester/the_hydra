@@ -2,6 +2,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from apps.core.governance import request_country
 from apps.core.services.search import search_civic_data
 
 
@@ -22,6 +23,7 @@ class SearchAPIView(APIView):
             county=request.query_params.get("county", ""),
             status=request.query_params.get("status", ""),
             category=request.query_params.get("category", ""),
+            country=request_country(request),
             suggest=suggest,
         )
         return Response(

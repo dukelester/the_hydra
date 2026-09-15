@@ -138,7 +138,6 @@ the_hydra/
 ├── templates/
 ├── static/
 ├── tests/
-├── nginx/
 ├── Dockerfile
 ├── docker-compose.yml
 └── manage.py
@@ -153,7 +152,7 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Open [http://localhost:8080](http://localhost:8080). If that port is taken, set `NGINX_PORT=8088` in `.env`.
+Open [http://localhost:8000](http://localhost:8000). If that port is taken, set `WEB_PORT=8088` in `.env` and use [http://localhost:8088](http://localhost:8088).
 
 Optional Docker admin (change in `.env`): username `admin`, password `adminpass123`.
 
@@ -181,7 +180,8 @@ See `.env.example`. Important keys:
 | `DJANGO_SECRET_KEY` | Django secret. Must be strong in production. |
 | `DJANGO_DEBUG` | `true` in development only. |
 | `DJANGO_ALLOWED_HOSTS` | Comma-separated hosts. |
-| `DJANGO_CSRF_TRUSTED_ORIGINS` | Comma-separated origins, including `http://localhost:8080`. |
+| `DJANGO_CSRF_TRUSTED_ORIGINS` | Comma-separated origins, including `http://localhost:8000`. |
+| `WEB_PORT` | Host port for Docker (`8000` by default). |
 | `USE_SQLITE` | `true` for local SQLite. |
 | `POSTGRES_*` | Database name, user, password, host, port. |
 | `LOAD_DEMO_DATA` | Load labelled seed records on container start. |

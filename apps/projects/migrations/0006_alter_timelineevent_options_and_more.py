@@ -3,6 +3,8 @@
 import uuid
 from django.db import migrations, models
 
+from apps.core.postgres_uuid import convert_tables
+
 
 class Migration(migrations.Migration):
 
@@ -11,6 +13,17 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(
+            convert_tables(
+                "projects_institution",
+                "projects_project",
+                "projects_budgetallocation",
+                "projects_timelineevent",
+                "projects_projectview",
+                "projects_projectfollow",
+            ),
+            migrations.RunPython.noop,
+        ),
         migrations.AlterModelOptions(
             name="timelineevent",
             options={"ordering": ["sort_order", "created_at"]},

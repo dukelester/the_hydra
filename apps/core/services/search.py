@@ -1,8 +1,9 @@
-from django.db.models import Case, Count, IntegerField, Q, Value, When
+from django.db.models import Case, Count, Exists, IntegerField, OuterRef, Q, Value, When
 
+from apps.core.governance import normalize_country
 from apps.policies.models import Policy
 from apps.projects.models import Institution, Project
-from apps.sources.models import SourceDocument
+from apps.sources.models import Evidence, SourceDocument
 
 MIN_LIVE_QUERY = 2
 MAX_QUERY_LENGTH = 120
@@ -64,10 +65,12 @@ def search_civic_data(
     if suggest and kind == "all":
         include_documents = True
 
+    country = normalize_country(country)
+
     project_qs = _project_queryset(query, county, status, category, suggest, country) if include_projects else Project.objects.none()
-    institution_qs = _institution_queryset(query, suggest) if include_institutions else Institution.objects.none()
-    policy_qs = _policy_queryset(query, suggest) if include_policies else Policy.objects.none()
-    document_qs = _document_queryset(query, suggest) if include_documents else SourceDocument.objects.none()
+    institution_qs = _institution_queryset(query, suggest, country) if include_institutions else Institution.objects.none()
+    policy_qs = _policy_queryset(query, suggest, country) if include_policies else Policy.objects.none()
+    document_qs = _document_queryset(query, suggest, country) if include_documents else SourceDocument.objects.none()
 
     project_count = project_qs.count() if include_projects else 0
     institution_count = institution_qs.count() if include_institutions else 0
@@ -101,6 +104,7 @@ def _rank(*pairs, default=5):
 
 
 def _project_queryset(query, county, status, category, suggest, country=""):
+    country = normalize_country(country)
     indexed = (
         Q(name__icontains=query)
         | Q(slug__icontains=query)
@@ -115,9 +119,7 @@ def _project_queryset(query, county, status, category, suggest, country=""):
     if not suggest:
         indexed |= Q(description__icontains=query)
 
-    qs = Project.objects.select_related("institution").filter(indexed)
-    if country:
-        qs = qs.filter(country=country)
+    qs = Project.objects.select_related("institution").filter(indexed, country=country)
     if county:
         qs = qs.filter(county__iexact=county)
     if status:
@@ -143,11 +145,40 @@ def _project_queryset(query, county, status, category, suggest, country=""):
     return qs
 
 
-def _institution_queryset(query, suggest=False):
+def _institutions_for_country(qs, country):
+    country = normalize_country(country)
+    return qs.filter(
+        Exists(Project.objects.filter(country=country, institution_id=OuterRef("pk")))
+    )
+
+
+def _policies_for_country(qs, country):
+    country = normalize_country(country)
+    via_institution = Project.objects.filter(country=country, institution_id=OuterRef("institution_id"))
+    via_document = Project.objects.filter(country=country, source_documents=OuterRef("source_document_id"))
+    return qs.filter(Q(Exists(via_institution)) | Q(Exists(via_document)))
+
+
+def _documents_for_country(qs, country):
+    country = normalize_country(country)
+    country_institutions = Project.objects.filter(country=country).values("institution_id")
+    in_project = Project.objects.filter(country=country, source_documents=OuterRef("pk"))
+    in_evidence = Evidence.objects.filter(project__country=country, source_document_id=OuterRef("pk"))
+    in_policy = Policy.objects.filter(
+        source_document_id=OuterRef("pk"),
+        institution_id__in=country_institutions,
+    )
+    return qs.filter(Q(Exists(in_project)) | Q(Exists(in_evidence)) | Q(Exists(in_policy)))
+
+
+def _institution_queryset(query, suggest=False, country=""):
+    country = normalize_country(country)
     match = Q(name__icontains=query) | Q(location__icontains=query)
     if not suggest:
         match |= Q(description__icontains=query)
-    qs = Institution.objects.filter(match).annotate(project_count=Count("projects"))
+    qs = _institutions_for_country(Institution.objects.filter(match), country).annotate(
+        project_count=Count("projects", filter=Q(projects__country=country), distinct=True)
+    )
     qs = qs.annotate(
         rank=_rank(
             (Q(name__iexact=query), 100),
@@ -161,11 +192,11 @@ def _institution_queryset(query, suggest=False):
     return qs
 
 
-def _policy_queryset(query, suggest=False):
+def _policy_queryset(query, suggest=False, country=""):
     match = Q(title__icontains=query) | Q(institution__name__icontains=query)
     if not suggest:
         match |= Q(description__icontains=query)
-    qs = Policy.objects.select_related("institution").filter(match)
+    qs = _policies_for_country(Policy.objects.select_related("institution").filter(match), country)
     qs = qs.annotate(
         rank=_rank(
             (Q(title__iexact=query), 100),
@@ -178,7 +209,7 @@ def _policy_queryset(query, suggest=False):
     return qs
 
 
-def _document_queryset(query, suggest=False):
+def _document_queryset(query, suggest=False, country=""):
     match = (
         Q(title__icontains=query)
         | Q(publisher__icontains=query)
@@ -186,7 +217,7 @@ def _document_queryset(query, suggest=False):
     )
     if not suggest:
         match |= Q(description__icontains=query) | Q(extracted_text__icontains=query)
-    qs = SourceDocument.objects.filter(match)
+    qs = _documents_for_country(SourceDocument.objects.filter(match), country)
     qs = qs.annotate(
         rank=_rank(
             (Q(title__iexact=query), 100),
@@ -206,11 +237,10 @@ def _document_queryset(query, suggest=False):
 
 def project_search_queryset(query, county="", status="", category="", country=""):
     """Ranked project queryset for list pages and full search."""
+    country = normalize_country(country)
     query = normalize_query(query)
     if not query:
-        qs = Project.objects.select_related("institution")
-        if country:
-            qs = qs.filter(country=country)
+        qs = Project.objects.select_related("institution").filter(country=country)
         if county:
             qs = qs.filter(county__iexact=county)
         if status:
@@ -221,23 +251,29 @@ def project_search_queryset(query, county="", status="", category="", country=""
     return _project_queryset(query, county, status, category, suggest=False, country=country)
 
 
-def document_search_queryset(query):
+def document_search_queryset(query, country=""):
     """Documents by name, filename, or extracted full text."""
     query = normalize_query(query)
     if not query:
-        return SourceDocument.objects.all()
-    return _document_queryset(query, suggest=False)
+        return _documents_for_country(SourceDocument.objects.all(), country)
+    return _document_queryset(query, suggest=False, country=country)
 
 
-def institution_search_queryset(query):
+def institution_search_queryset(query, country=""):
     query = normalize_query(query)
     if not query:
-        return Institution.objects.annotate(project_count=Count("projects")).order_by("name")
-    return _institution_queryset(query, suggest=False)
+        country = normalize_country(country)
+        return _institutions_for_country(
+            Institution.objects.annotate(
+                project_count=Count("projects", filter=Q(projects__country=country), distinct=True)
+            ),
+            country,
+        ).order_by("name")
+    return _institution_queryset(query, suggest=False, country=country)
 
 
-def policy_search_queryset(query):
+def policy_search_queryset(query, country=""):
     query = normalize_query(query)
     if not query:
-        return Policy.objects.select_related("institution")
-    return _policy_queryset(query, suggest=False)
+        return _policies_for_country(Policy.objects.select_related("institution"), country)
+    return _policy_queryset(query, suggest=False, country=country)

@@ -5,6 +5,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from apps.core.services.search import search_civic_data
+from apps.projects.models import Institution, Project
 from apps.sources.extraction import make_simple_docx, make_simple_pdf
 from apps.sources.models import ExtractionStatus, SourceDocument
 
@@ -38,6 +39,15 @@ class DocumentPreviewAndSearchTests(TestCase):
         )
         self.pdf.refresh_from_db()
         self.docx.refresh_from_db()
+        institution = Institution.objects.create(name="Kisumu Water Office", location="Kisumu")
+        project = Project.objects.create(
+            name="Community Water Access Project",
+            description="Boreholes and water kiosks",
+            location="Kisumu",
+            county="Kisumu",
+            institution=institution,
+        )
+        project.source_documents.set([self.pdf, self.docx])
 
     def test_extracted_text_is_searchable(self):
         self.assertEqual(self.pdf.extraction_status, ExtractionStatus.READY)
@@ -56,11 +66,15 @@ class DocumentPreviewAndSearchTests(TestCase):
         self.assertFalse(any(item.pk == self.pdf.pk for item in results["documents"]))
 
     def test_documents_list_paginates(self):
-        for index in range(13):
+        project = Project.objects.get(name="Community Water Access Project")
+        extras = [
             SourceDocument.objects.create(
                 title=f"Extra annex {index}",
                 publisher="Demo",
             )
+            for index in range(13)
+        ]
+        project.source_documents.add(*extras)
         response = self.client.get(reverse("sources:list"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Showing 1–12 of")

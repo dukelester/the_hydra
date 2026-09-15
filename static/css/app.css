@@ -2198,15 +2198,18 @@ a.project-pager-link:hover strong { color: var(--link); }
   z-index: 5;
 }
 .footer-legal {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 0.55rem 1.4rem;
+  display: block;
 }
-.footer-bottom p,
-.footer-legal p { margin: 0; max-width: 42rem; }
-.footer-copy { color: var(--gold); letter-spacing: 0.08em; }
+.footer-legal p {
+  margin: 0;
+  max-width: none;
+  white-space: nowrap;
+}
+.footer-copy {
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin-inline-start: 1.4rem;
+}
 
 .sr-only {
   position: absolute;
@@ -3117,7 +3120,6 @@ a.project-pager-link:hover strong { color: var(--link); }
   .hydra-page-actions { flex-direction: column; align-items: stretch; }
   .hydra-page-actions .btn { width: 100%; justify-content: center; }
   .footer-navs { gap: 1.1rem 1rem; }
-  .footer-legal { flex-direction: column; }
   .project-hero-main,
   .feature-detail,
   .method-coverage { padding-inline: 1.05rem; }

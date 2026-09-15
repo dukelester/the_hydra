@@ -186,7 +186,7 @@ def search_view(request):
         results["project_count"] = paginator.count
         results["total"] = paginator.count
     elif kind == "documents":
-        paginator = Paginator(document_search_queryset(query), 12)
+        paginator = Paginator(document_search_queryset(query, country=country), 12)
         document_page = paginator.get_page(page_number)
         results["documents"] = list(document_page.object_list)
         for document in results["documents"]:
@@ -194,13 +194,13 @@ def search_view(request):
         results["document_count"] = paginator.count
         results["total"] = paginator.count
     elif kind == "institutions":
-        paginator = Paginator(institution_search_queryset(query), 12)
+        paginator = Paginator(institution_search_queryset(query, country=country), 12)
         institution_page = paginator.get_page(page_number)
         results["institutions"] = list(institution_page.object_list)
         results["institution_count"] = paginator.count
         results["total"] = paginator.count
     elif kind == "policies":
-        paginator = Paginator(policy_search_queryset(query), 12)
+        paginator = Paginator(policy_search_queryset(query, country=country), 12)
         policy_page = paginator.get_page(page_number)
         results["policies"] = list(policy_page.object_list)
         results["policy_count"] = paginator.count
@@ -209,9 +209,9 @@ def search_view(request):
         results["project_count"] = project_search_queryset(
             "", county=county, status=status, category=category, country=country
         ).count()
-        results["institution_count"] = institution_search_queryset("").count()
-        results["policy_count"] = policy_search_queryset("").count()
-        results["document_count"] = document_search_queryset("").count()
+        results["institution_count"] = institution_search_queryset("", country=country).count()
+        results["policy_count"] = policy_search_queryset("", country=country).count()
+        results["document_count"] = document_search_queryset("", country=country).count()
 
     tab_params = _nonempty_params(q=query, county=county, status=status, category=category)
     page_params = dict(tab_params)

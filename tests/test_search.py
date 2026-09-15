@@ -46,9 +46,38 @@ class SearchTests(TestCase):
             description="Demo policy on water",
             institution=institution,
         )
-        SourceDocument.objects.create(
+        document = SourceDocument.objects.create(
             title="Water budget annex",
             publisher="County Treasury",
+        )
+        Project.objects.get(name="Community Water Access Project").source_documents.add(document)
+        bujumbura = Institution.objects.create(
+            name="[DEMO] Bujumbura Water Service Desk",
+            location="Bujumbura, Burundi",
+        )
+        Project.objects.create(
+            name="[DEMO] Mukaza Public Standpipe Rehabilitation",
+            description="Boreholes and water kiosks in Bujumbura",
+            location="Mukaza",
+            county="Bujumbura",
+            country="BI",
+            institution=bujumbura,
+        )
+        Policy.objects.create(
+            title="[DEMO] Bujumbura water access policy",
+            institution=bujumbura,
+        )
+        dar = Institution.objects.create(
+            name="[DEMO] Dar es Salaam Water and Sanitation Desk",
+            location="Dar es Salaam, Tanzania",
+        )
+        Project.objects.create(
+            name="[DEMO] Dar es Salaam Water Network Repair",
+            description="Piped water repairs",
+            location="Dar es Salaam",
+            county="Dar es Salaam",
+            country="TZ",
+            institution=dar,
         )
 
     def test_search_finds_projects_institutions_policies_and_documents(self):
@@ -142,3 +171,41 @@ class SearchTests(TestCase):
         kisumu = search_civic_data("water", county="Kisumu", kind="projects")
         self.assertGreaterEqual(kisumu["project_count"], 1)
         self.assertEqual(kisumu["institution_count"], 0)
+
+    def test_search_follows_request_country(self):
+        kenya = search_civic_data("water")
+        kenya_institutions = [item.name for item in kenya["institutions"]]
+        kenya_projects = [item.name for item in kenya["projects"]]
+        kenya_policies = [item.title for item in kenya["policies"]]
+        self.assertTrue(any("Kisumu Water" in name for name in kenya_institutions))
+        self.assertTrue(any("Community Water" in name for name in kenya_projects))
+        self.assertTrue(any("Water services policy" in title for title in kenya_policies))
+        self.assertFalse(any("Bujumbura" in name for name in kenya_institutions))
+        self.assertFalse(any("Dar es Salaam" in name for name in kenya_institutions))
+        self.assertFalse(any("Mukaza" in name for name in kenya_projects))
+        self.assertFalse(any("Bujumbura" in title for title in kenya_policies))
+
+        burundi = search_civic_data("water", country="BI")
+        burundi_institutions = [item.name for item in burundi["institutions"]]
+        burundi_projects = [item.name for item in burundi["projects"]]
+        self.assertTrue(any("Bujumbura Water" in name for name in burundi_institutions))
+        self.assertTrue(any("Mukaza" in name for name in burundi_projects))
+        self.assertFalse(any("Kisumu Water" in name for name in burundi_institutions))
+        self.assertFalse(any("Community Water Access" in name for name in burundi_projects))
+        self.assertFalse(any("Dar es Salaam" in name for name in burundi_institutions))
+
+        guest = self.client.get(reverse("core:search-suggest"), {"q": "water"})
+        self.assertContains(guest, "Kisumu Water Office")
+        self.assertNotContains(guest, "Bujumbura Water Service Desk")
+        self.assertNotContains(guest, "Dar es Salaam Water and Sanitation Desk")
+        self.assertNotContains(guest, "Bujumbura water access policy")
+
+        from django.contrib.auth import get_user_model
+
+        User = get_user_model()
+        User.objects.create_user(username="bujumbura", password="pass12345", country="BI")
+        self.client.login(username="bujumbura", password="pass12345")
+        logged_in = self.client.get(reverse("core:search-suggest"), {"q": "water"})
+        self.assertContains(logged_in, "Bujumbura Water Service Desk")
+        self.assertNotContains(logged_in, "Kisumu Water Office")
+        self.assertNotContains(logged_in, "Dar es Salaam Water and Sanitation Desk")

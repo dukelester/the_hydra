@@ -1,6 +1,7 @@
-from django.db.models import Q
 from django.views.generic import DetailView, ListView
 
+from apps.core.governance import request_country
+from apps.core.services.search import policy_search_queryset
 from apps.policies.models import Policy
 
 
@@ -11,15 +12,10 @@ class PolicyListView(ListView):
     paginate_by = 9
 
     def get_queryset(self):
-        qs = Policy.objects.select_related("institution", "source_document")
         query = (self.request.GET.get("q") or "").strip()
-        if query:
-            qs = qs.filter(
-                Q(title__icontains=query)
-                | Q(description__icontains=query)
-                | Q(institution__name__icontains=query)
-            )
-        return qs
+        return policy_search_queryset(query, country=request_country(self.request)).select_related(
+            "source_document"
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

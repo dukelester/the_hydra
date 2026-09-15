@@ -3,6 +3,8 @@
 import uuid
 from django.db import migrations, models
 
+from apps.core.postgres_uuid import convert_tables
+
 
 class Migration(migrations.Migration):
 
@@ -11,6 +13,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(convert_tables("reports_issuereport"), migrations.RunPython.noop),
         migrations.AlterField(
             model_name="issuereport",
             name="id",

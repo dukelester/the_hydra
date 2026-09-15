@@ -9,7 +9,7 @@ from django.views.generic import DetailView, ListView
 from apps.core.governance import country_profile, request_country
 from apps.core.next_steps import project_next_steps
 from apps.core.services.coverage import calculate_evidence_coverage
-from apps.core.services.search import project_search_queryset
+from apps.core.services.search import institution_search_queryset, project_search_queryset
 from apps.core.services.timeline import build_project_timeline
 from apps.projects.activity import (
     MAX_COMPARE,
@@ -161,18 +161,11 @@ class InstitutionListView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        qs = Institution.objects.annotate(
-            project_count=Count("projects", distinct=True),
-            policy_count=Count("policies", distinct=True),
-        ).order_by("name")
         query = self.request.GET.get("q", "").strip()
+        qs = institution_search_queryset(query, country=request_country(self.request)).annotate(
+            policy_count=Count("policies", distinct=True),
+        )
         institution_type = self.request.GET.get("type", "").strip()
-        if query:
-            qs = qs.filter(
-                Q(name__icontains=query)
-                | Q(location__icontains=query)
-                | Q(description__icontains=query)
-            )
         if institution_type:
             qs = qs.filter(institution_type=institution_type)
         return qs

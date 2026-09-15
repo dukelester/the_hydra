@@ -9,6 +9,7 @@ from django.utils.encoding import escape_uri_path
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.generic import DetailView, ListView
 
+from apps.core.governance import request_country
 from apps.core.services.search import document_search_queryset, normalize_query
 from apps.sources.extraction import docx_preview_paragraphs, spreadsheet_preview
 from apps.sources.models import DocumentType, SourceDocument
@@ -26,7 +27,7 @@ class SourceDocumentListView(ListView):
     def get_queryset(self):
         query = self.request.GET.get("q", "")
         document_type = self.request.GET.get("type", "")
-        qs = document_search_queryset(query)
+        qs = document_search_queryset(query, country=request_country(self.request))
         if document_type:
             qs = qs.filter(document_type=document_type)
         return qs
