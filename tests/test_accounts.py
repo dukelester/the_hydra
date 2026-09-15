@@ -15,25 +15,63 @@ class AccountTests(TestCase):
         self.assertContains(first, "Create an account")
         self.assertContains(first, "Continue")
         self.assertContains(first, "Your name")
+        self.assertContains(first, "Country")
+        self.assertContains(first, "Tanzania")
         self.assertNotContains(first, "Create a password")
         self.assertNotContains(first, "I agree to the")
 
         step1 = self.client.post(
             reverse("accounts:register"),
-            {"step": "1", "username": "newcitizen", "display_name": "Amina"},
+            {"step": "1", "username": "newcitizen", "display_name": "Amina", "country": "KE"},
         )
         self.assertEqual(step1.status_code, 200)
         self.assertContains(step1, "Create a password")
         self.assertContains(step1, "@newcitizen")
         self.assertContains(step1, "Amina")
+        self.assertContains(step1, "Kenya")
         self.assertContains(step1, "I agree to the")
         self.assertNotContains(step1, "Choose a username")
         self.assertFalse(User.objects.filter(username="newcitizen").exists())
 
+    def test_register_requires_country(self):
+        response = self.client.post(
+            reverse("accounts:register"),
+            {"step": "1", "username": "newcitizen", "display_name": "Amina"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Continue")
+        self.assertNotContains(response, "Create a password")
+        self.assertFalse(User.objects.filter(username="newcitizen").exists())
+
+    def test_register_saves_selected_country(self):
+        self.client.post(
+            reverse("accounts:register"),
+            {"step": "1", "username": "darcitizen", "display_name": "Neema", "country": "TZ"},
+        )
+        response = self.client.post(
+            reverse("accounts:register"),
+            {
+                "step": "2",
+                "password1": "CivicPassphrase-47",
+                "password2": "CivicPassphrase-47",
+                "agree_to_terms": "on",
+            },
+        )
+        self.assertRedirects(response, reverse("accounts:dashboard"))
+        user = User.objects.get(username="darcitizen")
+        self.assertEqual(user.country, "TZ")
+        dashboard = self.client.get(reverse("accounts:dashboard"))
+        self.assertContains(dashboard, "Track my region")
+        self.assertContains(dashboard, "regions")
+        track = self.client.get(reverse("accounts:my-county"))
+        self.assertContains(track, "Track my region")
+        self.assertContains(track, "Dar es Salaam")
+        self.assertNotContains(track, ">Kisumu<")
+
     def test_register_requires_terms(self):
         self.client.post(
             reverse("accounts:register"),
-            {"step": "1", "username": "newcitizen", "display_name": ""},
+            {"step": "1", "username": "newcitizen", "display_name": "", "country": "KE"},
         )
         response = self.client.post(
             reverse("accounts:register"),
@@ -50,7 +88,7 @@ class AccountTests(TestCase):
     def test_register_succeeds_when_terms_agreed(self):
         self.client.post(
             reverse("accounts:register"),
-            {"step": "1", "username": "newcitizen", "display_name": "Amina"},
+            {"step": "1", "username": "newcitizen", "display_name": "Amina", "country": "KE"},
         )
         response = self.client.post(
             reverse("accounts:register"),
@@ -64,11 +102,12 @@ class AccountTests(TestCase):
         self.assertRedirects(response, reverse("accounts:dashboard"))
         user = User.objects.get(username="newcitizen")
         self.assertEqual(user.display_name, "Amina")
+        self.assertEqual(user.country, "KE")
 
     def test_register_back_returns_to_name_step(self):
         self.client.post(
             reverse("accounts:register"),
-            {"step": "1", "username": "newcitizen", "display_name": "Amina"},
+            {"step": "1", "username": "newcitizen", "display_name": "Amina", "country": "KE"},
         )
         back = self.client.post(
             reverse("accounts:register"),
@@ -107,6 +146,7 @@ class AccountTests(TestCase):
                 "last_name": "Otieno",
                 "affiliation": "Kisumu Civic Desk",
                 "role": UserRole.JOURNALIST,
+                "country": "KE",
                 "county": "Kisumu",
                 "location": "Nyalenda",
                 "website": "https://example.com",
@@ -154,7 +194,7 @@ class AccountTests(TestCase):
     def test_profile_fields_can_stay_blank(self):
         user = User.objects.create_user(username="citizen", password="CivicPassphrase-47")
         self.client.force_login(user)
-        saved = self.client.post(reverse("accounts:profile"), {})
+        saved = self.client.post(reverse("accounts:profile"), {"country": "KE"})
         self.assertRedirects(saved, reverse("accounts:profile"))
         user.refresh_from_db()
         self.assertEqual(user.display_name, "")

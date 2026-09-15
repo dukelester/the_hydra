@@ -41,6 +41,12 @@ class User(UUIDModel, AbstractUser):
         choices=UserRole.choices,
         help_text="How you usually use this record. Optional.",
     )
+    country = models.CharField(
+        max_length=2,
+        default="KE",
+        db_index=True,
+        help_text="Country whose public record and administrative units you follow.",
+    )
     county = models.CharField(max_length=120, blank=True)
     constituency = models.CharField(max_length=120, blank=True)
     ward = models.CharField(max_length=120, blank=True)
@@ -87,17 +93,22 @@ class User(UUIDModel, AbstractUser):
     def is_watching_area(self):
         if not self.pk:
             return False
-        return self.area_watches.exists()
+        return self.area_watches.filter(country=self.country or "KE").exists()
 
     def area_label(self):
-        labels = [watch.label() for watch in self.area_watches.all()]
+        if not self.pk:
+            return ""
+        labels = [
+            watch.label()
+            for watch in self.area_watches.filter(country=self.country or "KE")
+        ]
         if labels:
             return "; ".join(labels)
         parts = [part for part in (self.county, self.constituency, self.ward) if (part or "").strip()]
         return " · ".join(parts)
 
     def sync_area_tracking(self):
-        watching = self.area_watches.exists()
+        watching = self.area_watches.filter(country=self.country or "KE").exists()
         if self.track_area != watching:
             self.track_area = watching
             self.save(update_fields=["track_area"])
@@ -107,6 +118,7 @@ class AreaWatch(UUIDModel):
     MAX_PER_USER = 4
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="area_watches")
+    country = models.CharField(max_length=2, default="KE", db_index=True)
     county = models.CharField(max_length=120)
     constituency = models.CharField(max_length=120, blank=True)
     ward = models.CharField(max_length=120, blank=True)
@@ -117,8 +129,8 @@ class AreaWatch(UUIDModel):
         ordering = ["county", "constituency", "ward"]
         constraints = [
             models.UniqueConstraint(
-                fields=["user", "county", "constituency", "ward"],
-                name="unique_user_area_watch",
+                fields=["user", "country", "county", "constituency", "ward"],
+                name="unique_user_country_area_watch",
             )
         ]
 

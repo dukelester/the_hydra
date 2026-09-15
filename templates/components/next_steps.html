@@ -4,7 +4,7 @@
   <div class="next-steps-intro">
     <p class="kicker">{% trans "After the file" %}</p>
     <h2 id="next-steps-heading">{% trans "What you can do next" %}</h2>
-    <p>{% trans "Finding the record is only the start. These steps are written for Kenya first. They are not legal advice, and they do not decide guilt." %}</p>
+    <p>{% blocktrans with country=next_steps_country|default:"Kenya" %}Finding the record is only the start. These steps follow the rules recorded for {{ country }}. They are not legal advice, and they do not decide guilt.{% endblocktrans %}</p>
   </div>
   <ol class="next-steps-list">
     {% for step in next_steps %}

@@ -1,5 +1,5 @@
 <select name="constituency" id="id_constituency" class="form-select" autocomplete="off"{% if not county %} disabled{% endif %} hx-get="{% url 'accounts:area-options' %}" hx-trigger="change" hx-include="#id_county" hx-target="#ward-field" hx-swap="outerHTML">
-  <option value="">{% if county %}All constituencies{% else %}Choose a county first{% endif %}</option>
+  <option value="">{% if county %}All {{ gov.labels.level2_plural }}{% else %}Choose a {{ gov.labels.level1|lower }} first{% endif %}</option>
   {% for name in constituencies %}
     <option value="{{ name }}"{% if name == selected_constituency %} selected{% endif %}>{{ name }}</option>
   {% endfor %}

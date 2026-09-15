@@ -130,7 +130,9 @@ class ProjectDetailView(DetailView):
         context["timeline"] = build_project_timeline(project)
         context["coverage"] = calculate_evidence_coverage(project)
         project.coverage = context["coverage"]
-        context["next_steps"] = project_next_steps(project)
+        steps, country_name = project_next_steps(project)
+        context["next_steps"] = steps
+        context["next_steps_country"] = country_name
         context["allocations"] = project.allocations.all()
         context["evidence_items"] = project.evidence_items.all()
         context["documents"] = project.source_documents.all()

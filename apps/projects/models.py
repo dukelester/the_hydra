@@ -103,6 +103,7 @@ class Project(UUIDModel):
         default=ProjectCategory.OTHER,
     )
     location = models.CharField(max_length=255)
+    country = models.CharField(max_length=2, default="KE", db_index=True)
     county = models.CharField(max_length=120, db_index=True)
     constituency = models.CharField(max_length=120, blank=True, db_index=True)
     ward = models.CharField(max_length=120, blank=True)
@@ -144,6 +145,7 @@ class Project(UUIDModel):
     class Meta:
         ordering = ["name"]
         indexes = [
+            models.Index(fields=["country", "county", "status"]),
             models.Index(fields=["county", "status"]),
             models.Index(fields=["county", "constituency"]),
             models.Index(fields=["name"]),

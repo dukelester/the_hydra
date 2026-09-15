@@ -2,7 +2,7 @@
 <nav class="workspace-nav" aria-label="Workspace">
   <p class="eyebrow">Workspace</p>
   <a href="{% url 'accounts:dashboard' %}"{% if ns == "accounts" and name == "dashboard" %} class="is-active" aria-current="page"{% endif %}>Dashboard</a>
-  <a href="{% url 'accounts:my-county' %}"{% if ns == "accounts" and name == "my-county" %} class="is-active" aria-current="page"{% endif %}>Track my county</a>
+  <a href="{% url 'accounts:my-county' %}"{% if ns == "accounts" and name == "my-county" %} class="is-active" aria-current="page"{% endif %}>{{ governance.labels.track }}</a>
   <a href="{% url 'investigations:list' %}"{% if ns == "investigations" %} class="is-active" aria-current="page"{% endif %}>Investigations</a>
   <a href="{% url 'reports:list' %}"{% if ns == "reports" and name != "counties" %} class="is-active" aria-current="page"{% endif %}>Reports</a>
   <p class="workspace-nav-label">Look up</p>

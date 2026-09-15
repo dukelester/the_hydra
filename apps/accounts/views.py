@@ -24,6 +24,7 @@ from apps.core.forms import (
     StyledPasswordResetForm,
     StyledSetPasswordForm,
 )
+from apps.core.governance import country_profile, user_country
 from apps.core.services.coverage import calculate_evidence_coverage
 from apps.projects.activity import favourite_projects, recent_projects_for, tracked_follows
 from apps.projects.area import (
@@ -47,10 +48,13 @@ REGISTER_DRAFT_KEY = "register_draft"
 
 
 def _register_context(step, form, draft=None):
+    draft = draft or {}
+    country = country_profile(draft.get("country")) if draft.get("country") else None
     return {
         "step": step,
         "form": form,
-        "draft": draft or {},
+        "draft": draft,
+        "draft_country": country,
     }
 
 
@@ -73,6 +77,7 @@ def register_view(request):
                 request.session[REGISTER_DRAFT_KEY] = {
                     "username": form.cleaned_data["username"],
                     "display_name": form.cleaned_data.get("display_name") or "",
+                    "country": form.cleaned_data["country"],
                 }
                 draft = request.session[REGISTER_DRAFT_KEY]
                 security = RegisterForm(initial=draft)
@@ -89,6 +94,8 @@ def register_view(request):
         form = RegisterForm(data)
         if form.is_valid():
             user = form.save()
+            user.country = draft.get("country") or "KE"
+            user.save(update_fields=["country"])
             request.session.pop(REGISTER_DRAFT_KEY, None)
             login(request, user)
             return redirect("accounts:dashboard")
@@ -137,8 +144,16 @@ def dashboard_view(request):
 def profile_view(request):
     form = ProfileForm(request.POST if request.method == "POST" else None, instance=request.user)
     if request.method == "POST" and form.is_valid():
+        previous = user_country(request.user)
         form.save()
-        messages.success(request, "Profile saved.")
+        request.user.refresh_from_db()
+        if user_country(request.user) != previous:
+            messages.success(
+                request,
+                "Profile saved. Tracking now uses this country’s administrative units.",
+            )
+        else:
+            messages.success(request, "Profile saved.")
         return redirect("accounts:profile")
     return render(request, "accounts/profile.html", {"form": form})
 
@@ -148,7 +163,7 @@ def my_county_view(request):
     user = request.user
 
     if request.method == "POST" and request.POST.get("intent") == "stop":
-        user.area_watches.all().delete()
+        user.area_watches.filter(country=user_country(user)).delete()
         user.sync_area_tracking()
         messages.success(request, "Stopped tracking all areas. Location details are still on your profile.")
         return redirect("accounts:my-county")
@@ -191,10 +206,11 @@ def area_options_view(request):
     context = {
         "county": county,
         "constituency": constituency,
-        "constituencies": constituencies_for(county),
-        "wards": wards_for(county, constituency),
+        "constituencies": constituencies_for(county, user_country(request.user)),
+        "wards": wards_for(county, constituency, user_country(request.user)),
         "selected_constituency": constituency,
         "selected_ward": "",
+        "gov": country_profile(user_country(request.user)),
     }
     if trigger == "constituency":
         return render(request, "accounts/_area_ward_field.html", context)

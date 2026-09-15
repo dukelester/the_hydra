@@ -37,7 +37,7 @@
     </a>
     <a href="{% url 'accounts:my-county' %}">
       <strong>{% if area.watching %}{{ area.area_count }}{% else %}—{% endif %}</strong>
-      <span>{% if area.watching %}{% if area.watch_count > 1 %}{{ area.watch_count }} areas{% else %}{{ area.label }}{% endif %}{% else %}Track my county{% endif %}</span>
+      <span>{% if area.watching %}{% if area.watch_count > 1 %}{{ area.watch_count }} areas{% else %}{{ area.label }}{% endif %}{% else %}{{ governance.labels.track }}{% endif %}</span>
     </a>
   </nav>
 
@@ -49,7 +49,7 @@
       </div>
       {% if area.watching %}
         <p class="muted">{{ area.watch_count }} area{{ area.watch_count|pluralize }} · {{ area.area_count }} project{{ area.area_count|pluralize }} in the record{% if area.area_update_count %} · {{ area.area_update_count }} updated since your last visit{% endif %}.</p>
-        {% include "accounts/_area_watch_cards.html" with watches=area.watches compact=True %}
+        {% include "accounts/_area_watch_cards.html" with watches=area.watches compact=True whole_label=area.governance.labels.whole %}
         <ul class="plain-list dashboard-list">
           {% for project in area.projects|slice:":4" %}
             <li class="card record-card">
@@ -62,7 +62,7 @@
           {% endfor %}
         </ul>
       {% else %}
-        <p class="search-empty">Track up to four counties, constituencies, or wards to follow public works as the record is updated.</p>
+        <p class="search-empty">Track up to four {{ area.governance.labels.level1_plural }}, {{ area.governance.labels.level2_plural }}, or {{ area.governance.labels.level3_plural }} in {{ area.country_name }} to follow public works as the record is updated.</p>
       {% endif %}
     </section>
 

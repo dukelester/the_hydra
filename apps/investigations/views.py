@@ -41,6 +41,7 @@ def investigate_project(request, slug):
         slug=slug,
     )
     project.coverage = calculate_evidence_coverage(project)
+    steps, country_name = project_next_steps(project)
     form = InvestigationForm(
         request.POST or None,
         request.FILES or None,
@@ -72,7 +73,8 @@ def investigate_project(request, slug):
             "project": project,
             "max_upload_mb": settings.THEHYDRA_MAX_UPLOAD_BYTES // (1024 * 1024),
             "max_upload_files": getattr(settings, "THEHYDRA_MAX_UPLOAD_FILES", 8),
-            "next_steps": project_next_steps(project),
+            "next_steps": steps,
+            "next_steps_country": country_name,
         },
     )
 

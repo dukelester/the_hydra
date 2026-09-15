@@ -27,13 +27,15 @@
       <legend>About you</legend>
       {% include "components/form_field.html" with field=form.affiliation %}
       {% include "components/form_field.html" with field=form.role %}
+      <legend>Where you follow the record</legend>
+      {% include "components/form_field.html" with field=form.country %}
       <div class="form-grid">
         {% include "components/form_field.html" with field=form.county %}
         {% include "components/form_field.html" with field=form.constituency %}
         {% include "components/form_field.html" with field=form.ward %}
         {% include "components/form_field.html" with field=form.location %}
       </div>
-      <p class="help"><a href="{% url 'accounts:my-county' %}">Track up to four areas</a> to see projects on your dashboard as the record is updated.</p>
+      <p class="help"><a href="{% url 'accounts:my-county' %}">{{ governance.labels.track }}</a> uses this country’s units on your dashboard.</p>
       {% include "components/form_field.html" with field=form.bio %}
     </fieldset>
     <div class="form-actions">

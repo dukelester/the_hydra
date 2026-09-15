@@ -95,7 +95,7 @@ class AreaWatchTests(TestCase):
         self.assertFalse(self.user.track_area)
         self.assertEqual(self.user.county, "Kisumu")
         feed = self.client.get(reverse("accounts:my-county"))
-        self.assertContains(feed, "Choose a county to start the feed")
+        self.assertContains(feed, "Choose a county")
         self.assertNotContains(feed, "Community Water Access Project")
 
     def test_area_options_require_login(self):
@@ -172,3 +172,36 @@ class AreaWatchTests(TestCase):
         self.user.refresh_from_db()
         self.assertEqual(self.user.area_watches.count(), 3)
         self.assertFalse(self.user.area_watches.filter(county="Kisumu").exists())
+
+    def test_tanzania_user_tracks_regions_not_kenyan_counties(self):
+        self.user.country = "TZ"
+        self.user.save(update_fields=["country"])
+        dar = Project.objects.create(
+            name="Dar es Salaam Drain Works",
+            description="A Tanzania project.",
+            location="Ilala",
+            country="TZ",
+            county="Dar es Salaam",
+            institution=self.institution,
+            status=ProjectStatus.IN_PROGRESS,
+        )
+        self.client.force_login(self.user)
+        page = self.client.get(reverse("accounts:my-county"))
+        self.assertContains(page, "Track my region")
+        self.assertContains(page, "Dar es Salaam")
+        self.assertContains(page, "Choose a region")
+        self.assertNotContains(page, 'value="Kisumu"')
+
+        saved = self.client.post(
+            reverse("accounts:my-county"),
+            {"county": "Dar es Salaam", "constituency": "", "ward": ""},
+        )
+        self.assertRedirects(saved, reverse("accounts:my-county"))
+        feed = self.client.get(reverse("accounts:my-county"))
+        self.assertContains(feed, "Dar es Salaam Drain Works")
+        self.assertNotContains(feed, "Community Water Access Project")
+        dashboard = self.client.get(reverse("accounts:dashboard"))
+        self.assertContains(dashboard, "Whole region")
+        self.assertContains(dashboard, dar.name)
+        self.assertTrue(self.user.area_watches.filter(country="TZ", county="Dar es Salaam").exists())
+

@@ -4,7 +4,7 @@
       <div>
         <p class="eyebrow">{{ watch.county }}</p>
         <p class="area-card-place">
-          {% if watch.constituency %}{{ watch.constituency }}{% else %}Whole county{% endif %}{% if watch.ward %} · {{ watch.ward }}{% endif %}
+          {% if watch.constituency %}{{ watch.constituency }}{% else %}{{ whole_label|default:"Whole county" }}{% endif %}{% if watch.ward %} · {{ watch.ward }}{% endif %}
         </p>
       </div>
       {% if removable %}

@@ -1,10 +1,10 @@
 {% extends "accounts/base_workspace.html" %}
-{% block title %}Track my county{% endblock %}
+{% block title %}{{ area.governance.labels.track }}{% endblock %}
 {% block workspace %}
 <section class="page-head">
-  <p class="kicker">Your areas</p>
-  <h1>Track my county</h1>
-  <p class="lede">Follow up to {{ area.max_watches }} areas. Choose a county, then optionally a constituency and ward. H.Y.D.R.A. will show public projects recorded for those places, and flag them on your dashboard when the record changes.</p>
+  <p class="kicker">{{ area.country_name }}</p>
+  <h1>{{ area.governance.labels.track }}</h1>
+  <p class="lede">Follow up to {{ area.max_watches }} areas in {{ area.country_name }}. Choose a {{ area.governance.labels.level1|lower }}, then optionally a {{ area.governance.labels.level2|lower }} and {{ area.governance.labels.level3|lower }}. H.Y.D.R.A. will show public projects recorded for those places, and flag them on your dashboard when the record changes.</p>
 </section>
 
 <section class="area-page">
@@ -16,7 +16,7 @@
         <p class="muted">{{ area.watch_count }} of {{ area.max_watches }} area{{ area.max_watches|pluralize }} · {{ area.area_count }} project{{ area.area_count|pluralize }} in the public record{% if area.total_budget %} · {{ area.total_budget }} recorded{% endif %}</p>
       </div>
     </header>
-    {% include "accounts/_area_watch_cards.html" with watches=area.watches removable=True %}
+    {% include "accounts/_area_watch_cards.html" with watches=area.watches removable=True whole_label=area.governance.labels.whole %}
   {% endif %}
 
   {% if area.can_add %}
@@ -25,24 +25,24 @@
       {% if form.non_field_errors %}<p class="error" role="alert">{{ form.non_field_errors|striptags }}</p>{% endif %}
       <div class="form-grid area-grid">
         <div class="field{% if form.county.errors %} is-invalid{% endif %}">
-          <label for="{{ form.county.id_for_label }}">County <span class="req" title="Required">*</span></label>
+          <label for="{{ form.county.id_for_label }}">{{ form.county.label }} <span class="req" title="Required">*</span></label>
           {{ form.county }}
           {% if form.county.errors %}<p class="error" role="alert">{{ form.county.errors|striptags }}</p>{% endif %}
         </div>
         <div id="area-dependent" class="area-dependent">
           <div class="field{% if form.constituency.errors %} is-invalid{% endif %}">
-            <label for="{{ form.constituency.id_for_label }}">Constituency</label>
+            <label for="{{ form.constituency.id_for_label }}">{{ form.constituency.label }}</label>
             {{ form.constituency }}
             {% if form.constituency.errors %}<p class="error" role="alert">{{ form.constituency.errors|striptags }}</p>{% endif %}
           </div>
           <div class="field{% if form.ward.errors %} is-invalid{% endif %}" id="ward-field">
-            <label for="{{ form.ward.id_for_label }}">Ward</label>
+            <label for="{{ form.ward.id_for_label }}">{{ form.ward.label }}</label>
             {{ form.ward }}
             {% if form.ward.errors %}<p class="error" role="alert">{{ form.ward.errors|striptags }}</p>{% endif %}
           </div>
         </div>
       </div>
-      <p class="help area-form-help">Add another county, or narrow one with constituency and ward. You can track up to {{ area.max_watches }}.</p>
+      <p class="help area-form-help">Add another {{ area.governance.labels.level1|lower }}, or narrow one with {{ area.governance.labels.level2|lower }} and {{ area.governance.labels.level3|lower }}. You can track up to {{ area.max_watches }}.</p>
       <div class="form-actions">
         <button class="btn btn-primary" type="submit">Track this area</button>
         {% if area.watching %}
@@ -55,7 +55,7 @@
     <aside class="area-form area-limit" role="status">
       <p class="eyebrow">Limit reached</p>
       <h2>You are tracking {{ area.max_watches }} areas</h2>
-      <p class="muted">Remove a card above to add a different county, constituency, or ward.</p>
+      <p class="muted">Remove a card above to add a different {{ area.governance.labels.level1|lower }}, {{ area.governance.labels.level2|lower }}, or {{ area.governance.labels.level3|lower }}.</p>
       <form class="form-actions" method="post">
         {% csrf_token %}
         <button class="btn btn-secondary" type="submit" name="intent" value="stop">Stop all</button>
@@ -111,7 +111,7 @@
       </div>
     </section>
   {% else %}
-    <p class="search-empty">Choose a county to start the feed. You can add up to {{ area.max_watches }} areas.</p>
+    <p class="search-empty">Choose a {{ area.governance.labels.level1|lower }} in {{ area.country_name }} to start the feed. You can add up to {{ area.max_watches }} areas.{% if area.other_country_watches %} Watches from another country stay saved if you switch back.{% endif %}</p>
   {% endif %}
 </section>
 {% endblock %}

@@ -39,6 +39,23 @@ class AccessConstraintTests(TestCase):
         self.assertContains(response, "Commission on Administrative Justice")
         self.assertContains(response, "Kisumu Water Office")
         self.assertContains(response, "Investigate This Project")
+        self.assertContains(response, "rules recorded for Kenya")
+
+    def test_tanzania_project_uses_local_next_steps(self):
+        institution = Institution.objects.create(name="Ilala Municipal Council", location="Dar es Salaam")
+        project = Project.objects.create(
+            name="Ilala Water Network",
+            description="A Tanzania file.",
+            location="Ilala",
+            country="TZ",
+            county="Dar es Salaam",
+            institution=institution,
+        )
+        response = self.client.get(project.get_absolute_url())
+        self.assertContains(response, "Commission for Human Rights and Good Governance")
+        self.assertContains(response, "rules recorded for Tanzania")
+        self.assertContains(response, "Region: Dar es Salaam")
+        self.assertNotContains(response, "Commission on Administrative Justice")
 
     def test_lite_mode_skips_webfonts_and_live_search(self):
         toggle = self.client.post(

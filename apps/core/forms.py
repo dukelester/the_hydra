@@ -11,6 +11,7 @@ from django.contrib.auth.forms import (
 from django import forms
 
 from apps.accounts.models import AreaWatch, User, UserRole
+from apps.core.governance import country_choices, country_profile, normalize_country, user_country
 from apps.core.uploads import validate_upload
 from apps.investigations.models import Investigation, store_investigation_files
 from apps.projects.area import area_counties, constituencies_for, wards_for
@@ -55,6 +56,11 @@ class RegisterIdentityForm(StyledFormMixin, forms.Form):
         label="Display name",
         help_text="Optional. Shown on your dashboard instead of the username.",
     )
+    country = forms.ChoiceField(
+        choices=[("", "Choose your country")] + country_choices(),
+        label="Country",
+        help_text="Tracking and next steps follow this country’s administrative units and public-information rules. You can change it later on your profile.",
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -62,6 +68,7 @@ class RegisterIdentityForm(StyledFormMixin, forms.Form):
         self.fields["username"].widget.attrs["autocomplete"] = "username"
         self.fields["display_name"].widget.attrs["placeholder"] = "Optional public name"
         self.fields["display_name"].widget.attrs["autocomplete"] = "nickname"
+        self.fields["country"].widget.attrs["autocomplete"] = "country"
         self._style_fields()
 
     def clean_username(self):
@@ -107,6 +114,7 @@ class ProfileForm(StyledFormMixin, forms.ModelForm):
             "email",
             "affiliation",
             "role",
+            "country",
             "county",
             "constituency",
             "ward",
@@ -121,6 +129,7 @@ class ProfileForm(StyledFormMixin, forms.ModelForm):
             "email": "Email",
             "affiliation": "Affiliation",
             "role": "How you use H.Y.D.R.A.",
+            "country": "Country",
             "county": "County",
             "constituency": "Constituency",
             "ward": "Ward",
@@ -135,9 +144,10 @@ class ProfileForm(StyledFormMixin, forms.ModelForm):
             "email": "Optional, but needed to reset a forgotten password.",
             "affiliation": "Newsroom, university, department, or organisation — if you want it recorded.",
             "role": "Optional. Helps us understand who uses the record.",
-            "county": "Optional. Used if you track your county.",
-            "constituency": "Optional. Narrows the county feed.",
-            "ward": "Optional. Narrows the county feed further.",
+            "country": "Sets the administrative units and public-information steps on your dashboard.",
+            "county": "Optional. Used if you track an area.",
+            "constituency": "Optional. Narrows the area feed.",
+            "ward": "Optional. Narrows the area feed further.",
             "location": "Optional. Town or neighbourhood.",
             "website": "Optional. A public page, not a private profile.",
             "bio": "Optional. A short note about how you use this platform.",
@@ -150,6 +160,20 @@ class ProfileForm(StyledFormMixin, forms.ModelForm):
         super().__init__(*args, **kwargs)
         for name in self.fields:
             self.fields[name].required = False
+        self.fields["country"].required = True
+        self.fields["country"].widget = forms.Select()
+        self.fields["country"].choices = country_choices()
+        posted = ""
+        if self.is_bound:
+            posted = (self.data.get("country") or "").strip()
+        gov = country_profile(posted or getattr(self.instance, "country", None))
+        labels = gov["labels"]
+        self.fields["county"].label = labels["level1"]
+        self.fields["constituency"].label = labels["level2"]
+        self.fields["ward"].label = labels["level3"]
+        self.fields["county"].help_text = f"Optional. Used if you track a {labels['level1'].lower()}."
+        self.fields["constituency"].help_text = f"Optional. Narrows the {labels['level1'].lower()} feed."
+        self.fields["ward"].help_text = f"Optional. Narrows the {labels['level1'].lower()} feed further."
         self.fields["role"].choices = [("", "Prefer not to say")] + list(UserRole.choices)
         self.fields["display_name"].widget.attrs["placeholder"] = "How should we address you?"
         self.fields["first_name"].widget.attrs["placeholder"] = "Optional"
@@ -157,13 +181,16 @@ class ProfileForm(StyledFormMixin, forms.ModelForm):
         self.fields["email"].widget.attrs["placeholder"] = "you@example.com"
         self.fields["email"].widget.attrs["autocomplete"] = "email"
         self.fields["affiliation"].widget.attrs["placeholder"] = "Optional organisation"
-        self.fields["county"].widget.attrs["placeholder"] = "Optional county"
-        self.fields["constituency"].widget.attrs["placeholder"] = "Optional constituency"
-        self.fields["ward"].widget.attrs["placeholder"] = "Optional ward"
+        self.fields["county"].widget.attrs["placeholder"] = f"Optional {labels['level1'].lower()}"
+        self.fields["constituency"].widget.attrs["placeholder"] = f"Optional {labels['level2'].lower()}"
+        self.fields["ward"].widget.attrs["placeholder"] = f"Optional {labels['level3'].lower()}"
         self.fields["location"].widget.attrs["placeholder"] = "Optional town"
         self.fields["website"].widget.attrs["placeholder"] = "https://"
         self.fields["website"].widget.attrs["autocomplete"] = "url"
         self._style_fields()
+
+    def clean_country(self):
+        return normalize_country(self.cleaned_data.get("country"))
 
 
 class AreaWatchForm(StyledFormMixin, forms.Form):
@@ -173,36 +200,55 @@ class AreaWatchForm(StyledFormMixin, forms.Form):
         kwargs.pop("wards", None)
         kwargs.pop("instance", None)
         self.user = user
+        self.country = user_country(user)
+        self.governance = country_profile(self.country)
+        labels = self.governance["labels"]
         super().__init__(*args, **kwargs)
         county = self._posted_value("county")
         constituency = self._posted_value("constituency")
-        if constituency and constituency not in constituencies_for(county):
+        if constituency and constituency not in constituencies_for(county, self.country):
             constituency = ""
 
-        counties = area_counties()
+        counties = area_counties(self.country)
         self.fields["county"] = forms.ChoiceField(
-            choices=[("", "Choose a county")] + [(name, name) for name in counties],
+            choices=[("", f"Choose a {labels['level1'].lower()}")] + [(name, name) for name in counties],
             required=True,
-            label="County",
+            label=labels["level1"],
         )
-        const_choices = constituencies_for(county)
+        const_choices = constituencies_for(county, self.country)
         self.fields["constituency"] = forms.ChoiceField(
-            choices=[("", "All constituencies" if county else "Choose a county first")]
+            choices=[
+                (
+                    "",
+                    f"All {labels['level2_plural']}"
+                    if county
+                    else f"Choose a {labels['level1'].lower()} first",
+                )
+            ]
             + [(name, name) for name in const_choices],
             required=False,
-            label="Constituency",
+            label=labels["level2"],
         )
-        ward_choices = wards_for(county, constituency)
+        ward_choices = wards_for(county, constituency, self.country)
         self.fields["ward"] = forms.ChoiceField(
-            choices=[("", "All wards" if constituency else "Choose a constituency first")]
+            choices=[
+                (
+                    "",
+                    f"All {labels['level3_plural']}"
+                    if constituency
+                    else f"Choose a {labels['level2'].lower()} first",
+                )
+            ]
             + [(name, name) for name in ward_choices],
             required=False,
-            label="Ward",
+            label=labels["level3"],
         )
         if not county:
             self.fields["constituency"].widget.attrs["disabled"] = True
-        if not constituency:
+        if not constituency or not const_choices:
             self.fields["ward"].widget.attrs["disabled"] = True
+        if not const_choices:
+            self.fields["constituency"].widget.attrs["disabled"] = True
         self._style_fields()
         self.fields["county"].widget.attrs.update(
             {
@@ -232,23 +278,34 @@ class AreaWatchForm(StyledFormMixin, forms.Form):
 
     def clean_county(self):
         county = (self.cleaned_data.get("county") or "").strip()
+        labels = self.governance["labels"]
         if not county:
-            raise forms.ValidationError("Choose a county to track.")
+            raise forms.ValidationError(f"Choose a {labels['level1'].lower()} to track.")
         return county
 
     def clean(self):
         cleaned = super().clean()
+        labels = self.governance["labels"]
         county = cleaned.get("county") or ""
         constituency = (cleaned.get("constituency") or "").strip()
         ward = (cleaned.get("ward") or "").strip()
-        if constituency and constituency not in constituencies_for(county):
-            self.add_error("constituency", "Choose a constituency in that county.")
+        if constituency and constituency not in constituencies_for(county, self.country):
+            self.add_error(
+                "constituency",
+                f"Choose a {labels['level2'].lower()} in that {labels['level1'].lower()}.",
+            )
         if ward and not constituency:
-            self.add_error("ward", "Choose a constituency before a ward.")
-        elif ward and ward not in wards_for(county, constituency):
-            self.add_error("ward", "Choose a ward in that constituency.")
+            self.add_error(
+                "ward",
+                f"Choose a {labels['level2'].lower()} before a {labels['level3'].lower()}.",
+            )
+        elif ward and ward not in wards_for(county, constituency, self.country):
+            self.add_error(
+                "ward",
+                f"Choose a {labels['level3'].lower()} in that {labels['level2'].lower()}.",
+            )
         if self.user and self.user.pk and not self.errors:
-            watches = self.user.area_watches.all()
+            watches = self.user.area_watches.filter(country=self.country)
             if watches.count() >= AreaWatch.MAX_PER_USER:
                 raise forms.ValidationError(
                     f"You can track up to {AreaWatch.MAX_PER_USER} areas. Remove one to add another."
@@ -264,6 +321,7 @@ class AreaWatchForm(StyledFormMixin, forms.Form):
 
         watch = AreaWatch.objects.create(
             user=self.user,
+            country=self.country,
             county=self.cleaned_data["county"],
             constituency=self.cleaned_data.get("constituency") or "",
             ward=self.cleaned_data.get("ward") or "",
