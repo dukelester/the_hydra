@@ -64,9 +64,14 @@
         </div>
       </details>
     {% endif %}
-    <details class="nav-mobile">
+    <details class="nav-mobile" data-nav-menu>
       <summary>Menu</summary>
       <nav aria-label="Mobile">
+        <form class="nav-mobile-search" method="get" action="{% url 'core:search' %}" role="search">
+          <label class="sr-only" for="mobile-q">Search projects</label>
+          <input id="mobile-q" name="q" type="search" placeholder="Search projects…" autocomplete="off">
+          <button type="submit" class="btn btn-primary btn-compact">Search</button>
+        </form>
         <a href="{% url 'projects:list' %}">Projects</a>
         <a href="{% url 'institutions:list' %}">Institutions</a>
         <a href="{% url 'sources:list' %}">Documents</a>

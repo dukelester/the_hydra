@@ -31,4 +31,10 @@
       closeAll();
     }
   });
+
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 980) {
+      closeAll();
+    }
+  });
 })();
