@@ -1,9 +1,12 @@
 from datetime import date
 
+from django.contrib.auth import get_user_model
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from django.utils import timezone
 
+from apps.accounts.models import AreaWatch, UserRole
 from apps.policies.models import Policy, PolicyStatus, PolicyType
 from apps.projects.models import (
     AllocationType,
@@ -12,6 +15,7 @@ from apps.projects.models import (
     InstitutionType,
     Project,
     ProjectCategory,
+    ProjectFollow,
     ProjectStatus,
     TimelineEvent,
     TimelineStage,
@@ -24,6 +28,10 @@ from apps.sources.models import (
     SourceDocument,
     VerificationLevel,
 )
+
+DEMO_USER_USERNAME = "demo"
+DEMO_USER_PASSWORD = "HydraDemo-47"
+DEMO_USER_EMAIL = "demo@thehydra.local"
 
 
 class Command(BaseCommand):
@@ -50,6 +58,7 @@ class Command(BaseCommand):
         self._attach_demo_files(documents)
         self._projects(institutions, documents)
         self._policies(institutions, documents)
+        self._demo_user()
         self.stdout.write(self.style.SUCCESS("Demo data loaded. Records are labelled as demo / fictional."))
 
     def _institutions(self):
@@ -1359,3 +1368,52 @@ class Command(BaseCommand):
                 "is_demo": True,
             },
         )
+
+    def _demo_user(self):
+        User = get_user_model()
+        user, _created = User.objects.get_or_create(username=DEMO_USER_USERNAME)
+        user.email = DEMO_USER_EMAIL
+        user.display_name = "Amina Otieno"
+        user.first_name = "Amina"
+        user.last_name = "Otieno"
+        user.affiliation = "Lakeside Civic Watch (demo)"
+        user.role = UserRole.CITIZEN
+        user.country = "KE"
+        user.county = "Kisumu"
+        user.constituency = "Kisumu East"
+        user.ward = "Kolwa East"
+        user.location = "Kolwa East, Kisumu"
+        user.track_area = True
+        user.website = ""
+        user.bio = (
+            "Fictional Kisumu resident used to demonstrate tracking, investigations, "
+            "and reports. Not a real person."
+        )
+        user.is_staff = False
+        user.is_superuser = False
+        user.set_password(DEMO_USER_PASSWORD)
+        user.save()
+
+        user.area_watches.all().delete()
+        AreaWatch.objects.create(
+            user=user,
+            country="KE",
+            county="Kisumu",
+            constituency="Kisumu East",
+            ward="Kolwa East",
+            last_seen_at=timezone.now(),
+        )
+        user.sync_area_tracking()
+
+        user.project_follows.all().delete()
+        water = Project.objects.filter(slug="community-water-access-project").first()
+        if water:
+            ProjectFollow.objects.create(
+                user=user,
+                project=water,
+                is_tracked=True,
+                is_favourite=True,
+                last_seen_updated_at=water.updated_at,
+                last_seen_status=water.status,
+            )
+        self.stdout.write(f"Demo user ready: {DEMO_USER_USERNAME} / {DEMO_USER_PASSWORD}")

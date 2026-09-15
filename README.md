@@ -70,7 +70,7 @@ Record what you saw. Official information and your observation stay in separate 
 
 ## Account and workspace
 
-Country is optional at signup (Kenya if skipped). Tracking, filters, and next steps then follow that country’s units.
+Country is optional at signup (Kenya if skipped). Tracking, filters, and next steps then follow that country’s units. After demo data is loaded, you can sign in as **`demo` / `HydraDemo-47`** (details under [Setup](#setup)).
 
 <p align="center">
   <img src="docs/screenshots/register.png" alt="Create an account: username, display name, and country" width="48%">
@@ -114,7 +114,7 @@ The record is meant to stay useful where connections are weak and devices are ba
 - Django 5.2+ and Django REST Framework
 - PostgreSQL in Docker; SQLite for local development (`USE_SQLITE=true`) and tests
 - HTMX, HTML, CSS
-- Gunicorn, Nginx, Docker Compose
+- Gunicorn and Docker Compose
 - Uploads: PDF, Word, Excel, images — default **200MB** each, up to **8** files per investigation. Text extraction runs after save.
 
 Primary keys are **UUIDs**. Public project, institution, and policy pages still use slugs. Documents, investigations, reports, evidence, and staff/API object routes use UUIDs (`/sources/<uuid>/`, not `/sources/7/`).
@@ -154,7 +154,20 @@ docker compose up --build
 
 Open [http://localhost:8000](http://localhost:8000). If that port is taken, set `WEB_PORT=8088` in `.env` and use [http://localhost:8088](http://localhost:8088).
 
-Optional Docker admin (change in `.env`): username `admin`, password `adminpass123`.
+Demo data (including the demo resident) loads on container start when `LOAD_DEMO_DATA=true`.
+
+| | Demo resident | Staff admin |
+| --- | --- | --- |
+| Username | `demo` | `admin` |
+| Password | `HydraDemo-47` | `adminpass123` |
+| Email | `demo@thehydra.local` | `admin@example.com` |
+| Display name | Amina Otieno | — |
+| Role | Resident / citizen | Superuser |
+| Country | Kenya | — |
+| Area | Kisumu · Kisumu East · Kolwa East | — |
+| Tracks | Community Water Access Project (favourite) | — |
+
+The demo resident is fictional. Change `DJANGO_SUPERUSER_*` in `.env` if you do not want the default admin password. Do not use these passwords in production.
 
 ### Local virtualenv
 
@@ -165,11 +178,10 @@ pip install -r requirements.txt
 cp .env.example .env
 python manage.py migrate
 python manage.py load_demo_data
-python manage.py createsuperuser
 python manage.py runserver
 ```
 
-With `USE_SQLITE=true` (the `.env.example` default), Django uses `db.sqlite3`. Unset that and set `POSTGRES_HOST` to use Postgres.
+With `USE_SQLITE=true` (the `.env.example` default), Django uses `db.sqlite3`. Unset that and set `POSTGRES_HOST` to use Postgres. Sign in with the demo resident above, or run `python manage.py createsuperuser` for a staff account.
 
 ## Environment
 
@@ -200,6 +212,8 @@ python manage.py load_demo_data --reset
 ```
 
 Seed records are fictional. Project names in the seed set are labelled `[DEMO]`. They include Kenya, Tanzania, Burundi, the Democratic Republic of the Congo, and Nigeria, with a mix of fully evidenced, partially evidenced, missing, and conflicting files.
+
+The same command creates the demo resident **`demo` / `HydraDemo-47`** (Amina Otieno, Kenya, watching Kisumu East and tracking the Community Water Access Project). That account is not staff.
 
 Walkthrough (~3–5 minutes):
 
