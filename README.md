@@ -4,6 +4,10 @@
 
 Follow the money. Find the evidence. Take action.
 
+<p align="center">
+  <img src="docs/screenshots/home.png" alt="H.Y.D.R.A. home: search the public record" width="920">
+</p>
+
 H.Y.D.R.A. is an evidence-first civic record for public projects, budgets, institutions, policies, and source documents. It helps people inspect what the files support — without inventing missing facts or treating a gap in the record as a finding of guilt.
 
 The main path is:
@@ -11,6 +15,10 @@ The main path is:
 **Search → Project → Evidence → Investigation → Report**
 
 Along the way you can watch a county, track a project, compare files, and read county totals from recorded budgets and statuses.
+
+<p align="center">
+  <img src="docs/screenshots/principles.png" alt="What H.Y.D.R.A. means: Human-centered, Yield, Data, Rights, Accountability" width="920">
+</p>
 
 ## What it does
 
@@ -27,6 +35,68 @@ Along the way you can watch a county, track a project, compare files, and read c
 - Staff can manage records at `/admin_dashboard/` (staff accounts only). Django Admin remains at `/admin/`.
 
 H.Y.D.R.A. does not determine guilt, corruption, or fraud. It does not invent missing facts. It does not score people, counties, or contractors for trust.
+
+## The record
+
+Type two characters and ranked matches appear — project name, county, contractor, institution.
+
+<p align="center">
+  <img src="docs/screenshots/search.png" alt="Live search for water across projects, institutions, and policies" width="920">
+</p>
+
+Open a file. Status, budget, and coverage sit next to the source trail. Coverage is how much of the recorded file is supported — not a verdict.
+
+<p align="center">
+  <img src="docs/screenshots/project.png" alt="Project page for a demo community water project in Kisumu" width="920">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/follow-the-money.png" alt="Follow the money timeline with evidence coverage and source documents" width="920">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/budget.png" alt="Missing information, budget allocations, and the first evidence claim" width="920">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/evidence.png" alt="Evidence claims linked to source documents, pages, and verification status" width="920">
+</p>
+
+Record what you saw. Official information and your observation stay in separate columns. An observation is not a verified finding.
+
+<p align="center">
+  <img src="docs/screenshots/investigate.png" alt="Investigate this project: citizen observation form" width="920">
+</p>
+
+## Account and workspace
+
+Country is optional at signup (Kenya if skipped). Tracking, filters, and next steps then follow that country’s units.
+
+<p align="center">
+  <img src="docs/screenshots/register.png" alt="Create an account: username, display name, and country" width="48%">
+  &nbsp;
+  <img src="docs/screenshots/login.png" alt="Log in to tracked projects, investigations, and reports" width="48%">
+</p>
+
+The dashboard keeps tracked projects, area watches, investigations, and reports in one place. Investigations and reports stay private unless an administrator reviews them.
+
+<p align="center">
+  <img src="docs/screenshots/dashboard.png" alt="Signed-in dashboard with area watches and tracked projects" width="920">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/track-county.png" alt="Track my county: up to four counties, constituencies, or wards" width="920">
+</p>
+
+County report and compare read recorded budgets and statuses only. They are not a corruption or performance score.
+
+<p align="center">
+  <img src="docs/screenshots/county-report.png" alt="County report: recorded allocation, delivery mix, and sector budgets" width="920">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/compare.png" alt="Side-by-side project comparison" width="920">
+</p>
 
 ## Access, language, and next steps
 
@@ -63,6 +133,7 @@ the_hydra/
 │   ├── policies/           # Browseable policies
 │   ├── staff/              # Staff console at /admin_dashboard/
 │   └── core/               # Search, coverage, uploads, i18n, next steps
+├── docs/screenshots/       # Product screens for this README
 ├── locale/                 # en, sw, fr, ar, pt translations
 ├── templates/
 ├── static/
