@@ -52,8 +52,12 @@ def _build_evidence_summary(investigation):
     lines = []
     if investigation.evidence_description:
         lines.append(f"Citizen-submitted evidence description: {investigation.evidence_description}")
-    if investigation.attachment:
-        lines.append("A supporting file was attached to the citizen observation.")
+    file_count = investigation.file_count()
+    if file_count:
+        lines.append(
+            f"{file_count} supporting file{'s' if file_count != 1 else ''} "
+            "attached to the citizen observation."
+        )
     else:
         lines.append("No supporting file was attached to the citizen observation.")
 

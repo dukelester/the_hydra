@@ -25,7 +25,15 @@
   <section>
     <h2>Supporting evidence</h2>
     <p>{{ investigation.evidence_description|default:"No description provided." }}</p>
-    {% if investigation.attachment %}
+    {% if attachments %}
+      <ul class="doc-list">
+        {% for item in attachments %}
+          <li>
+            <a href="{{ item.file.url }}">{{ item.original_filename|default:"Uploaded file" }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% elif investigation.attachment %}
       <p><a href="{{ investigation.attachment.url }}">View uploaded file</a></p>
     {% else %}
       <p class="muted">No file was uploaded.</p>

@@ -41,6 +41,7 @@ def investigate_project(request, slug):
             investigation.user = None
             investigation.is_anonymous = True
         investigation.save()
+        form.save_files(investigation)
         remember_id(request, SESSION_INVESTIGATIONS, investigation.pk)
         messages.success(
             request,
@@ -54,13 +55,14 @@ def investigate_project(request, slug):
             "form": form,
             "project": project,
             "max_upload_mb": settings.THEHYDRA_MAX_UPLOAD_BYTES // (1024 * 1024),
+            "max_upload_files": getattr(settings, "THEHYDRA_MAX_UPLOAD_FILES", 8),
         },
     )
 
 
 def investigation_detail(request, pk):
     investigation = get_object_or_404(
-        Investigation.objects.select_related("project", "user"),
+        Investigation.objects.select_related("project", "user").prefetch_related("files"),
         pk=pk,
     )
     if not can_view_investigation(request, investigation):
@@ -70,5 +72,9 @@ def investigation_detail(request, pk):
     return render(
         request,
         "investigations/detail.html",
-        {"investigation": investigation, "project": investigation.project},
+        {
+            "investigation": investigation,
+            "project": investigation.project,
+            "attachments": investigation.files.all(),
+        },
     )

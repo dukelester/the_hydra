@@ -26,7 +26,7 @@ class SafeUploadTo:
 
 def validate_upload(file):
     """Reject oversized or disallowed uploads. Large files are stored on disk, not in memory."""
-    max_bytes = getattr(settings, "THEHYDRA_MAX_UPLOAD_BYTES", 100 * 1024 * 1024)
+    max_bytes = getattr(settings, "THEHYDRA_MAX_UPLOAD_BYTES", 200 * 1024 * 1024)
     allowed_ext = getattr(settings, "THEHYDRA_ALLOWED_UPLOAD_EXTENSIONS", default_allowed_extensions())
     allowed_types = getattr(
         settings,

@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from .models import Investigation
+from .models import Investigation, InvestigationAttachment
+
+
+class InvestigationAttachmentInline(admin.TabularInline):
+    model = InvestigationAttachment
+    extra = 0
+    readonly_fields = ("original_filename", "file_size", "created_at")
 
 
 @admin.register(Investigation)
@@ -25,3 +31,4 @@ class InvestigationAdmin(admin.ModelAdmin):
     autocomplete_fields = ["project", "user"]
     date_hierarchy = "created_at"
     readonly_fields = ("created_at", "updated_at")
+    inlines = [InvestigationAttachmentInline]

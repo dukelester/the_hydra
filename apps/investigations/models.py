@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.utils.text import get_valid_filename
 
 from apps.core.uploads import SafeUploadTo, validate_upload
 
@@ -64,3 +65,56 @@ class Investigation(models.Model):
         if not self.title:
             self.title = f"Citizen observation: {self.project.name}"
         super().save(*args, **kwargs)
+
+    def file_count(self):
+        stored = self.files.count()
+        if stored:
+            return stored
+        return 1 if self.attachment else 0
+
+
+class InvestigationAttachment(models.Model):
+    investigation = models.ForeignKey(
+        Investigation,
+        on_delete=models.CASCADE,
+        related_name="files",
+    )
+    file = models.FileField(
+        upload_to=SafeUploadTo("investigations"),
+        validators=[validate_upload],
+    )
+    original_filename = models.CharField(max_length=255, blank=True)
+    file_size = models.PositiveBigIntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["created_at", "pk"]
+
+    def __str__(self):
+        return self.original_filename or self.file.name
+
+    def save(self, *args, **kwargs):
+        if self.file and not self.original_filename:
+            self.original_filename = get_valid_filename(self.file.name)[:255]
+        if self.file and not self.file_size:
+            self.file_size = getattr(self.file, "size", None)
+        super().save(*args, **kwargs)
+
+
+def store_investigation_files(investigation, uploads):
+    saved = []
+    for uploaded in uploads or []:
+        if not uploaded:
+            continue
+        item = InvestigationAttachment(
+            investigation=investigation,
+            original_filename=get_valid_filename(getattr(uploaded, "name", "") or "file")[:255],
+            file_size=getattr(uploaded, "size", None),
+        )
+        item.file = uploaded
+        item.save()
+        saved.append(item)
+    if saved and not investigation.attachment:
+        investigation.attachment = saved[0].file.name
+        investigation.save(update_fields=["attachment", "updated_at"])
+    return saved

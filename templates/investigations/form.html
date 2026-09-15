@@ -63,7 +63,7 @@
           <span class="step-index">3</span>
           Supporting evidence
         </legend>
-        <p class="fieldset-lead">A photo, PDF, Word file, or spreadsheet helps. You can still submit without a file.</p>
+        <p class="fieldset-lead">Photos, PDFs, Word files, or spreadsheets help. You can attach several files, or none.</p>
         {% include "components/form_field.html" with field=form.evidence_description %}
         {% include "components/form_field.html" with field=form.attachment %}
       </fieldset>
@@ -111,7 +111,7 @@
 
       <section class="card aside-note">
         <h3>What you can attach</h3>
-        <p class="muted">PDF, Word, Excel, CSV, or image — up to {{ max_upload_mb }} MB. Large files are streamed and do not need to load into memory.</p>
+        <p class="muted">PDF, Word, Excel, CSV, or image — up to {{ max_upload_files }} files, {{ max_upload_mb }} MB each. Files are streamed to disk, then processed after you submit.</p>
       </section>
     </aside>
   </div>

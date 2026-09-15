@@ -107,9 +107,9 @@ class SourceDocument(models.Model):
         current_name = self.file.name if self.file else ""
         file_changed = bool(self.file) and previous_file != current_name
         if self.file and (file_changed or (not self.extracted_text and self.extraction_status == ExtractionStatus.EMPTY)):
-            from apps.sources.extraction import extract_text
+            from apps.sources.processing import schedule_document_extraction
 
-            self._store_extracted_text(extract_text(self.file.path, self.original_filename or self.file.name))
+            schedule_document_extraction(self.pk)
         elif not self.file and (self.extracted_text or self.extraction_status != ExtractionStatus.EMPTY):
             self.extracted_text = ""
             self.extraction_status = ExtractionStatus.EMPTY

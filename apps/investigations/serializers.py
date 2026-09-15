@@ -1,7 +1,13 @@
 from rest_framework import serializers
 
-from apps.investigations.models import Investigation
+from apps.investigations.models import Investigation, InvestigationAttachment, store_investigation_files
 from apps.projects.models import Project
+
+
+class InvestigationAttachmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InvestigationAttachment
+        fields = ("id", "file", "original_filename", "file_size")
 
 
 class InvestigationSerializer(serializers.ModelSerializer):
@@ -11,6 +17,7 @@ class InvestigationSerializer(serializers.ModelSerializer):
         write_only=True,
     )
     project = serializers.StringRelatedField(read_only=True)
+    files = InvestigationAttachmentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Investigation
@@ -26,6 +33,7 @@ class InvestigationSerializer(serializers.ModelSerializer):
             "difference_description",
             "evidence_description",
             "attachment",
+            "files",
             "verification_status",
             "is_anonymous",
             "created_at",
@@ -55,4 +63,9 @@ class InvestigationSerializer(serializers.ModelSerializer):
             validated_data["is_anonymous"] = True
         if not validated_data.get("title"):
             validated_data["title"] = f"Citizen observation: {validated_data['project'].name}"
-        return super().create(validated_data)
+        investigation = super().create(validated_data)
+        request = self.context["request"]
+        extras = [item for item in request.FILES.getlist("attachments") if item]
+        if extras:
+            store_investigation_files(investigation, extras)
+        return investigation

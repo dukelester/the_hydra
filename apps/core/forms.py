@@ -11,7 +11,8 @@ from django.contrib.auth.forms import (
 from django import forms
 
 from apps.accounts.models import AreaWatch, User, UserRole
-from apps.investigations.models import Investigation
+from apps.core.uploads import validate_upload
+from apps.investigations.models import Investigation, store_investigation_files
 from apps.projects.area import area_counties, constituencies_for, wards_for
 from apps.reports.models import IssueReport, ReportStatus
 
@@ -320,7 +321,26 @@ class StyledPasswordChangeForm(StyledFormMixin, PasswordChangeForm):
         self._style_fields()
 
 
+class MultipleFileInput(forms.FileInput):
+    allow_multiple_selected = True
+
+
+class MultipleFileField(forms.FileField):
+    def clean(self, data, initial=None):
+        if not data:
+            return []
+        items = data if isinstance(data, (list, tuple)) else [data]
+        return [super().clean(item, initial) for item in items]
+
+
 class InvestigationForm(StyledFormMixin, forms.ModelForm):
+    attachment = MultipleFileField(
+        required=False,
+        widget=MultipleFileInput(
+            attrs={"accept": ".pdf,.docx,.xlsx,.csv,.png,.jpg,.jpeg,.webp", "multiple": True}
+        ),
+    )
+
     class Meta:
         model = Investigation
         fields = (
@@ -330,7 +350,6 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
             "official_information",
             "difference_description",
             "evidence_description",
-            "attachment",
         )
         labels = {
             "observation": "What did you observe?",
@@ -339,7 +358,6 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
             "official_information": "Official information on record",
             "difference_description": "What is different?",
             "evidence_description": "What does your evidence show? (optional)",
-            "attachment": "Upload a file (optional)",
         }
         widgets = {
             "observation": forms.Textarea(attrs={"rows": 6, "placeholder": "Describe what you saw, in plain language."}),
@@ -348,10 +366,8 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
             "difference_description": forms.Textarea(attrs={"rows": 4, "placeholder": "What does not match, and why it matters."}),
             "evidence_description": forms.Textarea(attrs={"rows": 3, "placeholder": "What does the photo or file show?"}),
             "observed_at": forms.DateInput(attrs={"type": "date"}),
-            "attachment": forms.ClearableFileInput(attrs={"accept": ".pdf,.docx,.xlsx,.csv,.png,.jpg,.jpeg,.webp"}),
         }
         help_texts = {
-            "attachment": "Optional. PDF, Word (.docx), Excel (.xlsx), CSV, or image, up to 100 MB. Large files are stored on disk.",
             "observation": "Write what you saw or heard at the site. Do not include other people’s personal details.",
             "official_information": "Quote or paraphrase the official claim. Leave it as recorded even if you disagree.",
             "difference_description": "Say clearly what does not match. This is still an observation, not a finding of wrongdoing.",
@@ -370,11 +386,25 @@ class InvestigationForm(StyledFormMixin, forms.ModelForm):
                 )
             )
         max_mb = settings.THEHYDRA_MAX_UPLOAD_BYTES // (1024 * 1024)
+        max_files = getattr(settings, "THEHYDRA_MAX_UPLOAD_FILES", 8)
+        self.fields["attachment"].label = "Upload files (optional)"
         self.fields["attachment"].help_text = (
-            f"Optional. PDF, Word (.docx), Excel (.xlsx), CSV, or image, up to {max_mb} MB. "
-            "Large files are stored on disk."
+            f"Optional. Up to {max_files} files, {max_mb} MB each. "
+            "PDF, Word (.docx), Excel (.xlsx), CSV, or image. Files are stored on disk and processed after submit."
         )
         self._style_fields()
+
+    def clean_attachment(self):
+        files = self.cleaned_data.get("attachment") or []
+        max_files = getattr(settings, "THEHYDRA_MAX_UPLOAD_FILES", 8)
+        if len(files) > max_files:
+            raise forms.ValidationError(f"You can attach up to {max_files} files.")
+        for uploaded in files:
+            validate_upload(uploaded)
+        return files
+
+    def save_files(self, investigation):
+        return store_investigation_files(investigation, self.cleaned_data.get("attachment") or [])
 
 
 class ReportReviewForm(StyledFormMixin, forms.ModelForm):

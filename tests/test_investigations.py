@@ -69,8 +69,25 @@ class InvestigationTests(TestCase):
         self.assertTrue(investigation.is_anonymous)
         self.assertIsNone(investigation.user)
         self.assertTrue(investigation.attachment)
+        self.assertEqual(investigation.files.count(), 1)
         self.assertContains(response, "Citizen observation")
         self.assertContains(response, "Official information")
+
+    def test_investigation_accepts_multiple_files(self):
+        url = reverse("projects:investigate", kwargs={"slug": self.project.slug})
+        response = self.client.post(
+            url,
+            {
+                **self._payload(),
+                "attachment": [png_file("site-one.png"), png_file("site-two.png")],
+            },
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        investigation = Investigation.objects.get()
+        self.assertEqual(investigation.files.count(), 2)
+        self.assertContains(response, "site-one.png")
+        self.assertContains(response, "site-two.png")
 
     def test_owner_can_view_and_other_user_cannot(self):
         investigation = Investigation.objects.create(
