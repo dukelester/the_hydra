@@ -1,0 +1,25 @@
+{
+  "name": "H.Y.D.R.A.",
+  "short_name": "HYDRA",
+  "description": "Evidence-first civic record for public projects, budgets, and citizen observations.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#102e37",
+  "theme_color": "#163a45",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/static/img/mark.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/img/mark.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

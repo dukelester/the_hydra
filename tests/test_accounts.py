@@ -18,6 +18,8 @@ class AccountTests(TestCase):
         self.assertContains(first, "Country")
         self.assertContains(first, "Tanzania")
         self.assertContains(first, "Nigeria")
+        self.assertContains(first, "Burundi")
+        self.assertContains(first, "Democratic Republic of the Congo")
         self.assertNotContains(first, "Brazil")
         self.assertNotContains(first, "France")
         self.assertNotContains(first, "Create a password")

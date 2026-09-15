@@ -22,6 +22,7 @@
     "Ruvuma", "Shinyanga", "Simiyu", "Singida", "Songwe", "Tabora", "Tanga",
     "Kaskazini Pemba", "Kusini Pemba", "Kaskazini Unguja", "Kusini Unguja", "Mjini Magharibi"
   ],
+  "BI": ["Buhumuza", "Bujumbura", "Burunga", "Butanyerera", "Gitega"],
   "RW": ["East", "Kigali", "North", "South", "West"],
   "ET": [
     "Addis Ababa", "Afar", "Amhara", "Benishangul-Gumuz", "Central Ethiopia", "Dire Dawa",

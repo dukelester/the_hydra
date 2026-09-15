@@ -32,10 +32,10 @@ H.Y.D.R.A. does not determine guilt, corruption, or fraud. It does not invent mi
 
 The record is meant to stay useful where connections are weak and devices are basic.
 
-- **Low data.** Footer control “Use less data” skips Google fonts, live search suggestions, and auto-loaded PDF/image previews. Browsers that send `Save-Data: on` get the same lighter pages. Search still works as a normal form submit. Document download stays available.
+- **Low data.** Footer control “Use less data” skips Google fonts, live search suggestions, and auto-loaded PDF/image previews. Browsers that send `Save-Data: on` get the same lighter pages. A service worker keeps visited pages and the site shell for when the connection drops. Search still works as a normal form submit. Document download stays available.
 - **Access.** Skip-to-content, labelled fields, visible focus, and system fonts in lite mode. Arabic uses a right-to-left layout.
 - **Privacy.** Observations can be submitted without an account. Guest records are anonymous. Signed-in users can hide their account name. `/privacy/` explains what is stored. Do not upload other people’s private details.
-- **Languages.** English, Kiswahili, French, Arabic, and Portuguese in the footer. Project names and source files stay in the language they were recorded. Further local languages can be added as translation files.
+- **Languages.** English, Kiswahili, French, Arabic, and Portuguese in the footer. Choosing a language applies immediately. Project names and source files stay in the language they were recorded. Further local languages can be added as translation files.
 - **Local next steps.** At signup you choose an African country. Tracking then uses that country’s units (counties in Kenya, regions in Tanzania, states in Nigeria). Each project page lists what to do next under that country’s access-to-information rule. This is not legal advice and not a finding of wrongdoing.
 
 ## Stack
@@ -128,7 +128,7 @@ Production uses `config.settings.production` (HTTPS cookies, no debug, required 
 python manage.py load_demo_data --reset
 ```
 
-Seed records are fictional. Project names in the seed set are labelled `[DEMO]`. They include a mix of fully evidenced, partially evidenced, missing, and conflicting files.
+Seed records are fictional. Project names in the seed set are labelled `[DEMO]`. They include Kenya, Tanzania, Burundi, the Democratic Republic of the Congo, and Nigeria, with a mix of fully evidenced, partially evidenced, missing, and conflicting files.
 
 Walkthrough (~3–5 minutes):
 
@@ -156,6 +156,8 @@ Coverage includes projects, search, institutions, evidence, timeline, investigat
 | `/features/` | Feature list |
 | `/terms/` | Terms of use |
 | `/privacy/` | Privacy |
+| `/offline/` | Offline fallback |
+| `/sw.js` | Service worker (page and asset cache) |
 | `/search/` | Ranked search (HTMX suggestions unless lite mode) |
 | `/projects/` | Project list |
 | `/projects/<slug>/` | Project record |

@@ -1,8 +1,9 @@
 from urllib.parse import urlencode
 
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import prefetch_related_objects
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
@@ -72,6 +73,20 @@ class TermsView(TemplateView):
 
 class PrivacyView(TemplateView):
     template_name = "home/privacy.html"
+
+
+class OfflineView(TemplateView):
+    template_name = "home/offline.html"
+
+
+def service_worker(request):
+    path = settings.BASE_DIR / "static" / "js" / "sw.js"
+    if not path.exists():
+        raise Http404("Service worker not found.")
+    response = HttpResponse(path.read_text(encoding="utf-8"), content_type="application/javascript")
+    response["Service-Worker-Allowed"] = "/"
+    response["Cache-Control"] = "no-cache"
+    return response
 
 
 def _safe_next(request):

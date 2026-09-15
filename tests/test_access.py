@@ -57,6 +57,22 @@ class AccessConstraintTests(TestCase):
         self.assertContains(response, "Region: Dar es Salaam")
         self.assertNotContains(response, "Commission on Administrative Justice")
 
+    def test_burundi_project_uses_local_next_steps(self):
+        institution = Institution.objects.create(name="Bujumbura Water Service Desk", location="Bujumbura")
+        project = Project.objects.create(
+            name="Mukaza Public Standpipe Rehabilitation",
+            description="A Burundi file.",
+            location="Mukaza",
+            country="BI",
+            county="Bujumbura",
+            institution=institution,
+        )
+        response = self.client.get(project.get_absolute_url())
+        self.assertContains(response, "Médiateur de la République")
+        self.assertContains(response, "rules recorded for Burundi")
+        self.assertContains(response, "Province: Bujumbura")
+        self.assertNotContains(response, "Access to Information Act")
+
     def test_lite_mode_skips_webfonts_and_live_search(self):
         toggle = self.client.post(
             reverse("core:lite"),
@@ -88,6 +104,24 @@ class AccessConstraintTests(TestCase):
         self.assertContains(home, 'lang="ar"')
         self.assertContains(home, 'dir="rtl"')
         self.assertContains(home, "المشاريع")
+
+    def test_language_changes_without_apply(self):
+        home = self.client.get("/")
+        self.assertContains(home, "Kiswahili")
+        self.assertContains(home, 'name="language"')
+        self.assertNotContains(home, ">Apply<")
+        self.assertNotContains(home, 'id="language-select"')
+
+    def test_offline_shell_and_service_worker(self):
+        offline = self.client.get(reverse("core:offline"))
+        self.assertEqual(offline.status_code, 200)
+        self.assertContains(offline, "You are offline")
+        worker = self.client.get(reverse("core:service-worker"))
+        self.assertEqual(worker.status_code, 200)
+        self.assertEqual(worker["Content-Type"].split(";")[0], "application/javascript")
+        self.assertEqual(worker["Service-Worker-Allowed"], "/")
+        self.assertContains(worker, "hydra-pages-v1")
+        self.assertContains(worker, "/offline/")
 
     def test_swahili_translates_chrome(self):
         self.client.post("/i18n/setlang/", {"language": "sw", "next": "/"})

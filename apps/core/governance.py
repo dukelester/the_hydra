@@ -96,6 +96,32 @@ COUNTRIES = {
             ),
         },
     },
+    "BI": {
+        "name": "Burundi",
+        "currency": "BIF",
+        "currency_prefix": "FBu",
+        "labels": {
+            "level1": "Province",
+            "level1_plural": "provinces",
+            "level2": "Commune",
+            "level2_plural": "communes",
+            "level3": "Zone",
+            "level3_plural": "zones",
+            "track": "Track my province",
+            "whole": "Whole province",
+            "assembly": "communal or provincial council",
+        },
+        "law": {
+            "title": "Request information in writing",
+            "body": (
+                "Burundi does not yet have a standalone access-to-information statute. "
+                "The Constitution recognizes the right to information. Write to the public body that holds the file. "
+                "Name the project, the financial year, and where to send the reply. "
+                "If there is no useful answer, the Ombudsman (Médiateur de la République) is a national civic route. "
+                "This is not legal advice."
+            ),
+        },
+    },
     "RW": {
         "name": "Rwanda",
         "currency": "RWF",

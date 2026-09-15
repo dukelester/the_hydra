@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "You are offline" %}{% endblock %}
+{% block content %}
+<article class="prose offline-page">
+  <p class="kicker">{% trans "No connection" %}</p>
+  <h1>{% trans "You are offline" %}</h1>
+  <p class="lede">{% trans "H.Y.D.R.A. is using a saved copy of pages you already opened. Search the public record again when the connection returns. This is not a finding, and missing pages stay missing." %}</p>
+  <p>
+    <a class="btn btn-primary" href="{% url 'core:home' %}">{% trans "Try home" %}</a>
+    <a class="btn btn-secondary" href="{% url 'projects:list' %}">{% trans "Open projects" %}</a>
+  </p>
+</article>
+{% endblock %}

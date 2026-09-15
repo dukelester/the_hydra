@@ -1,17 +1,25 @@
 {% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
 <div class="access-bar">
   <form class="lang-switch" method="post" action="{% url 'set_language' %}">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ request.get_full_path }}">
-    <label for="{{ language_field_id|default:'language-select' }}">{% trans "Language" %}</label>
-    <select id="{{ language_field_id|default:'language-select' }}" name="language">
-      {% get_current_language as LANGUAGE_CODE %}
-      {% get_available_languages as LANGUAGES %}
-      {% for code, name in LANGUAGES %}
-        <option value="{{ code }}"{% if code == LANGUAGE_CODE %} selected{% endif %}>{{ name }}</option>
-      {% endfor %}
-    </select>
-    <button type="submit">{% trans "Apply" %}</button>
+    <details class="lang-menu" data-nav-menu>
+      <summary>
+        <span class="lang-kicker">{% trans "Language" %}</span>
+        <span class="lang-current">
+          {% for code, name in LANGUAGES %}{% if code == LANGUAGE_CODE %}{{ name }}{% endif %}{% endfor %}
+        </span>
+      </summary>
+      <div class="lang-options" role="listbox" aria-label="{% trans 'Language' %}">
+        {% for code, name in LANGUAGES %}
+          <button type="submit" name="language" value="{{ code }}" lang="{{ code }}"{% if code == LANGUAGE_CODE %} aria-current="true"{% endif %}>
+            {{ name }}
+          </button>
+        {% endfor %}
+      </div>
+    </details>
   </form>
 
   <form class="lite-switch" method="post" action="{% url 'core:lite' %}">
