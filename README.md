@@ -36,7 +36,7 @@ The record is meant to stay useful where connections are weak and devices are ba
 - **Access.** Skip-to-content, labelled fields, visible focus, and system fonts in lite mode. Arabic uses a right-to-left layout.
 - **Privacy.** Observations can be submitted without an account. Guest records are anonymous. Signed-in users can hide their account name. `/privacy/` explains what is stored. Do not upload other people’s private details.
 - **Languages.** English, Kiswahili, French, Arabic, and Portuguese in the footer. Project names and source files stay in the language they were recorded. Further local languages can be added as translation files.
-- **Local next steps.** At signup you choose a country. Tracking then uses that country’s units (counties in Kenya, regions in Tanzania, states in Nigeria). Each project page lists what to do next under that country’s access-to-information rule. This is not legal advice and not a finding of wrongdoing.
+- **Local next steps.** At signup you choose an African country. Tracking then uses that country’s units (counties in Kenya, regions in Tanzania, states in Nigeria). Each project page lists what to do next under that country’s access-to-information rule. This is not legal advice and not a finding of wrongdoing.
 
 ## Stack
 

@@ -17,6 +17,9 @@ class AccountTests(TestCase):
         self.assertContains(first, "Your name")
         self.assertContains(first, "Country")
         self.assertContains(first, "Tanzania")
+        self.assertContains(first, "Nigeria")
+        self.assertNotContains(first, "Brazil")
+        self.assertNotContains(first, "France")
         self.assertNotContains(first, "Create a password")
         self.assertNotContains(first, "I agree to the")
 
