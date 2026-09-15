@@ -2,7 +2,6 @@
 {% block title %}{{ document.title }}{% endblock %}
 {% block content %}
 <article class="prose document-page">
-  {% if document.is_demo %}<p class="kicker">Demo source</p>{% endif %}
   <p class="kicker">{{ document.get_document_type_display }}</p>
   <h1>{{ document.title }}</h1>
   <ul class="meta-list">
