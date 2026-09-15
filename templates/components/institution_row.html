@@ -1,0 +1,13 @@
+<a class="institution-row" href="{{ institution.get_absolute_url }}">
+  <div class="institution-row-copy">
+    <p class="eyebrow">{{ institution.get_institution_type_display }}{% if institution.location %} · {{ institution.location }}{% endif %}</p>
+    <strong>{{ institution.name }}</strong>
+    {% if institution.description %}
+      <span class="muted">{{ institution.description|truncatewords:18 }}</span>
+    {% endif %}
+  </div>
+  <div class="institution-row-meta">
+    <span>{{ institution.project_count|default:0 }} project{{ institution.project_count|default:0|pluralize }}</span>
+    <span>{{ institution.policy_count|default:0 }} polic{{ institution.policy_count|default:0|pluralize:"y,ies" }}</span>
+  </div>
+</a>

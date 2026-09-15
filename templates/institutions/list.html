@@ -4,16 +4,34 @@
 <section class="page-head">
   <p class="kicker">Public record</p>
   <h1>Institutions</h1>
-  <p class="lede">Public bodies linked to projects and policies.</p>
+  <p class="lede">Departments, agencies, and other public bodies linked to projects and policies. The file shows what is recorded — not a score of the institution.</p>
 </section>
-<section class="section tight">
-  <div class="card-grid">
-    {% for institution in institutions %}
-      {% include "components/institution_card.html" %}
-    {% empty %}
-      <p>No institutions yet.</p>
-    {% endfor %}
+<form class="filters filters-wide" method="get">
+  <div class="field">
+    <label for="q">Search</label>
+    <input id="q" name="q" type="search" value="{{ query }}" placeholder="Name, location, or description…">
   </div>
+  <div class="field">
+    <label for="type">Type</label>
+    <select id="type" name="type" class="form-select">
+      <option value="">All types</option>
+      {% for value, label in type_choices %}
+        <option value="{{ value }}" {% if selected_type == value %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button class="btn btn-primary" type="submit">Search</button>
+</form>
+<section class="section tight">
+  {% if institutions %}
+    <div class="institution-directory">
+      {% for institution in institutions %}
+        {% include "components/institution_row.html" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="muted">No institutions match these filters.</p>
+  {% endif %}
 </section>
 {% include "components/pagination.html" %}
 {% endblock %}

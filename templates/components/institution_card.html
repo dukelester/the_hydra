@@ -5,7 +5,11 @@
   <dl class="mini-facts">
     <div>
       <dt>Projects</dt>
-      <dd>{{ institution.project_count|default:0 }}</dd>
+      <dd>{{ institution.projects.count }}</dd>
+    </div>
+    <div>
+      <dt>Policies</dt>
+      <dd>{{ institution.policies.count }}</dd>
     </div>
   </dl>
 </article>

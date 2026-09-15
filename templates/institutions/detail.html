@@ -1,18 +1,133 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}{{ institution.name }}{% endblock %}
 {% block content %}
-<article class="prose">
-  <p class="kicker">{{ institution.get_institution_type_display }}</p>
-  <h1>{{ institution.name }}</h1>
-  <p>{{ institution.description }}</p>
-  <p class="muted">{{ institution.location }}{% if institution.website %} · <a href="{{ institution.website }}">Website</a>{% endif %}</p>
-  <h2>Related projects</h2>
+<article class="project-page institution-page">
+  <header class="project-hero">
+    <div class="project-hero-main">
+      <p class="kicker">{{ institution.get_institution_type_display }}</p>
+      <h1>{{ institution.name }}</h1>
+      {% if institution.description %}
+        <p class="lede">{{ institution.description }}</p>
+      {% else %}
+        <p class="lede">A labelled public body. Projects and policies stay attached only as far as the record goes.</p>
+      {% endif %}
+      <ul class="project-pills">
+        <li class="project-pill">{{ institution.get_institution_type_display }}</li>
+        <li class="project-pill">{{ institution.location|default:"Location unavailable" }}</li>
+        <li class="project-pill">{{ project_count }} project{{ project_count|pluralize }}</li>
+        <li class="project-pill">{{ policy_count }} polic{{ policy_count|pluralize:"y,ies" }}</li>
+      </ul>
+      <div class="project-toolbar">
+        {% if institution.website %}
+          <a class="btn btn-primary" href="{{ institution.website }}" rel="noopener">Website</a>
+        {% endif %}
+        <a class="btn btn-secondary" href="{% url 'projects:list' %}?q={{ institution.name|urlencode }}">Projects</a>
+        <a class="text-link" href="{% url 'institutions:list' %}">All institutions</a>
+      </div>
+    </div>
+    <aside class="project-hero-aside" aria-label="Institution summary">
+      <p class="eyebrow">On the file</p>
+      <p class="coverage-percent">{{ project_count }}</p>
+      <p class="muted">Linked project{{ project_count|pluralize }} · {{ policy_count }} polic{{ policy_count|pluralize:"y,ies" }}</p>
+      <p class="document-id">
+        <span class="eyebrow">Record ID</span>
+        <code>{{ institution.pk }}</code>
+      </p>
+      <p class="project-hero-brand">
+        <img class="project-hero-mark" src="{% static 'img/mark.png' %}" alt="" width="72" height="72">
+        <span class="project-hero-name">H.Y.D.R.A.</span>
+      </p>
+    </aside>
+  </header>
+
+  <section class="project-panel">
+    <h2>Institution facts</h2>
+    <dl class="record-facts">
+      <div>
+        <dt>Type</dt>
+        <dd>{{ institution.get_institution_type_display }}</dd>
+      </div>
+      <div>
+        <dt>Location</dt>
+        <dd>{{ institution.location|default:"Information unavailable" }}</dd>
+      </div>
+      <div>
+        <dt>Website</dt>
+        <dd>
+          {% if institution.website %}
+            <a href="{{ institution.website }}" rel="noopener">{{ institution.website }}</a>
+          {% else %}
+            Information unavailable
+          {% endif %}
+        </dd>
+      </div>
+      <div>
+        <dt>Slug</dt>
+        <dd>{{ institution.slug }}</dd>
+      </div>
+      <div>
+        <dt>Projects</dt>
+        <dd>{{ project_count }}</dd>
+      </div>
+      <div>
+        <dt>Policies</dt>
+        <dd>{{ policy_count }}</dd>
+      </div>
+      <div>
+        <dt>Record ID</dt>
+        <dd><code class="record-id-inline">{{ institution.pk }}</code></dd>
+      </div>
+      <div>
+        <dt>Updated</dt>
+        <dd>{{ institution.updated_at|date:"j F Y"|default:"Information unavailable" }}</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="project-panel">
+    <div class="section-head">
+      <div>
+        <h2>Related projects</h2>
+        <p class="muted">Projects that name this body as the responsible institution.</p>
+      </div>
+    </div>
+    {% if projects %}
+      <ul class="institution-links">
+        {% for project in projects %}
+          <li>
+            <a href="{{ project.get_absolute_url }}">
+              <span class="eyebrow">{{ project.county }} · {{ project.get_status_display }} · {{ project.get_category_display }}</span>
+              <strong>{{ project.name }}</strong>
+              <span class="muted">{{ project.format_amount }} · evidence {{ project.coverage.percent }}%</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">No projects are linked to this institution.</p>
+    {% endif %}
+  </section>
+
+  {% if policies %}
+    <section class="project-panel">
+      <div class="section-head">
+        <div>
+          <h2>Related policies</h2>
+          <p class="muted">Policy files attached to this body.</p>
+        </div>
+      </div>
+      <ul class="institution-links">
+        {% for policy in policies %}
+          <li>
+            <a href="{{ policy.get_absolute_url }}">
+              <span class="eyebrow">{{ policy.get_status_display }} · {{ policy.get_policy_type_display }}</span>
+              <strong>{{ policy.title }}</strong>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
 </article>
-<div class="card-grid">
-  {% for project in projects %}
-    {% include "components/project_card.html" %}
-  {% empty %}
-    <p>No projects are linked to this institution.</p>
-  {% endfor %}
-</div>
 {% endblock %}

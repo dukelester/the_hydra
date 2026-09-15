@@ -27,7 +27,7 @@ from apps.projects.compare import (
     ranking_highlights,
     status_totals,
 )
-from apps.projects.models import Institution, Project
+from apps.projects.models import Institution, InstitutionType, Project
 from apps.sources.models import Evidence
 
 
@@ -145,10 +145,35 @@ class InstitutionListView(ListView):
     model = Institution
     template_name = "institutions/list.html"
     context_object_name = "institutions"
-    paginate_by = 9
+    paginate_by = 12
 
     def get_queryset(self):
-        return Institution.objects.annotate(project_count=Count("projects")).order_by("name")
+        qs = Institution.objects.annotate(
+            project_count=Count("projects", distinct=True),
+            policy_count=Count("policies", distinct=True),
+        ).order_by("name")
+        query = self.request.GET.get("q", "").strip()
+        institution_type = self.request.GET.get("type", "").strip()
+        if query:
+            qs = qs.filter(
+                Q(name__icontains=query)
+                | Q(location__icontains=query)
+                | Q(description__icontains=query)
+            )
+        if institution_type:
+            qs = qs.filter(institution_type=institution_type)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "query": self.request.GET.get("q", "").strip(),
+                "selected_type": self.request.GET.get("type", "").strip(),
+                "type_choices": InstitutionType.choices,
+            }
+        )
+        return context
 
 
 class InstitutionDetailView(DetailView):
@@ -164,7 +189,8 @@ class InstitutionDetailView(DetailView):
                 queryset=Project.objects.select_related("institution").prefetch_related(
                     "evidence_items"
                 ),
-            )
+            ),
+            "policies",
         )
 
     def get_context_data(self, **kwargs):
@@ -172,7 +198,15 @@ class InstitutionDetailView(DetailView):
         projects = list(self.object.projects.all())
         for project in projects:
             project.coverage = calculate_evidence_coverage(project)
-        context["projects"] = projects
+        policies = list(self.object.policies.all())
+        context.update(
+            {
+                "projects": projects,
+                "policies": policies,
+                "project_count": len(projects),
+                "policy_count": len(policies),
+            }
+        )
         return context
 
 

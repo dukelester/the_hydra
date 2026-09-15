@@ -2,6 +2,7 @@ from datetime import date
 from decimal import Decimal
 
 from django.test import TestCase
+from django.urls import reverse
 
 from apps.projects.models import Institution, Project, ProjectStatus, TimelineEvent, TimelineStage
 from apps.sources.models import Evidence, EvidenceVerificationStatus, SourceDocument
@@ -95,3 +96,23 @@ class ProjectModelTests(TestCase):
         self.assertEqual(coverage["supported"], 1)
         self.assertEqual(coverage["percent"], 50)
         self.assertTrue(any("Evidence unavailable" in item or "unknown" in item.lower() or "lacks" in item.lower() for item in coverage["missing"]))
+
+    def test_institution_pages(self):
+        listing = self.client.get(reverse("institutions:list"))
+        self.assertEqual(listing.status_code, 200)
+        self.assertContains(listing, "Institutions")
+        self.assertContains(listing, "Demo Water Office")
+        self.assertContains(listing, "1 project")
+
+        filtered = self.client.get(reverse("institutions:list"), {"q": "Water"})
+        self.assertContains(filtered, "Demo Water Office")
+        empty = self.client.get(reverse("institutions:list"), {"q": "NoSuchBody"})
+        self.assertContains(empty, "No institutions match these filters.")
+
+        detail = self.client.get(self.institution.get_absolute_url())
+        self.assertEqual(detail.status_code, 200)
+        self.assertContains(detail, "Demo Water Office")
+        self.assertContains(detail, "Institution facts")
+        self.assertContains(detail, "Related projects")
+        self.assertContains(detail, "Community Water Access Project")
+        self.assertContains(detail, str(self.institution.pk))
