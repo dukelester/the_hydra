@@ -6,6 +6,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, ListView
 
+from apps.core.governance import country_profile, request_country
 from apps.core.next_steps import project_next_steps
 from apps.core.services.coverage import calculate_evidence_coverage
 from apps.core.services.search import project_search_queryset
@@ -22,6 +23,7 @@ from apps.projects.activity import (
     toggle_favourite,
     toggle_tracked,
 )
+from apps.projects.area import county_filter_names, projects_for_country
 from apps.projects.compare import (
     county_compare_rows,
     county_rankings,
@@ -46,16 +48,21 @@ class ProjectListView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
+        country = request_country(self.request)
         county = self.request.GET.get("county")
         status = self.request.GET.get("status")
         category = self.request.GET.get("category")
         q = self.request.GET.get("q")
         if q:
             qs = project_search_queryset(
-                q, county=county or "", status=status or "", category=category or ""
+                q,
+                county=county or "",
+                status=status or "",
+                category=category or "",
+                country=country,
             )
         else:
-            qs = Project.objects.select_related("institution")
+            qs = projects_for_country(country).select_related("institution")
             if county:
                 qs = qs.filter(county__iexact=county)
             if status:
@@ -69,12 +76,10 @@ class ProjectListView(ListView):
         context = super().get_context_data(**kwargs)
         for project in context["projects"]:
             project.coverage = calculate_evidence_coverage(project)
-        counties = (
-            Project.objects.order_by("county").values_list("county", flat=True).distinct()
-        )
+        country = request_country(self.request)
         context.update(
             {
-                "counties": counties,
+                "counties": county_filter_names(country),
                 "selected_county": self.request.GET.get("county", ""),
                 "selected_status": self.request.GET.get("status", ""),
                 "selected_category": self.request.GET.get("category", ""),
@@ -84,7 +89,8 @@ class ProjectListView(ListView):
 
 
 def project_neighbors(project):
-    ordered = Project.objects.order_by("name", "pk")
+    country = getattr(project, "country", None)
+    ordered = projects_for_country(country).order_by("name", "pk")
     previous_project = ordered.filter(
         Q(name__lt=project.name) | Q(name=project.name, pk__lt=project.pk)
     ).only("name", "slug", "county").last()
@@ -92,7 +98,8 @@ def project_neighbors(project):
         Q(name__gt=project.name) | Q(name=project.name, pk__gt=project.pk)
     ).only("name", "slug", "county").first()
     county_projects = list(
-        Project.objects.filter(county__iexact=project.county)
+        projects_for_country(country)
+        .filter(county__iexact=project.county)
         .exclude(pk=project.pk)
         .order_by("name")
         .only("name", "slug", "county", "status")[:4]
@@ -143,6 +150,7 @@ class ProjectDetailView(DetailView):
         context["previous_project"] = previous_project
         context["next_project"] = next_project
         context["county_projects"] = county_projects
+        context["project_gov"] = country_profile(project.country)
         return context
 
 
@@ -268,6 +276,7 @@ def compare_clear_view(request):
 
 
 def compare_view(request):
+    country = request_country(request)
     if request.GET.get("reset"):
         clear_compare(request)
         selected_slugs = []
@@ -280,8 +289,9 @@ def compare_view(request):
         else:
             selected_slugs = compare_slugs(request)
         selected_counties = [name for name in request.GET.getlist("county") if name]
+    scoped = projects_for_country(country)
     projects = list(
-        Project.objects.select_related("institution")
+        scoped.select_related("institution")
         .prefetch_related("evidence_items")
         .filter(slug__in=selected_slugs)
     )
@@ -289,7 +299,7 @@ def compare_view(request):
     projects = [by_slug[slug] for slug in selected_slugs if slug in by_slug]
     attach_coverage(projects)
 
-    rankings = county_rankings()
+    rankings = county_rankings(country)
     return render(
         request,
         "projects/compare.html",
@@ -297,14 +307,12 @@ def compare_view(request):
             "projects": projects,
             "selected_slugs": selected_slugs,
             "selected_counties": selected_counties,
-            "county_rows": county_compare_rows(selected_counties),
+            "county_rows": county_compare_rows(selected_counties, country=country),
             "rankings": rankings,
             "highlights": ranking_highlights(rankings),
-            "status_totals": status_totals(),
-            "all_projects": Project.objects.select_related("institution").order_by("name"),
-            "all_counties": (
-                Project.objects.order_by("county").values_list("county", flat=True).distinct()
-            ),
+            "status_totals": status_totals(country),
+            "all_projects": scoped.select_related("institution").order_by("name"),
+            "all_counties": county_filter_names(country),
             "max_compare": MAX_COMPARE,
         },
     )

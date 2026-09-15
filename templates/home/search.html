@@ -35,9 +35,9 @@
           </select>
         </div>
         <div class="field">
-          <label for="county">County</label>
+          <label for="county">{{ governance.labels.level1 }}</label>
           <select id="county" name="county" class="form-select" onchange="this.form.requestSubmit()">
-            <option value="">All counties</option>
+            <option value="">All {{ governance.labels.level1_plural }}</option>
             {% for item in counties %}
               <option value="{{ item }}" {% if county == item %}selected{% endif %}>{{ item }}</option>
             {% endfor %}
@@ -105,7 +105,7 @@
       {% for project in projects %}
         {% include "components/search_project.html" %}
       {% empty %}
-        <p class="search-empty">No projects match these filters. Try another county, status, or a broader phrase.</p>
+        <p class="search-empty">No projects match these filters. Try another {{ governance.labels.level1|lower }}, status, or a broader phrase.</p>
       {% endfor %}
     </div>
     {% include "components/pagination.html" with page_obj=project_page %}

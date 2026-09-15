@@ -38,15 +38,15 @@
         <dd>{{ project.location|default:"Information unavailable" }}</dd>
       </div>
       <div>
-        <dt>County</dt>
+        <dt>{{ project_gov.labels.level1|default:"County" }}</dt>
         <dd>{{ project.county|default:"Information unavailable" }}</dd>
       </div>
       <div>
-        <dt>Constituency</dt>
+        <dt>{{ project_gov.labels.level2|default:"Constituency" }}</dt>
         <dd>{{ project.constituency|default:"Information unavailable" }}</dd>
       </div>
       <div>
-        <dt>Ward</dt>
+        <dt>{{ project_gov.labels.level3|default:"Ward" }}</dt>
         <dd>{{ project.ward|default:"Information unavailable" }}</dd>
       </div>
       <div>

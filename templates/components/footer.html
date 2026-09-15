@@ -30,7 +30,7 @@
           <h2>{% trans "Follow" %}</h2>
           <ul>
             <li><a href="{% url 'projects:compare' %}">{% trans "Compare" %}</a></li>
-            <li><a href="{% url 'reports:counties' %}">{% trans "County report" %}</a></li>
+            <li><a href="{% url 'reports:counties' %}">{{ governance.labels.level1 }} report</a></li>
             <li><a href="{% url 'accounts:my-county' %}">{{ governance.labels.track }}</a></li>
           </ul>
         </nav>

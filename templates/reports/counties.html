@@ -1,24 +1,24 @@
 {% extends "accounts/base_workspace.html" %}
-{% block title %}County report{% endblock %}
+{% block title %}{{ governance.labels.level1 }} report{% endblock %}
 {% block workspace %}
 <section class="page-head">
-  <p class="kicker">Public record</p>
-  <h1>County report</h1>
-  <p class="lede">Visual reading of recorded allocation, delivery status, and sector mix across counties. Figures come from project files. They are not a corruption score, and they are not paid-out expenditure unless a source records a spend.</p>
+  <p class="kicker">Public record · {{ governance.name }}</p>
+  <h1>{{ governance.labels.level1 }} report</h1>
+  <p class="lede">Visual reading of recorded allocation, delivery status, and sector mix across {{ governance.labels.level1_plural }}. Figures come from project files. They are not a corruption score, and they are not paid-out expenditure unless a source records a spend.</p>
 </section>
 
 <section class="county-report">
   <form class="area-form county-filter" method="get">
     <div class="field">
-      <label for="id_report_county">County</label>
+      <label for="id_report_county">{{ governance.labels.level1 }}</label>
       <select class="form-select" id="id_report_county" name="county" onchange="this.form.submit()">
-        <option value="">All counties</option>
+        <option value="">All {{ governance.labels.level1_plural }}</option>
         {% for name in counties %}
           <option value="{{ name }}"{% if name == selected_county %} selected{% endif %}>{{ name }}</option>
         {% endfor %}
       </select>
     </div>
-    <p class="help area-form-help">Choose a county to see its delivery mix and sector allocation. Leave blank for the national comparison.</p>
+    <p class="help area-form-help">Choose a {{ governance.labels.level1|lower }} to see its delivery mix and sector allocation. Leave blank for the {{ governance.name }} comparison.</p>
   </form>
 
   {% if highlights %}
@@ -33,7 +33,7 @@
       </div>
       <div>
         <strong>{{ highlights.county_count }}</strong>
-        <span>Count{{ highlights.county_count|pluralize:"y,ies" }}</span>
+        <span>{{ governance.labels.level1_plural|title }}</span>
       </div>
       <div>
         <strong>{{ highlights.highest_budget.county }}</strong>
@@ -51,10 +51,10 @@
   {% endif %}
 
   <article class="chart-panel">
-    <h3>Recorded allocation by county</h3>
-    <p class="help">Bar length is relative to the largest recorded county budget in this set.</p>
+    <h3>Recorded allocation by {{ governance.labels.level1|lower }}</h3>
+    <p class="help">Bar length is relative to the largest recorded {{ governance.labels.level1|lower }} budget in this set.</p>
     {% if rankings %}
-      <ol class="chart-bars" aria-label="Recorded allocation by county">
+      <ol class="chart-bars" aria-label="Recorded allocation by {{ governance.labels.level1|lower }}">
         {% for row in rankings %}
           <li>
             <div class="chart-bar-meta">
@@ -80,7 +80,7 @@
         <li><span class="swatch swatch-other" aria-hidden="true"></span> Other / unknown</li>
       </ul>
     {% else %}
-      <p class="search-empty">No county records are available yet.</p>
+      <p class="search-empty">No {{ governance.labels.level1|lower }} records are available yet for {{ governance.name }}.</p>
     {% endif %}
   </article>
 
@@ -88,7 +88,7 @@
     <div class="chart-split">
       <article class="chart-panel">
         <h3>Allocation by sector</h3>
-        <p class="help">Recorded project budgets across all counties, by category.</p>
+        <p class="help">Recorded project budgets across all {{ governance.labels.level1_plural }}, by category.</p>
         {% include "reports/_chart_bars.html" with rows=categories caption="Allocation by sector" %}
       </article>
       <article class="chart-panel">

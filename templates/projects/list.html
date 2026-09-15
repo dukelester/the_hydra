@@ -4,17 +4,17 @@
 <section class="page-head">
   <p class="kicker">Public record</p>
   <h1>Explore projects</h1>
-  <p class="lede">Browse labelled civic projects. Status and budget figures are only as reliable as the attached evidence.</p>
+  <p class="lede">Browse labelled civic projects in {{ governance.name }}. Status and budget figures are only as reliable as the attached evidence.</p>
 </section>
 <form class="filters" method="get">
   <div class="field">
     <label for="q">Search</label>
-    <input id="q" name="q" type="search" value="{{ request.GET.q }}" placeholder="Name, county, contractor, institution…">
+    <input id="q" name="q" type="search" value="{{ request.GET.q }}" placeholder="Name, {{ governance.labels.level1|lower }}, contractor, institution…">
   </div>
   <div class="field">
-    <label for="county">County</label>
+    <label for="county">{{ governance.labels.level1 }}</label>
     <select id="county" name="county">
-      <option value="">All counties</option>
+      <option value="">All {{ governance.labels.level1_plural }}</option>
       {% for county in counties %}
         <option value="{{ county }}" {% if selected_county == county %}selected{% endif %}>{{ county }}</option>
       {% endfor %}

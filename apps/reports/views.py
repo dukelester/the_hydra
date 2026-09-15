@@ -3,6 +3,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 
+from apps.core.governance import request_country
 from apps.core.forms import ReportReviewForm
 from apps.core.permissions import (
     SESSION_REPORTS,
@@ -93,28 +94,29 @@ def report_detail(request, pk):
             "investigation": report.investigation,
             "form": form,
             "sources": sources,
-            "county_view": county_snapshot(report.project.county),
+            "county_view": county_snapshot(report.project.county, country=report.project.country),
         },
     )
 
 
 def county_report_view(request):
-    rankings = decorate_county_charts(county_rankings())
+    country = request_country(request)
+    rankings = decorate_county_charts(county_rankings(country))
     names = [row["county"] for row in rankings]
     selected = (request.GET.get("county") or "").strip()
     if not selected and request.user.is_authenticated:
         selected = (request.user.county or "").strip()
     if selected and selected not in names:
         selected = next((name for name in names if name.lower() == selected.lower()), "")
-    snapshot = county_snapshot(selected) if selected else None
+    snapshot = county_snapshot(selected, country=country) if selected else None
     return render(
         request,
         "reports/counties.html",
         {
             "rankings": rankings,
             "highlights": ranking_highlights(rankings),
-            "categories": category_chart_rows(selected),
-            "years": year_chart_rows(selected),
+            "categories": category_chart_rows(selected, country=country),
+            "years": year_chart_rows(selected, country=country),
             "county_view": snapshot,
             "selected_county": selected,
             "counties": names,

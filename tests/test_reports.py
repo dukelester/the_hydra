@@ -97,6 +97,28 @@ class ReportTests(TestCase):
         self.assertContains(filtered, "Delivery mix")
         self.assertContains(filtered, "Allocation by sector")
 
+    def test_county_report_follows_user_country(self):
+        Project.objects.create(
+            name="Mukaza Public Standpipe Rehabilitation",
+            description="A Burundi file.",
+            location="Mukaza",
+            country="BI",
+            county="Bujumbura",
+            institution=self.institution,
+            allocated_amount=Decimal("850000000"),
+            status=ProjectStatus.IN_PROGRESS,
+        )
+        guest = self.client.get(reverse("reports:counties"))
+        self.assertContains(guest, "Kisumu")
+        self.assertNotContains(guest, "Bujumbura")
+
+        user = User.objects.create_user(username="bujumbura", password="pass12345", country="BI")
+        self.client.login(username="bujumbura", password="pass12345")
+        page = self.client.get(reverse("reports:counties"))
+        self.assertContains(page, "Province report")
+        self.assertContains(page, "Bujumbura")
+        self.assertNotContains(page, "Kisumu")
+
     def test_save_report_from_review_form(self):
         report = generate_report_from_investigation(self.investigation, user=self.user)
         self.client.login(username="reporter", password="pass12345")

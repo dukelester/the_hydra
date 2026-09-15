@@ -560,6 +560,12 @@ def user_country(user):
     return normalize_country(getattr(user, "country", None))
 
 
+def request_country(request):
+    """Country for filters and lists. Guests and blank signups use Kenya."""
+    user = getattr(request, "user", None)
+    return user_country(user)
+
+
 @lru_cache(maxsize=1)
 def _country_units():
     import json

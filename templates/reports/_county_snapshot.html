@@ -2,12 +2,12 @@
   <div class="county-snapshot">
     <header class="section-head">
       <div>
-        <p class="eyebrow">County file</p>
+        <p class="eyebrow">{{ governance.labels.level1 }} file</p>
         <h2>{{ county_view.county }}</h2>
         <p class="muted">Recorded allocation and delivery status from the public project file. This is not a corruption or performance score. Actual expenditure appears only when a source records it.</p>
       </div>
       {% if show_link %}
-        <a class="text-link" href="{% url 'reports:counties' %}?county={{ county_view.county|urlencode }}">Open county report</a>
+        <a class="text-link" href="{% url 'reports:counties' %}?county={{ county_view.county|urlencode }}">Open {{ governance.labels.level1|lower }} report</a>
       {% endif %}
     </header>
 

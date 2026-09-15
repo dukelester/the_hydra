@@ -2,9 +2,11 @@ from decimal import Decimal
 
 from django.db.models import Count, Sum
 
+from apps.core.governance import country_profile, normalize_country
 from apps.core.services.coverage import calculate_evidence_coverage
+from apps.projects.area import projects_for_country
 from apps.projects.compare import county_rankings, format_budget, format_budget_compact
-from apps.projects.models import BudgetAllocation, Project, ProjectCategory, ProjectStatus
+from apps.projects.models import BudgetAllocation, ProjectCategory
 
 
 def _share(part, whole):
@@ -45,8 +47,10 @@ def decorate_county_charts(rankings):
     return decorated
 
 
-def category_chart_rows(county=""):
-    qs = Project.objects.all()
+def category_chart_rows(county="", country=None):
+    country = normalize_country(country)
+    currency = country_profile(country)["currency"]
+    qs = projects_for_country(country)
     if county:
         qs = qs.filter(county__iexact=county)
     raw = list(
@@ -66,7 +70,7 @@ def category_chart_rows(county=""):
                 "label": labels.get(row["category"], row["category"]),
                 "project_count": row["project_count"] or 0,
                 "total_budget": budget,
-                "formatted_budget": format_budget(budget),
+                "formatted_budget": format_budget(budget, currency),
                 "budget_width": _bar_width(budget, peak),
             }
         )
@@ -74,8 +78,10 @@ def category_chart_rows(county=""):
     return rows
 
 
-def year_chart_rows(county=""):
-    qs = Project.objects.exclude(financial_year="")
+def year_chart_rows(county="", country=None):
+    country = normalize_country(country)
+    currency = country_profile(country)["currency"]
+    qs = projects_for_country(country).exclude(financial_year="")
     if county:
         qs = qs.filter(county__iexact=county)
     raw = list(
@@ -94,7 +100,7 @@ def year_chart_rows(county=""):
                 "label": row["financial_year"],
                 "project_count": row["project_count"] or 0,
                 "total_budget": budget,
-                "formatted_budget": format_budget(budget),
+                "formatted_budget": format_budget(budget, currency),
                 "budget_width": _bar_width(budget, peak),
             }
         )
@@ -102,20 +108,24 @@ def year_chart_rows(county=""):
     return rows
 
 
-def allocation_total(county=""):
-    qs = BudgetAllocation.objects.all()
+def allocation_total(county="", country=None):
+    country = normalize_country(country)
+    currency = country_profile(country)["currency"]
+    qs = BudgetAllocation.objects.filter(project__country=country)
     if county:
         qs = qs.filter(project__county__iexact=county)
     amount = qs.aggregate(total=Sum("amount"))["total"]
     return {
-        "formatted": format_budget(amount),
-        "compact": format_budget_compact(amount),
+        "formatted": format_budget(amount, currency),
+        "compact": format_budget_compact(amount, currency),
     }
 
 
-def county_coverage(county):
+def county_coverage(county, country=None):
     projects = list(
-        Project.objects.filter(county__iexact=county).prefetch_related("evidence_items")
+        projects_for_country(country)
+        .filter(county__iexact=county)
+        .prefetch_related("evidence_items")
     )
     if not projects:
         return {"percent": 0, "project_count": 0}
@@ -144,11 +154,12 @@ def county_status_mix(row):
     return {"stops": ", ".join(stops) if stops else "var(--paper) 0 100%", "items": items}
 
 
-def county_snapshot(county):
+def county_snapshot(county, country=None):
     county = (county or "").strip()
     if not county:
         return None
-    rankings = {row["county"]: row for row in decorate_county_charts(county_rankings())}
+    country = normalize_country(country)
+    rankings = {row["county"]: row for row in decorate_county_charts(county_rankings(country))}
     row = rankings.get(county)
     if not row:
         match = next((name for name in rankings if name.lower() == county.lower()), None)
@@ -160,8 +171,8 @@ def county_snapshot(county):
         "county": county,
         "row": row,
         "mix": county_status_mix(row),
-        "categories": category_chart_rows(county),
-        "years": year_chart_rows(county),
-        "allocation_total": allocation_total(county),
-        "coverage": county_coverage(county),
+        "categories": category_chart_rows(county, country=country),
+        "years": year_chart_rows(county, country=country),
+        "allocation_total": allocation_total(county, country=country),
+        "coverage": county_coverage(county, country=country),
     }

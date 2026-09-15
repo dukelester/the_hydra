@@ -9,6 +9,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 
+from apps.core.governance import request_country
 from apps.core.access import set_lite
 
 from apps.core.services.coverage import calculate_evidence_coverage
@@ -20,7 +21,8 @@ from apps.core.services.search import (
     search_civic_data,
 )
 from apps.investigations.models import Investigation
-from apps.projects.models import Project, ProjectCategory, ProjectStatus
+from apps.projects.area import county_filter_names, projects_for_country
+from apps.projects.models import ProjectCategory, ProjectStatus
 
 
 class HomeView(TemplateView):
@@ -28,14 +30,17 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        country = request_country(self.request)
         featured = list(
-            Project.objects.select_related("institution")
+            projects_for_country(country)
+            .select_related("institution")
             .filter(is_featured=True)
             .prefetch_related("evidence_items")[:6]
         )
         if len(featured) < 3:
             extra = (
-                Project.objects.select_related("institution")
+                projects_for_country(country)
+                .select_related("institution")
                 .prefetch_related("evidence_items")
                 .exclude(pk__in=[p.pk for p in featured])[: 6 - len(featured)]
             )
@@ -103,6 +108,7 @@ def toggle_lite(request):
 
 
 def search_suggest(request):
+    country = request_country(request)
     results = search_civic_data(
         request.GET.get("q", ""),
         limit=7,
@@ -111,6 +117,7 @@ def search_suggest(request):
         county=request.GET.get("county", ""),
         status=request.GET.get("status", ""),
         category=request.GET.get("category", ""),
+        country=country,
     )
     return render(request, "components/search_suggest.html", results)
 
@@ -139,6 +146,7 @@ def search_view(request):
     county = request.GET.get("county", "")
     status = request.GET.get("status", "")
     category = request.GET.get("category", "")
+    country = request_country(request)
     if request.headers.get("HX-Request") and request.GET.get("live"):
         return search_suggest(request)
 
@@ -150,6 +158,7 @@ def search_view(request):
         county=county,
         status=status,
         category=category,
+        country=country,
     )
     if results["projects"]:
         results["projects"] = _with_coverage(results["projects"])
@@ -165,7 +174,9 @@ def search_view(request):
 
     if kind == "projects":
         paginator = Paginator(
-            project_search_queryset(query, county=county, status=status, category=category).prefetch_related(
+            project_search_queryset(
+                query, county=county, status=status, category=category, country=country
+            ).prefetch_related(
                 "evidence_items"
             ),
             12,
@@ -196,7 +207,7 @@ def search_view(request):
         results["total"] = paginator.count
     elif kind == "all" and not query:
         results["project_count"] = project_search_queryset(
-            "", county=county, status=status, category=category
+            "", county=county, status=status, category=category, country=country
         ).count()
         results["institution_count"] = institution_search_queryset("").count()
         results["policy_count"] = policy_search_queryset("").count()
@@ -206,7 +217,7 @@ def search_view(request):
     page_params = dict(tab_params)
     if kind and kind != "all":
         page_params["kind"] = kind
-    counties = Project.objects.order_by("county").values_list("county", flat=True).distinct()
+    counties = county_filter_names(country)
     results.update(
         {
             "project_page": project_page,

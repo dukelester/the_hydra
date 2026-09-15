@@ -38,15 +38,26 @@ class AccountTests(TestCase):
         self.assertNotContains(step1, "Choose a username")
         self.assertFalse(User.objects.filter(username="newcitizen").exists())
 
-    def test_register_requires_country(self):
+    def test_register_defaults_missing_country_to_kenya(self):
+        step1 = self.client.post(
+            reverse("accounts:register"),
+            {"step": "1", "username": "kenyadefault", "display_name": "Amina"},
+        )
+        self.assertEqual(step1.status_code, 200)
+        self.assertContains(step1, "Create a password")
+        self.assertContains(step1, "Kenya")
         response = self.client.post(
             reverse("accounts:register"),
-            {"step": "1", "username": "newcitizen", "display_name": "Amina"},
+            {
+                "step": "2",
+                "password1": "CivicPassphrase-47",
+                "password2": "CivicPassphrase-47",
+                "agree_to_terms": "on",
+            },
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Continue")
-        self.assertNotContains(response, "Create a password")
-        self.assertFalse(User.objects.filter(username="newcitizen").exists())
+        self.assertRedirects(response, reverse("accounts:dashboard"))
+        user = User.objects.get(username="kenyadefault")
+        self.assertEqual(user.country, "KE")
 
     def test_register_saves_selected_country(self):
         self.client.post(

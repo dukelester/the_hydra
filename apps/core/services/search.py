@@ -20,6 +20,7 @@ def search_civic_data(
     county="",
     status="",
     category="",
+    country="",
     suggest=False,
 ):
     """
@@ -36,6 +37,7 @@ def search_civic_data(
         "county": county or "",
         "status": status or "",
         "category": category or "",
+        "country": country or "",
         "suggest": suggest,
         "too_short": False,
         "projects": [],
@@ -62,7 +64,7 @@ def search_civic_data(
     if suggest and kind == "all":
         include_documents = True
 
-    project_qs = _project_queryset(query, county, status, category, suggest) if include_projects else Project.objects.none()
+    project_qs = _project_queryset(query, county, status, category, suggest, country) if include_projects else Project.objects.none()
     institution_qs = _institution_queryset(query, suggest) if include_institutions else Institution.objects.none()
     policy_qs = _policy_queryset(query, suggest) if include_policies else Policy.objects.none()
     document_qs = _document_queryset(query, suggest) if include_documents else SourceDocument.objects.none()
@@ -78,6 +80,7 @@ def search_civic_data(
         "county": county or "",
         "status": status or "",
         "category": category or "",
+        "country": country or "",
         "suggest": suggest,
         "too_short": False,
         "projects": list(project_qs[:limit]) if include_projects else [],
@@ -97,7 +100,7 @@ def _rank(*pairs, default=5):
     return Case(*whens, default=Value(default), output_field=IntegerField())
 
 
-def _project_queryset(query, county, status, category, suggest):
+def _project_queryset(query, county, status, category, suggest, country=""):
     indexed = (
         Q(name__icontains=query)
         | Q(slug__icontains=query)
@@ -113,6 +116,8 @@ def _project_queryset(query, county, status, category, suggest):
         indexed |= Q(description__icontains=query)
 
     qs = Project.objects.select_related("institution").filter(indexed)
+    if country:
+        qs = qs.filter(country=country)
     if county:
         qs = qs.filter(county__iexact=county)
     if status:
@@ -199,11 +204,13 @@ def _document_queryset(query, suggest=False):
     return qs
 
 
-def project_search_queryset(query, county="", status="", category=""):
+def project_search_queryset(query, county="", status="", category="", country=""):
     """Ranked project queryset for list pages and full search."""
     query = normalize_query(query)
     if not query:
         qs = Project.objects.select_related("institution")
+        if country:
+            qs = qs.filter(country=country)
         if county:
             qs = qs.filter(county__iexact=county)
         if status:
@@ -211,7 +218,7 @@ def project_search_queryset(query, county="", status="", category=""):
         if category:
             qs = qs.filter(category=category)
         return qs.order_by("name")
-    return _project_queryset(query, county, status, category, suggest=False)
+    return _project_queryset(query, county, status, category, suggest=False, country=country)
 
 
 def document_search_queryset(query):

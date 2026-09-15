@@ -57,9 +57,11 @@ class RegisterIdentityForm(StyledFormMixin, forms.Form):
         help_text="Optional. Shown on your dashboard instead of the username.",
     )
     country = forms.ChoiceField(
-        choices=[("", "Choose your country")] + country_choices(),
+        choices=country_choices(),
+        required=False,
+        initial="KE",
         label="Country",
-        help_text="Tracking and next steps follow this country’s administrative units and public-information rules. You can change it later on your profile.",
+        help_text="Filters, tracking, and next steps follow this country. If you skip it, H.Y.D.R.A. uses Kenya. You can change it later on your profile.",
     )
 
     def __init__(self, *args, **kwargs):
@@ -70,6 +72,9 @@ class RegisterIdentityForm(StyledFormMixin, forms.Form):
         self.fields["display_name"].widget.attrs["autocomplete"] = "nickname"
         self.fields["country"].widget.attrs["autocomplete"] = "country"
         self._style_fields()
+
+    def clean_country(self):
+        return normalize_country(self.cleaned_data.get("country"))
 
     def clean_username(self):
         username = self.cleaned_data["username"]

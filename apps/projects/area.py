@@ -106,6 +106,20 @@ def is_valid_area(county, constituency="", ward="", country=DEFAULT_COUNTRY):
 KENYA_COUNTIES = tuple(_kenya_official_tree().keys())
 
 
+def projects_for_country(country=DEFAULT_COUNTRY):
+    return Project.objects.filter(country=normalize_country(country))
+
+
+def county_filter_names(country=DEFAULT_COUNTRY):
+    return list(
+        projects_for_country(country)
+        .exclude(county="")
+        .order_by("county")
+        .values_list("county", flat=True)
+        .distinct()
+    )
+
+
 def area_project_queryset(county, constituency="", ward="", country=DEFAULT_COUNTRY):
     county = (county or "").strip()
     if not county:

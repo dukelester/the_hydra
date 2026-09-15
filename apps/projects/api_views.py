@@ -1,6 +1,7 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny
 
+from apps.core.governance import request_country
 from apps.core.services.coverage import calculate_evidence_coverage
 from apps.core.services.timeline import build_project_timeline
 from apps.projects.models import Institution, Project
@@ -21,7 +22,7 @@ class ProjectListAPIView(ListAPIView):
     queryset = Project.objects.select_related("institution").prefetch_related("evidence_items")
 
     def get_queryset(self):
-        qs = super().get_queryset()
+        qs = super().get_queryset().filter(country=request_country(self.request))
         q = self.request.query_params.get("q")
         county = self.request.query_params.get("county")
         if q:

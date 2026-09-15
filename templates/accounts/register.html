@@ -5,11 +5,11 @@
   {% if step == 2 %}
     Choose a password and accept the terms. You can add email and other details later from your profile.
   {% else %}
-    Two short steps. Choose a username and the country whose public record you follow. Display name stays optional.
+    Two short steps. Choose a username and the country whose public record you follow. If you skip country, Kenya is used. Display name stays optional.
   {% endif %}
 {% endblock %}
 {% block auth_points %}
-  <li>Step 1 is a username and country. Step 2 is a password and the terms.</li>
+  <li>Step 1 is a username and country. Country defaults to Kenya. Step 2 is a password and the terms.</li>
   <li>Tracking uses that country’s administrative units — counties in Kenya, regions in Tanzania, states in Nigeria.</li>
   <li>The public record remains readable without signing in.</li>
 {% endblock %}

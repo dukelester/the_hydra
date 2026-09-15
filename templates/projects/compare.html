@@ -63,7 +63,7 @@
       </div>
     </div>
     <div class="field">
-      <label id="compare-counties-label">Counties</label>
+      <label id="compare-counties-label">{{ governance.labels.level1_plural|title }}</label>
       <div class="compare-options" role="group" aria-labelledby="compare-counties-label">
         {% for county in all_counties %}
           <label class="compare-option">
@@ -74,7 +74,7 @@
             </span>
           </label>
         {% empty %}
-          <p class="muted">No counties are recorded yet.</p>
+          <p class="muted">No {{ governance.labels.level1_plural }} are recorded yet for {{ governance.name }}.</p>
         {% endfor %}
       </div>
     </div>
@@ -124,7 +124,7 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row">County / area</th>
+              <th scope="row">{{ governance.labels.level1 }} / area</th>
               {% for project in projects %}<td>{{ project.county }}{% if project.constituency %} · {{ project.constituency }}{% endif %}{% if project.ward %} · {{ project.ward }}{% endif %}</td>{% endfor %}
             </tr>
             <tr>
@@ -165,14 +165,14 @@
 
   {% if county_rows %}
     <section>
-      <h2>County comparison</h2>
+      <h2>{{ governance.labels.level1 }} comparison</h2>
       <div class="table-wrap">
         <table>
           <caption class="sr-only">Selected county comparison</caption>
           <thead>
             <tr>
               <th scope="col">Rank</th>
-              <th scope="col">County</th>
+              <th scope="col">{{ governance.labels.level1 }}</th>
               <th scope="col">Projects</th>
               <th scope="col">Recorded budget</th>
               <th scope="col">Delayed</th>
@@ -199,16 +199,16 @@
   {% endif %}
 
   <section>
-    <h2>County rankings</h2>
+    <h2>{{ governance.labels.level1 }} rankings</h2>
     <p class="muted">Ranked by recorded allocated budget, then project count. Delayed share is the percentage of projects marked delayed in the public record.</p>
     {% if rankings %}
       <div class="table-wrap">
         <table>
-          <caption class="sr-only">County rankings</caption>
+          <caption class="sr-only">{{ governance.labels.level1 }} rankings</caption>
           <thead>
             <tr>
               <th scope="col">Rank</th>
-              <th scope="col">County</th>
+              <th scope="col">{{ governance.labels.level1 }}</th>
               <th scope="col">Projects</th>
               <th scope="col">Recorded budget</th>
               <th scope="col">Delayed share</th>

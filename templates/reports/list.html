@@ -6,14 +6,14 @@
   <h1>Reports</h1>
   <p class="lede">Read the visual county file — recorded allocation, delivery, and sector mix — or open a private accountability report generated from an investigation.</p>
   <div class="hero-actions dashboard-actions">
-    <a class="btn btn-primary" href="{% url 'reports:counties' %}">County report</a>
+    <a class="btn btn-primary" href="{% url 'reports:counties' %}">{{ governance.labels.level1 }} report</a>
     <a class="btn btn-secondary" href="{% url 'projects:compare' %}">Compare</a>
   </div>
 </section>
 
 <section class="county-report-lead">
   <article class="panel">
-    <h2>County visuals</h2>
+    <h2>{{ governance.labels.level1 }} visuals</h2>
     <p>See how recorded budgets and project statuses sit across counties. Bars and the delivery mix are a reading of the public file, not a score of guilt or performance.</p>
     <p><a class="text-link" href="{% url 'reports:counties' %}">Open the county report</a></p>
   </article>

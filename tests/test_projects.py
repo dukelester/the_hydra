@@ -1,6 +1,7 @@
 from datetime import date
 from decimal import Decimal
 
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
@@ -8,6 +9,9 @@ from apps.projects.models import Institution, Project, ProjectStatus, TimelineEv
 from apps.sources.models import Evidence, EvidenceVerificationStatus, SourceDocument
 from apps.core.services.coverage import calculate_evidence_coverage
 from apps.core.services.timeline import build_project_timeline
+
+
+User = get_user_model()
 
 
 class ProjectModelTests(TestCase):
@@ -116,3 +120,28 @@ class ProjectModelTests(TestCase):
         self.assertContains(detail, "Related projects")
         self.assertContains(detail, "Community Water Access Project")
         self.assertContains(detail, str(self.institution.pk))
+
+    def test_project_list_filter_follows_user_country(self):
+        Project.objects.create(
+            name="[DEMO] Mukaza Public Standpipe Rehabilitation",
+            description="A Burundi file.",
+            location="Mukaza",
+            country="BI",
+            county="Bujumbura",
+            institution=self.institution,
+        )
+        guest = self.client.get(reverse("projects:list"))
+        self.assertContains(guest, "Community Water Access Project")
+        self.assertContains(guest, ">County<")
+        self.assertContains(guest, "Kisumu")
+        self.assertNotContains(guest, "Bujumbura")
+        self.assertNotContains(guest, "Mukaza Public Standpipe")
+
+        user = User.objects.create_user(username="bujumbura", password="pass12345", country="BI")
+        self.client.login(username="bujumbura", password="pass12345")
+        page = self.client.get(reverse("projects:list"))
+        self.assertContains(page, "Mukaza Public Standpipe")
+        self.assertContains(page, ">Province<")
+        self.assertContains(page, "Bujumbura")
+        self.assertNotContains(page, "Community Water Access Project")
+        self.assertNotContains(page, ">Kisumu<")
